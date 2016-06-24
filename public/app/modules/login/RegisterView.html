@@ -1,0 +1,77 @@
+<div ng-app="Login"
+	 layout-padding>
+
+	<!-- LoginController as login -->
+
+	<md-content
+		class="header-content"
+		layout="column"
+		layout-padding>
+
+		<h2>Registrieren</h2>
+
+		<form
+			name="loginForm"
+			ng-submit="login.registerUser()"
+			novalidate>
+
+			<!-- Benutzername -->
+			<md-input-container class="md-icon-float">
+		    	<label>Benutzername</label>
+		    	<md-icon>person</md-icon>
+
+		    	<input
+					type="text"
+					ng-model="login.credentials.username">
+
+		    </md-input-container>
+
+			<!-- Email -->
+			<md-input-container
+				class="md-icon-float">
+
+		    	<label>Email</label>
+		    	<md-icon>email</md-icon>
+
+		    	<input
+					type="email"
+					ng-model="login.credentials.email">
+
+		    </md-input-container>
+
+			<!-- Passwort -->
+			<md-input-container class="md-icon-float">
+
+		    	<label>Passwort</label>
+		    	<md-icon>lock</md-icon>
+
+		    	<input
+					type="password"
+					ng-model="login.credentials.password">
+
+		    </md-input-container>
+
+
+			<!-- Buttons -->
+			<div layout="row" layout-sm="column">
+				<md-button
+					type="submit"
+					class="md-raised md-primary"
+					ng-disabled="login.disableRegisterButton">
+
+					<span>Benutzer registrieren</span>
+				</md-button>
+
+				<br>
+
+				<md-button
+					type="button"
+					class="md-raised md-mobilot-color"
+					ng-click="login.goToLogin()">
+
+					<span>Zurück zum Anmelden</span>
+				</md-button>
+			</div>
+		</form>
+	</md-content>
+</div>

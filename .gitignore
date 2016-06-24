@@ -1,15 +1,33 @@
-vendor/
-node_modules/
+# OS files
+.DS_Store
+Thumbs.db
 
-# Laravel 4 specific
+# Laravel
 bootstrap/compiled.php
-app/storage/
+vendor/
+app/config/database.php
+#app/config/app.php
+app/config/local
+app/storage
+public/upload
 
-# Laravel 5 & Lumen specific
-bootstrap/cache/
+# Laravel 5
 .env.*.php
 .env.php
-.env
 
-# Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
-.rocketeer/
+# Other
+.excluded/
+*.sh
+
+# Composer
+composer.phar
+composer.lock
+
+# IDE files
+.idea
+.vagrant
+.imdone/*
+.imdoneignore
+
+# Backup files
+*.bak

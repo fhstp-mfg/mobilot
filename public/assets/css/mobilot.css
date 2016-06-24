@@ -1,0 +1,468 @@
+/*************
+ *   Fonts   *
+ *************/
+
+@font-face {
+  font-family: 'My Font Druckschrift95';
+  src: url('../font/druckschrift-webfont.eot'); /* IE9 Compat Modes */
+  src: url('../font/druckschrift-webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../font/druckschrift-webfont.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../font/druckschrift-webfont.woff') format('woff'), /* Pretty Modern Browsers */
+       url('../font/druckschrift-webfont.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('../font/druckschrift-webfont.svg#denseRegular') format('svg'); /* Legacy iOS */
+}
+/*.font--default {}*/
+.font--druckschrift95 {
+  font-family: 'My Font Druckschrift95', Roboto, 'Helvetica Neue', sans-serif;
+  /*font-size: 1.4em;*/
+  /* NOTE this doesn't seem to do anything ! */
+  font-weight: 400;
+}
+
+
+
+p {
+  margin: 0;
+}
+
+.less-pb-field
+{
+  padding-bottom : 0.6em;
+}
+.md-mobilot-color,
+.url-field
+{
+  color   : #3797c4 !important
+}
+.mobidul-url-field
+{
+  margin-bottom : 0;
+  width : auto;
+}
+
+.section
+{
+  background-color: #eee;
+  margin-top: 1em;
+
+  -webkit-border-radius : 4px;
+  -moz-border-radius    : 4px;
+  border-radius         : 4px;
+}
+.section-darker
+{
+  background: #ccc;
+  margin-bottom: 2em;
+}
+
+.section-title
+{
+  margin-bottom : 0;
+}
+.helper
+{
+  color     : #808080;
+  font-size : 0.9em;
+}
+.url-helper
+{
+  color       : #3797c4;
+  font-size   : 0.9em;
+  padding-top : 0;
+  margin-top  : 0;
+}
+.center {
+  text-align : center
+}
+.dangerous
+{
+  color        : darkred;
+  font-weight    : bold;
+  margin-bottom  : 0.2em;
+}
+
+
+#appLoader
+{
+  width       : 100%;
+  height      : 100%;
+  top         : 0;
+  left        : 0;
+  right       : 0;
+  bottom      : 0;
+  background  : white;
+  padding-top : 20%;
+  position    : fixed;
+  z-index     : 99; /* problems */
+}
+#appLoader .loading-title,
+#list_progress_wrapper .loading-title
+{
+  font-weight    : 300;
+  padding-top    : 1em;
+  padding-bottom : 1em;
+}
+
+.md-mobilot {
+  background : #3797c4 !important
+}
+.md-loading {
+  background : #f7602d !important
+}
+.md-ghost {
+  background : ghostwhite !important
+}
+
+.accuracy-ribbon
+{
+  position    : fixed;
+  bottom      : 30px;
+  right       : 96px;
+  color       : black;
+  font-family : Roboto, Arial, sans-serif;
+  font-size   : 13px;
+  direction   : ltr;
+  text-align  : center;
+  padding     : 8px;
+  opacity     : 0;
+  overflow    : hidden;
+
+  -webkit-user-select     : none;
+  -webkit-background-clip : padding-box;
+
+  -webkit-border-radius : 2px;
+  -moz-border-radius     : 2px;
+  border-radius       : 2px;
+
+  box-shadow       : rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
+  background-color : white;
+  background-clip  : padding-box;
+}
+.accuracy-ribbon-animate
+{
+  opacity : 1;
+
+  transition        : opacity .2s ease-in-out;
+  -moz-transition    : opacity .2s ease-in-out;
+  -webkit-transition : opacity .2s ease-in-out;
+}
+
+.custom-wysiwyg-button
+{
+    color: white;
+    min-height: 30px;
+    margin: 3px 2px;
+    max-height: 30px;
+
+    -webkit-font-smoothing: antialiased;
+    -webkit-user-select: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline;
+    font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    height: auto;
+    letter-spacing: 0.14px;
+    line-height: 36px;
+    text-align: center;
+    text-indent: 0px;
+    text-shadow: none;
+    text-transform: uppercase;
+    white-space: nowrap;
+    width: auto;
+    word-spacing: 0px;
+}
+
+
+.header-content
+{
+  position : fixed;
+  top      : 4em;
+  left     : 0;
+  right    : 0;
+  bottom   : 0;
+}
+.header-tabs-content
+{
+  top : 7em
+}
+
+.mobile-header {
+  /*padding-top : 20px*/
+}
+
+.search-type-controls
+{
+  position   : fixed;
+  top        : 56px;
+  width      : 100%;
+  background : white;
+  z-index    : 1;
+}
+.search-field {
+  margin        : 0.2em 0.8em;
+  margin-bottom  : 0;
+  padding-bottom : 0;
+  display: block;
+}
+
+
+/*** map ***/
+
+map {
+  position : absolute;
+  top      : 56px;
+  bottom    : 0;
+  left     : 0;
+  right    : 0;
+}
+.ng-map {
+  top : 48px
+}
+
+
+/* fixes untappable tabs after map positioned */
+#station_creator_tabs
+{
+  position : fixed;
+  top    : 4em;
+  left     : 0;
+  right    : 0;
+  width    : 100%;
+  z-index  : 1;
+}
+
+.station-creator-content
+{
+  position : fixed;
+  top    : 7em;
+  left     : 0;
+  right    : 0;
+  bottom   : 0;
+}
+
+#creator_tabs
+{
+  position : fixed;
+  top    : 56px;
+  left     : 0;
+  right    : 0;
+  width    : 100%;
+  z-index  : 1;
+}
+
+.creator-content
+{
+  position : fixed;
+  top    : 7em;
+  left     : 0;
+  right    : 0;
+  bottom   : 0;
+  /* HACK TO PREVENT SC OPTIONS TO SCROLL-X */
+  overflow-x: hidden;
+}
+.creator-content-new {
+  top : 56px;
+}
+
+
+#station_creator_name
+{
+  display: block;
+  height: 42px;
+  font-size: 2em;
+  font-weight: bold;
+
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+}
+/*md-input-container .md-input.h1-field{
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}*/
+
+
+.creator-input-container {
+  padding-bottom : 0.8em
+}
+
+.creator-list-delete-item-controls {
+  padding-top : 1em
+}
+.creator-list-delete-item-controls .md-icon-button {
+  padding-right : 0
+}
+
+.tinyeditor
+{
+  padding : 0;
+  border  : 0;
+}
+
+.save-basis-progress
+{
+  position : absolute;
+  top      : -7px;
+  left     : -6px;
+}
+
+.md-dialog-content-divider
+{
+  border-top : 1px solid rgba(0, 0, 0, 0.12)
+}
+
+/*** menu (sidenav) ***/
+
+md-backdrop.md-sidenav-backdrop {
+  position : fixed
+}
+
+.menuLogin button {
+  padding : 0 !important
+}
+
+.menuLogin,
+.menuDivider
+{
+  background : #ccc;
+}
+.menuDividerEmpty {
+  min-height : 1.2em;
+}
+.menuDivider button.md-button:not([disabled]):hover
+{
+  background : #bbb;
+}
+
+.md-list-item span
+{
+  line-height : 1.4em;
+}
+
+/*
+    Radio Buttons
+*/
+
+md-radio-button .md-off,
+md-radio-button.md-checked .md-off{
+    border-color: #3797c4;
+}
+
+md-radio-button .md-on{
+    background-color: #3797c4;
+}
+
+/*
+  Rally Directives
+*/
+
+#station-container p{
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+html-container{
+  display: block;
+}
+
+html-container img{
+    max-width:100%;
+}
+
+positionicon{
+display:block;
+}
+
+positionicon .material-icons{
+float:right;
+    margin-right:0.5em;
+}
+
+
+.search-anim{
+    animation: searching 2s infinite;
+    text-align: center;
+}
+
+@keyframes searching {
+    0% {
+        color: #3eb5e4;
+        font-size: 2.1em;
+    }
+    50% {
+        color: #3797c4;
+        font-size: 1.9em;
+    }
+    100% {
+        color: #3eb5e4;
+        font-size: 2.1em;
+    }
+}
+
+/************Drag and Drop List****************/
+/**
+ * For the correct positioning of the placeholder element, the dnd-list and
+ * it's children must have position: relative
+ */
+ul[dnd-list],
+ul[dnd-list] > li {
+  position: relative;
+}
+
+/**
+ * The dnd-list should always have a min-height,
+ * otherwise you can't drop to it once it's empty
+ */
+ul[dnd-list] {
+    min-height: 42px;
+    padding-left: 0px;
+}
+
+/**
+ * The dndDraggingSource class will be applied to
+ * the source element of a drag operation. It makes
+ * sense to hide it to give the user the feeling
+ * that he's actually moving it.
+ */
+ul[dnd-list] .dndDraggingSource {
+    display: none;
+}
+
+/**
+ * An element with .dndPlaceholder class will be
+ * added to the dnd-list while the user is dragging
+ * over it.
+ */
+ul[dnd-list] .dndPlaceholder {
+    display: block;
+    background-color: #ddd;
+    min-height: 32px;
+}
+
+/**
+ * The dnd-lists's child elements currently MUST have
+ * position: relative. Otherwise we can not determine
+ * whether the mouse pointer is in the upper or lower
+ * half of the element we are dragging over. In other
+ * browsers we can use event.offsetY for this.
+ */
+ul[dnd-list] li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    display: block;
+    padding: 5px 15px;
+    margin-bottom: -1px;
+}
+
+/**
+ * Show selected elements in green
+ul[dnd-list] li.selected {
+    background-color: #dff0d8;
+    color: #3c763d;
+} */

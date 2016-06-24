@@ -1,0 +1,112 @@
+<md-toolbar
+  style=" background : {{ header.config.background }};
+          color      : {{ header.config.foreground }};
+          position   : fixed"
+  ng-class="{ 'mobile-header' : header.isMobileHeader }"
+>
+  <div class="md-toolbar-tools">
+    <md-button
+      class="md-icon-button"
+      aria-label="Menu"
+      ng-if="header.isMenuEnabled"
+      ng-click="header.menuOpen()">
+
+      <md-icon>menu</md-icon>
+    </md-button>
+
+    <md-button
+      class="md-icon-button"
+      aria-label="Profile"
+      ng-if="header.isAccountEnabled"
+      ng-click="header.goToProfile()">
+
+      <md-icon>account_circle</md-icon>
+    </md-button>
+
+    <md-button
+      class="md-icon-button"
+      aria-label="Menu"
+      ng-if="header.showGoBack"
+      ng-click="header.goBack()">
+
+      <md-icon>arrow_back</md-icon>
+    </md-button>
+
+    <span flex
+      ng-show="header.isHome() || header.isHomeLogin() || header.isActivate()">
+    </span>
+
+    <h2 ng-class="header.myFont">
+      <span>{{ header.getTitle() }}</span>
+    </h2>
+    <span flex></span>
+
+    <!-- NOTE - hack to center Home title -->
+    <!-- TODO - use div with correct width instead -->
+    <!-- <md-button
+      class="md-icon-button"
+      ng-if="header.isAccountEnabled"
+      md-no-ink>
+    </md-button> -->
+    <!-- hack end -->
+
+
+    <!-- station -->
+
+    <md-button
+      class="md-icon-button"
+      aria-label="Edit"
+      ng-if="header.isEditStationEnabled"
+      ng-click="header.editStation()"
+    >
+      <md-icon>edit</md-icon>
+    </md-button>
+
+
+    <!-- station creator -->
+
+    <md-button
+      class="md-icon-button"
+      aria-label="Cancel"
+      ng-if="header.isCancelEditEnabled"
+      ng-click="header.cancelEdit()">
+
+      <md-icon>cancel</md-icon>
+    </md-button>
+
+    <md-button
+      class="md-icon-button"
+      style="margin-right : 0"
+      aria-label="Save"
+      ng-if="header.isSaveStationEnabled"
+      ng-click="header.saveStation()">
+
+      <md-icon>check_circle</md-icon>
+    </md-button>
+
+
+    <!-- panzoom exit -->
+
+    <md-button
+      class="md-icon-button"
+      aria-label="Cancel"
+      ng-if="header.isCancelPanzoomEnabled"
+      ng-click="header.cancelPanzoom()">
+
+      <md-icon>cancel</md-icon>
+    </md-button>
+
+
+    <!-- impressum -->
+
+    <md-button
+      class="md-icon-button"
+      aria-label="Impressum"
+      ng-if="header.isShowImpressumEnabled"
+      ng-click="header.showImpressum()"
+    >
+      <md-icon>info</md-icon>
+    </md-button>
+
+  </div>
+</md-toolbar>
