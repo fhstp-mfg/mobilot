@@ -9,7 +9,11 @@ app/config/database.php
 #app/config/app.php
 app/config/local
 app/storage
+
+# Laravel
 public/upload
+public/lib
+
 
 # Laravel 5
 .env.*.php
