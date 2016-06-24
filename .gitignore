@@ -18,7 +18,6 @@ public/upload
 # Other
 .excluded/
 *.sh
-*.py
 
 # Composer
 composer.phar
