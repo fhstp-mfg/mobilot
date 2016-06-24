@@ -1,0 +1,44 @@
+<div ng-app="StationCreator">
+
+	<!-- StationCreatorController as stationCreator -->
+
+	<md-content
+		class="station-creator-content"
+		layout-padding>
+
+		<!-- <h3 class="section-title">Optionen</h3> -->
+
+		<md-list>
+			<md-list-item ng-repeat="option in stationCreator.stationOptions">
+				<md-checkbox
+					class="md-primary"
+					ng-model="option.selected">
+				</md-checkbox>
+
+	    		<p>{{ option.name }}</p>
+				<!-- TODO - find better solution to display settings description -->
+				<!-- <p>{{ option.description }}</p> -->
+			</md-list-item>
+		</md-list>
+
+
+		<!-- Dangerous -->
+
+		<br>
+		<div layout="column">
+			<p class="helper center dangerous">
+				<span>Station wird unwiderruflich gelöscht.</span>
+			</p>
+
+			<md-button
+				class="md-raised md-warn"
+				ng-show="true"
+				ng-click="stationCreator.deleteStation()"
+				flex>
+
+				<md-icon>delete</md-icon>
+				<span>Station löschen</span>
+			</md-button>
+		</div>
+	</md-content>
+</div>

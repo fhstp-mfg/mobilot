@@ -1,0 +1,46 @@
+{
+  "name": "Mobilot",
+  "version": "0.0.1",
+  "authors": [
+    "Iosif Miclaus <iosif.miclaus@gmail.com>"
+  ],
+  "description": "Mobilot",
+  "main": "index.php",
+  "keywords": [
+    "mobilot"
+  ],
+  "license": "-",
+  "homepage": "http://mobilot.at",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-material": "master",
+    "SHA-1": "~0.1.1",
+    "angular": "~1.4.7",
+    "angular-google-maps": "~2.2.1",
+    "angular-mousewheel": "~1.0.4",
+    "angular-pan-zoom": "~1.0.14",
+    "angular-qrcode": "~6.1.3",
+    "angular-resource": "~1.4.7",
+    "angular-route": "~1.4.7",
+    "angular-sanitize": "~1.4.7",
+    "angular-simple-logger": "~0.1.5",
+    "angular-ui-router": "~0.2.15",
+    "angular-ui-router-anim-in-out": "~1.0.2",
+    "angulartics": "~0.20.1",
+    "angulartics-google-analytics": "~0.1.2",
+    "hamsterjs": "~1.1.0",
+    "jquery": "~2.1.4",
+    "lodash": "~3.10.1",
+    "ngGeolocation": "~0.0.8",
+    "ngmap": "~1.14.14",
+    "waypoints": "~4.0.0",
+    "angular-ui": "~0.4.0"
+  }
+}

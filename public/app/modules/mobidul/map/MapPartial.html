@@ -1,0 +1,68 @@
+<ui-gmap-google-map
+  center="map.data.center"
+  zoom="map.data.zoom"
+  options="map.options"
+  events="map.events"
+  control="map.googleMap"
+>
+  <ui-gmap-window
+    coords="map.window.coords"
+    show="map.window.show"
+    isIconVisibleOnClick="true"
+    closeClick="map.closeWindow()"
+    options="map.window.options"
+    templateUrl="map.window.templateUrl"
+    templateParameter="map.window.templateParameter">
+  </ui-gmap-window>
+
+
+  <ui-gmap-circle
+    center="map.myPosition.coords"
+    radius="5"
+    fill="map.circleColor"
+    stroke="0.1"
+    clickable="false"
+    draggable="false"
+    editable="false"
+    visible="map.showMyPosition">
+  </ui-gmap-circle>
+  
+  <ui-gmap-circle
+    center="map.myPosition.coords"
+    radius="map.myPosition.coords.accuracy"
+    fill="map.circleColor"
+    stroke="0.3"
+    clickable="false"
+    draggable="false"
+    editable="false"
+    visible="map.showMyPosition">
+  </ui-gmap-circle>
+
+
+  <ui-gmap-markers
+    models="map.stations"
+    coords="'self'"
+    fit="true"
+    click="map.stationSelect"
+    dorebuildall="false">
+  </ui-gmap-markers>
+</ui-gmap-google-map>
+
+
+<md-button
+  class="md-fab md-mini md-fab-bottom-right md-mobilot"
+  style="bottom : 80px"
+  aria-label="My position"
+  ng-click="map.toggleMyPosition()"
+>
+  <md-icon ng-show=" ! map.centerToMyPosition">location_disabled</md-icon>
+  <md-icon ng-show="map.centerToMyPosition">my_location</md-icon>
+</md-button>
+
+<md-button
+  class="md-fab md-mini md-fab-bottom-right md-mobilot"
+  aria-label="Fit markers"
+  ng-click="map.fitToMarkers()"
+>
+  <md-icon>place</md-icon>
+</md-button>
