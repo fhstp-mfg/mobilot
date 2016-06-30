@@ -392,7 +392,6 @@ function StationCreatorController (
             lat     : stationData.lat,
             lon     : stationData.lon,
             radius     : stationData.radius,
-            content   : stationData.content,
             contentType : stationData.contentType,
             locked     : isLocked,
             enabled   : isEnabled
@@ -400,6 +399,12 @@ function StationCreatorController (
             // categories   : stationCreator.station.categories,
             // medialist    : []
           };
+
+          try{
+            stationCreator.station.content =  JSON.parse(stationData.content);
+          }catch(e){
+            $log.error('Error while parsing station.content');
+          }
 
           // make reference-less copyies of the loaded station data
           //  for checking changes later on
@@ -461,7 +466,7 @@ function StationCreatorController (
         lat     : StationCreatorService.marker.coords.latitude,
         lon     : StationCreatorService.marker.coords.longitude,
         radius     : 1000,
-        content   : stationCreator.station.content,
+        content   : JSON.stringify(stationCreator.station.content),
         contentType : 'html',
         locked     : isLocked,
         enabled   : isEnabled,

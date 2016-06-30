@@ -22,6 +22,8 @@ function RallyService (
     STATUS_OPEN      : 'open',
     STATUS_COMPLETED : 'completed',
 
+    ACTIONS: ['openThis', 'completeThis', 'completeThisAndShowNext', 'say:', 'activateAndShowNext', 'goToCurrent'],
+
     /// vars
     localStorage     : $localStorage,
     // NOTE the originStations are the passed stations to the filterStations
@@ -45,6 +47,7 @@ function RallyService (
     getProgress       : getProgress,
     goToCurrent       : goToCurrent,
     getRallyLength    : getRallyLength,
+    getActions        : getActions,
 
     /// XXX just for testing purposes, will be deprecated
     setProgress       : __setProgress,
@@ -156,6 +159,11 @@ function RallyService (
         return data.data.length;
       });
 
+  }
+
+  function getActions ()
+  {
+    return service.ACTIONS;
   }
 
   function hasNext ()

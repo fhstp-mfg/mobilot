@@ -3,7 +3,7 @@
 
   angular
     .module('Mobidul')
-    .direvtice('inputcode', inputCode);
+    .directive('inputcode', inputCode);
 
   inputCode.$inject = [
     '$rootScope'

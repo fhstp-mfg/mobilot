@@ -309,6 +309,10 @@ map {
   border  : 0;
 }
 
+#editortabs{
+    height:100%;
+}
+
 .save-basis-progress
 {
   position : absolute;
