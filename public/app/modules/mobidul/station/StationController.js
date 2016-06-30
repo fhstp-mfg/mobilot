@@ -176,9 +176,16 @@ function StationController (
             //station.rawText      = statusContent[ RallyService.getStatus( station.order ) ] + response.content;
             station.rawText      = response.content;
 
-
             StationService.setName( response.stationName );
 
+            //get length of all stations belonging to this mobidul to display progressbar correctly
+            RallyService.getRallyLength()
+              .then(function(length){
+                
+                station.rallyLength = parseInt(length);
+                
+              });
+            
 
             // TODO document what this is doing !!
 

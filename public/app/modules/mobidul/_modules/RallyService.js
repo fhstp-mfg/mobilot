@@ -44,6 +44,7 @@ function RallyService (
     progressToNext    : progressToNext,
     getProgress       : getProgress,
     goToCurrent       : goToCurrent,
+    getRallyLength    : getRallyLength,
 
     /// XXX just for testing purposes, will be deprecated
     setProgress       : __setProgress,
@@ -147,6 +148,15 @@ function RallyService (
     }
   }
 
+  function getRallyLength ()
+  {
+
+    return MobidulService.getStations($stateParams.mobidulCode)
+      .then(function(data){
+        return data.data.length;
+      });
+
+  }
 
   function hasNext ()
   {

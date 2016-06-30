@@ -12,8 +12,8 @@
     >
       <h1>
         {{ station.stationName }}
-        &nbsp;<span style="font-size:14px">({{ station.order }})</span>
       </h1>
+      <progressbar ng-if="station.rallyLength > 1" data-order="{{station.order}}" data-length="{{station.rallyLength}}"></progressbar>
 
       <!-- XXX for testing purposes only ! -->
       <div layout="column"
