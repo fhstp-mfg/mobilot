@@ -70,6 +70,7 @@ Route::get('{mobidulCode}/RemoveCategory/{categoryId}', 'WebServicesController@R
  */
 Route::post('{mobidulCode}/AddStation', 'WebServicesController@AddStation');
 Route::post('{mobidulCode}/SaveStation/{stationCode}', 'WebServicesController@SaveStation');
+Route::post('{mobidulCode}/UpdateContent/{stationCode}', 'WebServicesController@updateStationContent');
 Route::post('{mobidulCode}/SetStation', 'WebServicesController@SetStation');
 Route::get('{mobidulCode}/RemoveStation/{stationId}', 'WebServicesController@RemoveStation');
 Route::get('{mobidulCode}/RemoveStationByCode/{stationCode}', 'WebServicesController@RemoveStationByCode');

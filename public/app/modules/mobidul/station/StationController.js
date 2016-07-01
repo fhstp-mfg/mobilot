@@ -6,7 +6,7 @@ angular
 StationController.$inject = [
   '$log', '$rootScope', '$sce', '$scope', '$compile', '$interval', '$timeout',
   '$state', '$sanitize', '$stateParams', 'StateManager',
-  'StationService', 'MobidulService', 'HeaderService', 'MapService',
+  'StationService', 'MobidulService', 'HeaderService', 'MapService', 'StationCreatorService',
   'UserService', 'RallyService', 'GeoLocationService', 'FontService'
 ];
 
@@ -14,7 +14,7 @@ StationController.$inject = [
 function StationController (
   $log, $rootScope, $sce, $scope, $compile, $interval, $timeout,
   $state, $sanitize, $stateParams, StateManager,
-  StationService, MobidulService, HeaderService, MapService,
+  StationService, MobidulService, HeaderService, MapService, StationCreatorService,
   UserService, RallyService, GeoLocationService, FontService
 ) {
   var station = this;
@@ -154,8 +154,8 @@ function StationController (
 
             UserService.Permit.EditStation = response.canEdit && UserService.Permit.EditStation;
 
-            // $log.info("response");
-            // $log.debug(response);
+            //$log.info("response");
+            //$log.debug(response);
 
             station.rawText      = response.content;
             station.stationId    = response.stationId;
@@ -220,8 +220,7 @@ function StationController (
               station.isJSON = true;
 
               //Display dev tools for rally
-              if(UserService.Session.role == 1) station.isOwner = true;
-              else station.isOwner = false;
+              station.isOwner = UserService.Session.role == 1;
 
               renderJSON();
             }
@@ -230,6 +229,26 @@ function StationController (
               $log.error(e);
               station.isJSON = false;
               station.renderText();
+
+              station.content = {
+                  activated: [
+                    {
+                      type: 'html',
+                      content: station.rawText
+                    }
+                  ]
+                };
+
+              //Todo: check what happens if not authorized to update
+              //Todo: can you be sure there will never be a json.parse error with existing content?
+              //transform old station to new json content format
+              StationCreatorService.updateStationContent(
+                StateManager.state.params.mobidulCode,
+                StateManager.state.params.stationCode,
+                JSON.stringify(station.content)
+            );
+
+
             }
           }
 
