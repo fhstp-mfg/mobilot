@@ -6,17 +6,17 @@
     .directive('editor', Editor);
 
   Editor.$inject = [
-    '$log'
+    '$log', '$rootScope'
   ];
 
   function Editor(
-    $log
+    $log, $rootScope
   ){
 
     return {
       restrict: 'E',
       template: '<div style="height:100%;">' +
-      '<md-tabs id="editortabs">' +
+      '<md-tabs id="editortabs" data-md-selected="ctrl.selectedIndex">' +
       '<editortab data-tabconfig="tabconfig" data-tabname="tabname" ng-repeat="(tabname, tabconfig) in ctrl.config"></editortab>' +
       '</md-tabs>' +
       '</div>',
@@ -40,9 +40,16 @@
     function EditorController($scope, $element, $attrs){
       var ctrl = this;
 
+      //Todo: get this information from a Service in order to support all kind of stationmodi
+      var statiMapping = ['activated', 'open', 'completed'];
 
+      $rootScope.$on('add:editorElement', function(event, type){
 
+        ctrl.config[statiMapping[ctrl.selectedIndex]].push({
+          type: type
+        });
 
+      });
     }
   }
 

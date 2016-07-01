@@ -6,11 +6,11 @@
     .directive('editortab', EditorTab);
 
   EditorTab.$inject = [
-    '$log'
+    '$log', '$rootScope'
   ];
 
   function EditorTab(
-    $log
+    $log, $rootScope
   ){
 
     return {
@@ -18,6 +18,7 @@
       template: '<div><md-tab>' +
       '<md-tab-label>{{tabname}}</md-tab-label>' +
       '<md-tab-body>' +
+      '<editorpanel></editorpanel>' +
       '<elementcontainer data-element="element" ng-repeat="element in tabconfig"></elementcontainer>' +
       '</md-tab-body>' +
       '</md-tab></div>',
@@ -38,8 +39,17 @@
     function EditorTabController($scope, $element, $attrs){
       var ctrl = this;
 
+      $rootScope.$on('delete:editorElement', function(event, id){
 
+        var elementToDelete = $scope.tabconfig.filter(function(element){
+          return element.$$hashKey == id;
+        })[0];
 
+        if(elementToDelete){
+          var indexToDelete = $scope.tabconfig.indexOf(elementToDelete);
+          $scope.tabconfig.splice(indexToDelete, 1);
+        }
+      });
 
     }
 

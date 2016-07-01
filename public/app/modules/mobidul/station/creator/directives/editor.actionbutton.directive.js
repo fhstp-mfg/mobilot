@@ -27,7 +27,12 @@
         content: '='
       },
       link: function($scope, $element, $attrs, ctrl){
-        
+        if(!$scope.success){
+          $scope.success = "";
+        }
+        if(!$scope.content){
+          $scope.content = "";
+        }
       },
       controller: EditorActionButtonController,
       controllerAs: 'ctrl'

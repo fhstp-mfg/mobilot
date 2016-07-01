@@ -313,6 +313,17 @@ map {
     height:100%;
 }
 
+elementcontainer{
+    background-color: #d3d3d3;
+    border: solid 1px grey;
+    display: block;
+    position: relative;
+    margin-bottom: 1em;
+    padding: 1em;
+}
+
+
+
 .save-basis-progress
 {
   position : absolute;

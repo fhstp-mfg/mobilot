@@ -38,7 +38,7 @@
       },
       link: function($scope, $element, $attr, ctrl){
 
-        ctrl.selectionTemp = $scope.selection;
+        ctrl.selectionTemp = $scope.selection || '';
 
         if(ctrl.selectionTemp.split(':').length > 1){
           ctrl.selectionAttr = ctrl.selectionTemp.split(':')[1];
