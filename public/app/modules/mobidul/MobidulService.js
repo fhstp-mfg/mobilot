@@ -19,9 +19,10 @@ function MobidulService (
     NEW_STATION     : 1,
     MOBIDUL_OPTIONS : 2,
 
-    NEW_MOBIDUL_TITLE : 'Neues Mobidul',
+    NEW_MOBIDUL_TITLE   : 'Neues Mobidul',
 
-    MOBIDUL_MODE_RALLY : 'rally',
+    MOBIDUL_MODE_RALLY  : 'rally',
+    MOBIDUL_MODE_DEFAULT: 'default',
 
     // services
     menuReady     : menuReady,
@@ -29,6 +30,7 @@ function MobidulService (
     fetchStations : fetchStations,
     getStations   : getStations,
     isRally       : isRally,
+    getMobidulMode: getMobidulMode,
 
     // app config
     Config :
@@ -109,11 +111,24 @@ function MobidulService (
       });
   }
 
+  function getMobidulMode(mobidulCode){
+    return $http
+      .get(mobidulCode + '/getConfig')
+      .success(function (response, status, headers, config) {
+        return response.mode;
+      })
+      .error(function (response, status, headers, config) {
+        $log.error(response);
+        $log.error(status);
+      })
+  }
+
   function isRally(mobidulCode){
 
     //only works if getConfig is already executed and finished (issue on page load execution)
     //return service.Mobidul.mode == service.MOBIDUL_MODE_RALLY;
 
+    $log.warn('MobidulService.isRally is deprecated - use MobidulService.getMobidulMode instead!');
 
     //TODO: check if service.Mobidul exists to prevent redundant call
     return $http

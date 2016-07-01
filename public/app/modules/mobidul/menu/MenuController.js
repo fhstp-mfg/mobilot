@@ -27,9 +27,7 @@ function MenuController (
 
   /// vars
   menu.profile = {};
-
-  //menu.isRallyMode = MobidulService.isRally();
-
+  
   menu.isGoToHomeEnabled    = MobidulService.Config.isGoToHomeEnabled;
   menu.isGoToAboutEnabled   = MobidulService.Config.isGoToAboutEnabled;
   menu.isLastDividerEnabled = true;
@@ -78,11 +76,10 @@ function MenuController (
     if ( ! menu.isGoToHomeEnabled && ! menu.isGoToAboutEnabled )
       menu.isLastDividerEnabled = false;
 
-    //menu.isRallyMode = MobidulService.isRally();
-    MobidulService.isRally(StateManager.state.params.mobidulCode)
-      .then(function(isRally){
-        //$log.info(isRally);
-        menu.isRallyMode = isRally;
+    MobidulService.getMobidulMode(StateManager.state.params.mobidulCode)
+      .then(function(mode){
+        $log.info(mode);
+        menu.isRallyMode = (mode == MobidulService.MOBIDUL_MODE_RALLY);
       });
 
     //$log.info('MenuController - _initDefaultValues - menu.isRallyMode');

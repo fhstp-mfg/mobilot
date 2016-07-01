@@ -98,10 +98,10 @@ function ListStationsController (
           $log.debug('_getStations:');
           $log.debug(stations);
 
-          MobidulService.isRally(currentStateParams.mobidulCode)
-            .then(function(isRally)
+          MobidulService.getMobidulMode(currentStateParams.mobidulCode)
+            .then(function(mode)
             {
-              if(isRally)
+              if(mode == MobidulService.MOBIDUL_MODE_RALLY)
               {
                 //TODO: is this still necessary?
                 RallyService.refresh();

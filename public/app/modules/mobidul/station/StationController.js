@@ -137,13 +137,13 @@ function StationController (
           else
           {
             MobidulService
-              .isRally( StateManager.state.params.mobidulCode )
-              .then(function (isRally)
+              .getMobidulMode( StateManager.state.params.mobidulCode )
+              .then(function (mode)
               {
                 var goToCurrentTesting = false;
 
                 if (
-                  isRally &&
+                  (mode == MobidulService.MOBIDUL_MODE_RALLY) &&
                   ! RallyService.isEligible(response.order) &&
                   ! StateManager.isStationCreator() &&
                   ! goToCurrentTesting
@@ -535,7 +535,7 @@ function StationController (
 
               angular
                 .element(container)
-                .append($compile("<positionicon range='" + obj.range + "' fallback='" + obj.fallback + "' success='" + obj.success + "'></positionicon>")($scope));
+                .append($compile("<ifnear range='" + obj.range + "' fallback='" + obj.fallback + "' success='" + obj.success + "'></ifnear>")($scope));
 
               break;
 

@@ -160,9 +160,9 @@ function StationCreatorController (
 
 
       //Check if mobidule is rallye
-      MobidulService.isRally(currentStateParams.mobidulCode)
-        .then(function(isRally){
-          stationCreator.isRally = isRally;
+      MobidulService.getMobidulMode(currentStateParams.mobidulCode)
+        .then(function(mode){
+          stationCreator.isRally = (mode == MobidulService.MOBIDUL_MODE_RALLY);
         });
 
       // setting corrent url for current mobidul
