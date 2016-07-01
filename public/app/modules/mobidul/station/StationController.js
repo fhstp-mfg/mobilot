@@ -227,7 +227,7 @@ function StationController (
             }
             catch (e) {
               $log.info("No JSON");
-              //$log.error(e);
+              $log.error(e);
               station.isJSON = false;
               station.renderText();
             }

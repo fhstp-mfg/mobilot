@@ -299,8 +299,8 @@ function StationCreatorController (
         $log.error(status);
       })
       .then(function(){
-        $log.info("StationCreatorController - _loadAllStations - stationCreator.stations:");
-        $log.debug(StationCreatorService.markersAll);
+        //$log.info("StationCreatorController - _loadAllStations - stationCreator.stations:");
+        //$log.debug(StationCreatorService.markersAll);
       });
   }
 

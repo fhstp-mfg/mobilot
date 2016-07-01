@@ -22,12 +22,6 @@
         //$log.info('ElementContainer - element:');
         //$log.debug($scope.element);
 
-        /*
-        setInterval(function(){
-          $log.debug(ctrl.element);
-        }, 2500);
-        */
-
         ctrl.element = $scope.element;
 
         var type = ctrl.element.type;
@@ -39,7 +33,7 @@
             break;
 
           case 'button':
-            $element.append($compile('<actionbutton success="' + ctrl.element.success + '">' + ctrl.element.content + '</actionbutton>')($scope));
+            $element.append($compile('<editoractionbutton data-success="ctrl.element.success" data-content="ctrl.element.content"></editoractionbutton>')($scope));
             break;
 
           case 'ifNear':

@@ -30,6 +30,8 @@
         $scope.$watch('config', function(config){
           if(config){
             ctrl.config = config;
+            //$log.info('config editor:');
+            //$log.debug(ctrl.config);
           }
         });
       }
