@@ -1,27 +1,51 @@
 #!/bin/sh
 
-echo 'Have you created a database named "mobilot" (MySQL) ? (Y/n)'
+echo '> Mobilot: Have you created a MySQL database named "mobilot"? (Y/n)'
 read answer
-if [ $answer = n ] then
-  echo 'Create a database named "mobilot" first and then run this script again.'
+if [[ $answer == n ]];
+then
+  echo '> Mobilot: Create a database named "mobilot" first and then run this script again.'
   exit 0
 fi
 
-echo 'Running "composer install" ...'
-composer install
 
-echo 'Creating folders under "app/storage/" ...'
+echo '> Mobilot: Running "composer install"'
+sudo composer install
+
+
+echo '> Mobilot: Creating storage folders under app/storage'
+mkdir app/storage
 mkdir app/storage/cache
 mkdir app/storage/logs
 mkdir app/storage/meta
 mkdir app/storage/sessions
 mkdir app/storage/views
-echo 'Creating folders under "public/" ...'
+
+echo '> Mobilot: Setting permissions for app/storage'
+chown -R $USER app/storage/
+
+echo '> Mobilot: Creating public/upload folder'
 mkdir public/upload
 
-echo 'Migrations'
+
+echo '> Mobilot: (IMPORTANT)'
+echo '    Manually copy "setup/database.php" to'
+echo '      > "app/config" (for MAMP, XAMPP) or'
+echo '      > "app/config/local" (for Homestead)'
+echo '    and configure accordingly.'
+
+
+echo '> Mobilot: Have you configured your database.php? (Y/n)'
+read answer
+if [[ $answer == n ]];
+then
+  exit 0
+fi
+
+
+echo '> Mobilot: Migrations'
 php artisan migrate
 
-echo 'NOTE: Manually copy "setup/database.php" to "app/config/" (for MAMP, XAMPP) or "app/config/local/" (for Homestead) and configure accordingly.'
 
-echo 'Finish!'
+echo '> Mobilot: Finished!'
+exit 0

@@ -1,0 +1,103 @@
+<div ng-app="Profile" layout-padding>
+
+  <md-content
+    class="header-content"
+    layout="column"
+    layout-padding
+    layout-fill
+  >
+    <h2 style="margin:0">Benutzerprofil</h2>
+
+    <div layout="row" class="section">
+      <div layout="column">
+        <div layout="row">
+          <md-input-container
+            class="md-icon-float"
+          >
+            <label>Benutzername</label>
+            <md-icon>person</md-icon>
+
+            <input
+              ng-model="profile.currentUser.username"
+              style="color : #3797c4"
+              disabled>
+          </md-input-container>
+        </div>
+
+        <div
+          layout="row"
+          ng-if="profile.isChangePassword"
+        >
+          <md-icon style="color : black; margin-top : 26px">lock</md-icon>
+
+          <md-input-container style="margin-left : 0.8em; padding-bottom : 0">
+            <label>Aktuelles Passwort</label>
+            <input
+              type="password"
+              id="currentPasswordInput"
+              ng-model="profile.changePasswordData.oldPassword">
+          </md-input-container>
+
+          <md-input-container style="padding-bottom : 0">
+            <label>Neues Passwort</label>
+            <input
+              type="password"
+              ng-model="profile.changePasswordData.newPassword">
+          </md-input-container>
+        </div>
+
+        <div layout="row">
+          <md-button
+            md-no-ink
+            class="md-primary"
+            ng-class="{ 'md-raised'  : profile.isChangePassword }"
+            arial-label="Change password"
+            ng-click="profile.changePassword()"
+          >
+            <span>Passwort ändern</span>
+          </md-button>
+
+          <md-button
+            arial-label="Cancel"
+            ng-click="profile.cancelChangePassword()"
+            ng-if="profile.isChangePassword"
+          >
+            <span>Abbrechen</span>
+          </md-button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      layout="row"
+      class="section"
+      ng-if="profile.isRallyMode"
+    >
+      <div layout="column">
+        <h3 style="margin-left: 0.6em; margin-top: 0.4em;">Rally Einstellungen</h3>
+
+        <p style="margin-left: 0.6em; margin-bottom: 0.4em;" class="helper">Achtung! Diese Aktion löscht deinen aktuellen Rally Fortschritt.</p>
+
+        <div class="row">
+          <md-button
+            class="md-raised md-warn"
+            aria-label="Reset Rally"
+            ng-click="profile.resetRally()"
+          >
+            <span>Rally zurücksetzen</span>
+          </md-button>
+        </div>
+      </div>
+    </div>
+
+    <div layout="row" class="section section-darker">
+      <md-button
+        class="md-raised md-warn"
+        aria-label="Logout"
+        ng-click="profile.logout()"
+      >
+        <span>Abmelden</span>
+      </md-button>
+    </div>
+  </md-content>
+</div>
