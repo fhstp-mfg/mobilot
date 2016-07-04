@@ -1,0 +1,84 @@
+<div ng-app="StationCreator">
+
+	<!-- StationCreator as stationCreator -->
+
+	<style>
+		#station_creator_place_map
+		{
+			position : fixed;
+			height   : 100%;
+			width    : 100%;
+			top      : 49px;
+			left     : 0;
+			right    : 0;
+			bottom   : 0;
+		}
+	</style>
+
+
+	<ui-gmap-google-map
+		id="station_creator_place_map"
+		center="map.data.center"
+		zoom="map.data.zoom"
+		options="map.options"
+	    events="map.events"
+	    control="map.googleMap">
+
+		<ui-gmap-circle
+			center="map.myPosition.coords"
+		    radius="5"
+		    fill="map.circleColor"
+		    stroke="0.1"
+		    clickable="false"
+		    draggable="false"
+		    editable="false"
+		    visible="map.showMyPosition">
+		</ui-gmap-circle>
+	    <ui-gmap-circle
+			center="map.myPosition.coords"
+		    radius="map.myPosition.coords.accuracy"
+		    fill="map.circleColor"
+		    stroke="0.3"
+		    clickable="false"
+		    draggable="false"
+		    editable="false"
+		    visible="map.showMyPosition">
+		</ui-gmap-circle>
+
+
+		<ui-gmap-marker
+	        idkey="map.marker.key"
+	        coords="map.marker.coords"
+	        options="map.marker.options">
+		</ui-gmap-marker>
+
+	</ui-gmap-google-map>
+
+
+	<md-button
+		class="md-fab md-mini md-fab-bottom-right md-mobilot"
+		style="right : 29px; bottom : 148px"
+		aria-label="Meine position"
+		ng-click="map.toggleMyPosition()">
+
+	    <md-icon ng-show=" ! map.centerToMyPosition">location_disabled</md-icon>
+	    <md-icon ng-show="map.centerToMyPosition">my_location</md-icon>
+	</md-button>
+
+	<md-button
+		class="md-fab md-mini md-fab-bottom-right md-mobilot"
+		style="right : 29px; bottom : 92px"
+		aria-label="Zentriere Marker"
+		ng-click="map.fitToMarkers()">
+
+	    <md-icon>place</md-icon>
+	</md-button>
+
+	<md-button
+		class="md-fab md-primary md-fab-bottom-right md-mobilot"
+		aria-label="Stationsmarker setzten"
+		ng-click="map.dropMarker()">
+
+        <md-icon>pin_drop</md-icon>
+    </md-button>
+</div>
