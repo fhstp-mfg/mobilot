@@ -1,4 +1,4 @@
-## Contributing to Mobilot
+## Contributing
 
 ### Commits
 
