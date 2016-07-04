@@ -13,7 +13,7 @@ To get Mobilot running locally on your machine, follow the [Setup](https://githu
 Check the CONTRIBUTING.md file or the [Contributing](https://github.com/fhstp-mfg/mobilot/wiki/Contributing) page in the Wiki.
 
 
-## Contributors
+### Contributors
 - [Iosif Miclaus](https://github.com/miclaus)
 - [Simon Reinsperger](https://github.com/abisz)
 - [Florian Grassinger](https://github.com/doomsayer2)
