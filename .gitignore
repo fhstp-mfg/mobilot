@@ -22,6 +22,7 @@ public/upload
 # Other
 .excluded/
 *.sh
+!setup.sh
 
 # Composer
 composer.phar
