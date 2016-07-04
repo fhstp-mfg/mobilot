@@ -31,7 +31,7 @@ angular.module('Play', [
 ]);
 
 angular.module('Creator', [
-    'monospaced.qrcode'
+  'monospaced.qrcode'
 ]);
 
 angular.module('Mobidul',

@@ -29,11 +29,12 @@ function StationCreatorService (
 		markersAll : [],
 
 		// functions
-		loadCategories : loadCategories,
-		loadStation    : loadStation,
-		addStation     : addStation,
-		saveStation    : saveStation,
-		deleteStation  : deleteStation
+		loadCategories 			: loadCategories,
+		loadStation    			: loadStation,
+		addStation     			: addStation,
+		saveStation    			: saveStation,
+		deleteStation  			: deleteStation,
+		updateStationContent: updateStationContent
 	};
 
 
@@ -62,6 +63,9 @@ function StationCreatorService (
 		return $http.post( mobidulCode + '/SaveStation/' + stationCode, stationData );
 	}
 
+	function updateStationContent (mobidulCode, stationCode, content){
+		return $http.post( mobidulCode + '/UpdateContent/' + stationCode, {content: content});
+	}
 
 	function deleteStation (mobidulCode, stationCode)
 	{

@@ -160,9 +160,9 @@ function StationCreatorController (
 
 
       //Check if mobidule is rallye
-      MobidulService.isRally(currentStateParams.mobidulCode)
-        .then(function(isRally){
-          stationCreator.isRally = isRally;
+      MobidulService.getMobidulMode(currentStateParams.mobidulCode)
+        .then(function(mode){
+          stationCreator.isRally = (mode == MobidulService.MOBIDUL_MODE_RALLY);
         });
 
       // setting corrent url for current mobidul
@@ -299,8 +299,8 @@ function StationCreatorController (
         $log.error(status);
       })
       .then(function(){
-        $log.info("StationCreatorController - _loadAllStations - stationCreator.stations:");
-        $log.debug(StationCreatorService.markersAll);
+        //$log.info("StationCreatorController - _loadAllStations - stationCreator.stations:");
+        //$log.debug(StationCreatorService.markersAll);
       });
   }
 
@@ -392,7 +392,6 @@ function StationCreatorController (
             lat     : stationData.lat,
             lon     : stationData.lon,
             radius     : stationData.radius,
-            content   : stationData.content,
             contentType : stationData.contentType,
             locked     : isLocked,
             enabled   : isEnabled
@@ -400,6 +399,12 @@ function StationCreatorController (
             // categories   : stationCreator.station.categories,
             // medialist    : []
           };
+
+          try{
+            stationCreator.station.content =  JSON.parse(stationData.content);
+          }catch(e){
+            $log.error('Error while parsing station.content');
+          }
 
           // make reference-less copyies of the loaded station data
           //  for checking changes later on
@@ -461,7 +466,7 @@ function StationCreatorController (
         lat     : StationCreatorService.marker.coords.latitude,
         lon     : StationCreatorService.marker.coords.longitude,
         radius     : 1000,
-        content   : stationCreator.station.content,
+        content   : JSON.stringify(stationCreator.station.content),
         contentType : 'html',
         locked     : isLocked,
         enabled   : isEnabled,

@@ -27,9 +27,9 @@ function ProfileController (
 
 
   /// vars
-  MobidulService.isRally($stateParams.mobidulCode)
-    .then(function(isRally){
-      profile.isRallyMode = isRally && StateManager.comesFrom( StateManager.MOBIDUL );
+  MobidulService.getMobidulMode($stateParams.mobidulCode)
+    .then(function(mode){
+      profile.isRallyMode = (mode == MobidulService.MOBIDUL_MODE_RALLY) && StateManager.comesFrom( StateManager.MOBIDUL );
     });
 
 

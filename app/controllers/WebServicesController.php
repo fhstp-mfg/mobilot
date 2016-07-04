@@ -1191,6 +1191,54 @@ class WebServicesController extends BaseController
   }
 
 
+  public function updateStationContent ($mobidulCode, $stationCode){
+
+    $mobidulId = Mobidul::GetId($mobidulCode);
+    $stationId = Station::GetId($stationCode);
+
+
+    if ( ! $this->isAllowed($mobidulCode) ){
+      return array(
+          'saved' => false,
+          'msg'   => 'not allowed'
+      );  
+    }
+    
+    $request   = Request::instance();
+    $params  = $request->getContent();
+    $params  = json_decode($params);
+    
+    if ( ! $stationId ){
+      return array(
+          'saved' => false,
+          'msg'   => 'invalid station code'
+      );
+    }
+    
+    $canEdit = $this->CanEditStation($stationId);
+
+    if ( is_bool($canEdit) && $canEdit )
+    {
+      DB::table('station')
+          ->where('id', $stationId)
+          ->update([
+              'content'   => $params->content,
+          ]);
+
+      return array(
+          'saved' => true,
+          'msg'   => 'success'
+      );
+    }
+    else
+      return array(
+          'saved' => $canEdit,
+          'msg'   => 'unknown error'
+      );
+    
+  }
+  
+  
   /**
    * Deletes Station + category2station + navigationItems
    * Returns "success" if successful
