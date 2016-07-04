@@ -8,7 +8,7 @@ To get Mobilot running locally on your machine, run the following:
 ```sh
   sh setup.sh
 ```
-**NOTE**: This might take some while, since `composer install` is executed.
+**NOTE**: This might take a while, since `composer install` is executed.
 
 
 
