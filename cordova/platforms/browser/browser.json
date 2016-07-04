@@ -7,6 +7,12 @@
         "files": {}
     },
     "installed_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
         }
@@ -14,6 +20,8 @@
     "dependent_plugins": {},
     "modules": [],
     "plugin_metadata": {
+        "cordova-plugin-compat": "1.0.0",
+        "cordova-plugin-geolocation": "2.2.0",
         "cordova-plugin-whitelist": "1.2.2"
     }
 }
