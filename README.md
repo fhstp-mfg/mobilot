@@ -5,41 +5,12 @@ Mobilot is a system for creating intuitive mobile information systems.
 
 ## Setup
 
-To get Mobilot running locally on your machine, do the following:
+To get Mobilot running locally on your machine, follow the [Setup](https://github.com/fhstp-mfg/mobilot/wiki/Setup) page in the Wiki.
 
 
-### Install dependencies
+## Contributing
 
-**Mac OS X**:
-```
-  sh setup.sh
-```
-
-**Windows**:
-```
-  setup.bat
-```
-
-**NOTE**: This might take a while, since `composer install` is executed.
-
-
-### Database
-
-Manually create a database named `mobilot`
-
-
-### Database connection
-
-Manually create `database.php` in `app/config/` (if necessary).
-If your using **Homestead** instead, add the `database.php` in `app/config/local/database.php`.
-
-
-### Migrations
-
-Run:
-```
-  php artisan migrate
-```
+Check the CONTRIBUTING.md file or the [Contributing](https://github.com/fhstp-mfg/mobilot/wiki/Contributing) page in the Wiki.
 
 
 ## Contributors
@@ -48,6 +19,7 @@ Run:
 - [Florian Grassinger](https://github.com/doomsayer2)
 - [Patrick Kolar](https://github.com/DrFritzi)
 - [Peter Alexander Kopciak](https://github.com/rikkuporta)
+
 
 ## License
 
