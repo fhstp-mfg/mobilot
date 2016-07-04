@@ -5,9 +5,17 @@ Mobilot is a system for creating intuitive mobile information systems.
 ### Setup
 
 To get Mobilot running locally on your machine, run the following:
+
+Mac OSX:
 ```
   sh setup.sh
 ```
+
+Windows:
+```
+  setup.bat
+```
+
 **NOTE**: This might take a while, since `composer install` is executed.
 
 
