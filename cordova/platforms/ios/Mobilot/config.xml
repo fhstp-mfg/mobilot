@@ -18,14 +18,14 @@
     <feature name="Geolocation">
         <param name="ios-package" value="CDVLocation" />
     </feature>
-    <name>HelloCordova</name>
+    <name>Mobilot</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        Mobilot is a system for creating intuitive mobile information systems.
     </description>
     <author email="dev@cordova.apache.org" href="http://cordova.io">
         Apache Cordova Team
     </author>
-    <content src="index.html" />
+    <content src="angular.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
