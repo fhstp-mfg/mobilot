@@ -36,7 +36,7 @@ IF "%answer%"=="n" (
 )
 
 :CopyDatabasePHP
-SET /p answer2= ^> What kind of environemnt are you using? (H)omestead/(X)AMPP:
+SET /p answer2= ^> What kind of environemnt are you using? (H)omestead/(X)AMPP: 
 SET location = ""
 IF "%answer2%"=="H" (
   SET location=app\config\local
@@ -53,14 +53,14 @@ echo ^> Copying "setup\database.php" to "%location%"
 @xcopy /s /I setup %location%
 
 echo.
-SET /p answer3= ^> IMPORTANT: Configure %location% before continuning (press ENTER)
+SET /p answer3= ^> IMPORTANT: Configure %location% before continuning (press ENTER) 
 echo.
 call php artisan migrate
 
 echo.
 echo ^> Mobilot setup completed!
 
-SET /p answer4= ^> Would you like to serve Mobilot now? (Y/n)
+SET /p answer4= ^> Would you like to serve Mobilot now? (Y/n) 
 
 IF NOT "%answer4%"=="n" (
   echo ^> php artisan serve
