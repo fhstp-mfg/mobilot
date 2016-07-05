@@ -88,7 +88,6 @@ read answer
 if [[ $answer == n ]]
 then
   echo "> INFO: To serve Mobilot run: \"php artisan serve\""
-  exit 0
 else
   echo "> php artisan serve"
   php artisan serve
