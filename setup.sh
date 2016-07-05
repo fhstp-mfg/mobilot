@@ -41,7 +41,7 @@ sudo -u $USER mkdir public/upload
 
 
 echo ""
-echo "> Running \"composer install\""
+echo "> composer install"
 sudo composer install
 
 
