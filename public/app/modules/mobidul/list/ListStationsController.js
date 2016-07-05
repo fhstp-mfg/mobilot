@@ -104,10 +104,13 @@ function ListStationsController (
               if(mode == MobidulService.MOBIDUL_MODE_RALLY)
               {
                 //TODO: is this still necessary?
-                RallyService.refresh();
+                //RallyService.refresh();
 
                 if ( currentStateParams.category !== ListService.ALL_STATIONS )
-                  list.stations = RallyService.filterStations( stations );
+                  RallyService.filterStations(stations)
+                    .then(function(stations){
+                      list.stations = stations;
+                    });
                 else
                   list.stations = stations;
               }

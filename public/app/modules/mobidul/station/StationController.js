@@ -25,7 +25,7 @@ function StationController (
   /// vars
   station.mediaList     = [];
   station.imageList     = [];
-  station.rawText       = '';
+  station.content       = '';
   station.text          = 'wird geladen';
   // station.loading       = 'visible';
   station.loading       = 'block';
@@ -136,18 +136,16 @@ function StationController (
           }
           else
           {
-            MobidulService
-              .getMobidulMode( StateManager.state.params.mobidulCode )
-              .then(function (mode)
-              {
-                var goToCurrentTesting = false;
 
-                if (
-                  (mode == MobidulService.MOBIDUL_MODE_RALLY) &&
-                  ! RallyService.isEligible(response.order) &&
+            var goToCurrentTesting = false;
+
+            RallyService.isEligible(response.order)
+              .then(function(isEligible){
+                if(
+                  ! isEligible &&
                   ! StateManager.isStationCreator() &&
                   ! goToCurrentTesting
-                ) {
+                ){
                   RallyService.goToCurrent();
                 }
               });
@@ -157,7 +155,7 @@ function StationController (
             //$log.info("response");
             //$log.debug(response);
 
-            station.rawText      = response.content;
+            station.content      = response.content;
             station.stationId    = response.stationId;
             station.stationName  = response.stationName;
             station.order        = response.order;
@@ -167,23 +165,21 @@ function StationController (
             /// choosing right content based on Mobidul type
             RallyService.refresh();
 
-            var statusContent = new Array();
+            var statusContent = [];
             statusContent['hidden']    = '<p style="background:#eee; font-weight:bold">This is the content for status "hidden"</p>';
             statusContent['activated'] = '<p style="background:#eee; font-weight:bold">This is the content for status "activated"</p>';
             statusContent['open']      = '<p style="background:#eee; font-weight:bold">This is the content for status "open"</p>';
             statusContent['completed'] = '<p style="background:#eee; font-weight:bold">This is the content for status "completed"</p>';
 
-            //station.rawText      = statusContent[ RallyService.getStatus( station.order ) ] + response.content;
-            station.rawText      = response.content;
+            //station.content      = statusContent[ RallyService.getStatus( station.order ) ] + response.content;
+            //station.content      = response.content;
 
             StationService.setName( response.stationName );
 
             //get length of all stations belonging to this mobidul to display progressbar correctly
             RallyService.getRallyLength()
               .then(function(length){
-                
                 station.rallyLength = parseInt(length);
-                
               });
             
 
@@ -215,9 +211,11 @@ function StationController (
 
             // Check whether Station has JSON Content
             try {
-              //$log.debug(station.rawText);
-              station.config = JSON.parse(station.rawText);
-              station.isJSON = true;
+              //$log.debug(station.content);
+              station.config = JSON.parse(station.content);
+
+              $log.info('station.config:');
+              $log.debug(station.config);
 
               //Display dev tools for rally
               station.isOwner = UserService.Session.role == 1;
@@ -227,28 +225,7 @@ function StationController (
             catch (e) {
               $log.info("No JSON");
               $log.error(e);
-              station.isJSON = false;
-              station.renderText();
-
-              station.content = {
-                  activated: [
-                    {
-                      type: 'html',
-                      content: station.rawText
-                    }
-                  ]
-                };
-
-              //Todo: check what happens if not authorized to update
-              //Todo: can you be sure there will never be a json.parse error with existing content?
-              //transform old station to new json content format
-              StationCreatorService.updateStationContent(
-                StateManager.state.params.mobidulCode,
-                StateManager.state.params.stationCode,
-                JSON.stringify(station.content)
-            );
-
-
+              //station.renderText();
             }
           }
 
@@ -298,7 +275,8 @@ function StationController (
 
   function renderText ()
   {
-    var ergebnis = station.rawText; //.replace(/<.[^>]*>/g, '');
+    $log.warn('RenderText() is deprecated - please don\'t use it any longer!');
+    var ergebnis = station.content; //.replace(/<.[^>]*>/g, '');
         ergebnis = '\n' + ergebnis; // billiger Trick - so ist auch vor Beginn der ersten Zeile ein \n, und das gilt auch als Whitespace also \s
 
     var regexp =
@@ -497,75 +475,77 @@ function StationController (
    */
   function renderJSON ()
   {
-    var status = RallyService.getStatus(station.order);
 
-    //$log.info('Status of Station:');
-    //$log.debug(status);
+    RallyService.getStatus(station.order)
+      .then(function(status){
 
-    var config = station.config[status];
+        $log.info('StationController - renderJSON - RallyService.getStatus - status:');
+        $log.debug(status);
 
-    var container = document.getElementById('station-container');
-    container.innerHTML = '';
+        var config = station.config[status];
 
-    if (config) {
-      config.forEach(function (obj)
-      {
-        var type = obj.type;
+        var container = document.getElementById('station-container');
+        container.innerHTML = '';
 
-        if ( ! type) {
-          $log.error('JSON Object doesn\'t have a type ! (ignoring)');
-        }
-        else {
-          switch (type)
+        if (config) {
+          config.forEach(function (obj)
           {
-            case 'html':
-              angular
-                .element(container)
-                .append($compile('<html-container>' + $sanitize(obj.content) + '</html-container>')($scope))
-              break;
+            var type = obj.type;
 
-            case 'inputCode':
-              angular
-                .element(container)
-                .append($compile("<inputcode verifier='" + obj.verifier + "' success='" + obj.success + "' error='" + obj.error + "'></inputcode>")($scope));
-              break;
+            if ( ! type) {
+              $log.error('JSON Object doesn\'t have a type ! (ignoring)');
+            }
+            else {
+              switch (type)
+              {
+                case 'html':
+                  angular
+                    .element(container)
+                    .append($compile('<html-container>' + $sanitize(obj.content) + '</html-container>')($scope))
+                  break;
 
-            case 'scanCode':
-              angular
-                .element(container)
-                .append($compile("<scancode></scancode>")($scope));
-              break;
+                case 'inputCode':
+                  angular
+                    .element(container)
+                    .append($compile("<inputcode verifier='" + obj.verifier + "' success='" + obj.success + "' error='" + obj.error + "'></inputcode>")($scope));
+                  break;
 
-            case 'navigator':
-              angular
-                .element(container)
-                .append($compile("<navigator></navigator>")($scope));
-              break;
+                case 'scanCode':
+                  angular
+                    .element(container)
+                    .append($compile("<scancode></scancode>")($scope));
+                  break;
 
-            case 'button':
-              angular
-                .element(container)
-                .append($compile("<actionbutton success='" + obj.success + "'>" + obj.content + "</actionbutton>")($scope));
-              break;
+                case 'navigator':
+                  angular
+                    .element(container)
+                    .append($compile("<navigator></navigator>")($scope));
+                  break;
 
-            case 'ifNear':
-              // HACK: force to startwatching after stopwatching event from headerservice
-              $timeout(function(){ GeoLocationService.startPositionWatching(station.coords);},0);
+                case 'button':
+                  angular
+                    .element(container)
+                    .append($compile("<actionbutton success='" + obj.success + "'>" + obj.content + "</actionbutton>")($scope));
+                  break;
 
-              angular
-                .element(container)
-                .append($compile("<ifnear range='" + obj.range + "' fallback='" + obj.fallback + "' success='" + obj.success + "'></ifnear>")($scope));
+                case 'ifNear':
+                  // HACK: force to startwatching after stopwatching event from headerservice
+                  $timeout(function(){ GeoLocationService.startPositionWatching(station.coords);},0);
 
-              break;
+                  angular
+                    .element(container)
+                    .append($compile("<ifnear range='" + obj.range + "' fallback='" + obj.fallback + "' success='" + obj.success + "'></ifnear>")($scope));
 
-            default:
-              $log.error("Objecttype not known: " + type);
-              break;
-          }
+                  break;
+
+                default:
+                  $log.error("Objecttype not known: " + type);
+                  break;
+              }
+            }
+          });
         }
       });
-    }
-
   }
 
   /**

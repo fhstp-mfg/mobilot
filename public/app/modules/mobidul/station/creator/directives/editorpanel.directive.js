@@ -6,11 +6,13 @@
     .directive('editorpanel', EditorPanel);
 
   EditorPanel.$inject = [
-    '$log', '$rootScope'
+    '$log', '$rootScope',
+    'StateManager', 'MobidulService'
   ];
 
   function EditorPanel(
-    $log, $rootScope
+    $log, $rootScope,
+    StateManager, MobidulService
   ) {
     return {
 
@@ -29,10 +31,16 @@
     function EditorPanelController($scope, $element, $attrs) {
       var ctrl = this;
 
-      //Add Elements
 
-      //Todo: get this information from a Service in order to support all kind of stationmodi
-      ctrl.editorConfig = ['html', 'ifNear', 'inputCode', 'button'];
+      var currentMobidulCode = StateManager.state.params.mobidulCode;
+
+      MobidulService.getMobidulConfig(currentMobidulCode)
+        .then(function(config){
+          $log.info('config in editorpanel:');
+          $log.debug(config);
+          ctrl.editorConfig = config.elements;
+        });
+
 
       ctrl.addElement = function(type){
         //$log.debug(type);

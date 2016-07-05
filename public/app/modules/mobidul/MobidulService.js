@@ -4,12 +4,14 @@ angular
 
 
 MobidulService.$inject = [
-  '$log', '$rootScope', '$http'
+  '$log', '$rootScope', '$http', '$q', '$timeout',
+  '$stateParams', 'LocalStorageService'
 ];
 
 
 function MobidulService (
-  $log, $rootScope, $http
+  $log, $rootScope, $http, $q, $timeout,
+  $stateParams, LocalStorageService
 )
 {
   var service =
@@ -24,13 +26,36 @@ function MobidulService (
     MOBIDUL_MODE_RALLY  : 'rally',
     MOBIDUL_MODE_DEFAULT: 'default',
 
+    MOBIDUL_MODES : [
+      {
+        name: 'rally',
+        elements: ['html', 'ifNear', 'inputCode', 'button'],
+        states: ['activated', 'open', 'completed'],
+        defaultState: 'activated',
+        hiddenStations: true
+      },
+      {
+        name: 'default',
+        elements: ['html'],
+        states: ['open'],
+        defaultState: 'open',
+        hiddenStations: false
+      }
+    ],
+
     // services
-    menuReady     : menuReady,
-    getConfig     : getConfig,
-    fetchStations : fetchStations,
-    getStations   : getStations,
-    isRally       : isRally,
-    getMobidulMode: getMobidulMode,
+    menuReady         : menuReady,
+    getConfig         : getConfig,
+    fetchStations     : fetchStations,
+    getStations       : getStations,
+    isRally           : isRally,
+    getMobidulMode    : getMobidulMode,
+    getModes          : getModes,
+    getMobidulConfig  : getMobidulConfig,
+    initProgress      : initProgress,
+    resetProgress     : resetProgress,
+    getProgress       : getProgress,
+    setProgress       : setProgress,
 
     // app config
     Config :
@@ -51,7 +76,11 @@ function MobidulService (
       // font: '',
     },
 
-    stations: []
+    stations: [],
+    
+    progress: '',
+    state: ''
+    
   };
 
 
@@ -74,8 +103,8 @@ function MobidulService (
       .get( mobidulCode + '/getConfig' )
       .success(function (response, status, headers, config)
       {
-        $log.debug('Loaded Config for "' + mobidulCode + '" :');
-        $log.debug(response);
+        //$log.debug('Loaded Config for "' + mobidulCode + '" :');
+        //$log.debug(response);
 
         if ( response )
           service.Mobidul = response;
@@ -89,6 +118,79 @@ function MobidulService (
       });
   }
 
+  function initProgress(){
+
+    var mobidulCode = $stateParams.mobidulCode;
+
+    service.getMobidulConfig(mobidulCode)
+      .then(function(config){
+        //$log.info('initProgress - config');
+        //$log.debug(config);
+        LocalStorageService.getProgress(mobidulCode, config.states)
+          .then(function(progress){
+            service.progress = progress;
+          });
+      });
+  }
+  
+  function resetProgress(mobidulCode){
+    
+    service.getMobidulConfig(mobidulCode)
+      .then(function(config){
+        //$log.info('initProgress - config');
+        //$log.debug(config);
+        LocalStorageService.resetProgress(mobidulCode, config.states)
+          .then(function(progress){
+            service.progress = progress;
+          });
+      });
+  }
+  
+  function getProgress(){
+
+    var mobidulCode = $stateParams.mobidulCode;
+    
+    return LocalStorageService.getProgress(mobidulCode);
+    
+  }
+
+  function setProgress(newState, increaseProgress){
+
+    var mobidulCode = $stateParams.mobidulCode;
+    
+    return $q(function(resolve, reject){
+
+      service.getMobidulConfig(mobidulCode)
+        .then(function(config){
+
+          var indexOf = config.states.indexOf(newState);
+
+          if(indexOf != -1){
+            
+            service.getProgress()
+              .then(function(progress){
+
+                var state = {
+                  state: newState,
+                  progress: (increaseProgress ? progress.progress++ : progress.progress)
+                };
+
+                LocalStorageService.setProgress(mobidulCode, state);
+
+                $timeout(function () {
+                  resolve(state);
+                });
+
+              }); 
+            
+          }else{
+            reject('state not known');
+          }
+        });
+
+    });
+  }
+
   function fetchStations(mobidulCode){
     var url  = mobidulCode + '/GetStations/All';
 
@@ -99,16 +201,25 @@ function MobidulService (
   }
 
   function getStations(mobidulCode){
-    //only works after fetchStations is already called and finished
-    //return service.stations;
 
-    //Needs to make a call, if function is executed on initial page load
-    var url  = mobidulCode + '/GetStations/All';
+    return $q(function(resolve, reject){
+      if(service.stations[0]){
+        $timeout(function(){
+          resolve(service.stations);
+        })
+      }else {
 
-    return $http.get( url )
-      .success(function(data){
-        return data;
-      });
+        //Needs to make a call, if function is executed on initial page load
+        var url = mobidulCode + '/GetStations/All';
+        $http.get(url)
+          .success(function (data) {
+            service.stations = data;
+            //$log.info('getting station data new');
+            //$log.debug(data);
+            resolve(data);
+          });
+      }
+    });
   }
 
   function getMobidulMode(mobidulCode){
@@ -121,6 +232,22 @@ function MobidulService (
         $log.error(response);
         $log.error(status);
       })
+  }
+
+  function getModes(){
+    return service.MOBIDUL_MODES;
+  }
+
+  function getMobidulConfig(mobidulCode){
+    return service.getMobidulMode(mobidulCode)
+      .then(function(response){
+        var mode = response.data.mode;
+        //$log.info('MobidulService - mode:');
+        //$log.debug(mode);
+        return service.MOBIDUL_MODES.filter(function(mobidulMode){
+          return mode == mobidulMode.name;
+        })[0];
+      });
   }
 
   function isRally(mobidulCode){
