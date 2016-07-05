@@ -94,4 +94,5 @@ else
   php artisan serve
 fi
 
+echo "Good bye!"
 exit 0
