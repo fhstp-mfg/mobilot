@@ -1,14 +1,24 @@
 @ECHO OFF
+Title Mobilot Setup
 
-echo.
-echo Welcome %USERNAME%!
-echo "This setup will guide you through the process of installing mobiloton your machine."
-echo.
+ECHO Running "composer install" ...
+composer install
 
+<<<<<<< HEAD
 SET /p answer= ^> Have you created a MySQL database named "mobilot"? (Y/n)
+=======
+ECHO Creating folders under "app/storage/" ...
+mkdir app\storage\logs
+mkdir app\storage\cache
+mkdir app\storage\meta
+mkdir app\storage\sessions
+mkdir app\storage\views
+>>>>>>> 06682382d07acfec9edeb619a772afa727895c55
 
-IF NOT "%answer%"=="n" (
+ECHO Creating folders under "public/" ...
+mkdir public\upload
 
+<<<<<<< HEAD
   echo.
   echo ^> Creating folders under "app/storage/" ...
   mkdir app\storage\logs
@@ -72,3 +82,7 @@ IF "%answer4%"=="n" (
 
 echo ^> Good bye!
 exit /b 0
+=======
+ECHO NOTE: Manually create "database.php" (if necessary)
+ECHO NOTE: Manually create database named "mobilot" (MySQL)
+>>>>>>> 06682382d07acfec9edeb619a772afa727895c55
