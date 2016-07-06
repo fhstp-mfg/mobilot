@@ -63,9 +63,14 @@ function RallyService (
 
   /// XXX temp services
 
-  function __setProgress (order)
+  function __setProgress (progress)
   {
-    service.localStorage.RallyProgress = order;
+    return $q(function(resolve, reject){
+      MobidulService.adminSetProgress(progress)
+        .then(function(){
+          resolve();
+        });
+    });
   }
 
 
@@ -82,7 +87,8 @@ function RallyService (
 
       if(service.originStations[0]){
         var next = service.originStations.filter(function(station){
-          return station.order == (currentOrder+1);
+          //don't increment currentOrder, because it's most likely already incremented...
+          return station.order == (currentOrder);
         })[0];
 
         if(next){
@@ -97,7 +103,7 @@ function RallyService (
             service.originStations = data;
 
             var next = service.originStations.filter(function(station){
-              return station.order == (currentOrder+1);
+              return station.order == (currentOrder);
             })[0];
 
             if(next){
@@ -145,7 +151,6 @@ function RallyService (
 
   function isEligible (progressOrder)
   {
-    //return getStatus( progressOrder ) !== service.STATUS_HIDDEN;
 
     var mobidulCode = $stateParams.mobidulCode;
 
@@ -156,6 +161,9 @@ function RallyService (
 
           MobidulService.getProgress(mobidulCode)
             .then(function(progress){
+
+              //$log.info('isEligible - progress');
+              //$log.debug(progressOrder, progress, config);
 
               if(!config.hiddenStations || progressOrder <= progress.progress){
                 resolve(true);
@@ -238,23 +246,23 @@ function RallyService (
 
   function activateNext ()
   {
-    MobidulService.getMobidulConfig($stateParams.mobidulCode)
-      .then(function(config){
+    return $q(function(resolve, reject){
+      MobidulService.getMobidulConfig($stateParams.mobidulCode)
+        .then(function(config){
 
-        MobidulService.setProgress(config.states[0], true)
-          .then(function(progress) {
-            $log.info('new progress:');
-            $log.debug(progress)
-          });
-      });
+          MobidulService.setProgress(config.states[0], true)
+            .then(function(progress) {
 
-/*    if ( isStatusCompleted() )
-    {
-      service.localStorage.RallyProgress++;
-      service.localStorage.RallyStatus = service.STATUS_ACTIVATED;
-    }
-    else
-      _onNotCompleted();*/
+              $log.info('RallyService - activateNext - progress:');
+              $log.debug(progress);
+
+              $timeout(function(){
+                resolve();
+              });
+
+            });
+        });
+    });
   }
 
 
@@ -267,13 +275,12 @@ function RallyService (
 
         _getNextStation(progress.progress)
           .then(function(next){
+
             $timeout(function(){
               $state.go('mobidul.station', { stationCode: next.code});
-            }, 300);
-          })
-          .fail(function(){
+            });
+          },function(){
             alert('This is the last Station. You completed the Mobidul !');
-
           });
 
       });
@@ -291,8 +298,8 @@ function RallyService (
             .then(function(stations){
               service.originStations = stations;
 
-              $log.info('service.originStations:');
-              $log.debug(stations);
+              //$log.info('service.originStations:');
+              //$log.debug(stations);
 
               var currentCode = service.originStations[progress.progress].code;
 
@@ -325,10 +332,6 @@ function RallyService (
     return service.localStorage.RallyStatus == service.STATUS_COMPLETED;
   }
 
-
-  // NOTE if progressOrder param is passed, then
-  //  the status of that station (by order) will be returned,
-  //  else it will return the status of the "activated" station
   function getStatus (progressOrder)
   {
 
@@ -355,43 +358,19 @@ function RallyService (
             });
         });
     });
-
-/*
-    if ( typeof progressOrder === 'undefined' )
-      return service.localStorage.RallyStatus;
-
-    else
-    {
-      if ( progressOrder < service.localStorage.RallyProgress )
-        return service.STATUS_COMPLETED;
-
-      else if ( progressOrder > service.localStorage.RallyProgress )
-        return service.STATUS_HIDDEN;
-
-      else
-        // NOTE here we don't explicitely return STATUS_ACTIVATED, since
-        //  it might be that even the last station can be "completed",
-        //  without having a successor
-        return service.localStorage.RallyStatus;
-    }*/
   }
 
 
   function setStatus (newStatus, order)
   {
-    MobidulService.setProgress(newStatus, false)
-      .then(function(state){
-        $log.info('RallyService - setStatus:');
-        $log.debug(state);
-      });
-    
-    /*
-    if ( newStatus === service.STATUS_ACTIVATED ||
-         newStatus === service.STATUS_OPEN      ||
-         newStatus === service.STATUS_COMPLETED )
-
-      service.localStorage.RallyStatus = newStatus;
-  */
+    return $q(function(resolve, reject){
+      MobidulService.setProgress(newStatus, false)
+        .then(function(state){
+          //$log.info('RallyService - setStatus:');
+          //$log.debug(state);
+          resolve(state);
+        });
+    });
   }
 
 

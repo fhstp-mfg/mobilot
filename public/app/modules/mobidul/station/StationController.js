@@ -64,38 +64,37 @@ function StationController (
 
   function __rallyActivate ()
   {
-    RallyService.setProgress( station.order );
-    RallyService.setStatus( RallyService.STATUS_ACTIVATED );
+    RallyService.setProgress({
+      progress: station.order,
+      state: RallyService.STATUS_ACTIVATED
+    })
+      .then(function(){
+        $state.go($state.current, {}, {reload: true});
+      });
 
-    // XXX hard refresh the current state ! (will be removed)
-    $timeout(function(){
-      $state.go($state.current, {}, {reload: true});
-    }, 300);
   }
 
   function __rallyOpen ()
   {
-    RallyService.setStatus( RallyService.STATUS_OPEN );
-
-    // XXX hard refresh the current state ! (will be removed)
-    $timeout(function(){
-      $state.go($state.current, {}, {reload: true});
-    }, 300);
+    RallyService.setStatus( RallyService.STATUS_OPEN )
+      .then(function(state){
+        $state.go($state.current, {}, {reload: true});
+      });
   }
 
   function __rallyComplete ()
   {
-    RallyService.setStatus( RallyService.STATUS_COMPLETED );
-    RallyService.activateNext();
-
-    // XXX hard refresh the current state ! (will be removed)
-    $timeout(function(){
-      $state.go($state.current, {}, {reload: true});
-    }, 300);
+    RallyService.setStatus( RallyService.STATUS_COMPLETED )
+      .then(function(state){
+        $state.go($state.current, {}, {reload: true});
+      });
   }
 
   function __progressToNext () {
-    RallyService.progressToNext();
+    RallyService.activateNext()
+      .then(function(){
+        RallyService.progressToNext();
+      });
   }
 
 
@@ -141,92 +140,95 @@ function StationController (
 
             RallyService.isEligible(response.order)
               .then(function(isEligible){
+                $log.info('Not allowed for this station:');
                 if(
                   ! isEligible &&
                   ! StateManager.isStationCreator() &&
                   ! goToCurrentTesting
                 ){
+
                   RallyService.goToCurrent();
+                }else{
+
+                  UserService.Permit.EditStation = response.canEdit && UserService.Permit.EditStation;
+
+                  //$log.info("response");
+                  //$log.debug(response);
+
+                  station.content      = response.content;
+                  station.stationId    = response.stationId;
+                  station.stationName  = response.stationName;
+                  station.order        = response.order;
+                  station.coords       = response.coords;
+
+                  /// XXX this is just for testing purposes
+                  /// choosing right content based on Mobidul type
+                  RallyService.refresh();
+
+                  var statusContent = [];
+                  statusContent['hidden']    = '<p style="background:#eee; font-weight:bold">This is the content for status "hidden"</p>';
+                  statusContent['activated'] = '<p style="background:#eee; font-weight:bold">This is the content for status "activated"</p>';
+                  statusContent['open']      = '<p style="background:#eee; font-weight:bold">This is the content for status "open"</p>';
+                  statusContent['completed'] = '<p style="background:#eee; font-weight:bold">This is the content for status "completed"</p>';
+
+                  //station.content      = statusContent[ RallyService.getStatus( station.order ) ] + response.content;
+                  //station.content      = response.content;
+
+                  StationService.setName( response.stationName );
+
+                  //get length of all stations belonging to this mobidul to display progressbar correctly
+                  RallyService.getRallyLength()
+                    .then(function(length){
+                      station.rallyLength = parseInt(length);
+                    });
+
+
+                  // TODO document what this is doing !!
+
+                  station.mediaList[ response.stationId ] = [];
+
+                  for ( var i = 0; i < response.mediaList.length; i++ )
+                  {
+                    var currMediaListHash = response.mediaList[ i ].hash;
+
+                    station.mediaList[ response.stationId ].push(
+                      {
+                        'hash'      : currMediaListHash,
+                        'timestamp' : response.mediaList[ i ].timestamp
+                      });
+
+                    if ( typeof station.imageList[ currMediaListHash ] == 'undefined' )
+                    {
+                      station.imageList[ currMediaListHash ] =
+                      {
+                        'url'            : response.mediaList[ i ].url,
+                        'uploaded'       : true,
+                        'uploadprogress' : 100
+                      };
+                    }
+                  }
+
+
+                  // Check whether Station has JSON Content
+                  try {
+                    //$log.debug(station.content);
+                    station.config = JSON.parse(station.content);
+
+                    $log.info('station.config:');
+                    $log.debug(station.config);
+
+                    //Display dev tools for rally
+                    station.isOwner = UserService.Session.role == 1;
+
+                    renderJSON();
+                  }
+                  catch (e) {
+                    $log.info("No JSON");
+                    $log.error(e);
+                    //station.renderText();
+                  }
                 }
               });
-
-            UserService.Permit.EditStation = response.canEdit && UserService.Permit.EditStation;
-
-            //$log.info("response");
-            //$log.debug(response);
-
-            station.content      = response.content;
-            station.stationId    = response.stationId;
-            station.stationName  = response.stationName;
-            station.order        = response.order;
-            station.coords       = response.coords;
-
-            /// XXX this is just for testing purposes
-            /// choosing right content based on Mobidul type
-            RallyService.refresh();
-
-            var statusContent = [];
-            statusContent['hidden']    = '<p style="background:#eee; font-weight:bold">This is the content for status "hidden"</p>';
-            statusContent['activated'] = '<p style="background:#eee; font-weight:bold">This is the content for status "activated"</p>';
-            statusContent['open']      = '<p style="background:#eee; font-weight:bold">This is the content for status "open"</p>';
-            statusContent['completed'] = '<p style="background:#eee; font-weight:bold">This is the content for status "completed"</p>';
-
-            //station.content      = statusContent[ RallyService.getStatus( station.order ) ] + response.content;
-            //station.content      = response.content;
-
-            StationService.setName( response.stationName );
-
-            //get length of all stations belonging to this mobidul to display progressbar correctly
-            RallyService.getRallyLength()
-              .then(function(length){
-                station.rallyLength = parseInt(length);
-              });
-            
-
-            // TODO document what this is doing !!
-
-            station.mediaList[ response.stationId ] = [];
-
-            for ( var i = 0; i < response.mediaList.length; i++ )
-            {
-              var currMediaListHash = response.mediaList[ i ].hash;
-
-              station.mediaList[ response.stationId ].push(
-              {
-                'hash'      : currMediaListHash,
-                'timestamp' : response.mediaList[ i ].timestamp
-              });
-
-              if ( typeof station.imageList[ currMediaListHash ] == 'undefined' )
-              {
-                station.imageList[ currMediaListHash ] =
-                {
-                  'url'            : response.mediaList[ i ].url,
-                  'uploaded'       : true,
-                  'uploadprogress' : 100
-                };
-              }
-            }
-
-
-            // Check whether Station has JSON Content
-            try {
-              //$log.debug(station.content);
-              station.config = JSON.parse(station.content);
-
-              $log.info('station.config:');
-              $log.debug(station.config);
-
-              //Display dev tools for rally
-              station.isOwner = UserService.Session.role == 1;
-
-              renderJSON();
-            }
-            catch (e) {
-              $log.info("No JSON");
-              $log.error(e);
-              //station.renderText();
-            }
           }
 
           // station.loading = 'hidden';

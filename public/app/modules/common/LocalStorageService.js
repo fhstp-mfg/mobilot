@@ -80,7 +80,16 @@ function LocalStorageService (
 
   function setProgress(mobidulCode, progress){
 
-    service.localStorage.progressStorage[mobidulCode] = progress;
+    //$log.info('LocalStorageService - setProgress:');
+    //$log.debug(mobidulCode, progress);
+
+    return $q(function(resolve, reject){
+      service.localStorage.progressStorage[mobidulCode] = progress;
+
+      $timeout(function(){
+        resolve();
+      });
+    });
 
   }
 
@@ -89,9 +98,6 @@ function LocalStorageService (
     if(!service.localStorage.progressStorage){
       service.localStorage.progressStorage = {};
     }
-
-    //$log.info('LSS - getProgress - ls:');
-    //$log.debug(service.localStorage);
 
     return $q(function(resolve, reject){
       if(! service.localStorage.progressStorage[mobidulCode]){

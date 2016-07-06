@@ -56,6 +56,7 @@ function MobidulService (
     resetProgress     : resetProgress,
     getProgress       : getProgress,
     setProgress       : setProgress,
+    adminSetProgress  : adminSetProgress,
 
     // app config
     Config :
@@ -149,9 +150,14 @@ function MobidulService (
   function getProgress(){
 
     var mobidulCode = $stateParams.mobidulCode;
-    
-    return LocalStorageService.getProgress(mobidulCode);
-    
+
+    return $q(function(resolve, reject){
+      LocalStorageService.getProgress(mobidulCode)
+        .then(function(progress){
+          resolve(progress);
+        });
+    });
+
   }
 
   function setProgress(newState, increaseProgress){
@@ -172,23 +178,34 @@ function MobidulService (
 
                 var state = {
                   state: newState,
-                  progress: (increaseProgress ? progress.progress++ : progress.progress)
+                  progress: (increaseProgress ? ++progress.progress : progress.progress)
                 };
 
-                LocalStorageService.setProgress(mobidulCode, state);
+                LocalStorageService.setProgress(mobidulCode, state)
+                  .then(function(){
+                    resolve(state);
 
-                $timeout(function () {
-                  resolve(state);
-                });
-
+                  });
               }); 
             
           }else{
             reject('state not known');
           }
         });
-
     });
+  }
+
+  function adminSetProgress(progress){
+
+    var mobidulCode = $stateParams.mobidulCode;
+
+    return $q(function(resolve, reject){
+      LocalStorageService.setProgress(mobidulCode, progress)
+        .then(function(){
+          resolve();
+        });
+    });
+
   }
 
   function fetchStations(mobidulCode){
