@@ -43,6 +43,7 @@ function StationController (
   /// XXX temp function
   station.setRallyState     = setRallyState;
   station.progressToNext    = __progressToNext;
+  station.activateThis      = activateThis;
 
   // XXX why is this nicer or better than calling what it returns ?
   station.__isStatusActivated = function () {
@@ -71,6 +72,13 @@ function StationController (
     RallyService.activateNext()
       .then(function(){
         RallyService.progressToNext();
+      });
+  }
+
+  function activateThis(){
+    RallyService.setProgress(station.order)
+      .then(function(){
+        $state.go($state.current, {}, {reload: true});
       });
   }
 
@@ -113,7 +121,7 @@ function StationController (
           else
           {
 
-            var goToCurrentTesting = false;
+            var goToCurrentTesting = true;
 
             RallyService.isEligible(response.order)
               .then(function(isEligible){
@@ -462,7 +470,7 @@ function StationController (
       .then(function(status){
 
         $log.info('StationController - renderJSON - RallyService.getStatus - status:');
-        $log.debug(status);
+        $log.debug(status, station);
 
         var config = station.config[status];
 
@@ -535,12 +543,11 @@ function StationController (
    *
    * @param action
    */
-  function actionPerformed (action)
+  function actionPerformed (actionString)
   {
     //allowing passing additional parameters with the action string
-    var attr;
-    attr = action.split(':')[1];
-    action = action.split(':')[0];
+    var action = actionString.split(':')[0],
+        attr = actionString.replace(action + ':', '');
 
     switch (action)
     {

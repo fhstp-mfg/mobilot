@@ -66,9 +66,15 @@ function RallyService (
   function __setProgress (progress)
   {
     return $q(function(resolve, reject){
-      MobidulService.adminSetProgress(progress)
-        .then(function(){
-          resolve();
+      MobidulService.getMobidulConfig($stateParams.mobidulCode)
+        .then(function(config){
+          MobidulService.adminSetProgress({
+            progress: progress,
+            state: config.states[0]
+          })
+            .then(function(){
+              resolve();
+            });
         });
     });
   }
