@@ -22,28 +22,12 @@
       >
         <span style="text-align : center">~~~&nbsp;&nbsp;&nbsp;Developer's Rally Actions&nbsp;&nbsp;&nbsp;~~~</span>
 
-        <md-button
-          class="md-raised"
-          ng-click="station.rallyActivate()"
-          style="background : yellow"
-        >Activate station (testing only)</md-button>
-        <md-button
-          class="md-raised"
-          ng-click="station.rallyOpen()"
-          ng-show="station.__isStatusActivated()"
-          style="background : lightblue"
-        >Open station</md-button>
-        <md-button
-          class="md-raised"
-          ng-click="station.rallyComplete()"
-          ng-show="station.__isStatusOpen()"
-          style="background : lightgreen"
-        >Complete station</md-button>
-        <md-button
-          class="md-raised"
-          ng-click="station.progressToNext()"
-          style="background : blue; color : white"
-        >Goto next Station</md-button>
+        <md-button data-ng-repeat="state in station.mobidulConfig.states"
+                   data-ng-click="station.setRallyState(state)"
+                   style="background: yellowgreen">{{state}}</md-button>
+
+        <md-button data-ng-click="station.progressToNext()"
+                   style="background: orange">Go To Next Station</md-button>
 
         <span style="text-align : center">~~~</span>
       </div>

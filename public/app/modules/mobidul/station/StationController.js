@@ -41,9 +41,7 @@ function StationController (
   $scope.actionPerformed    = actionPerformed;
 
   /// XXX temp function
-  station.rallyActivate     = __rallyActivate;
-  station.rallyOpen         = __rallyOpen;
-  station.rallyComplete     = __rallyComplete;
+  station.setRallyState     = setRallyState;
   station.progressToNext    = __progressToNext;
 
   // XXX why is this nicer or better than calling what it returns ?
@@ -62,30 +60,9 @@ function StationController (
 
   /// XXX temp functions
 
-  function __rallyActivate ()
-  {
-    RallyService.setProgress({
-      progress: station.order,
-      state: RallyService.STATUS_ACTIVATED
-    })
-      .then(function(){
-        $state.go($state.current, {}, {reload: true});
-      });
-
-  }
-
-  function __rallyOpen ()
-  {
-    RallyService.setStatus( RallyService.STATUS_OPEN )
-      .then(function(state){
-        $state.go($state.current, {}, {reload: true});
-      });
-  }
-
-  function __rallyComplete ()
-  {
-    RallyService.setStatus( RallyService.STATUS_COMPLETED )
-      .then(function(state){
+  function setRallyState(state){
+    RallyService.setStatus(state)
+      .then(function(newState){
         $state.go($state.current, {}, {reload: true});
       });
   }
@@ -140,7 +117,6 @@ function StationController (
 
             RallyService.isEligible(response.order)
               .then(function(isEligible){
-                $log.info('Not allowed for this station:');
                 if(
                   ! isEligible &&
                   ! StateManager.isStationCreator() &&
@@ -182,6 +158,10 @@ function StationController (
                       station.rallyLength = parseInt(length);
                     });
 
+                  MobidulService.getMobidulConfig(StateManager.state.params.mobidulCode)
+                    .then(function(config){
+                      station.mobidulConfig = config;
+                    });
 
                   // TODO document what this is doing !!
 
