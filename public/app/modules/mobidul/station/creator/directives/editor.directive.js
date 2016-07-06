@@ -6,11 +6,13 @@
     .directive('editor', Editor);
 
   Editor.$inject = [
-    '$log', '$rootScope'
+    '$log', '$rootScope', '$stateParams',
+    'MobidulService'
   ];
 
   function Editor(
-    $log, $rootScope
+    $log, $rootScope, $stateParams,
+    MobidulService
   ){
 
     return {
@@ -40,12 +42,14 @@
     function EditorController($scope, $element, $attrs){
       var ctrl = this;
 
-      //Todo: get this information from a Service in order to support all kind of stationmodi
-      var statiMapping = ['activated', 'open', 'completed'];
+      MobidulService.getMobidulConfig($stateParams.mobidulCode)
+        .then(function(config){
+          ctrl.stateMapping = config.states;
+        });
 
       $rootScope.$on('add:editorElement', function(event, type){
 
-        ctrl.config[statiMapping[ctrl.selectedIndex]].push({
+        ctrl.config[ctrl.stateMapping[ctrl.selectedIndex]].push({
           type: type
         });
 

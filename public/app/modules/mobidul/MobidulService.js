@@ -32,14 +32,16 @@ function MobidulService (
         elements: ['html', 'ifNear', 'inputCode', 'button'],
         states: ['activated', 'open', 'completed'],
         defaultState: 'activated',
-        hiddenStations: true
+        hiddenStations: true,
+        showProgress: true
       },
       {
         name: 'default',
         elements: ['html'],
         states: ['open'],
         defaultState: 'open',
-        hiddenStations: false
+        hiddenStations: false,
+        showProgress: false
       }
     ],
 
