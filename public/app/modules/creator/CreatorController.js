@@ -219,6 +219,10 @@ function CreatorController (
       else
       {
         $log.debug('NEW STATION in CreatorController _initDefaultValues');
+
+        creator.modes = MobidulService.getModes();
+        $log.info('creator.modes:');
+        $log.debug(creator.modes);
       }
 
       // NOTE hide the app loader

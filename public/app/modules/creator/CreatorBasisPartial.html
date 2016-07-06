@@ -52,10 +52,15 @@
 		    </md-input-container>
         </div>
 
-		<md-radio-group ng-model="creator.mobidul.mode">
-			<md-radio-button value="default" >Default</md-radio-button>
-			<md-radio-button value="rally">Rätselralley</md-radio-button>
-		</md-radio-group>
+		<md-input-container>
+			<md-select data-ng-model="creator.mobidul.mode">
+				<md-select-header>
+					<span>Mobidul Mode</span>
+				</md-select-header>
+				<md-option data-ng-repeat="mode in creator.modes"
+									 data-ng-value="mode.name">{{mode.name}}</md-option>
+			</md-select>
+		</md-input-container>
 
 		<div layout-sm="column">
 			<md-button
