@@ -46,7 +46,7 @@
         }
         
         $scope.$watch('ctrl.selectionTemp', function(selection){
-          if(selection && selection == 'say:'){
+          if(selection && selection.split(':').length > 1){
             ctrl.selectionAttrNeeded = true;
             $scope.selection = ctrl.selectionTemp + ctrl.selectionAttr;
           }else{

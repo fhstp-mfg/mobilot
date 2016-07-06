@@ -166,6 +166,11 @@ function StationController (
                       station.rallyLength = parseInt(length);
                     });
 
+                  RallyService.getProgress()
+                    .then(function(progress){
+                      station.currentStation = progress.progress;
+                    });
+
                   MobidulService.getMobidulConfig(StateManager.state.params.mobidulCode)
                     .then(function(config){
                       station.mobidulConfig = config;
@@ -551,6 +556,15 @@ function StationController (
 
     switch (action)
     {
+      case 'setStatus':
+        RallyService.setStatus(attr)
+          .then(function(state){
+            renderJSON();
+          }, function(error){
+            $log.error(error);
+          });
+        break;
+
       case 'showNext':
         $log.debug("showNext");
         break;

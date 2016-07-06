@@ -22,7 +22,7 @@ function RallyService (
     STATUS_OPEN      : 'open',
     STATUS_COMPLETED : 'completed',
 
-    ACTIONS: ['openThis', 'completeThis', 'completeThisAndShowNext', 'say:', 'activateAndShowNext', 'goToCurrent'],
+    ACTIONS: ['openThis', 'completeThis', 'completeThisAndShowNext', 'say:', 'activateAndShowNext', 'goToCurrent', 'setStatus:'],
 
     /// vars
     localStorage     : $localStorage,
@@ -57,7 +57,9 @@ function RallyService (
     isStatusCompleted : isStatusCompleted,
 
     getStatus         : getStatus,
-    setStatus         : setStatus
+    setStatus         : setStatus,
+
+    goToStation       : goToStation
   };
 
 
@@ -124,6 +126,24 @@ function RallyService (
   }
 
 
+  function _getOriginStations(){
+
+    return $q(function(resolve, reject){
+
+      if(service.originStations[0]){
+        $timeout(function(){
+          resolve(service.originStations);
+        });
+      }else{
+        MobidulService.getStations($stateParams.mobidulCode)
+          .then(function(stations){
+            service.originStations = stations;
+            resolve(service.originStations);
+          });
+      }
+    });
+  }
+
 
   /// services
 
@@ -179,9 +199,7 @@ function RallyService (
             });
         });
     });
-
   }
-
 
   function filterStations (stations)
   {
@@ -322,9 +340,25 @@ function RallyService (
   
 
   function getProgress () {
-    return service.localStorage.RallyProgress;
+    return $q(function(resolve, reject){
+      MobidulService.getProgress()
+        .then(function(progress){
+          resolve(progress);
+        });
+    });
   }
 
+  function goToStation(order) {
+
+    _getOriginStations()
+      .then(function(stations){
+        var goTo = stations.filter(function(station){
+          return station.order == order;
+        })[0];
+
+        $state.go('mobidul.station', { stationCode: goTo.code});
+      });
+  }
 
   function isStatusActivated () {
     return service.localStorage.RallyStatus == service.STATUS_ACTIVATED;
@@ -375,6 +409,8 @@ function RallyService (
           //$log.info('RallyService - setStatus:');
           //$log.debug(state);
           resolve(state);
+        },function(error){
+          reject(error);
         });
     });
   }
