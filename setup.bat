@@ -2,7 +2,7 @@
 
 echo.
 echo Welcome %USERNAME%!
-echo "This setup will guide you through the process of installing mobiloton your machine."
+echo "This setup will guide you through the process of installing mobilot on your machine."
 echo.
 
 SET /p answer= ^> Have you created a MySQL database named "mobilot"? (Y/n)
@@ -25,7 +25,7 @@ IF NOT "%answer%"=="n" (
   echo ^> composer install
   call composer install
 
-    echo.
+  echo.
   goto CopyDatabasePHP
 
 )
@@ -36,7 +36,7 @@ IF "%answer%"=="n" (
 )
 
 :CopyDatabasePHP
-SET /p answer2= ^> What kind of environemnt are you using? (H)omestead/(X)AMPP: 
+SET /p answer2= ^> What kind of environment are you using? (H)omestead/(X)AMPP:
 SET location = ""
 IF "%answer2%"=="H" (
   SET location=app\config\local
@@ -53,7 +53,7 @@ echo ^> Copying "setup\database.php" to "%location%"
 @xcopy /s /I setup %location%
 
 echo.
-SET /p answer3= ^> IMPORTANT: Configure %location% before continuning (press ENTER) 
+SET /p answer3= ^> IMPORTANT: Configure %location% before continuing (press ENTER)
 echo.
 call php artisan migrate
 
