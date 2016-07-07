@@ -385,6 +385,22 @@ md-radio-button .md-on{
     padding: 0;
     counter-reset: step;
 }
+
+
+progressbar > div {
+    overflow-y:hidden;
+    overflow-x: scroll;
+    width:100%;
+}
+
+progressbar > div::-webkit-scrollbar{
+    display: none;
+}
+
+.progressbar li{
+    width: 80px;
+}
+
 .progressbar[data-progtrckr-steps="2"] li {
     width: 49%;
 }
