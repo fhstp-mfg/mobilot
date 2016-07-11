@@ -3,7 +3,7 @@
 
   angular
     .module('StationCreator')
-    .directive('editorpanel', EditorPanel);
+    .directive('editorTools', EditorPanel);
 
   EditorPanel.$inject = [
     '$log', '$rootScope',

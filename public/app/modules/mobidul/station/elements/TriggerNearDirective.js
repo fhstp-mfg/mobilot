@@ -3,14 +3,14 @@
 
   angular
     .module('Mobidul')
-    .directive('ifnear', ifNear);
+    .directive('mblTriggerNear', TriggerNear);
 
-  ifNear.$inject = [
+  TriggerNear.$inject = [
     '$log', '$rootScope',
     'GeoLocationService'
   ];
 
-  function ifNear(
+  function TriggerNear(
     $log, $rootScope,
     GeoLocationService
   ){

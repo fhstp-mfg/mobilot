@@ -3,13 +3,13 @@
 
   angular
     .module('Mobidul')
-    .directive('actionbutton', actionButton);
+    .directive('mblActionButton', ActionButton);
 
-  actionButton.$inject = [
+  ActionButton.$inject = [
     '$rootScope'
   ];
 
-  function actionButton(
+  function ActionButton(
     $rootScope
   ){
     return {

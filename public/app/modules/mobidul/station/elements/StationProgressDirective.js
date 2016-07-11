@@ -3,14 +3,14 @@
 
   angular
     .module('Mobidul')
-    .directive('progressbar', progressbar);
+    .directive('mblStationProgress', StationProgress);
 
-  progressbar.$inject = [
+  StationProgress.$inject = [
     '$log', 
     'RallyService'
   ];
 
-  function progressbar(
+  function StationProgress(
     $log,
     RallyService
   ){

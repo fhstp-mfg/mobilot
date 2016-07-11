@@ -3,7 +3,7 @@
   
   angular
     .module('StationCreator')
-    .directive('elementcontainer', ElementContainer);
+    .directive('elementContainer', ElementContainer);
   
   ElementContainer.$inject = [
     '$log', '$compile', '$rootScope'
@@ -29,19 +29,19 @@
         switch(type){
 
           case 'html':
-            $element.prepend($compile('<editorhtmlcontainer data-content="ctrl.element.content"></editorhtmlcontainer>')($scope));
+            $element.prepend($compile('<html-container-config data-content="ctrl.element.content"></html-container-config>')($scope));
             break;
 
           case 'button':
-            $element.prepend($compile('<editoractionbutton data-success="ctrl.element.success" data-content="ctrl.element.content"></editoractionbutton>')($scope));
+            $element.prepend($compile('<action-button-config data-success="ctrl.element.success" data-content="ctrl.element.content"></action-button-config>')($scope));
             break;
 
           case 'ifNear':
-            $element.prepend($compile("<editorifnear data-range='ctrl.element.range' fallback='ctrl.element.fallback' data-success='ctrl.element.success'></editorifnear>")($scope));
+            $element.prepend($compile("<trigger-near-config data-range='ctrl.element.range' fallback='ctrl.element.fallback' data-success='ctrl.element.success'></trigger-near-config>")($scope));
             break;
 
           case 'inputCode':
-          $element.prepend($compile("<editorinputcode data-verifier='ctrl.element.verifier' data-success='ctrl.element.success' error='ctrl.element.error'></editorinputcode>")($scope));
+          $element.prepend($compile("<input-code-config data-verifier='ctrl.element.verifier' data-success='ctrl.element.success' error='ctrl.element.error'></input-code-config>")($scope));
             break;
 
           default:

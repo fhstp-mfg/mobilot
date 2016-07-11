@@ -3,7 +3,7 @@
 
   angular
     .module('StationCreator')
-    .directive('editorifnear', IfNear);
+    .directive('triggerNearConfig', IfNear);
 
   IfNear.$inject = [
     'RallyService'

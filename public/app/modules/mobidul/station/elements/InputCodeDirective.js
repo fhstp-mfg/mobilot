@@ -3,13 +3,13 @@
 
   angular
     .module('Mobidul')
-    .directive('inputcode', inputCode);
+    .directive('mblInputCode', InputCode);
 
-  inputCode.$inject = [
+  InputCode.$inject = [
     '$rootScope'
   ];
 
-  function inputCode(
+  function InputCode(
     $rootScope
   ){
     return {

@@ -3,7 +3,7 @@
 
   angular
     .module('Mobidul')
-    .directive('htmlcontainer', htmlContainer);
+    .directive('mblHtmlContainer', htmlContainer);
 
   htmlContainer.$inject = [
   ];

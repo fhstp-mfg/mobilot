@@ -1,5 +1,5 @@
 angular
-  .module('Mobilot')
+  .module('Mobidul')
   .controller('MenuController', MenuController);
 
 
@@ -84,6 +84,7 @@ function MenuController (
     //$log.info('MenuController - _initDefaultValues - menu.isRallyMode');
     //$log.debug(menu.isRallyMode);
 
+    // TODO: Implement Promise
     var  currentUser = UserService.Session;
     menu.currentUser = currentUser;
 

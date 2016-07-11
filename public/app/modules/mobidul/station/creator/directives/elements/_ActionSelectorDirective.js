@@ -3,7 +3,7 @@
 
   angular
     .module('StationCreator')
-    .directive('actionselector', ActionSelector);
+    .directive('actionSelector', ActionSelector);
 
   ActionSelector.$inject = [
     '$log'

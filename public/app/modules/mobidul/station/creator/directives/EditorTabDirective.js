@@ -18,8 +18,8 @@
       template: '<div><md-tab>' +
       '<md-tab-label>{{tabname}}</md-tab-label>' +
       '<md-tab-body>' +
-      '<editorpanel></editorpanel>' +
-      '<elementcontainer data-element="element" ng-repeat="element in tabconfig"></elementcontainer>' +
+      '<editor-tools></editor-tools>' +
+      '<element-container data-element="element" ng-repeat="element in tabconfig"></element-container>' +
       '</md-tab-body>' +
       '</md-tab></div>',
       scope: {

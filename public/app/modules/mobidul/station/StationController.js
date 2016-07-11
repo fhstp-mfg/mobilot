@@ -496,13 +496,13 @@ function StationController (
                 case 'html':
                   angular
                     .element(container)
-                    .append($compile('<html-container>' + $sanitize(obj.content) + '</html-container>')($scope))
+                    .append($compile('<mbl-html-container>' + $sanitize(obj.content) + '</mbl-html-container>')($scope))
                   break;
 
                 case 'inputCode':
                   angular
                     .element(container)
-                    .append($compile("<inputcode verifier='" + obj.verifier + "' success='" + obj.success + "' error='" + obj.error + "'></inputcode>")($scope));
+                    .append($compile("<mbl-input-code verifier='" + obj.verifier + "' success='" + obj.success + "' error='" + obj.error + "'></mbl-input-code>")($scope));
                   break;
 
                 case 'scanCode':
@@ -520,7 +520,7 @@ function StationController (
                 case 'button':
                   angular
                     .element(container)
-                    .append($compile("<actionbutton success='" + obj.success + "'>" + obj.content + "</actionbutton>")($scope));
+                    .append($compile("<mbl-action-button success='" + obj.success + "'>" + obj.content + "</mbl-action-button>")($scope));
                   break;
 
                 case 'ifNear':
@@ -529,7 +529,7 @@ function StationController (
 
                   angular
                     .element(container)
-                    .append($compile("<ifnear range='" + obj.range + "' fallback='" + obj.fallback + "' success='" + obj.success + "'></ifnear>")($scope));
+                    .append($compile("<mbl-trigger-near range='" + obj.range + "' fallback='" + obj.fallback + "' success='" + obj.success + "'></mbl-trigger-near>")($scope));
 
                   break;
 

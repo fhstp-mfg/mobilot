@@ -356,6 +356,7 @@ function UserService (
 	{
 		//$log.info('UserService - getEditStationPermit - service.Permit.EditStation:');
 		//$log.debug(service.Permit);
+		// TODO: implement Promise
 		return service.Permit.EditStation;
 	}
 

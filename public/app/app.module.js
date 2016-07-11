@@ -3,7 +3,7 @@
 
 angular.module('Mobilot',
 [
-  'ngRoute', 'ngMaterial',
+  'ngMaterial',
   'ui.router',
   'monospaced.qrcode',
   'angulartics', 'angulartics.google.analytics',
@@ -16,7 +16,6 @@ angular.module('Mobilot',
 angular.module('Home', [
   'ngGeolocation'
 ]);
-
 
 angular.module('Login', [
   // ...
@@ -41,10 +40,6 @@ angular.module('Mobidul',
   'ngMap', 'ngWYSIWYG', 'ngStorage',
   'panzoom',
   'StationCreator'
-]);
-
-angular.module('Creator', [
-  // ...
 ]);
 
 

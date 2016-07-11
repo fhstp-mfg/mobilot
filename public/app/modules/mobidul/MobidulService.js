@@ -33,7 +33,7 @@ function MobidulService (
         states: ['activated', 'open', 'completed'],
         defaultState: 'activated',
         hiddenStations: true,
-        showProgress: true
+        showProgress: false
       },
       {
         name: 'default',

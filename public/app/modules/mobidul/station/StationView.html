@@ -13,7 +13,7 @@
       <h1>
         {{ station.stationName }}
       </h1>
-      <progressbar ng-if="station.rallyLength > 1 && station.mobidulConfig.showProgress" data-current="{{station.currentStation}}" data-length="{{station.rallyLength}}"></progressbar>
+      <mbl-station-progress ng-if="station.rallyLength > 1 && station.mobidulConfig.showProgress" data-current="{{station.currentStation}}" data-length="{{station.rallyLength}}"></mbl-station-progress>
 
       <!-- XXX for testing purposes only ! -->
       <div layout="column"
