@@ -14,7 +14,7 @@
   ){
     return {
       restrict: 'E',
-      template:'<div class="editorelement" data-ng-click="ctrl.delete()"><button>Delete</button></div>',
+      template:'<div class="editorelement"><button data-ng-click="ctrl.delete()">Delete</button></div>',
       scope:{
         element: '='
       },

@@ -313,6 +313,14 @@ map {
     height:100%;
 }
 
+#editortabs ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+
 element-container{
     background-color: #d3d3d3;
     border: solid 1px grey;
@@ -321,8 +329,6 @@ element-container{
     margin-bottom: 1em;
     padding: 1em;
 }
-
-
 
 .save-basis-progress
 {
@@ -581,6 +587,12 @@ ul[dnd-list] li {
     display: block;
     padding: 5px 15px;
     margin-bottom: -1px;
+}
+
+#editortabs ul[dnd-list] li{
+    padding: 0;
+    margin: 0;
+    border: none;
 }
 
 /**

@@ -19,7 +19,15 @@
       '<md-tab-label>{{tabname}}</md-tab-label>' +
       '<md-tab-body>' +
       '<editor-tools></editor-tools>' +
-      '<element-container data-element="element" ng-repeat="element in tabconfig"></element-container>' +
+      '<ul dnd-list="tabconfig">' +
+        '<li ng-repeat="element in tabconfig"' +
+          'dnd-draggable="element"' +
+          'dnd-moved="tabconfig.splice($index, 1)"' +
+          'dnd-effect-allowed="move"' +
+          'dnd-selected="models.selected = element"' +
+          'ng-class="{\'selected\': models.selected === item}"' +
+        '><element-container element="element"></element-container></li>' +
+      '</ul>' +
       '</md-tab-body>' +
       '</md-tab></div>',
       scope: {
