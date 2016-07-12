@@ -313,7 +313,7 @@ map {
     height:100%;
 }
 
-elementcontainer{
+element-container{
     background-color: #d3d3d3;
     border: solid 1px grey;
     display: block;

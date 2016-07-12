@@ -3,7 +3,7 @@
 
   angular
     .module('StationCreator')
-    .directive('editorhtmlcontainer', HtmlEditor);
+    .directive('htmlContainerConfig', HtmlEditor);
 
   HtmlEditor.$inject = [
     '$log'

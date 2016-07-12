@@ -475,70 +475,73 @@ function StationController (
       .then(function(status){
 
         $log.info('StationController - renderJSON - RallyService.getStatus - status:');
-        $log.debug(status, station);
+        $log.debug(status, station, StateManager.isStationCreator());
 
-        var config = station.config[status];
+        if(!StateManager.isStationCreator()) {
 
-        var container = document.getElementById('station-container');
-        container.innerHTML = '';
+          var config = station.config[status];
 
-        if (config) {
-          config.forEach(function (obj)
-          {
-            var type = obj.type;
+          var container = document.getElementById('station-container');
+          container.innerHTML = '';
 
-            if ( ! type) {
-              $log.error('JSON Object doesn\'t have a type ! (ignoring)');
-            }
-            else {
-              switch (type)
-              {
-                case 'html':
-                  angular
-                    .element(container)
-                    .append($compile('<mbl-html-container>' + $sanitize(obj.content) + '</mbl-html-container>')($scope))
-                  break;
+          if (config) {
+            config.forEach(function (obj) {
+              var type = obj.type;
 
-                case 'inputCode':
-                  angular
-                    .element(container)
-                    .append($compile("<mbl-input-code verifier='" + obj.verifier + "' success='" + obj.success + "' error='" + obj.error + "'></mbl-input-code>")($scope));
-                  break;
-
-                case 'scanCode':
-                  angular
-                    .element(container)
-                    .append($compile("<scancode></scancode>")($scope));
-                  break;
-
-                case 'navigator':
-                  angular
-                    .element(container)
-                    .append($compile("<navigator></navigator>")($scope));
-                  break;
-
-                case 'button':
-                  angular
-                    .element(container)
-                    .append($compile("<mbl-action-button success='" + obj.success + "'>" + obj.content + "</mbl-action-button>")($scope));
-                  break;
-
-                case 'ifNear':
-                  // HACK: force to startwatching after stopwatching event from headerservice
-                  $timeout(function(){ GeoLocationService.startPositionWatching(station.coords);},0);
-
-                  angular
-                    .element(container)
-                    .append($compile("<mbl-trigger-near range='" + obj.range + "' fallback='" + obj.fallback + "' success='" + obj.success + "'></mbl-trigger-near>")($scope));
-
-                  break;
-
-                default:
-                  $log.error("Objecttype not known: " + type);
-                  break;
+              if (!type) {
+                $log.error('JSON Object doesn\'t have a type ! (ignoring)');
               }
-            }
-          });
+              else {
+                switch (type) {
+                  case 'html':
+                    angular
+                      .element(container)
+                      .append($compile('<mbl-html-container>' + $sanitize(obj.content) + '</mbl-html-container>')($scope))
+                    break;
+
+                  case 'inputCode':
+                    angular
+                      .element(container)
+                      .append($compile("<mbl-input-code verifier='" + obj.verifier + "' success='" + obj.success + "' error='" + obj.error + "'></mbl-input-code>")($scope));
+                    break;
+
+                  case 'scanCode':
+                    angular
+                      .element(container)
+                      .append($compile("<scancode></scancode>")($scope));
+                    break;
+
+                  case 'navigator':
+                    angular
+                      .element(container)
+                      .append($compile("<navigator></navigator>")($scope));
+                    break;
+
+                  case 'button':
+                    angular
+                      .element(container)
+                      .append($compile("<mbl-action-button success='" + obj.success + "'>" + obj.content + "</mbl-action-button>")($scope));
+                    break;
+
+                  case 'ifNear':
+                    // HACK: force to startwatching after stopwatching event from headerservice
+                    $timeout(function () {
+                      GeoLocationService.startPositionWatching(station.coords);
+                    }, 0);
+
+                    angular
+                      .element(container)
+                      .append($compile("<mbl-trigger-near range='" + obj.range + "' fallback='" + obj.fallback + "' success='" + obj.success + "'></mbl-trigger-near>")($scope));
+
+                    break;
+
+                  default:
+                    $log.error("Objecttype not known: " + type);
+                    break;
+                }
+              }
+            });
+          }
         }
       });
   }

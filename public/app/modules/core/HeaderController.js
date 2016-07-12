@@ -170,7 +170,7 @@ function HeaderController (
     if(header.isEditStation){
       UserService.getEditStationPermit()
         .then(function(EditStationPermit){
-          header._isSaveStationEnabled = EditStationPermit;
+          header.isSaveStationEnabled = EditStationPermit;
         });
     }else{
       header.isSaveStationEnabled = header._isSaveStationEnabled;
