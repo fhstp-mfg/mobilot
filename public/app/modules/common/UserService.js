@@ -4,13 +4,13 @@ angular
 
 
 UserService.$inject = [
-	'$log', '$rootScope', '$http',
+	'$log', '$rootScope', '$http', '$q', '$timeout', '$stateParams',
 	'HeaderService'
 ];
 
 
 function UserService (
-	$log, $rootScope, $http,
+	$log, $rootScope, $http, $q, $timeout, $stateParams,
 	HeaderService
 ) {
 	/// constants
@@ -26,7 +26,7 @@ function UserService (
 	{
 		RequestAllStations 		: false,
 		RequestCategoryStations : false,
-		EditStation 			: false
+		//EditStation 			: false
 	};
 
   /// UserService
@@ -230,10 +230,8 @@ function UserService (
 	function restoreUserRole (mobidulCode)
 	{
 		var url = 'RoleForMobidul/' + mobidulCode;
-
-
-		return $http
-				.get( url )
+    
+		return $http.get( url )
 				.success(function (response, status, headers, config)
 				{
 					 //$log.info('> Restore user role :');
@@ -356,8 +354,51 @@ function UserService (
 	{
 		//$log.info('UserService - getEditStationPermit - service.Permit.EditStation:');
 		//$log.debug(service.Permit);
-		// TODO: implement Promise
-		return service.Permit.EditStation;
+		//return service.Permit.EditStation;
+		return $q(function(resolve, reject){
+      
+			if(service.Permit.EditStation){
+
+				$timeout(function(){
+					resolve(service.Permit.EditStation);
+				});
+			}else{
+
+				var url = 'RoleForMobidul/' + $stateParams.mobidulCode;
+
+        $http.get( url )
+					.success(function (response, status, headers, config)
+					{
+						var role = angular.isDefined( response.role ) ? response.role : null;
+
+						if ( role !== null )
+						{
+
+							service.Session.role = role;
+
+							var permittedActions =
+							{
+								// @description - TODO
+								RequestAllStations : role == _Roles._isAdmin ||
+								true /* editMode permits */ // TODO - see previous (inline-block) comment
+								,
+								// @description - TODO
+								RequestCategoryStations : role == _Roles._isAdmin ||
+								true /* editMode permits */ // TODO - see previous (inline-block) comment
+								,
+								// @description - TODO
+								EditStation : role == _Roles._isAdmin ||
+								( role == _Roles._isPlayer &&
+								true /* editMode permits */ ) // TODO - see previous (inline-block) comment
+							};
+
+							service.Permit = permittedActions;
+
+							resolve(service.Permit.EditStation);
+            }
+					});
+			}
+		});
 	}
 
 	function getRequestAllStationsPermit ()
