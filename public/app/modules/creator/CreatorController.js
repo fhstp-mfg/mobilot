@@ -187,31 +187,21 @@ function CreatorController (
 
 
             // get stations
-            var getStationsResponse =
-              ListService
-                .getStations( mobidulCode, 'all');
+            ListService.getStations( mobidulCode, 'all')
+              .then(function(response){
 
-            if ( getStationsResponse !== 'no-permission' )
-            {
-              getStationsResponse
-                .success(function (data, status, headers, config)
-                {
-                  // $log.debug('_getStations');
-                  // $log.debug(data);
+                var hasPermission = response.hasPermission,
+                    stations = response.stations;
 
-                  creator.stations = data;
-                })
-                .error(function (data, status, headers, config)
-                {
-                  $log.error(data);
-                  $log.error(status);
-                })
-            }
-            else
-            {
-              // TODO
-              // ERROR, HE IS IN THE CREATOR BUT DOESNT HAVE THE PERMISSION TO VIEW ALL STATIONS
-            }
+                if(hasPermission){
+                  //console.info('creator - stations:');
+                  //console.log(stations);
+                  
+                  creator.stations = stations;
+                }else{
+                  $log.warn('inside creator withour having permission to view all stations!');
+                }
+              });
 
         //get Codes
         getPlayCodes();

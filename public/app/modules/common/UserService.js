@@ -24,8 +24,8 @@ function UserService (
 	// NOTE - these are permissions for Guest users
 	var _Permits =
 	{
-		RequestAllStations 		: false,
-		RequestCategoryStations : false,
+		//RequestAllStations 		: false,
+		//RequestCategoryStations : false,
 		//EditStation 			: false
 	};
 
@@ -71,7 +71,23 @@ function UserService (
 
 
 	/// private functions
-	// ...
+
+  function _checkPermits(role){
+    return {
+      // @description - TODO
+      RequestAllStations : role == _Roles._isAdmin ||
+      true /* editMode permits */ // TODO - see previous (inline-block) comment
+      ,
+      // @description - TODO
+      RequestCategoryStations : role == _Roles._isAdmin ||
+      true /* editMode permits */ // TODO - see previous (inline-block) comment
+      ,
+      // @description - TODO
+      EditStation : role == _Roles._isAdmin ||
+      ( role == _Roles._isPlayer &&
+      true /* editMode permits */ ) // TODO - see previous (inline-block) comment
+    };
+  }
 
 
 	/// services
@@ -246,29 +262,9 @@ function UserService (
 
 						service.Session.role = role;
 
+            service.Permit = _checkPermits(role);
 
-						var permittedActions =
-						{
-							// @description - TODO
-							RequestAllStations : role == _Roles._isAdmin ||
-												 true /* editMode permits */ // TODO - see previous (inline-block) comment
-							,
-							// @description - TODO
-							RequestCategoryStations : role == _Roles._isAdmin ||
-													  true /* editMode permits */ // TODO - see previous (inline-block) comment
-							,
-							// @description - TODO
-							EditStation : role == _Roles._isAdmin ||
-										  ( role == _Roles._isPlayer &&
-										  	true /* editMode permits */ ) // TODO - see previous (inline-block) comment
-						};
-
-						//$log.info('UserService - restoreUserRole - permittedActions:');
-						//$log.debug(permittedActions);
-
-						service.Permit = permittedActions;
-
-						//$log.info('UserService - restoreUserRole - permit:');
+            //$log.info('UserService - restoreUserRole - permit:');
 						//$log.debug(service.Permit);
 					}
 				})
@@ -376,25 +372,9 @@ function UserService (
 
 							service.Session.role = role;
 
-							var permittedActions =
-							{
-								// @description - TODO
-								RequestAllStations : role == _Roles._isAdmin ||
-								true /* editMode permits */ // TODO - see previous (inline-block) comment
-								,
-								// @description - TODO
-								RequestCategoryStations : role == _Roles._isAdmin ||
-								true /* editMode permits */ // TODO - see previous (inline-block) comment
-								,
-								// @description - TODO
-								EditStation : role == _Roles._isAdmin ||
-								( role == _Roles._isPlayer &&
-								true /* editMode permits */ ) // TODO - see previous (inline-block) comment
-							};
+              service.Permit = _checkPermits(role);
 
-							service.Permit = permittedActions;
-
-							resolve(service.Permit.EditStation);
+              resolve(service.Permit.EditStation);
             }
 					});
 			}
@@ -403,14 +383,60 @@ function UserService (
 
 	function getRequestAllStationsPermit ()
 	{
-		//$log.info('UserService - getRequestAllStationsPermit - service.Permit:');
-		//$log.debug(service.Permit);
-		return service.Permit.RequestAllStations;
+    return $q(function(resolve, reject){
+
+      if(service.Permit.RequestAllStations){
+        $timeout(function(){
+          resolve(service.Permit.RequestAllStations);
+        });
+
+      }else{
+        var url = 'RoleForMobidul/' + $stateParams.mobidulCode;
+
+        $http.get( url )
+          .success(function (response, status, headers, config)
+          {
+            var role = angular.isDefined( response.role ) ? response.role : null;
+
+            if ( role !== null )
+            {
+              service.Session.role = role;
+
+              service.Permit = _checkPermits(role);
+
+              resolve(service.Permit.RequestAllStations);
+            }
+          })
+      }
+    });
 	}
 
 	function getRequestCategoryStationsPermit ()
 	{
-		return service.Permit.RequestCategoryStations;
+    return $q(function(resolve, reject){
+      if(service.Permit.RequestCategoryStations){
+        $timeout(function(){
+          resolve(service.Permit.RequestCategoryStations);
+        });
+      }else{
+        var url = 'RoleForMobidul/' + $stateParams.mobidulCode;
+
+        $http.get( url )
+          .success(function (response, status, headers, config)
+          {
+            var role = angular.isDefined( response.role ) ? response.role : null;
+
+            if ( role !== null )
+            {
+              service.Session.role = role;
+
+              service.Permit = _checkPermits(role);
+
+              resolve(service.Permit.RequestCategoryStations);
+            }
+          })
+      }
+    });
 	}
 
 

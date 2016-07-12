@@ -4,13 +4,13 @@ angular
 
 
 ListService.$inject = [
-  '$log', '$rootScope', '$http',
+  '$log', '$rootScope', '$http', '$q', '$timeout',
   'UserService'
 ];
 
 
 function ListService (
-  $log, $rootScope, $http,
+  $log, $rootScope, $http, $q, $timeout,
   UserService
 ) {
   /// ListService
@@ -28,31 +28,66 @@ function ListService (
     // refreshStationActions : refreshStationActions
   };
 
+  ///private functions
+  
+  function _getPermissionByCat(cat){
 
+    return $q(function(resolve, reject){
+
+      if(cat === service.ALL_STATIONS){
+        UserService.getRequestAllStationsPermit()
+          .then(function(RequestAllStationsPermit){
+            
+            resolve(RequestAllStationsPermit);
+          });
+      }else{
+        UserService.getRequestCategoryStationsPermit()
+          .then(function(RequestCategoryStationsPermit){
+            resolve(RequestCategoryStationsPermit);
+          });
+      }
+    });
+  }
+  
+  
   /// services
 
   function getStations (mobidulCode, cat)
   {
-    $log.debug('> ListService getStations service');
-    // $log.debug(cat);
+    //$log.info('> ListService getStations service');
+    //$log.debug(cat);
 
-    var hasPermission = ( cat === service.ALL_STATIONS )
-                          ? UserService.getRequestAllStationsPermit()
-                          : UserService.getRequestCategoryStationsPermit();
+    return $q(function(resolve, reject){
+      _getPermissionByCat(cat)
+        .then(function(hasPermission){
 
-    $log.debug(hasPermission);
+          if ( hasPermission ) {
+            var url  = mobidulCode + '/';
+                url += ( cat !== service.ALL_STATIONS )
+                         ? 'GetForCategory/' + cat
+                         : 'GetStations/All';
 
-    if ( hasPermission )
-    {
-      var url  = mobidulCode + '/';
-          url += ( cat !== service.ALL_STATIONS )
-                   ? 'GetForCategory/' + cat
-                   : 'GetStations/All';
+            $http.get( url )
+              .success(function(data){
 
-      return $http.get( url );
-    }else{
-      return 'no-permission';
-    }
+                resolve({
+                  hasPermission: hasPermission,
+                  stations: data
+                });
+                
+              })
+              .error(function(data, status){
+                $log.error(data);
+                $log.error(status);
+              });
+          }else{
+            resolve({
+              hasPermission: hasPermission,
+              stations: null
+            });
+          }
+        });
+    });
   }
 
 

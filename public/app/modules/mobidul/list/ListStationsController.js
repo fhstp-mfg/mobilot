@@ -74,80 +74,53 @@ function ListStationsController (
   function _getStations ()
   {
     var currentStateParams = StateManager.state.params;
+    
+    ListService.getStations(
+        currentStateParams.mobidulCode,
+        currentStateParams.category
+      ).then(function(response){
 
-    var getStationsResponse =
-      ListService
-        .getStations(
-          currentStateParams.mobidulCode,
-          currentStateParams.category
-        );
+      //console.info('ListStationsController - _getStations');
+      //console.log(response);
 
+      var hasPermission = response.hasPermission,
+          stations = response.stations;
+      
+      if(hasPermission){
 
-    $log.debug('getStationsResponse : ');
-    // $log.debug(list.params);
-    $log.debug(currentStateParams);
-    $log.debug(getStationsResponse);
-
-
-    //TODO: if all stations get called first the user doesn't have permission and gets redirected (probably because userservice doesn't know roles yet)
-    if ( getStationsResponse !== 'no-permission' )
-    {
-      getStationsResponse
-        .success(function (stations, status, headers, config)
-        {
-          $log.debug('_getStations:');
-          $log.debug(stations);
-
-          MobidulService.getMobidulMode(currentStateParams.mobidulCode)
-            .then(function(mode)
-            {
-              if(mode == MobidulService.MOBIDUL_MODE_RALLY)
-              {
-                //TODO: is this still necessary?
-                //RallyService.refresh();
-
-                if ( currentStateParams.category !== ListService.ALL_STATIONS )
-                  RallyService.filterStations(stations)
-                    .then(function(stations){
-                      list.stations = stations;
-                    });
-                else
+        MobidulService.getMobidulMode(currentStateParams.mobidulCode)
+          .then(function(mode) {
+            if(mode == MobidulService.MOBIDUL_MODE_RALLY && currentStateParams.category !== ListService.ALL_STATIONS) {
+              RallyService.filterStations(stations)
+                .then(function(stations){
                   list.stations = stations;
-              }
-              else
-                list.stations = stations;
-            });
+                });
 
-        })
-        .error(function (response, status, headers, config)
-        {
-          $log.error(response);
-          $log.error(status);
-        })
-        .then(function ()
-        {
-          list.loading = 'none';
+            }else{
+              list.stations = stations;
+            }
+          })
+          .then(function(){
+            list.loading = 'none';
+            ListService.hideAppLoader();
+          });
+      }else{
 
-          // $rootScope.$emit('rootScope:toggleAppLoader', { action : 'hide' });
-          ListService.hideAppLoader();
-        });
-    }
-    else
-    {
-      list.stations = [];
+        list.stations = [];
+        list.loading  = 'none';
+        ListService.hideAppLoader();
 
-      list.loading  = 'none';
+        // TODO - check if the above lines are necessary
 
-      ListService.hideAppLoader();
+        $state.go('mobidul.map', {mobidulCode : currentStateParams.mobidulCode});
+      }
+    });
 
-      // TODO - check if the above lines are necessary
+    //$log.debug('getStationsResponse : ');
+    // $log.debug(list.params);
+    //$log.debug(currentStateParams);
+    //$log.debug(getStationsResponse);
 
-
-      $state.go('mobidul.map',
-      {
-        mobidulCode : currentStateParams.mobidulCode
-      });
-    }
   }
 
 
