@@ -1,4 +1,4 @@
-<div>
+<>
   <!-- ListController as list -->
 
   <style>
@@ -78,57 +78,39 @@
       id="list_stations"
       layout="column">
 
-      <div ng-repeat="station in list.stations | filter : list.searchQuery | orderBy : station.order">
+      <ul dnd-list="list.stations"
+          dnd-disable-if="!list.canEditStation">
+
+        <li ng-repeat="station in list.stations | filter : list.searchQuery | orderBy : station.order"
+            dnd-draggable="station"
+            dnd-moved="list.moveStation($index)"
+            dnd-effect-allowed="move"
+            dnd-selected="models.selected = station"
+            ng-class="{'selected': models.selected === element}"
+            dnd-disable-if="!list.canEditStation">
+
         <md-list-item
-          class="station-item"
-          ng-class-odd="'station-odd'"
-          ng-click="list.switchContent( list.params.mobidulCode, station.code, station )">
+              class="station-item"
+              ng-class-odd="'station-odd'"
+              ng-click="list.switchContent( list.params.mobidulCode, station.code, station )">
 
-          <div class="md-list-item-text stdLink">
-            <h3>{{ station.name }}</h3>
-          </div>
+              <div class="md-list-item-text stdLink">
+                <h3>{{ station.name }} </h3>
+              </div>
 
-          <!-- <md-icon
-            class="md-secondary"
-            ng-show="list.showEditButton"
-            ng-click="list.editStation( station.code )"
-            aria-label="Bearbeiten">
-            edit
-          </md-icon> -->
+              <div
+                class="md-secondary secondary-icon"
+                ng-show="station.canEdit"
+                ng-click="list.editStation( station.code )"
+                aria-label="Bearbeiten">
+                <span>✎</span>
+              </div>
 
-          <div
-            class="md-secondary secondary-icon"
-            ng-show="station.canEdit"
-            ng-click="list.editStation( station.code )"
-            aria-label="Bearbeiten">
-            <span>✎</span>
-          </div>
+              <md-divider ng-if=" ! $last"></md-divider>
+            </md-list-item>
 
-          <!-- <md-icon
-            class="md-secondary"
-            ng-show="true"
-            ng-click="list.deleteStation( station.code )"
-            aria-label="Löschen">
-            delete
-          </md-icon> -->
-
-          <md-divider ng-if=" ! $last"></md-divider>
-        </md-list-item>
-        <!--Todo: style button or implement Drag and Drop
-        <div
-          ng-show="list.isRallye"
-          ng-click="list.moveStation( station, 'up')"
-          aria-label="Rauf schieben">
-          <span>up</span>
-        </div>
-        <div
-          ng-show="list.isRallye"
-          ng-click="list.moveStation( station, 'down')"
-          aria-label="Rauf schieben">
-          <span>down</span>
-        </div>
-        -->
-      </div>
+        </li>
+      </ul>
     </md-list>
   </md-content>
 </div>

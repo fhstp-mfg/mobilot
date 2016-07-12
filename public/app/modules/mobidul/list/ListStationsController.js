@@ -26,10 +26,11 @@ function ListStationsController (
   list.stations       = [];
   list.loading        = 'block';
   list.searchQuery    = '';
-  list.showEditButton = false;
+  list.canEditStation = false;
   list.myFont         = '';
 
-  /// functions
+
+    /// functions
   list.switchContent  = switchContent;
   list.editStation    = editStation;
   list.moveStation    = moveStation;
@@ -64,10 +65,10 @@ function ListStationsController (
 
   function _refreshStationActions ()
   {
-    var userRole = UserService.Session.role;
-
-    list.showEditButton = userRole == UserService.Role._isAdmin ||
-                          userRole == UserService.Role._isPlayer;
+    UserService.getEditStationPermit()
+      .then(function(permit){
+        list.canEditStation = permit;
+      });
   }
 
 
@@ -181,44 +182,16 @@ function ListStationsController (
   }
 
 
-	function moveStation (station, dir)
+	function moveStation ( index )
 	{
 
-		if(!((dir == 'up' && station.order == 0) || (dir == 'down' && station.order == (list.stations.length-1)))){
-			var tempOrder = station.order;
-			station.order += (dir == 'up') ? -1 : 1;
+    list.stations.splice(index, 1);
+    
+    angular.forEach(list.stations, function(station, i){
+      station.order = i;
+    });
 
-			var neighbour = list.stations.filter(function(s){
-				var order = (dir == 'up') ? tempOrder-1 : tempOrder+1;
-				return parseInt(s.order) == order;
-			})[0];
-
-			neighbour.order = tempOrder;
-
-			var currentStateParams = StateManager.state.params;
-
-			var response = ListService.saveOrder(currentStateParams.mobidulCode, list.stations);
-
-			response
-				.success(function (data, status, headers, config)
-					{
-						if(data == "success"){
-              //Todo: refresh list
-						}else{
-							$log.error(data)
-						}
-					})
-				.error(function (data, status, headers, config)
-					{
-						$log.error(data);
-						$log.error(status);
-					})
-				.then(function (response)
-					{
-
-					});
-
-		}
+    ListService.saveOrder(StateManager.state.params.mobidulCode, list.stations);
 
 	}
 

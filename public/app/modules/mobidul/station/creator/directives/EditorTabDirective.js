@@ -25,7 +25,7 @@
           'dnd-moved="tabconfig.splice($index, 1)"' +
           'dnd-effect-allowed="move"' +
           'dnd-selected="models.selected = element"' +
-          'ng-class="{\'selected\': models.selected === item}"' +
+          'ng-class="{\'selected\': models.selected === element}"' +
         '><element-container element="element"></element-container></li>' +
       '</ul>' +
       '</md-tab-body>' +

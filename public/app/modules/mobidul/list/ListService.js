@@ -25,6 +25,7 @@ function ListService (
     /// services
     getStations         : getStations,
     hideAppLoader       : hideAppLoader,
+    saveOrder           :saveOrder
     // refreshStationActions : refreshStationActions
   };
 
