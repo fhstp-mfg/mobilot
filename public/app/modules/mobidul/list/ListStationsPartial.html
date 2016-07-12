@@ -85,8 +85,6 @@
             dnd-draggable="station"
             dnd-moved="list.moveStation($index)"
             dnd-effect-allowed="move"
-            dnd-selected="models.selected = station"
-            ng-class="{'selected': models.selected === element}"
             dnd-disable-if="!list.canEditStation">
 
         <md-list-item

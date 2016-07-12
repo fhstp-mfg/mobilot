@@ -24,10 +24,11 @@
           'dnd-draggable="element"' +
           'dnd-moved="tabconfig.splice($index, 1)"' +
           'dnd-effect-allowed="move"' +
-          'dnd-selected="models.selected = element"' +
-          'ng-class="{\'selected\': models.selected === element}"' +
+          'dnd-selected="ctrl.selected = element"' +
+          'ng-class="{\'selected\': ctrl.selected === element}"' +
         '><element-container element="element"></element-container></li>' +
       '</ul>' +
+      '{{selected}}' +
       '</md-tab-body>' +
       '</md-tab></div>',
       scope: {
@@ -38,6 +39,26 @@
 
         //$log.info('EditorTab - scope:');
         //$log.debug($scope.tabconfig);
+
+        ctrl.selected = null;
+
+        $scope.$watch('ctrl.selected', function(selected){
+          if(selected){
+            
+            $scope.tabconfig.map(function(elem){
+              return elem.selected = false;
+            });
+
+            var selectedElement = $scope.tabconfig.filter(function(elem){
+              return elem == selected;
+            })[0];
+
+            selectedElement.selected = true;
+            
+          }
+
+
+        });
 
       },
       controller: EditorTabController,

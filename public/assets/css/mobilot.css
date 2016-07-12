@@ -322,7 +322,6 @@ map {
 
 
 element-container{
-    background-color: #d3d3d3;
     border: solid 1px grey;
     display: block;
     position: relative;
@@ -597,8 +596,8 @@ ul[dnd-list] li {
 }
 
 /**
- * Show selected elements in green
+ * Show selected elements in green*/
 ul[dnd-list] li.selected {
     background-color: #dff0d8;
     color: #3c763d;
-} */
+}

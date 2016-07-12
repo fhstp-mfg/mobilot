@@ -49,9 +49,15 @@
 
       $rootScope.$on('add:editorElement', function(event, type){
 
-        ctrl.config[ctrl.stateMapping[ctrl.selectedIndex]].push({
-          type: type
-        });
+        var stateConfig = ctrl.config[ctrl.stateMapping[ctrl.selectedIndex]];
+        
+        var selected = stateConfig.filter(function(elem){
+          return elem.selected == true;
+        })[0];
+
+        var insertIndex = stateConfig.indexOf(selected) + 1;
+
+        stateConfig.splice(insertIndex, 0, {type: type});
 
       });
     }
