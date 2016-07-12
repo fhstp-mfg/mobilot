@@ -18,7 +18,7 @@
     return {
       restrict: 'E',
       template: '<div>' +
-        '<md-button ng-disabled="true">{{content}}</md-button><br>' +
+       // '<md-button ng-disabled="true">{{content}}</md-button><br>' +
         '<md-input-container><input type="text" ng-model="content" placeholder="Beschriftung"></md-input-container>' +
         '<action-selector data-opts="ctrl.actionOpts" data-selection="success" data-name="Success"></action-selector>' +
       '</div>',

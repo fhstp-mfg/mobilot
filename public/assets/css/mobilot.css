@@ -309,6 +309,11 @@ map {
   border  : 0;
 }
 
+.tinyeditor .sizer{
+    min-height: 0px;
+    margin-bottom:1em;
+}
+
 #editortabs{
     height:100%;
 }
@@ -319,14 +324,26 @@ map {
     padding: 0;
 }
 
-
-
 element-container{
     border: solid 1px grey;
     display: block;
     position: relative;
     margin-bottom: 1em;
     padding: 1em;
+}
+
+#tinyeditor_left_controls{
+    display:none;
+}
+
+li.selected #tinyeditor_left_controls{
+    display: flex;
+}
+
+.editor-element-delete{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
 }
 
 .save-basis-progress
