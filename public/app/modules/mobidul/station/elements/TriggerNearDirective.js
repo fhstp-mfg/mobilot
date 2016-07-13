@@ -24,7 +24,7 @@
       template: "<div>" +
       "<div data-ng-if='ctrl.inaccurate'>" +
       "<span>GPS zu ungenau - gib den Code bei der Station ein:</span>" +
-      "<inputcode data-verifier='{{fallback}}' data-success='verifyIfNear:{{success}}' data-error='say:Falscher Code, probiers nochmal!'></inputcode>" +
+      "<mbl-input-code data-verifier='{{fallback}}' data-success='verifyIfNear:{{success}}' data-error='say:Falscher Code, probiers nochmal!'></mbl-input-code>" +
       "</div>" +
       "<div data-ng-if='!ctrl.inaccurate'>" +
       "<md-icon data-ng-if='ctrl.trigger'>room</md-icon>" +

@@ -6,15 +6,17 @@
     .directive('elementContainer', ElementContainer);
   
   ElementContainer.$inject = [
-    '$log', '$compile', '$rootScope'
+    '$log', '$compile', '$rootScope',
+    '$mdDialog'
   ];
   
   function ElementContainer(
-    $log, $compile, $rootScope
+    $log, $compile, $rootScope,
+    $mdDialog
   ){
     return {
       restrict: 'E',
-      template:'<div class="editorelement"><button class="editor-element-delete" data-ng-click="ctrl.delete()">Delete</button></div>',
+      template:'<div class="editorelement"><md-button data-ng-click="ctrl.showInfo()" class="editor-element-info"><md-icon>info_outline</md-icon></md-button><md-button class="editor-element-delete" data-ng-click="ctrl.delete()"><md-icon>delete</md-icon></md-button></div>',
       scope:{
         element: '='
       },
@@ -60,6 +62,27 @@
 
       ctrl.delete = function(){
         $rootScope.$broadcast('delete:editorElement', ctrl.element.$$hashKey);
+      };
+
+      ctrl.showInfo = function(){
+        //alert(ctrl.element.type);
+
+        var saveMobidulOptionsDialog =
+          $mdDialog
+            .alert()
+            .parent(angular.element(document.body))
+            .title(ctrl.element.type)
+            .textContent( 'lorem ipsum' )
+            .ariaLabel('Schließen')
+            .ok('Schließen');
+
+        $mdDialog
+          .show( saveMobidulOptionsDialog )
+          .then(function ()
+          {
+
+          });
+
       }
 
     }

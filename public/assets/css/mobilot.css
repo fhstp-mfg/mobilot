@@ -311,7 +311,7 @@ map {
 
 .tinyeditor .sizer{
     min-height: 0px;
-    margin-bottom:1em;
+    margin-bottom:2.5em;
 }
 
 #editortabs{
@@ -329,7 +329,7 @@ element-container{
     display: block;
     position: relative;
     margin-bottom: 1em;
-    padding: 1em;
+    padding: 0.5em 1em 0.5em 3em;
 }
 
 #tinyeditor_left_controls{
@@ -340,10 +340,26 @@ li.selected #tinyeditor_left_controls{
     display: flex;
 }
 
+.config-part{
+    display: none;
+}
+
+li.selected .config-part{
+    display: block;
+}
+
 .editor-element-delete{
     position: absolute;
     right: 10px;
     bottom: 10px;
+    min-width:0;
+}
+
+.editor-element-info{
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 0;
 }
 
 .save-basis-progress
