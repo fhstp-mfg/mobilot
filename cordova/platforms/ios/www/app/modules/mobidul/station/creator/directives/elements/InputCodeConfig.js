@@ -3,7 +3,7 @@
 
   angular
     .module('StationCreator')
-    .directive('editorinputcode', InputCodeEditor);
+    .directive('inputCodeConfig', InputCodeEditor);
 
   InputCodeEditor.$inject = [
     '$log',
@@ -18,11 +18,14 @@
 
       restrict: 'E',
       template: '<div>' +
-        '<md-input-container>' +
-          '<input type="text" data-ng-model="verifier" placeholder="Verifier">' +
-        '</md-input-container>' +
-        '<actionselector data-opts="ctrl.actionOpts" data-selection="success" data-name="Success"></actionselector>' +
-        '<actionselector data-opts="ctrl.actionOpts" data-selection="error" data-name="Error"></actionselector>' +
+        '<mbl-input-code data-verifier="{{verifier}}" data-success="say:{{success}}" data-error="say:{{error}}"></mbl-input-code>' +
+        '<div class="config-part">' +
+          '<md-input-container>' +
+            '<input type="text" data-ng-model="verifier" placeholder="Verifier">' +
+          '</md-input-container>' +
+          '<action-selector data-opts="ctrl.actionOpts" data-selection="success" data-name="Success"></action-selector>' +
+          '<action-selector data-opts="ctrl.actionOpts" data-selection="error" data-name="Error"></action-selector>' +
+        '</div>' +
       '</div>',
       scope: {
         verifier: '=',

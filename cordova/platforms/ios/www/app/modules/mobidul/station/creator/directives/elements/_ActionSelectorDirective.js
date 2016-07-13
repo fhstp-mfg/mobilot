@@ -3,7 +3,7 @@
 
   angular
     .module('StationCreator')
-    .directive('actionselector', ActionSelector);
+    .directive('actionSelector', ActionSelector);
 
   ActionSelector.$inject = [
     '$log'
@@ -16,7 +16,8 @@
 
       restrict: 'E',
       transclude: true,
-      template: '<div>' +
+      replace:true,
+      template:
         '<md-input-container>' +
           '<md-select data-ng-model="ctrl.selectionTemp">' +
             '<md-select-header>' +
@@ -29,8 +30,7 @@
           '<md-input-container data-ng-if="ctrl.selectionAttrNeeded">' +
             '<input type="text" data-ng-model="ctrl.selectionAttr" data-ng-change="ctrl.selectionChange()">' +
           '</md-input-container>' +
-        '</md-input-container>' +
-      '</div>',
+        '</md-input-container>' ,
       scope:{
         opts: '=',
         selection: '=',
@@ -46,7 +46,7 @@
         }
         
         $scope.$watch('ctrl.selectionTemp', function(selection){
-          if(selection && selection == 'say:'){
+          if(selection && selection.split(':').length > 1){
             ctrl.selectionAttrNeeded = true;
             $scope.selection = ctrl.selectionTemp + ctrl.selectionAttr;
           }else{

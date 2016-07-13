@@ -9,7 +9,7 @@ MapCustomController.$inject = [
   '$state', 'StateManager',
   '$geolocation', '$mdDialog',
   'MapService', 'StationService', 'StationCreatorService',
-  'LocalStorageService', 'RallyService'
+  'LocalStorageService', 'RallyService', 'MobidulService'
 ];
 
 
@@ -19,7 +19,7 @@ function MapCustomController (
   $state, StateManager,
   $geolocation, $mdDialog,
   MapService, StationService, StationCreatorService,
-  LocalStorageService, RallyService
+  LocalStorageService, RallyService, MobidulService
 )
 {
   var ngmap = this;
@@ -711,85 +711,78 @@ function MapCustomController (
   {
     var mobidulCode = StateManager.state.params.mobidulCode;
 
-    StationService
-      .getMapStations( mobidulCode )
-      .success(function (stations, status, headers, config, statusText)
-      {
-        $log.debug('Map Stations response success :');
-        $log.debug(stations);
+    MobidulService.getMobidulConfig(mobidulCode)
+      .then(function(config){
 
-        RallyService.refresh();
+        MobidulService.getProgress(mobidulCode)
+          .then(function(progress){
 
-        // init map stations empty array
-        $scope.stations = [];
+            StationService
+              .getMapStations( mobidulCode )
+              .success(function (stations, status, headers)
+              {
+                $log.debug('Map Stations response success :');
+                $log.debug(stations);
 
-        angular.forEach( stations, function (station, key)
-        {
-          // HACK show latest station by station order
-          // TODO sort zIndex beforehand !
-          $scope.markerLastZIndex++;
-          if ( $scope.markerLastZIndex <= google.maps.Marker.MAX_ZINDEX )
-            $scope.markerLastZIndex = google.maps.Marker.MAX_ZINDEX + 1;
+                RallyService.refresh();
 
-          var stationData =
-          {
-            id         : station.code,
-            latitude   : station.lat,
-            longitude  : station.lon,
-            name       : station.name,
+                // init map stations empty array
+                $scope.stations = [];
 
-            // NOTE not even using zIndex prop
-            // zindex     : $scope.markerLastZIndex,
+                angular.forEach( stations, function (station, key)
+                {
+                  // HACK show latest station by station order
+                  // TODO sort zIndex beforehand !
+                  $scope.markerLastZIndex++;
+                  if ( $scope.markerLastZIndex <= google.maps.Marker.MAX_ZINDEX )
+                    $scope.markerLastZIndex = google.maps.Marker.MAX_ZINDEX + 1;
 
-            order      : station.order,
-            isEligible : false
-          };
+                  var stationData =
+                  {
+                    id         : station.code,
+                    latitude   : station.lat,
+                    longitude  : station.lon,
+                    name       : station.name,
 
+                    // NOTE not even using zIndex prop
+                    // zindex     : $scope.markerLastZIndex,
 
-          // NOTE stations must pass some criteria for different mobidul types
-          // e.g. for a "rally" the station must either be completed or the
-          // currently activated station, in order to be eligible.
-          var MOBIDUL_TYPE = 'rally';
-          if ( MOBIDUL_TYPE == 'rally' )
-          {
-            // var stationOrder = key + 1;
-            var stationOrder = stationData.order;
+                    order      : station.order,
+                  };
 
-            isEligible = stationOrder <= RallyService.getProgress();
-          }
-          else
-          {
-            // some other mobidul type eligibility criteria ...
+                  if(!config.hiddenStations){
+                    stationData.isEligible = true;
+                  }else{
+                    stationData.isEligible = stationData.order <= progress.progress;
+                  }
 
-            isEligible = true;
-          }
-
-          // finally set the station eligibility prop
-          stationData.isEligible = isEligible;
-
-          // NOTE not eligible stations also get pushed
-          $scope.stations.push(stationData);
+                  // NOTE not eligible stations also get pushed
+                  $scope.stations.push(stationData);
 
 
-          // var stationMarkerData = {
-          //   code     : station.code,
-          //   title    : station.name,
-          //   position : new google.maps.LatLng( station.lat, station.lng )
-          // };
-          //
-          // var stationMarker = new google.maps.Marker( stationMarkerData );
-          //
-          // $scope.markers.push(stationMarker);
-        });
-      })
-      .error(function (response, status, headers, config, statusText)
-      {
-        $log.error(response);
-        $log.error(status);
-      })
-      .then(function (stations)
-      {
-        _initOriginMap();
+                  // var stationMarkerData = {
+                  //   code     : station.code,
+                  //   title    : station.name,
+                  //   position : new google.maps.LatLng( station.lat, station.lng )
+                  // };
+                  //
+                  // var stationMarker = new google.maps.Marker( stationMarkerData );
+                  //
+                  // $scope.markers.push(stationMarker);
+                });
+              })
+              .error(function (response, status, headers, config, statusText)
+              {
+                $log.error(response);
+                $log.error(status);
+              })
+              .then(function (stations)
+              {
+                _initOriginMap();
+              });
+
+
+          });
       });
   }
 

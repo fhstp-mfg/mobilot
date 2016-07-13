@@ -4,7 +4,7 @@
 /// constants
 
 var _live  = false;
-var _https = false; // NOTE https is an iOS 9 requirement !
+var _https = false; // NOTE https is an iOS 9 Safari requirement !
 
 // NOTE - don't add any trailing slashes (/) at the end or the URL !
 var _online_server = _live  ? 'mobilot.at' : 'mobilot.fhstp.ac.at';
@@ -51,32 +51,32 @@ var _enable_aboutus         = true;        // default : true
 // adapted from: http://stackoverflow.com/a/827378/2035807
 function getUrlParameter (variable)
 {
-    var query = window.location.search.substring(1);
-    var vars  = query.split('&');
+  var query = window.location.search.substring(1);
+  var vars  = query.split('&');
 
-    for ( var i = 0; i < vars.length; i++ )
-    {
-        var pair = vars[ i ].split('=');
+  for ( var i = 0; i < vars.length; i++ )
+  {
+    var pair = vars[ i ].split('=');
 
-        if ( pair[ 0 ] == variable )
-            return pair[ 1 ].replace('/', '');
-    }
+    if ( pair[ 0 ] == variable )
+      return pair[ 1 ].replace('/', '');
+  }
 
-    return '';
+  return '';
 }
 
 
 // NOTE - adapted from: http://stackoverflow.com/a/3646923/2035807
 function urlExists (url)
 {
-    var http = new XMLHttpRequest();
+  var http = new XMLHttpRequest();
 
-    http.open('HEAD', url, false);
-    http.send();
+  http.open('HEAD', url, false);
+  http.send();
 
-    var urlExists = http.status != 404;
+  var urlExists = http.status != 404;
 
-    return urlExists;
+  return urlExists;
 }
 
 

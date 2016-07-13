@@ -109,30 +109,25 @@ function StationController (
         )
         .success(function (response, status, headers, config)
         {
-          //$log.info('_initStation station response :');
-          //$log.debug(response);
+          // $log.info('_initStation station response :');
+          // $log.debug(response);
 
-          if ( response === '' )
-          {
+          if ( response === '' ) {
             station.text = 'Zu diesem Code ist leider keine Station vorhanden ...';
 
             UserService.Permit.EditStation = false;
-          }
-          else
-          {
-
+          } else {
             var goToCurrentTesting = true;
 
             RallyService.isEligible(response.order)
-              .then(function(isEligible){
-                if(
+              .then(function (isEligible) {
+                if (
                   ! isEligible &&
                   ! StateManager.isStationCreator() &&
                   ! goToCurrentTesting
-                ){
-
+                ) {
                   RallyService.goToCurrent();
-                }else{
+                } else {
 
                   UserService.Permit.EditStation = response.canEdit && UserService.Permit.EditStation;
 

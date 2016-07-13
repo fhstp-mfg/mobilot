@@ -3,14 +3,14 @@
 
   angular
     .module('Mobidul')
-    .directive('ifnear', ifNear);
+    .directive('mblTriggerNear', TriggerNear);
 
-  ifNear.$inject = [
+  TriggerNear.$inject = [
     '$log', '$rootScope',
     'GeoLocationService'
   ];
 
-  function ifNear(
+  function TriggerNear(
     $log, $rootScope,
     GeoLocationService
   ){
@@ -22,15 +22,15 @@
         range: '@'
       },
       template: "<div>" +
-      "<div ng-if='ctrl.inaccurate'>" +
+      "<div data-ng-if='ctrl.inaccurate'>" +
       "<span>GPS zu ungenau - gib den Code bei der Station ein:</span>" +
-      "<inputcode verifier='{{fallback}}' success='verifyIfNear:{{success}}' error='say:Falscher Code, probiers nochmal!'></inputcode>" +
+      "<mbl-input-code data-verifier='{{fallback}}' data-success='verifyIfNear:{{success}}' data-error='say:Falscher Code, probiers nochmal!'></mbl-input-code>" +
       "</div>" +
-      "<div ng-if='!ctrl.inaccurate'>" +
-      "<md-icon ng-if='ctrl.trigger'>room</md-icon>" +
-      "<div ng-if='!ctrl.trigger'>" +
+      "<div data-ng-if='!ctrl.inaccurate'>" +
+      "<md-icon data-ng-if='ctrl.trigger'>room</md-icon>" +
+      "<div data-ng-if='!ctrl.trigger'>" +
       "<span>{{ctrl.default}}</span>" +
-      "<span ng-if='ctrl.distance'>Du bist noch {{ctrl.distance}} Meter entfernt. (± {{ctrl.accuracy}}m)</span>" +
+      "<span data-ng-if='ctrl.distance'>Du bist noch {{ctrl.distance}} Meter entfernt. (± {{ctrl.accuracy}}m)</span>" +
       "<md-icon class='search-anim'>track_changes</md-icon>" +
       "</div>" +
       "</div>" +

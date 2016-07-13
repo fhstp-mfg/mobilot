@@ -58,41 +58,34 @@ function CreatorService (
   function existsMobidul (mobidulCode)
   {
     var mobidulCode = mobidulCode.replace(/[^a-z0-9]/g, '');
-    var serviceUrl  = 'existsMobidul/' + mobidulCode;
 
-    return $http
-      .get( serviceUrl )
-      .error(function (response, status, headers, config) {
-        $log.error(response);
-        $log.error(status);
-      });
+    return $http.get( cordovaUrl + '/existsMobidul/' + mobidulCode )
+    .error(function (response, status, headers, config) {
+      $log.error(response);
+      $log.error(status);
+    });
   }
 
 
   function createMobidul (params)
   {
-    var serviceUrl = 'NewMobidul';
-
-    return $http
-      .post ( serviceUrl, JSON.stringify( params ) )
-      .error(function (response, status, headers, config) {
-        $log.error(response);
-        $log.error(status);
-      });
+    return $http.post( cordovaUrl + '/NewMobidul', JSON.stringify(params) )
+    .error(function (response, status, headers, config) {
+      $log.error(response);
+      $log.error(status);
+    });
   }
 
 
   function updateMobidul (mobidulCode, params)
   {
-    var serviceUrl  = mobidulCode + '/UpdateMobidul';
     var mobidulData = JSON.stringify( params );
 
-    return $http
-      .post( serviceUrl, mobidulData )
-      .error(function (response, status, headers, config) {
-        $log.error(response);
-        $log.error(status);
-      });
+    return $http.post(cordovaUrl + '/' + mobidulCode + '/UpdateMobidul', mobidulData )
+    .error(function (response, status, headers, config) {
+      $log.error(response);
+      $log.error(status);
+    });
   }
 
 
@@ -101,164 +94,127 @@ function CreatorService (
     var params = { mobidulCode : mobidulCode };
     var mobidulData = JSON.stringify( params );
 
-    return $http
-      .post('DeleteMobidul', mobidulData)
-      .error(function (response, status, headers, config) {
-        $log.error(response);
-        $log.error(status);
-      });
+    return $http.post(cordovaUrl + '/DeleteMobidul', mobidulData)
+    .error(function (response, status, headers, config) {
+      $log.error(response);
+      $log.error(status);
+    });
   }
 
 
   function saveOptions ( mobidulCode, params )
   {
-    var serviceUrl = mobidulCode + '/SetOptions';
-
-    return $http
-      .post ( serviceUrl, params )
-      .error(function (response, status, headers, config) {
-        $log.error(response);
-        $log.error(status);
-      });
+    return $http.post(cordovaUrl + '/' + mobidulCode + '/SetOptions', params)
+    .error(function (response, status, headers, config) {
+      $log.error(response);
+      $log.error(status);
+    });
   }
 
 
   function updateCategories (mobidulCode, params)
   {
-    var serviceUrl = mobidulCode + '/UpdateCategories';
-
-    return $http
-      .post ( serviceUrl, params)
-      .error(function (response, status, headers, config) {
-        $log.error(response);
-        $log.error(status);
-      });
+    return $http.post(cordovaUrl + '/' + mobidulCode + '/UpdateCategories', params)
+    .error(function (response, status, headers, config) {
+      $log.error(response);
+      $log.error(status);
+    });
   }
 
 
   function removeCategory (mobidulCode, categoryId)
   {
-    var serviceUrl = mobidulCode + '/RemoveCategory/' + categoryId;
-
-    return $http
-      .get( serviceUrl )
-      .error(function (response, status, headers, config) {
-        $log.error(response);
-        $log.error(status);
-      });
+    return $http.get(cordovaUrl + '/' + mobidulCode + '/RemoveCategory/' + categoryId)
+    .error(function (response, status, headers, config) {
+      $log.error(response);
+      $log.error(status);
+    });
   }
 
 
   function getCategories (mobidulCode)
   {
-    var serviceUrl = mobidulCode + '/GetCategories';
-
-    return $http
-      .get( serviceUrl )
-      .error(function (response, status, headers, config) {
-        $log.error(response);
-        $log.error(status);
-      });
+    return $http.get(cordovaUrl + '/' + mobidulCode + '/GetCategories')
+    .error(function (response, status, headers, config) {
+      $log.error(response);
+      $log.error(status);
+    });
   }
 
 
   function getOptions (mobidulCode)
   {
-    var serviceUrl = mobidulCode + '/GetOptions';
-
-    return $http
-      .get( serviceUrl )
-      .error(function (response, status, headers, config) {
-        $log.error(response);
-        $log.error(status);
-      });
+    return $http.get(cordovaUrl + '/' + mobidulCode + '/GetOptions')
+    .error(function (response, status, headers, config) {
+      $log.error(response);
+      $log.error(status);
+    });
   }
 
 
   function getConfig (mobidulCode)
   {
-    var serviceUrl = mobidulCode + '/getConfig';
-
-    return $http
-      .get ( serviceUrl )
-      .error(function (response, status, headers, config) {
-        $log.error(response);
-        $log.error(status);
-      });
+    return $http.get(cordovaUrl + '/' + mobidulCode + '/getConfig')
+    .error(function (response, status, headers, config) {
+      $log.error(response);
+      $log.error(status);
+    });
   }
 
   function getCodes (mobidulCode)
   {
-    var serviceUrl = 'Codes/' + mobidulCode;
-
-    return $http
-      .get ( serviceUrl )
-      .error(function (response, status, headers, config) {
-        $log.error(response);
-        $log.error(status);
-      });
+    return $http.get(cordovaUrl + '/Codes/' + mobidulCode)
+    .error(function (response, status, headers, config) {
+      $log.error(response);
+      $log.error(status);
+    });
   }
 
   function requestCode (mobidulCode)
   {
-    var serviceUrl = mobidulCode + '/GetPlayCode';
-
-    return $http
-      .post( serviceUrl, {})
-      .error(function (response, status, headers, config) {
-        $log.error(response);
-        $log.error(status);
-      });
+    return $http.post(cordovaUrl + '/' + mobidulCode + '/GetPlayCode', {})
+    .error(function (response, status, headers, config) {
+      $log.error(response);
+      $log.error(status);
+    });
   }
 
   function lockCode (codeToLock)
   {
-    var serviceUrl = 'CloseCode/' + codeToLock;
-
-    return $http
-      .get ( serviceUrl )
-      .error(function (response, status, headers, config) {
-        $log.error(response);
-        $log.error(status);
-      });
+    return $http.get(cordovaUrl + '/CloseCode/' + codeToLock)
+    .error(function (response, status, headers, config) {
+      $log.error(response);
+      $log.error(status);
+    });
   }
 
   function unlockCode (codeToUnlock)
   {
-    var serviceUrl = 'OpenCode/' + codeToUnlock;
-
-    return $http
-      .get ( serviceUrl )
-      .error(function (response, status, headers, config) {
-        $log.error(response);
-        $log.error(status);
-      });
+    return $http.get(cordovaUrl + '/OpenCode/' + codeToUnlock)
+    .error(function (response, status, headers, config) {
+      $log.error(response);
+      $log.error(status);
+    });
   }
 
   function deleteCode (codeToDelete)
   {
-    var serviceUrl = 'DeleteCode/' + codeToDelete;
-
-    return $http
-      .get ( serviceUrl )
-      .error(function (response, status, headers, config) {
-        $log.error(response);
-        $log.error(status);
-      });
+    return $http.get(cordovaUrl + '/DeleteCode/' + codeToDelete)
+    .error(function (response, status, headers, config) {
+      $log.error(response);
+      $log.error(status);
+    });
   }
 
 
 
   function saveMenu (mobidulCode, params)
   {
-    var serviceUrl = mobidulCode + '/UpdateNavigation';
-
-    return $http
-      .post ( serviceUrl, JSON.stringify( params ) )
-      .error(function (response, status, headers, config) {
-        $log.error(response);
-        $log.error(status);
-      });
+    return $http.post(cordovaUrl + '/' + mobidulCode + '/UpdateNavigation', JSON.stringify(params) )
+    .error(function (response, status, headers, config) {
+      $log.error(response);
+      $log.error(status);
+    });
   }
 
 

@@ -1,44 +1,40 @@
 angular
-	.module('Play')
-	.factory('PlayService', PlayService);
+  .module('Play')
+  .factory('PlayService', PlayService);
 
 
 PlayService.$inject = [
-	'$log', '$http'
+  '$log', '$http'
 ];
 
 
 function PlayService (
-	$log, $http
-)
-{
-	var service =
-	{
-		// vars
-		// ...
+  $log, $http
+) {
+  /// PlayService
+  var service =
+  {
+    // vars
+    // ...
 
-		// services
-		play : play
-	};
-
-
-	/// services
-
-	function play (code)
-	{
-		$log.debug('would try to join mobidul');
-
-		return $http
-				.get('/JoinMobidul/' + code)
-				.error(function (response, status, headers, config)
-				{
-					$log.error(response);
-					$log.error(status);
-
-					return response;
-				});
-	}
+    // services
+    play : play
+  };
 
 
-	return service;
+  /// services
+
+  function play (code)
+  {
+    return $http.get(cordovaUrl + '/JoinMobidul/' + code)
+    .error(function (response, status, headers, config) {
+      $log.error(response);
+      $log.error(status);
+
+      return response;
+    });
+  }
+
+
+  return service;
 }

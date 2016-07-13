@@ -30,7 +30,7 @@ function ListService (
   };
 
   ///private functions
-  
+
   function _getPermissionByCat(cat){
 
     return $q(function(resolve, reject){
@@ -38,7 +38,7 @@ function ListService (
       if(cat === service.ALL_STATIONS){
         UserService.getRequestAllStationsPermit()
           .then(function(RequestAllStationsPermit){
-            
+
             resolve(RequestAllStationsPermit);
           });
       }else{
@@ -49,8 +49,8 @@ function ListService (
       }
     });
   }
-  
-  
+
+
   /// services
 
   function getStations (mobidulCode, cat)
@@ -58,36 +58,35 @@ function ListService (
     //$log.info('> ListService getStations service');
     //$log.debug(cat);
 
-    return $q(function(resolve, reject){
+    return $q(function (resolve, reject) {
       _getPermissionByCat(cat)
-        .then(function(hasPermission){
+      .then(function (hasPermission) {
 
-          if ( hasPermission ) {
-            var url  = mobidulCode + '/';
-                url += ( cat !== service.ALL_STATIONS )
-                         ? 'GetForCategory/' + cat
-                         : 'GetStations/All';
+        if ( hasPermission ) {
+          var url  = cordovaUrl + '/' + mobidulCode + '/';
+              url += ( cat !== service.ALL_STATIONS )
+                       ? 'GetForCategory/' + cat
+                       : 'GetStations/All';
 
-            $http.get( url )
-              .success(function(data){
-
-                resolve({
-                  hasPermission: hasPermission,
-                  stations: data
-                });
-                
-              })
-              .error(function(data, status){
-                $log.error(data);
-                $log.error(status);
-              });
-          }else{
+          $http.get( url )
+          .success(function (data) {
             resolve({
               hasPermission: hasPermission,
-              stations: null
+              stations: data
             });
-          }
-        });
+
+          })
+          .error(function (data, status) {
+            $log.error(data);
+            $log.error(status);
+          });
+        } else {
+          resolve({
+            hasPermission: hasPermission,
+            stations: null
+          });
+        }
+      });
     });
   }
 
@@ -95,19 +94,17 @@ function ListService (
   function saveOrder (mobidulCode, stations)
   {
     var arr = [];
-    stations.forEach(function (s)
-    {
+    stations.forEach(function (s) {
       arr.push({
-        'id' : s.id,
-        'order' : s.order
+        'id': s.id,
+        'order': s.order
       });
     });
 
-    var req =
-    {
-      method : 'PUT',
-      url : mobidulCode + '/changeOrder',
-      data : {
+    var req = {
+      method: 'PUT',
+      url: cordovaUrl + '/' + mobidulCode + '/changeOrder',
+      data: {
         stations: arr
       }
     };
@@ -130,4 +127,4 @@ function ListService (
 
 
   return service;
-};
+}

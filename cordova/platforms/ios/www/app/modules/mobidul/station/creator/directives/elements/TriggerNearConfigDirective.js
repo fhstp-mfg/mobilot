@@ -3,7 +3,7 @@
 
   angular
     .module('StationCreator')
-    .directive('editorifnear', IfNear);
+    .directive('triggerNearConfig', IfNear);
 
   IfNear.$inject = [
     'RallyService'
@@ -17,7 +17,7 @@
       restrict: 'E',
       template: '<div>' +
       '<md-input-container><input type="number" placeholder="Range (meters)" ng-model="range"></md-input-container>' +
-      '<actionselector data-opts="ctrl.actionOpts" data-selection="success" data-name="Success"></actionselector>' +
+      '<action-selector data-opts="ctrl.actionOpts" data-selection="success" data-name="Success"></action-selector>' +
       '<md-input-container><input type="text" ng-model="fallback" placeholder="Fallback"></md-input-container>' +
       '</div>',
       scope: {
