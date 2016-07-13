@@ -196,8 +196,11 @@ p {
   top : 7em
 }
 
-.mobile-header {
-  /*padding-top : 20px*/
+.ios-top-padding {
+  padding-top: 20px
+}
+.ios-top-margin {
+  margin-top: 20px
 }
 
 .search-type-controls

@@ -42,7 +42,7 @@ function HeaderController (
   header.myFont = '';
 
 
-  header.isMobileHeader = isMobile;
+  header.isCordovaIOS = isCordova && isIOS;
   // NOTE - removed condition : $mdMedia('sm')
   header.isMenuEnabled = isMobidul() && MobidulService.Config.isMenuEnabled;
   header.isAccountEnabled = isHome();
