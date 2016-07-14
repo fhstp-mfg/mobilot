@@ -10,13 +10,13 @@
     'GeoLocationService'
   ];
 
-  function TriggerNear(
+  function TriggerNear (
     $log, $rootScope,
     GeoLocationService
-  ){
+  ) {
     return {
       restrict: 'E',
-      scope:{
+      scope: {
         fallback: '@',
         success: '@',
         range: '@'
@@ -80,4 +80,3 @@
     };
   }
 })();
-
