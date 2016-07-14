@@ -42,7 +42,7 @@ function HeaderController (
   header.myFont = '';
 
 
-  header.isMobileHeader = isMobile;
+  header.isCordovaIOS = isCordova && isIOS;
   // NOTE - removed condition : $mdMedia('sm')
   header.isMenuEnabled = isMobidul() && MobidulService.Config.isMenuEnabled;
   header.isAccountEnabled = isHome();
@@ -153,21 +153,28 @@ function HeaderController (
     header.isAccountEnabled = isHome();
 
 
-    header.isEditStationEnabled =
-      ( header.isStation )
-        ? UserService.getEditStationPermit()
-        : header._isEditStationEnabled;
-
+    if(header.isStation){
+      UserService.getEditStationPermit()
+        .then(function(EditStationPermit){
+          header.isEditStationEnabled = EditStationPermit;
+        });
+    }else{
+      header.isEditStationEnabled = header._isEditStationEnabled;
+    }
 
     header.isCancelEditEnabled =
       ( header.isEditStation )
         ? true
         : header._isCancelEditEnabled;
 
-    header.isSaveStationEnabled =
-      ( header.isEditStation )
-        ? UserService.getEditStationPermit()
-        : header._isSaveStationEnabled;
+    if(header.isEditStation){
+      UserService.getEditStationPermit()
+        .then(function(EditStationPermit){
+          header.isSaveStationEnabled = EditStationPermit;
+        });
+    }else{
+      header.isSaveStationEnabled = header._isSaveStationEnabled;
+    }
 
 
     header.isCancelPanzoomEnabled =

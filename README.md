@@ -12,9 +12,13 @@ To get Mobilot running locally on your machine, follow the [Setup](https://githu
 
 Check the CONTRIBUTING.md file or the [Contributing](https://github.com/fhstp-mfg/mobilot/wiki/Contributing) page in the Wiki.
 
+### Patrons
+- Grischa Schmiedl <Grischa.Schmiedl@fhstp.ac.at>
+- Kerstin Blumenstein <Kerstin.Blumenstein@fhstp.ac.at>
 
 ### Contributors
 - [Iosif Miclaus](https://github.com/miclaus)
+- Thomas Ederer
 - [Simon Reinsperger](https://github.com/abisz)
 - [Florian Grassinger](https://github.com/doomsayer2)
 - [Patrick Kolar](https://github.com/DrFritzi)

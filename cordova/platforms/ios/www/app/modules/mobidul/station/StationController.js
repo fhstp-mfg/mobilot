@@ -25,7 +25,7 @@ function StationController (
   /// vars
   station.mediaList     = [];
   station.imageList     = [];
-  station.rawText       = '';
+  station.content       = '';
   station.text          = 'wird geladen';
   // station.loading       = 'visible';
   station.loading       = 'block';
@@ -41,10 +41,9 @@ function StationController (
   $scope.actionPerformed    = actionPerformed;
 
   /// XXX temp function
-  station.rallyActivate     = __rallyActivate;
-  station.rallyOpen         = __rallyOpen;
-  station.rallyComplete     = __rallyComplete;
+  station.setRallyState     = setRallyState;
   station.progressToNext    = __progressToNext;
+  station.activateThis      = activateThis;
 
   // XXX why is this nicer or better than calling what it returns ?
   station.__isStatusActivated = function () {
@@ -62,40 +61,25 @@ function StationController (
 
   /// XXX temp functions
 
-  function __rallyActivate ()
-  {
-    RallyService.setProgress( station.order );
-    RallyService.setStatus( RallyService.STATUS_ACTIVATED );
-
-    // XXX hard refresh the current state ! (will be removed)
-    $timeout(function(){
-      $state.go($state.current, {}, {reload: true});
-    }, 300);
-  }
-
-  function __rallyOpen ()
-  {
-    RallyService.setStatus( RallyService.STATUS_OPEN );
-
-    // XXX hard refresh the current state ! (will be removed)
-    $timeout(function(){
-      $state.go($state.current, {}, {reload: true});
-    }, 300);
-  }
-
-  function __rallyComplete ()
-  {
-    RallyService.setStatus( RallyService.STATUS_COMPLETED );
-    RallyService.activateNext();
-
-    // XXX hard refresh the current state ! (will be removed)
-    $timeout(function(){
-      $state.go($state.current, {}, {reload: true});
-    }, 300);
+  function setRallyState(state){
+    RallyService.setStatus(state)
+      .then(function(newState){
+        $state.go($state.current, {}, {reload: true});
+      });
   }
 
   function __progressToNext () {
-    RallyService.progressToNext();
+    RallyService.activateNext()
+      .then(function(){
+        RallyService.progressToNext();
+      });
+  }
+
+  function activateThis(){
+    RallyService.setProgress(station.order)
+      .then(function(){
+        $state.go($state.current, {}, {reload: true});
+      });
   }
 
 
@@ -125,131 +109,114 @@ function StationController (
         )
         .success(function (response, status, headers, config)
         {
-          //$log.info('_initStation station response :');
-          //$log.debug(response);
+          // $log.info('_initStation station response :');
+          // $log.debug(response);
 
-          if ( response === '' )
-          {
+          if ( response === '' ) {
             station.text = 'Zu diesem Code ist leider keine Station vorhanden ...';
 
             UserService.Permit.EditStation = false;
-          }
-          else
-          {
-            MobidulService
-              .getMobidulMode( StateManager.state.params.mobidulCode )
-              .then(function (mode)
-              {
-                var goToCurrentTesting = false;
+          } else {
+            var goToCurrentTesting = true;
 
+            RallyService.isEligible(response.order)
+              .then(function (isEligible) {
                 if (
-                  (mode == MobidulService.MOBIDUL_MODE_RALLY) &&
-                  ! RallyService.isEligible(response.order) &&
+                  ! isEligible &&
                   ! StateManager.isStationCreator() &&
                   ! goToCurrentTesting
                 ) {
                   RallyService.goToCurrent();
+                } else {
+
+                  UserService.Permit.EditStation = response.canEdit && UserService.Permit.EditStation;
+
+                  //$log.info("response");
+                  //$log.debug(response);
+
+                  station.content      = response.content;
+                  station.stationId    = response.stationId;
+                  station.stationName  = response.stationName;
+                  station.order        = response.order;
+                  station.coords       = response.coords;
+
+                  /// XXX this is just for testing purposes
+                  /// choosing right content based on Mobidul type
+                  RallyService.refresh();
+
+                  var statusContent = [];
+                  statusContent['hidden']    = '<p style="background:#eee; font-weight:bold">This is the content for status "hidden"</p>';
+                  statusContent['activated'] = '<p style="background:#eee; font-weight:bold">This is the content for status "activated"</p>';
+                  statusContent['open']      = '<p style="background:#eee; font-weight:bold">This is the content for status "open"</p>';
+                  statusContent['completed'] = '<p style="background:#eee; font-weight:bold">This is the content for status "completed"</p>';
+
+                  //station.content      = statusContent[ RallyService.getStatus( station.order ) ] + response.content;
+                  //station.content      = response.content;
+
+                  StationService.setName( response.stationName );
+
+                  //get length of all stations belonging to this mobidul to display progressbar correctly
+                  RallyService.getRallyLength()
+                    .then(function(length){
+                      station.rallyLength = parseInt(length);
+                    });
+
+                  RallyService.getProgress()
+                    .then(function(progress){
+                      station.currentStation = progress.progress;
+                    });
+
+                  MobidulService.getMobidulConfig(StateManager.state.params.mobidulCode)
+                    .then(function(config){
+                      station.mobidulConfig = config;
+                    });
+
+                  // TODO document what this is doing !!
+
+                  station.mediaList[ response.stationId ] = [];
+
+                  for ( var i = 0; i < response.mediaList.length; i++ )
+                  {
+                    var currMediaListHash = response.mediaList[ i ].hash;
+
+                    station.mediaList[ response.stationId ].push(
+                      {
+                        'hash'      : currMediaListHash,
+                        'timestamp' : response.mediaList[ i ].timestamp
+                      });
+
+                    if ( typeof station.imageList[ currMediaListHash ] == 'undefined' )
+                    {
+                      station.imageList[ currMediaListHash ] =
+                      {
+                        'url'            : response.mediaList[ i ].url,
+                        'uploaded'       : true,
+                        'uploadprogress' : 100
+                      };
+                    }
+                  }
+
+
+                  // Check whether Station has JSON Content
+                  try {
+                    //$log.debug(station.content);
+                    station.config = JSON.parse(station.content);
+
+                    $log.info('station.config:');
+                    $log.debug(station.config);
+
+                    //Display dev tools for rally
+                    station.isOwner = UserService.Session.role == 1;
+
+                    renderJSON();
+                  }
+                  catch (e) {
+                    $log.info("No JSON");
+                    $log.error(e);
+                    //station.renderText();
+                  }
                 }
               });
-
-            UserService.Permit.EditStation = response.canEdit && UserService.Permit.EditStation;
-
-            //$log.info("response");
-            //$log.debug(response);
-
-            station.rawText      = response.content;
-            station.stationId    = response.stationId;
-            station.stationName  = response.stationName;
-            station.order        = response.order;
-            station.coords       = response.coords;
-
-            /// XXX this is just for testing purposes
-            /// choosing right content based on Mobidul type
-            RallyService.refresh();
-
-            var statusContent = new Array();
-            statusContent['hidden']    = '<p style="background:#eee; font-weight:bold">This is the content for status "hidden"</p>';
-            statusContent['activated'] = '<p style="background:#eee; font-weight:bold">This is the content for status "activated"</p>';
-            statusContent['open']      = '<p style="background:#eee; font-weight:bold">This is the content for status "open"</p>';
-            statusContent['completed'] = '<p style="background:#eee; font-weight:bold">This is the content for status "completed"</p>';
-
-            //station.rawText      = statusContent[ RallyService.getStatus( station.order ) ] + response.content;
-            station.rawText      = response.content;
-
-            StationService.setName( response.stationName );
-
-            //get length of all stations belonging to this mobidul to display progressbar correctly
-            RallyService.getRallyLength()
-              .then(function(length){
-                
-                station.rallyLength = parseInt(length);
-                
-              });
-            
-
-            // TODO document what this is doing !!
-
-            station.mediaList[ response.stationId ] = [];
-
-            for ( var i = 0; i < response.mediaList.length; i++ )
-            {
-              var currMediaListHash = response.mediaList[ i ].hash;
-
-              station.mediaList[ response.stationId ].push(
-              {
-                'hash'      : currMediaListHash,
-                'timestamp' : response.mediaList[ i ].timestamp
-              });
-
-              if ( typeof station.imageList[ currMediaListHash ] == 'undefined' )
-              {
-                station.imageList[ currMediaListHash ] =
-                {
-                  'url'            : response.mediaList[ i ].url,
-                  'uploaded'       : true,
-                  'uploadprogress' : 100
-                };
-              }
-            }
-
-
-            // Check whether Station has JSON Content
-            try {
-              //$log.debug(station.rawText);
-              station.config = JSON.parse(station.rawText);
-              station.isJSON = true;
-
-              //Display dev tools for rally
-              station.isOwner = UserService.Session.role == 1;
-
-              renderJSON();
-            }
-            catch (e) {
-              $log.info("No JSON");
-              $log.error(e);
-              station.isJSON = false;
-              station.renderText();
-
-              station.content = {
-                  activated: [
-                    {
-                      type: 'html',
-                      content: station.rawText
-                    }
-                  ]
-                };
-
-              //Todo: check what happens if not authorized to update
-              //Todo: can you be sure there will never be a json.parse error with existing content?
-              //transform old station to new json content format
-              StationCreatorService.updateStationContent(
-                StateManager.state.params.mobidulCode,
-                StateManager.state.params.stationCode,
-                JSON.stringify(station.content)
-            );
-
-
-            }
           }
 
           // station.loading = 'hidden';
@@ -298,7 +265,8 @@ function StationController (
 
   function renderText ()
   {
-    var ergebnis = station.rawText; //.replace(/<.[^>]*>/g, '');
+    $log.warn('RenderText() is deprecated - please don\'t use it any longer!');
+    var ergebnis = station.content; //.replace(/<.[^>]*>/g, '');
         ergebnis = '\n' + ergebnis; // billiger Trick - so ist auch vor Beginn der ersten Zeile ein \n, und das gilt auch als Whitespace also \s
 
     var regexp =
@@ -497,75 +465,80 @@ function StationController (
    */
   function renderJSON ()
   {
-    var status = RallyService.getStatus(station.order);
 
-    //$log.info('Status of Station:');
-    //$log.debug(status);
+    RallyService.getStatus(station.order)
+      .then(function(status){
 
-    var config = station.config[status];
+        $log.info('StationController - renderJSON - RallyService.getStatus - status:');
+        $log.debug(status, station, StateManager.isStationCreator());
 
-    var container = document.getElementById('station-container');
-    container.innerHTML = '';
+        if(!StateManager.isStationCreator()) {
 
-    if (config) {
-      config.forEach(function (obj)
-      {
-        var type = obj.type;
+          var config = station.config[status];
 
-        if ( ! type) {
-          $log.error('JSON Object doesn\'t have a type ! (ignoring)');
-        }
-        else {
-          switch (type)
-          {
-            case 'html':
-              angular
-                .element(container)
-                .append($compile('<html-container>' + $sanitize(obj.content) + '</html-container>')($scope))
-              break;
+          var container = document.getElementById('station-container');
+          container.innerHTML = '';
 
-            case 'inputCode':
-              angular
-                .element(container)
-                .append($compile("<inputcode verifier='" + obj.verifier + "' success='" + obj.success + "' error='" + obj.error + "'></inputcode>")($scope));
-              break;
+          if (config) {
+            config.forEach(function (obj) {
+              var type = obj.type;
 
-            case 'scanCode':
-              angular
-                .element(container)
-                .append($compile("<scancode></scancode>")($scope));
-              break;
+              if (!type) {
+                $log.error('JSON Object doesn\'t have a type ! (ignoring)');
+              }
+              else {
+                switch (type) {
+                  case 'html':
+                    angular
+                      .element(container)
+                      .append($compile('<mbl-html-container>' + $sanitize(obj.content) + '</mbl-html-container>')($scope))
+                    break;
 
-            case 'navigator':
-              angular
-                .element(container)
-                .append($compile("<navigator></navigator>")($scope));
-              break;
+                  case 'inputCode':
+                    angular
+                      .element(container)
+                      .append($compile("<mbl-input-code verifier='" + obj.verifier + "' success='" + obj.success + "' error='" + obj.error + "'></mbl-input-code>")($scope));
+                    break;
 
-            case 'button':
-              angular
-                .element(container)
-                .append($compile("<actionbutton success='" + obj.success + "'>" + obj.content + "</actionbutton>")($scope));
-              break;
+                  case 'scanCode':
+                    angular
+                      .element(container)
+                      .append($compile("<scancode></scancode>")($scope));
+                    break;
 
-            case 'ifNear':
-              // HACK: force to startwatching after stopwatching event from headerservice
-              $timeout(function(){ GeoLocationService.startPositionWatching(station.coords);},0);
+                  case 'navigator':
+                    angular
+                      .element(container)
+                      .append($compile("<navigator></navigator>")($scope));
+                    break;
 
-              angular
-                .element(container)
-                .append($compile("<ifnear range='" + obj.range + "' fallback='" + obj.fallback + "' success='" + obj.success + "'></ifnear>")($scope));
+                  case 'button':
+                    angular
+                      .element(container)
+                      .append($compile("<mbl-action-button success='" + obj.success + "'>" + obj.content + "</mbl-action-button>")($scope));
+                    break;
 
-              break;
+                  case 'ifNear':
+                    // HACK: force to startwatching after stopwatching event from headerservice
+                    $timeout(function () {
+                      GeoLocationService.startPositionWatching(station.coords);
+                    }, 0);
 
-            default:
-              $log.error("Objecttype not known: " + type);
-              break;
+                    angular
+                      .element(container)
+                      .append($compile("<mbl-trigger-near range='" + obj.range + "' fallback='" + obj.fallback + "' success='" + obj.success + "'></mbl-trigger-near>")($scope));
+
+                    break;
+
+                  default:
+                    $log.error("Objecttype not known: " + type);
+                    break;
+                }
+              }
+            });
           }
         }
       });
-    }
-
   }
 
   /**
@@ -573,15 +546,23 @@ function StationController (
    *
    * @param action
    */
-  function actionPerformed (action)
+  function actionPerformed (actionString)
   {
     //allowing passing additional parameters with the action string
-    var attr;
-    attr = action.split(':')[1];
-    action = action.split(':')[0];
+    var action = actionString.split(':')[0],
+        attr = actionString.replace(action + ':', '');
 
     switch (action)
     {
+      case 'setStatus':
+        RallyService.setStatus(attr)
+          .then(function(state){
+            renderJSON();
+          }, function(error){
+            $log.error(error);
+          });
+        break;
+
       case 'showNext':
         $log.debug("showNext");
         break;

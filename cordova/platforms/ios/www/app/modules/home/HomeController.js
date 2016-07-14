@@ -27,6 +27,7 @@ function HomeController (
 
 
   /// vars
+  home.isCordovaIOS = isCordova && isIOS;
 
   // home.hasPosition     = false;
   home.myPosition         = null;

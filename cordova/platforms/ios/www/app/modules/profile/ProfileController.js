@@ -27,12 +27,9 @@ function ProfileController (
 
 
   /// vars
-  MobidulService.getMobidulMode($stateParams.mobidulCode)
-    .then(function(mode){
-      profile.isRallyMode = (mode == MobidulService.MOBIDUL_MODE_RALLY) && StateManager.comesFrom( StateManager.MOBIDUL );
-    });
+  // ...  
 
-
+  
   /// functions
   profile.logout               = logout;
   profile.changePassword       = changePassword;
@@ -59,6 +56,12 @@ function ProfileController (
 
   function _initDefaultValues ()
   {
+    MobidulService.getMobidulMode($stateParams.mobidulCode)
+      .then(function(mode){
+        profile.isRallyMode = (mode == MobidulService.MOBIDUL_MODE_RALLY) &&
+          StateManager.comesFrom( StateManager.MOBIDUL );
+      });
+    
     profile.currentUser = {
       username : UserService.Session.username
     };

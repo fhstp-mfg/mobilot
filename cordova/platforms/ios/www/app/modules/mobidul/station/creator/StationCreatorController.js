@@ -71,7 +71,7 @@ function StationCreatorController (
     codeHelper :
     {
       show : false,
-      text : '',
+      text : ''
     }
   };
 
@@ -185,6 +185,24 @@ function StationCreatorController (
           if ( isNewStation )
           {
             stationCreator.basis.generateCode = true;
+
+            //new station - fill with default station structure
+            MobidulService.getMobidulConfig(StateManager.state.params.mobidulCode)
+              .then(function(response){
+
+                var config = {};
+                angular.forEach(response.states, function(state){
+                  config[state] = [
+                    {
+                      type: 'html',
+                      content: 'This is some sample text.'
+                    }
+                  ];
+                });
+
+                stationCreator.station.content = config;
+
+              });
           }
           else
           {
@@ -481,75 +499,71 @@ function StationCreatorController (
 
 
       // NOTE - add station
-      if ( currentStateParams.stationCode === StateManager.NEW_STATION_CODE )
+      if ( currentStateParams.stationCode === StateManager.NEW_STATION_CODE ) {
 
         StationCreatorService
           .addStation(
             currentStateParams.mobidulCode,
             stationData
           )
-          .then(function (response)
-          {
+          .then(function (response) {
             //$log.info("_saveStation - response");
             //$log.debug(response);
 
             var responseMsg = response.data || null;
 
-            if ( responseMsg )
+            if (responseMsg)
 
-              if ( responseMsg === 'not allowed' )
+              if (responseMsg === 'not allowed')
                 alert('not allowed');
 
-              else if ( responseMsg === 'mobidul locked' )
+              else if (responseMsg === 'mobidul locked')
                 alert('mobidul locked');
 
-              else if ( responseMsg === 'error' )
+              else if (responseMsg === 'error')
                 alert('error');
 
               else if (responseMsg === 'invalid station code')
                 alert('invalid station code');
-              else
-              {
+              else {
                 var stationCode = responseMsg;
 
-                $state.go('mobidul.station', { stationCode : stationCode });
+                $state.go('mobidul.station', {stationCode: stationCode});
               }
           });
-
+      }
       // NOTE - save existing station
-      else
+      else {
         StationCreatorService
           .saveStation(
             currentStateParams.mobidulCode,
             currentStateParams.stationCode,
             stationData
           )
-          .then(function (response)
-          {
+          .then(function (response) {
             $log.debug('save station StationCreatorService callback :');
             $log.debug(response);
             $log.debug(currentStateParams.stationCode);
 
             var saved = response.data.saved;
-            var msg   = response.data.msg || 'Unknown error';
+            var msg = response.data.msg || 'Unknown error';
 
-            if ( saved )
-            {
+            if (saved) {
               var stationCode = response.data.code;
               $log.debug(stationCode);
 
               $state.go(
                 'mobidul.station',
-                { stationCode : stationCode },
-                { 'reload' : true }
+                {stationCode: stationCode},
+                {'reload': true}
               );
             }
-            else
-            {
+            else {
               // $log.error(msg);
               alert(msg);
             }
           });
+      }
     }
   }
 

@@ -24,6 +24,7 @@ class WebServicesController extends BaseController
         "GetCategories",      "GetMobiduls",              "GetContent",
         "GetStation",         "GetCategoriesForStation",  "Play",
         "CanPlay",            "NewMobidul",               "UpdateMobidul",
+        "PushActivity",       "CloneMobidul",
         "AddCategories",      "UpdateCategories",         "RemoveCategories",
         "AddStation",         "RemoveCategory",           "SetStation",
         "RemoveStation",      "RemoveStationByCode",      "GetContentForCode",
@@ -624,6 +625,14 @@ class WebServicesController extends BaseController
   }
 
 
+  public function CloneMobidul ($mobidulCode)
+  {
+    $mobidul = Mobidul::findByCode($mobidulCode);
+
+    return $mobidul->name;
+  }
+
+
   public function GetOwnerOfMobidul ($mobidulCode)
   {
     $mobidulId = Mobidul::GetId($mobidulCode);
@@ -1201,20 +1210,20 @@ class WebServicesController extends BaseController
       return array(
           'saved' => false,
           'msg'   => 'not allowed'
-      );  
+      );
     }
-    
+
     $request   = Request::instance();
     $params  = $request->getContent();
     $params  = json_decode($params);
-    
+
     if ( ! $stationId ){
       return array(
           'saved' => false,
           'msg'   => 'invalid station code'
       );
     }
-    
+
     $canEdit = $this->CanEditStation($stationId);
 
     if ( is_bool($canEdit) && $canEdit )
@@ -1235,10 +1244,10 @@ class WebServicesController extends BaseController
           'saved' => $canEdit,
           'msg'   => 'unknown error'
       );
-    
+
   }
-  
-  
+
+
   /**
    * Deletes Station + category2station + navigationItems
    * Returns "success" if successful

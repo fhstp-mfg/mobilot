@@ -57,6 +57,10 @@ function MobidulController (
 	{
 		mobidul.isNewMobidul =
 			StateManager.state.params.mobidulCode === StateManager.NEW_MOBIDUL_CODE;
+
+		if(!mobidul.isNewMobidul){
+			MobidulService.initProgress();
+		}
 	}
 
 

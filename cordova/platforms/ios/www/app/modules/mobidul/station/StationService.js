@@ -31,18 +31,17 @@ function StationService (
 
   function getStation (mobidulCode, stationCode)
   {
-    var serviceUrl = '';
+    var serviceUrl = cordovaUrl + '/';
 
     // TODO - check if the following regex is correct
     if ( /^\d+$/.test(stationCode) )
-      serviceUrl = 'GetContent/';
+      serviceUrl += 'GetContent/';
     else
-      serviceUrl = 'GetContentForCode/' + mobidulCode + '/';
-
+      serviceUrl += 'GetContentForCode/' + mobidulCode + '/';
 
     serviceUrl += stationCode + '/';
 
-    return $http.get( serviceUrl );
+    return $http.get(serviceUrl);
   }
 
 
@@ -58,22 +57,18 @@ function StationService (
   function requestValidCode (code)
   {
     var stationCode = code.replace(/[^a-z0-9]/g, '');
-    var serviceUrl  = 'RequestValidCode/' + stationCode;
+    var serviceUrl  = cordovaUrl + '/RequestValidCode/' + stationCode;
 
-    return $http.get( serviceUrl )
-                .error(function (response, status, headers, config)
-                {
-                  $log.error(response);
-                  $log.error(status);
-                });
+    return $http.get(serviceUrl)
+    .error(function (response, status, headers, config) {
+      $log.error(response);
+      $log.error(status);
+    });
   }
 
 
-  function getMapStations (mobidulCode)
-  {
-    var serviceUrl = mobidulCode + '/GetStations';
-
-    return $http.get( serviceUrl );
+  function getMapStations (mobidulCode) {
+    return $http.get(cordovaUrl + '/' + mobidulCode + '/GetStations');
   }
 
 

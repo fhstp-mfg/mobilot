@@ -23,19 +23,16 @@ var isCordova  = false;
 var cordovaUrl = '';
 
 
-if ( jsconsole_web )
-{
+if ( jsconsole_web ) {
   // load jsconsole (:listen mobilot-remote)
   document.write('<' + 'script src="http://jsconsole.com/remote.js?mobilot-remote"></script' + '>');
 }
 
 
-if ( isMobile )
-{
-  if ( ! jsconsole_web && jsconsole_mobile )
-  {
-      // load jsconsole (:listen mobilot-remote)
-      document.write('<' + 'script src="http://jsconsole.com/remote.js?mobilot-remote"></script' + '>');
+if ( isMobile ) {
+  if ( ! jsconsole_web && jsconsole_mobile ) {
+    // load jsconsole (:listen mobilot-remote)
+    document.write('<' + 'script src="http://jsconsole.com/remote.js?mobilot-remote"></script' + '>');
   }
 
 
@@ -46,8 +43,7 @@ if ( isMobile )
   isCordova = ! protocolPattern.test(location.protocol);
   delete protocolPattern;
 
-  if ( isCordova )
-  {
+  if ( isCordova ) {
     // var timestamp = new Date().getUTCMilliseconds();
     // document.write('<' + 'script type="text/javascript" src="cordova.js?' + timestamp + '"></script' + '>');
     document.write('<' + 'script type="text/javascript" src="cordova.js"></script' + '>');

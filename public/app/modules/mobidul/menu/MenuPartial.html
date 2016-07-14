@@ -47,10 +47,10 @@
       <md-list-item
         ng-repeat="item in mobidul.menu"
         ng-click=" ! item.isDivider ? mobidul.switchContent( item ) : null"
-        ng-class="item.isDivider ? 'menuDivider' : ''"
+        ng-class="item.isDivider ? 'menuDivider menuDividerEmpty' : ''"
         class="md-list-item"
       >
-        <span>{{ item.text }}</span>
+        <span ng-if="! item.isDivider">{{ item.text }}</span>
       </md-list-item>
     <md-list-item
         ng-if="menu.isRallyMode"

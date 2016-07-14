@@ -19,6 +19,14 @@ use App\Models\Mobidul;
 //  return View::make('includes');
 //});
 
+
+/// ActivityController
+Route::post('/{mobidulCode}/PushActivity', 'ActivityController@PushActivity');
+
+
+/// Other
+// TODO: better structure and section routes !
+
 Route::get('RequestValidCode/{stationCode?}', 'WebServicesController@GenerateStationCode');
 
 Route::get('/{mobidulCode}/GetForCode/{stationCode}', 'WebServicesController@GetForCode');
@@ -55,7 +63,7 @@ Route::get('existsMobidul/{mobidul}', 'WebServicesController@checkMobidulCode');
 Route::get('existsStation/{mobidulCode}/{stationCode}', 'WebServicesController@stationExists');
 Route::get('stationExistsById/{mobidulCode}/{stationId}', 'WebServicesController@stationExistsById');
 
-/* Brauchen identifikation */
+
 Route::post('/{mobidulCode}/SetOptions', 'WebServicesController@SetOptions')->before('auth');
 Route::post('NewMobidul', 'WebServicesController@NewMobidul')->before('auth');
 //Route::get('UpdateMobidul/{code}/{name}/{description}', 'WebServicesController@UpdateMobidul')->before('auth');
@@ -64,6 +72,8 @@ Route::post('{mobidulCode}/AddCategories', 'WebServicesController@AddCategories'
 Route::post('{mobidulCode}/UpdateCategories', 'WebServicesController@UpdateCategories');
 Route::post('{mobidulCode}/RemoveCategories', 'WebServicesController@RemoveCategories');
 Route::get('{mobidulCode}/RemoveCategory/{categoryId}', 'WebServicesController@RemoveCategory');
+Route::get('{mobidulCode}/clone', 'WebServicesController@CloneMobidul');
+
 
 /*
  * Stations

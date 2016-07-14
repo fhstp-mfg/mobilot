@@ -35,7 +35,7 @@ function LoginController (
     resetToken      : $stateParams.token,
     newPassword     : '',
     confirmPassword : ''
-  }
+  };
 
   login.isHeaderTabsContent = StateManager.isHomeLogin();
 

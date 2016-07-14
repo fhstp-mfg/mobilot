@@ -1,5 +1,5 @@
 angular
-	.module('Creator')
+	.module('Play')
 	.controller('PlayController', PlayController);
 
 PlayController.$inject = [
