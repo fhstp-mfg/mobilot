@@ -56,6 +56,7 @@ Route::get('existsStation/{mobidulCode}/{stationCode}', 'WebServicesController@s
 Route::get('stationExistsById/{mobidulCode}/{stationId}', 'WebServicesController@stationExistsById');
 
 /* Brauchen identifikation */
+Route::post('/{mobidulCode}/PushActivity', 'WebServicesController@PushActivity')->before('auth')
 Route::post('/{mobidulCode}/SetOptions', 'WebServicesController@SetOptions')->before('auth');
 Route::post('NewMobidul', 'WebServicesController@NewMobidul')->before('auth');
 //Route::get('UpdateMobidul/{code}/{name}/{description}', 'WebServicesController@UpdateMobidul')->before('auth');
@@ -64,8 +65,8 @@ Route::post('{mobidulCode}/AddCategories', 'WebServicesController@AddCategories'
 Route::post('{mobidulCode}/UpdateCategories', 'WebServicesController@UpdateCategories');
 Route::post('{mobidulCode}/RemoveCategories', 'WebServicesController@RemoveCategories');
 Route::get('{mobidulCode}/RemoveCategory/{categoryId}', 'WebServicesController@RemoveCategory');
-
 Route::get('{mobidulCode}/clone', 'WebServicesController@CloneMobidul');
+
 
 /*
  * Stations
