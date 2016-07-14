@@ -24,7 +24,7 @@ class WebServicesController extends BaseController
         "GetCategories",      "GetMobiduls",              "GetContent",
         "GetStation",         "GetCategoriesForStation",  "Play",
         "CanPlay",            "NewMobidul",               "UpdateMobidul",
-        "CloneMobidul",
+        "PushActivity",       "CloneMobidul",
         "AddCategories",      "UpdateCategories",         "RemoveCategories",
         "AddStation",         "RemoveCategory",           "SetStation",
         "RemoveStation",      "RemoveStationByCode",      "GetContentForCode",
@@ -620,6 +620,20 @@ class WebServicesController extends BaseController
           'msg'   => 'Mobidul konnte nicht aktualisiert werden!'
         ];
     }
+
+    return $response;
+  }
+
+
+  public function PushActivity ($activityStore)
+  {
+    \Log::info($activityStore)
+
+    $response = [
+      'success' => false,
+      'msg' => 'Activity table and model not created/migrated yet!',
+      '_activityStore' => $activityStore
+    ];
 
     return $response;
   }
