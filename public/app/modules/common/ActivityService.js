@@ -3,17 +3,17 @@ angular
   .factory('ActivityService', ActivityService);
 
 ActivityService.$inject = [
-  '$log', '$http'
+  '$log', '$http', 'StateManager'
 ];
 
 
 function ActivityService (
-  $log, $http
+  $log, $http, StateManager
 ) {
   /// ActivityService
   var service =
   {
-    // constants
+    /// constants
     TYPES: {
       APP_EVENT: 'APP_EVENT',
       USER_ACTION: 'USER_ACTION'
@@ -30,10 +30,15 @@ function ActivityService (
       UPLOAD_PICTURE: 'UPLOAD_PICTURE'
     },
 
-    // vars
+    /// vars
+    // private
     _activityStore: [],
 
-    // services
+    /// functions
+    // private
+    _clearActivityStore: _clearActivityStore,
+
+    /// services
     commitActivity: commitActivity,
     pushActivity: pushActivity
   }
@@ -61,12 +66,10 @@ function ActivityService (
       typeof activity === 'object' &&
       typeof activity.type !== 'undefined' &&
       activity.type in service.TYPES &&
-
       typeof activity.name !== 'undefined' &&
       ( activity.name in service.APP_EVENTS ||
         activity.name in service.USER_ACTIONS
       ) &&
-
       typeof activity.payload === 'object'
     ) {
       var activityObj = {
@@ -74,7 +77,9 @@ function ActivityService (
         name: activity.name,
         payload: activity.payload
       }
-      service._activityStore.push(activityObj)
+
+      service._activityStore.push(activityObj);
+      // console.debug(service._activityStore);
 
       return true
     } else {
@@ -87,13 +92,30 @@ function ActivityService (
 
 
   function pushActivity () {
-    return $http.post(cordovaUrl + '/PushActivity', service._activityStore)
+    var stateParams = StateManager.getParams();
+    var mobidulCode = stateParams.mobidulCode;
+
+    return $http.post(
+      cordovaUrl + '/' + mobidulCode + '/PushActivity',
+      service._activityStore
+    )
     .success(function (response) {
       console.debug('pushActivity response: ', response);
+
+      // Clear activity store, ready for next chunk
+      _clearActivityStore();
     })
     .error(function (error) {
-      console.error('pushActivity error: ', error);
+      console.error("Couldn't push activity to server.");
+      console.error(error);
     });
+  }
+
+
+  /// private
+
+  function _clearActivityStore () {
+    service._activityStore = []
   }
 
 

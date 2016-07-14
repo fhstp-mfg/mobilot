@@ -625,20 +625,6 @@ class WebServicesController extends BaseController
   }
 
 
-  public function PushActivity ($activityStore)
-  {
-    \Log::info($activityStore)
-
-    $response = [
-      'success' => false,
-      'msg' => 'Activity table and model not created/migrated yet!',
-      '_activityStore' => $activityStore
-    ];
-
-    return $response;
-  }
-
-
   public function CloneMobidul ($mobidulCode)
   {
     $mobidul = Mobidul::findByCode($mobidulCode);
