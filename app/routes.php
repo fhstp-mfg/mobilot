@@ -55,8 +55,8 @@ Route::get('existsMobidul/{mobidul}', 'WebServicesController@checkMobidulCode');
 Route::get('existsStation/{mobidulCode}/{stationCode}', 'WebServicesController@stationExists');
 Route::get('stationExistsById/{mobidulCode}/{stationId}', 'WebServicesController@stationExistsById');
 
-/* Brauchen identifikation */
-Route::post('/{mobidulCode}/PushActivity', 'WebServicesController@PushActivity')->before('auth')
+
+Route::post('/{mobidulCode}/PushActivity', 'WebServicesController@PushActivity');
 Route::post('/{mobidulCode}/SetOptions', 'WebServicesController@SetOptions')->before('auth');
 Route::post('NewMobidul', 'WebServicesController@NewMobidul')->before('auth');
 //Route::get('UpdateMobidul/{code}/{name}/{description}', 'WebServicesController@UpdateMobidul')->before('auth');

@@ -41,6 +41,21 @@ function ActivityService (
 
   /// services
 
+  /**
+   * commitActivity:
+   * Commiting an activity object locally to a private activity store.
+   *
+   * @param activity An object describing the activity that should be commited locally.
+   * The activity object requires the following format:
+   *
+   * var activity = {
+   *   type: ActivityService.TYPES.{ACTIVITY_TYPE},
+   *   name: ActivityService.{ACTIVITY_TYPE}.{ACTIVITY_NAME}
+   *   payload: {
+   *     {ACTIVITY_PAYLOAD}
+   *   }
+   * }
+   */
   function commitActivity (activity) {
     if (
       typeof activity === 'object' &&
