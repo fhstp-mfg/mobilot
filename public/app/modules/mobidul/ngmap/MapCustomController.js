@@ -317,8 +317,7 @@ function MapCustomController (
         }
 
 
-        if ( retryPossible )
-        {
+        if ( retryPossible ) {
           var positionErrorDialog =
             $mdDialog
               .alert()
@@ -339,13 +338,10 @@ function MapCustomController (
                   _switchSearchType();
                 });
 
-            }, function ()
-            {
+            }, function () {
               home.searchTypeIndex = MapService.ALL_MOBIDULE;
             });
-        }
-        else
-        {
+        } else {
           var positionErrorDialog =
             $mdDialog
               .alert()
@@ -380,9 +376,7 @@ function MapCustomController (
   function _startSignalGatheringPosition ()
   {
     var promise = $interval(function () {
-
       $scope.locationBlink = ! $scope.locationBlink;
-
     }, 600);
 
     MapService.setGatheringPositionIntervalPromise( promise );
@@ -399,35 +393,33 @@ function MapCustomController (
 
   function _showMyPositionMarker ()
   {
-    var myPositionAnimationInterval = $interval(function ()
-    {
+    var myPositionAnimationInterval = $interval(function () {
       $scope.myPositionOpacity += 0.2;
 
-      if ( $scope.myPositionOpacity == 1 )
-
+      if ( $scope.myPositionOpacity >= 1 ) {
+        $scope.myPositionOpacity = 1;
         $interval.cancel( myPositionAnimationInterval );
+      }
 
     }, 40);
   }
 
   function _hideMyPositionMarker ()
   {
-    var myPositionAnimationInterval = $interval(function ()
-    {
+    var myPositionAnimationInterval = $interval(function () {
       $scope.myPositionOpacity -= 0.2;
 
-      if ( $scope.myPositionOpacity <= 0 )
-
+      if ( $scope.myPositionOpacity <= 0 ) {
+        $scope.myPositionOpacity = 0;
         $interval.cancel( myPositionAnimationInterval );
-
+      }
     }, 40);
   }
 
 
   function _showAccuracyRibbon ()
   {
-    $scope.$apply(function ()
-    {
+    $scope.$apply(function () {
       $scope.accuracyRibbon.value =
         Math.round( $scope.myPosition.coords.accuracy );
 
@@ -438,8 +430,7 @@ function MapCustomController (
 
   function _hideAccuracyRibbon ()
   {
-    $scope.$apply(function ()
-    {
+    $scope.$apply(function () {
       $scope.accuracyRibbon.value = null;
       $scope.accuracyRibbon.show  = false;
     });
