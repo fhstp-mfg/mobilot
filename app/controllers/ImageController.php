@@ -53,7 +53,8 @@ class ImageController extends BaseController
                     array(
                         'mobidulId' => $mob->id,
                         'url'       => $filename,
-                        'hash'      => $postData->hash
+                        'hash'      => $postData->hash,
+                        'userId'    => Auth::id()
                     )
                 );
             }
