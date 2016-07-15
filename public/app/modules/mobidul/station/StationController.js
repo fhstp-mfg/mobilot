@@ -513,6 +513,12 @@ function StationController (
 
                     break;
 
+                  case 'photoUpload':
+                    angular
+                      .element(container)
+                      .append($compile('<mbl-photo-upload data-id="' + obj.id + '" data-success="' + obj.success + '" data-content="' + obj.content + '"></mbl-photo-upload>')($scope));
+                    break;
+
                   default:
                     $log.error("Objecttype not known: " + type);
                     break;
