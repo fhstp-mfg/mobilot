@@ -216,13 +216,13 @@ p { margin: 0; }
 
 map {
   position : absolute;
-  top      : 64px;
+  top      : 56px;
   bottom   : 0;
   left     : 0;
   right    : 0;
 }
 .ng-map {
-  top : 48px
+  top: 48px
 }
 
 

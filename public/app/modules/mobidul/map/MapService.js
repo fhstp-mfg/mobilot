@@ -121,7 +121,7 @@ function MapService (
   }
 
 
-  // NOTE @deprecated - uses _watchPosition in MapCustomController instead
+  // NOTE @deprecated - uses _watchPosition in MapController instead
   function watchPosition ()
   {
     var defer = $q.defer();

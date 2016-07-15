@@ -1,9 +1,9 @@
 angular
   .module('Mobidul')
-  .controller('MapCustomController', MapCustomController);
+  .controller('MapController', MapController);
 
 
-MapCustomController.$inject = [
+MapController.$inject = [
   '$log', '$interval', '$timeout', '$q',
   '$scope', '$rootScope', '$compile',
   '$state', 'StateManager',
@@ -13,7 +13,7 @@ MapCustomController.$inject = [
 ];
 
 
-function MapCustomController (
+function MapController (
   $log, $interval, $timeout, $q,
   $scope, $rootScope, $compile,
   $state, StateManager,
@@ -22,31 +22,29 @@ function MapCustomController (
   LocalStorageService, RallyService, MobidulService
 )
 {
-  var ngmap = this;
+  var map = this;
 
   // constants
   $scope._mobidulMapState       = 'mobidul.map';
   $scope._stationEditPlaceState = 'mobidul.station.edit.place';
 
   // vars
+  $scope.isCordovaIOS = isCordova && isIOS;
+
   $scope.stations = [];
   $scope.mapZoom = parseInt(10, 10);;
 
   $scope.myPositionOpacity = 0;
   $scope.myPositionZIndex  = google.maps.Marker.MAX_ZINDEX + 1;
-  $scope.myPositionIcon =
-  {
+  $scope.myPositionIcon = {
     url    : 'assets/img/my_position_blue_flat.png',
     size   : [22, 22],
-    anchor : [11, 11],
-
+    anchor : [11, 11]
   };
 
-  $scope.stationIconDisabled =
-  {
+  $scope.stationIconDisabled = {
     url: '../assets/img/marker_grey.png',
     size: [22, 40],
-
     scaledSize: [22, 40]
   };
   // $scope.marker = StationCreatorService.marker;
@@ -93,8 +91,8 @@ function MapCustomController (
 
   function _init ()
   {
-    $log.debug('MapCustomController init');
-    // $log.debug('isNewStation : ' + ngmap.isNewStation);
+    $log.debug('MapController init');
+    // $log.debug('isNewStation : ' + map.isNewStation);
     // LocalStorageService.explainGenericGeoPermit(true);
 
 
@@ -117,14 +115,14 @@ function MapCustomController (
 
   function _initDefaultValues ()
   {
-    $log.debug('init default values in MapCustomController');
+    $log.debug('init default values in MapController');
 
     $scope.isMobidulMap          = StateManager.isMobidulMap();
     $scope.isStationCreatorPlace = StateManager.isStationCreatorPlace();
 
-    ngmap.isNewStation =
+    map.isNewStation =
       StateManager.state.params.stationCode === StateManager.NEW_STATION_CODE;
-    ngmap.changedMarkerManually = false;
+    map.changedMarkerManually = false;
 
     if ( $scope.isStationCreatorPlace ) {
       $scope.marker = StationCreatorService.marker;
@@ -199,7 +197,7 @@ function MapCustomController (
 
   function _initWatchPosition ()
   {
-    $log.debug('watchPosition in MapCustomController : ');
+    $log.debug('watchPosition in MapController : ');
     $log.debug($scope.myPosition);
 
     if (
@@ -238,7 +236,7 @@ function MapCustomController (
     var watchPositionId =
       navigator.geolocation.watchPosition(function (position)
       {
-        $log.debug('watchPosition in MapCustomController callback :');
+        $log.debug('watchPosition in MapController callback :');
         $log.debug(position);
 
         $scope.myPosition = position;
@@ -251,9 +249,10 @@ function MapCustomController (
         /// StationCreatorPlace
         if ( $scope.isStationCreatorPlace )
         {
-          if ( ( ngmap.isNewStation && ! ngmap.changedMarkerManually ) ||
-               StationCreatorService.marker.coords === null )
-          {
+          if (
+            ( map.isNewStation && ! map.changedMarkerManually ) ||
+            StationCreatorService.marker.coords === null
+          ) {
             StationCreatorService.marker.coords = position.coords;
 
             $scope.marker = StationCreatorService.marker;
@@ -291,7 +290,7 @@ function MapCustomController (
       },
       function (error) /// ERROR HANDLING
       {
-        $log.error('watchPosition error in MapCustomController :');
+        $log.error('watchPosition error in MapController :');
         $log.error(error);
 
         // NOTE TODO - implement possibility for retries here as well !!!
@@ -441,7 +440,7 @@ function MapCustomController (
   {
     $scope.$on('$destroy', function ()
     {
-      $log.debug('MapCustomController $destroy :');
+      $log.debug('MapController $destroy :');
 
       MapService.lastCenter = {};
       MapService.lastCenter.latitude  = $scope.map.getCenter().lat();
@@ -531,7 +530,7 @@ function MapCustomController (
 
   function stationSelect (event, marker)
   {
-    // $log.debug('Station select on MapCustomController :');
+    // $log.debug('Station select on MapController :');
     // $log.debug(event);
     // $log.debug(marker);
 
@@ -540,7 +539,7 @@ function MapCustomController (
     var html =
       '<div id="infoWindowBody">' +
         '<button class="md-button"' +
-          ' ng-click="goToStation(\'' + marker.id + '\')">' +
+          '  ng-click="goToStation(\'' + marker.id + '\')">' +
           '<span>' + marker.name + '</span>' +
         '</button>' +
       '</div>';
@@ -694,7 +693,7 @@ function MapCustomController (
     $scope.marker.coords         = markerCoords;
     StationCreatorService.marker.coords = markerCoords;
 
-    ngmap.changedMarkerManually = true;
+    map.changedMarkerManually = true;
   }
 
 
@@ -799,6 +798,6 @@ function MapCustomController (
 
     StationCreatorService.marker.coords = $scope.marker.coords;
 
-    ngmap.changedMarkerManually = true;
+    map.changedMarkerManually = true;
   }
 }

@@ -318,11 +318,8 @@ angular
 						url : '/map',
 						views : {
 							'mobidulContent' : {
-								// templateUrl : 'app/modules/mobidul/map/MapPartial.html',
-								// controller  : 'MapController as map'
-								templateUrl : 'app/modules/mobidul/ngmap/MapPartial.html',
-								// controller  : 'MapCustomController as ngmap'
-								controller  : 'MapCustomController as ngmap'
+								templateUrl : 'app/modules/mobidul/map/MapPartial.html',
+								controller  : 'MapController as map'
 							}
 						}
 					})
@@ -395,7 +392,7 @@ angular
 								views : {
 									'stationCreatorContent' : {
 										templateUrl : 'app/modules/mobidul/station/creator/StationCreatorPlaceNgPartial.html',
-										controller  : 'MapCustomController as ngmap'
+										controller  : 'MapController as map'
 									}
 								}
 							})
