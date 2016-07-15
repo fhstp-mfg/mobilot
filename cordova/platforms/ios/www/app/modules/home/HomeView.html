@@ -47,7 +47,6 @@
       background : #3797c4 !important
     }
 
-
     .mobidul-color-wrapper {
       width  : 26px;
       height : 26px;
@@ -92,6 +91,7 @@
     <md-input-container
       class="search-field"
       ng-show=" ! home.requiredLogin"
+      ng-class="{ 'ios-top-margin': home.isCordovaIOS }"
     >
       <label>{{ home.searchPlaceholder }}</label>
 
@@ -102,32 +102,34 @@
     </md-input-container>
   </div>
 
+
   <div>
     <!-- Login -->
 
     <div
-        id="home_login_view"
-        class="header-content header-tabs-content"
-        ng-show="home.requiredLogin">
-
-        <div ui-view="login"></div>
+      id="home_login_view"
+      class="header-content header-tabs-content"
+      ng-show="home.requiredLogin"
+    >
+      <div ui-view="login"></div>
     </div>
 
 
     <!-- Meine Mobidule -->
 
     <md-content
-        id="home_mobidule_view"
-        class="home-sub-view"
-        ng-show=" ! home.requiredLogin">
+      id="home_mobidule_view"
+      class="home-sub-view"
+      ng-show=" ! home.requiredLogin"
+      ng-class="{ 'ios-top-padding': home.isCordovaIOS }"
+    >
+      <md-progress-circular
+        id="homeProgressCircular"
+        style="display : {{ home.loading }}"
+        md-mode="indeterminate">
+      </md-progress-circular>
 
-        <md-progress-circular
-            id="homeProgressCircular"
-            style="display : {{ home.loading }}"
-            md-mode="indeterminate">
-        </md-progress-circular>
-
-        <!-- TODO - check if ng-show or ng-if is better here -->
+      <!-- TODO - check if ng-show or ng-if is better here -->
       <md-list
         id="home_list_mobidule"
         ng-if="home.hasPosition() || home.mobiduls.length"

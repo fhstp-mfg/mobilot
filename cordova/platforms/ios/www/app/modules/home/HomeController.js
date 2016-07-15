@@ -23,7 +23,7 @@ function HomeController (
   var home = this;
 
   /// constants
-  home._searchPlaceholder    = 'Mobidule in meiner Nähe durchsuchen';
+  home._searchPlaceholder = 'Mobidule in meiner Nähe durchsuchen';
 
 
   /// vars
