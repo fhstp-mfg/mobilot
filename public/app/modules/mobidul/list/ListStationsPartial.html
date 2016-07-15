@@ -1,4 +1,4 @@
-<>
+<div>
   <!-- ListController as list -->
 
   <style>
@@ -42,9 +42,15 @@
 
   <div
     class="search-type-controls"
-    ng-class="list.myFont"
+    ng-class="{
+      'ios-top-padding': list.isCordovaIOS,
+      'ios-top-margin': list.isCordovaIOS
+    }"
   >
-    <md-input-container class="search-field">
+    <md-input-container
+      class="search-field"
+      ng-class="list.myFont"
+    >
       <label>Suche</label>
       <input ng-model="list.searchQuery">
     </md-input-container>
@@ -59,8 +65,8 @@
   >
     <div id="list_progress_wrapper"
       layout="column"
-      layout-align="center center">
-
+      layout-align="center center"
+    >
       <md-progress-circular
         md-mode="indeterminate"
         style="display : {{ list.loading }}">
@@ -69,44 +75,44 @@
       <h1
         class="loading-title"
         style="display : {{ list.loading }}"
-      >
-        Stationen werden geladen ...
-      </h1>
+      >Stationen werden geladen ...</h1>
     </div>
 
     <md-list
       id="list_stations"
-      layout="column">
+      layout="column"
+    >
+      <ul
+        dnd-list="list.stations"
+        dnd-disable-if="!list.canEditStation"
+      >
+        <li
+          ng-repeat="station in list.stations | filter : list.searchQuery | orderBy : station.order"
+          dnd-draggable="station"
+          dnd-moved="list.moveStation($index)"
+          dnd-effect-allowed="move"
+          dnd-disable-if="!list.canEditStation"
+        >
+          <md-list-item
+            class="station-item"
+            ng-class-odd="'station-odd'"
+            ng-click="list.switchContent( list.params.mobidulCode, station.code, station )"
+          >
+            <div class="md-list-item-text stdLink">
+              <h3>{{ station.name }} </h3>
+            </div>
 
-      <ul dnd-list="list.stations"
-          dnd-disable-if="!list.canEditStation">
+            <div
+              class="md-secondary secondary-icon"
+              ng-show="station.canEdit"
+              ng-click="list.editStation( station.code )"
+              aria-label="Bearbeiten"
+            >
+              <span>✎</span>
+            </div>
 
-        <li ng-repeat="station in list.stations | filter : list.searchQuery | orderBy : station.order"
-            dnd-draggable="station"
-            dnd-moved="list.moveStation($index)"
-            dnd-effect-allowed="move"
-            dnd-disable-if="!list.canEditStation">
-
-        <md-list-item
-              class="station-item"
-              ng-class-odd="'station-odd'"
-              ng-click="list.switchContent( list.params.mobidulCode, station.code, station )">
-
-              <div class="md-list-item-text stdLink">
-                <h3>{{ station.name }} </h3>
-              </div>
-
-              <div
-                class="md-secondary secondary-icon"
-                ng-show="station.canEdit"
-                ng-click="list.editStation( station.code )"
-                aria-label="Bearbeiten">
-                <span>✎</span>
-              </div>
-
-              <md-divider ng-if=" ! $last"></md-divider>
-            </md-list-item>
-
+            <md-divider ng-if=" ! $last"></md-divider>
+          </md-list-item>
         </li>
       </ul>
     </md-list>

@@ -23,6 +23,8 @@ function ListStationsController (
   // ...
 
   /// vars
+  list.isCordovaIOS = isCordova && isIOS;
+
   list.stations       = [];
   list.loading        = 'block';
   list.searchQuery    = '';
@@ -30,7 +32,7 @@ function ListStationsController (
   list.myFont         = '';
 
 
-    /// functions
+  /// functions
   list.switchContent  = switchContent;
   list.editStation    = editStation;
   list.moveStation    = moveStation;
@@ -75,7 +77,7 @@ function ListStationsController (
   function _getStations ()
   {
     var currentStateParams = StateManager.state.params;
-    
+
     ListService.getStations(
         currentStateParams.mobidulCode,
         currentStateParams.category
@@ -86,7 +88,7 @@ function ListStationsController (
 
       var hasPermission = response.hasPermission,
           stations = response.stations;
-      
+
       if(hasPermission){
 
         MobidulService.getMobidulMode(currentStateParams.mobidulCode)
@@ -186,7 +188,7 @@ function ListStationsController (
 	{
 
     list.stations.splice(index, 1);
-    
+
     angular.forEach(list.stations, function(station, i){
       station.order = i;
     });
