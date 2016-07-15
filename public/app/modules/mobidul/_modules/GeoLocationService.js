@@ -5,13 +5,13 @@
     .factory('GeoLocationService', GeoLocationService);
 
   GeoLocationService.$inject = [
-    '$log', '$rootScope', '$q', '$interval',
+    '$log', '$rootScope', '$interval',
     '$geolocation',
     'ActivityService'
   ];
 
   function GeoLocationService (
-    $log, $rootScope, $q, $interval,
+    $log, $rootScope, $interval,
     $geolocation,
     ActivityService
   ) {
@@ -28,7 +28,7 @@
       /// services
       startPositionWatching : startPositionWatching,
       stopPositionWatching  : stopPositionWatching
-    }
+    };
 
 
     /// services
@@ -89,7 +89,7 @@
         timeout: service.WATCH_INTERVAL,
         // maximumAge: 200,
         enableHighAccuracy: true
-      }
+      };
 
       return $geolocation
         .getCurrentPosition(currentPositionConfig)
@@ -109,7 +109,7 @@
                 }
               }
             }
-          })
+          });
 
           var e;
           if (position.error) {
@@ -142,7 +142,7 @@
                 message: errorMessage
               }
             }
-          })
+          });
 
           return response
         });
@@ -176,9 +176,7 @@
 
       var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 
-      var d = R * c;
-
-      return d;
+      return R * c;
     }
 
 
