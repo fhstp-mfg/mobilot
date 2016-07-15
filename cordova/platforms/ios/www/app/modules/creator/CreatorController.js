@@ -29,11 +29,13 @@ function CreatorController (
 
 
   /// vars
-  creator.categories  = [
+  creator.isCordovaIOS = isCordova && isIOS;
+
+  creator.categories = [
     { name : 'Neue Kategorie', isNewCategory : true }
   ];
 
-  creator.editMode  = 0;
+  creator.editMode = 0;
   // creator.editModes = [
   //   'Jeder darf alle Stationen editieren',
   //   'Jeder darf nur eigene Stationen editieren',
@@ -196,7 +198,7 @@ function CreatorController (
                 if(hasPermission){
                   //console.info('creator - stations:');
                   //console.log(stations);
-                  
+
                   creator.stations = stations;
                 }else{
                   $log.warn('inside creator withour having permission to view all stations!');

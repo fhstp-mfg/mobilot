@@ -228,18 +228,18 @@ map {
 /* fixes untappable tabs after map positioned */
 #station_creator_tabs
 {
-  position : fixed;
-  top    : 4em;
-  left     : 0;
-  right    : 0;
-  width    : 100%;
-  z-index  : 1;
+  position   : fixed;
+  top        : 4em;
+  left       : 0;
+  right      : 0;
+  width      : 100%;
+  z-index    : 1;
 }
 
 .station-creator-content
 {
   position : fixed;
-  top    : 7em;
+  top      : 7em;
   left     : 0;
   right    : 0;
   bottom   : 0;
@@ -247,22 +247,23 @@ map {
 
 #creator_tabs
 {
-  position : fixed;
-  top    : 56px;
-  left     : 0;
-  right    : 0;
-  width    : 100%;
-  z-index  : 1;
+  position   : fixed;
+  top        : 56px;
+  left       : 0;
+  right      : 0;
+  width      : 100%;
+  background : white;
+  z-index    : 1;
 }
 
 .creator-content
 {
   position : fixed;
-  top    : 7em;
+  top      : 104px;
   left     : 0;
   right    : 0;
   bottom   : 0;
-  /* HACK TO PREVENT SC OPTIONS TO SCROLL-X */
+  /* HACK: TO PREVENT SC OPTIONS TO SCROLL-X */
   overflow-x: hidden;
 }
 .creator-content-new {
