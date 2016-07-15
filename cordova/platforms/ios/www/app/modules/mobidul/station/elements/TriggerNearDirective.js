@@ -10,13 +10,13 @@
     'GeoLocationService'
   ];
 
-  function TriggerNear(
+  function TriggerNear (
     $log, $rootScope,
     GeoLocationService
-  ){
+  ) {
     return {
       restrict: 'E',
-      scope:{
+      scope: {
         fallback: '@',
         success: '@',
         range: '@'
@@ -36,19 +36,18 @@
       "</div>" +
       "</div>",
 
-      link: function($scope, $element, $attrs, ctrl){
+      link: function ($scope, $element, $attrs, ctrl) {
+        // $log.info('positionicon - link - attrs:');
+        // $log.debug($attrs);
 
-        //$log.info('positionicon - link - attrs:');
-        //$log.debug($attrs);
-
-        $scope.$on('inaccurate', function(event, msg){
-          if(msg){
+        $scope.$on('inaccurate', function (event, inaccurate) {
+          if (inaccurate) {
             ctrl.inaccurate = true;
           }
         });
 
-        $scope.$on('distance', function(event, msg){
-          if(msg){
+        $scope.$on('distance', function (event, msg) {
+          if (msg) {
             ctrl.default = null;
             ctrl.inaccurate = false;
             ctrl.distance = parseInt(msg.d);
@@ -66,18 +65,15 @@
             }
           }
         });
-
       },
-      controller: function($scope, $element, $attrs){
+      controller: function ($scope, $element, $attrs) {
         var ctrl = this;
 
-        ctrl.default = "GPS wird abgerufen..."
+        ctrl.default = 'GPS wird abgerufen...';
         ctrl.inaccurate = false;
         ctrl.trigger = false;
       },
       controllerAs: 'ctrl'
-
-    };
+    }
   }
 })();
-

@@ -23,9 +23,10 @@ class ActivityController extends \BaseController {
       $activity->save();
     }
 
+    // TODO: Add error handling
     $response = [
       'success' => true,
-      'msg' => "If something went wrong, we don't know about it!"
+      'msg' => 'TODO: Add error handling.'
     ];
 
     return $response;

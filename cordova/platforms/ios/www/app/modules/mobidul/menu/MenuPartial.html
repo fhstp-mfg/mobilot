@@ -1,13 +1,11 @@
 <md-sidenav
-  class="md-sidenav-left"
-  style="position : fixed"
-  layout="column"
   md-component-id="menu"
+  class="md-sidenav-left"
+  layout="column"
+  style="position : fixed"
 >
   <style>
-    .menuLogin,
-    .menuDivider
-    {
+    .menuLogin, .menuDivider {
       background : {{ menu.config.background }};
       color      : {{ menu.config.foreground }};
     }
@@ -16,8 +14,9 @@
   <div
     class="menuLogin"
     layout="row"
-    layout-padding>
-
+    layout-padding
+    ng-class="{ 'ios-top-padding' : menu.isCordovaIOS }"
+  >
     <md-button
       flex="{{ menu.profile.flex }}"
       class="md-raised"
@@ -36,22 +35,23 @@
       class="md-raised"
       ng-class="{ 'md-warn' : menu.isLoggedIn }"
       ng-click="menu.loginLogoutButtonClick()"
-      ng-if="menu.isLoggedIn">
-
+      ng-if="menu.isLoggedIn"
+    >
       <md-icon>exit_to_app</md-icon>
     </md-button>
   </div>
 
   <md-list ng-class="menu.myFont">
     <!-- Mobidul Menu -->
-      <md-list-item
-        ng-repeat="item in mobidul.menu"
-        ng-click=" ! item.isDivider ? mobidul.switchContent( item ) : null"
-        ng-class="item.isDivider ? 'menuDivider menuDividerEmpty' : ''"
-        class="md-list-item"
-      >
-        <span ng-if="! item.isDivider">{{ item.text }}</span>
-      </md-list-item>
+    <md-list-item
+      ng-repeat="item in mobidul.menu"
+      ng-click=" ! item.isDivider ? mobidul.switchContent( item ) : null"
+      ng-class="item.isDivider ? 'menuDivider menuDividerEmpty' : ''"
+      class="md-list-item"
+    >
+      <span ng-if="! item.isDivider">{{ item.text }}</span>
+    </md-list-item>
+
     <md-list-item
         ng-if="menu.isRallyMode"
         ng-click="menu.resetRally()"
@@ -79,7 +79,6 @@
       </md-list-item>
     </div>
 
-
     <!-- Common area -->
     <md-list-item
       class="menuDivider menuDividerEmpty"
@@ -88,15 +87,15 @@
 
     <md-list-item
       ng-click="mobidul.switchState('home')"
-      ng-show="menu.isGoToHomeEnabled">
-
+      ng-show="menu.isGoToHomeEnabled"
+    >
       <span>Mobidulauswahl</span>
     </md-list-item>
 
     <md-list-item
       ng-click="mobidul.switchState('mobidul.about')"
-      ng-show="menu.isGoToAboutEnabled">
-
+      ng-show="menu.isGoToAboutEnabled"
+    >
       <span>Über Mobilot</span>
     </md-list-item>
   </md-list>

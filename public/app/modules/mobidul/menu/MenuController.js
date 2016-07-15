@@ -26,8 +26,10 @@ function MenuController (
 
 
   /// vars
+  menu.isCordovaIOS = isCordova && isIOS;
+
   menu.profile = {};
-  
+
   menu.isGoToHomeEnabled    = MobidulService.Config.isGoToHomeEnabled;
   menu.isGoToAboutEnabled   = MobidulService.Config.isGoToAboutEnabled;
   menu.isLastDividerEnabled = true;
