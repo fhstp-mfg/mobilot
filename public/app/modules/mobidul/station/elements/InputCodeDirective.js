@@ -6,11 +6,13 @@ angular
   .directive('mblInputCode', InputCode);
 
 InputCode.$inject = [
-  '$log', '$rootScope'
+  '$log', '$rootScope',
+  'ActivityService'
 ];
 
 function InputCode (
-  $log, $rootScope
+  $log, $rootScope,
+  ActivityService
 ) {
   return {
     restrict: 'E',
@@ -24,7 +26,7 @@ function InputCode (
         '<form ng-submit="ctrl.submit()">' +
           '<md-input-container>' +
             '<input ' +
-              'ng-model="ctrl.input" ' +
+              'ng-model="ctrl.code" ' +
               'data-success="success" ' +
               'data-error="error">' +
             '</input>' +
@@ -33,8 +35,8 @@ function InputCode (
           '<md-button ' +
             'type="submit" ' +
             'class="md-raised md-primary"' +
-          '>Go</md-button>'
-        '</form>'
+          '>Go</md-button>' +
+        '</form>' +
       '</div>'
     ),
 
@@ -48,12 +50,39 @@ function InputCode (
       ctrl.submit = submit;
 
       function submit () {
-        if (ctrl.input) {
-          if ( ctrl.input.toLowerCase() == $scope.verifier.toLowerCase() ) {
+        if (ctrl.code) {
+          var code = ctrl.code.toLowerCase();
+          var verifier = $scope.verifier.toLowerCase();
+
+          var payload = {
+            inputCodeId: 'unknown',
+            code: code,
+            verifier: verifier
+          };
+
+          // Check if the given code matches the verifier
+          if ( code === verifier ) {
+            ActivityService.commitActivity({
+              type: ActivityService.TYPES.USER_ACTION,
+              name: ActivityService.USER_ACTIONS.INPUTCODE_SUCCESS,
+              payload: payload
+            });
+
             $rootScope.$broadcast('action', $scope.success);
-          } else {
+          }
+          else {
+            ActivityService.commitActivity({
+              type: ActivityService.TYPES.USER_ACTION,
+              name: ActivityService.USER_ACTIONS.INPUTCODE_ERROR,
+              payload: payload
+            });
+
             $rootScope.$broadcast('action', $scope.error);
           }
+
+          // TODO: find a better place for pushing the activity
+          // maybe $on('action', ...) ?
+          ActivityService.pushActivity();
         }
       }
     },

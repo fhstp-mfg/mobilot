@@ -17,6 +17,7 @@ class ActivityController extends \BaseController {
     foreach ($activities as $aIx => $activityData) {
       $activity = new Activity;
       $activity->code = $mobidulCode;
+      $activity->user = Auth::id();
       $activity->type = $activityData->type;
       $activity->name = $activityData->name;
       $activity->payload = json_encode($activityData->payload);
