@@ -6,13 +6,11 @@ angular
   .directive('mblInputCode', InputCode);
 
 InputCode.$inject = [
-  '$log',
-  '$rootScope'
+  '$log', '$rootScope'
 ];
 
 function InputCode (
-  $log,
-  $rootScope
+  $log, $rootScope
 ) {
   return {
     restrict: 'E',
@@ -21,7 +19,24 @@ function InputCode (
       success: '@',
       error: '@'
     },
-    template: "<div><form ng-submit='ctrl.submit()'><md-input-container><input ng-model='ctrl.input' data-success='success' data-error='error'</input></md-input-container><md-button type='submit' class='md-raised md-primary'>Go</md-button></form></div>",
+    template: (
+      '<div>' +
+        '<form ng-submit="ctrl.submit()">' +
+          '<md-input-container>' +
+            '<input ' +
+              'ng-model="ctrl.input" ' +
+              'data-success="success" ' +
+              'data-error="error">' +
+            '</input>' +
+          '</md-input-container>' +
+
+          '<md-button ' +
+            'type="submit" ' +
+            'class="md-raised md-primary"' +
+          '>Go</md-button>'
+        '</form>'
+      '</div>'
+    ),
 
     link: function ($scope, $element, $attrs, ctrl) {
       // ...
@@ -33,9 +48,8 @@ function InputCode (
       ctrl.submit = submit;
 
       function submit () {
-
         if (ctrl.input) {
-          if (ctrl.input.toLowerCase() == $scope.verifier.toLowerCase()) {
+          if ( ctrl.input.toLowerCase() == $scope.verifier.toLowerCase() ) {
             $rootScope.$broadcast('action', $scope.success);
           } else {
             $rootScope.$broadcast('action', $scope.error);
