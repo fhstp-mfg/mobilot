@@ -230,7 +230,6 @@ map {
 }
 
 
-/* fixes untappable tabs after map positioned */
 #station_creator_tabs
 {
   position   : fixed;
@@ -266,12 +265,11 @@ map {
 .creator-content
 {
   position : fixed;
+  /* 56px header height + 48px station_creator_tabs height */
   top      : 104px;
   left     : 0;
   right    : 0;
   bottom   : 0;
-  /* HACK: TO PREVENT SC OPTIONS TO SCROLL-X */
-  /*overflow-x: hidden;*/
 }
 .creator-content-new {
   top : 56px;
@@ -288,11 +286,6 @@ map {
   -webkit-margin-start: 0px;
   -webkit-margin-end: 0px;
 }
-/*md-input-container .md-input.h1-field{
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-}*/
 
 
 .creator-input-container {
