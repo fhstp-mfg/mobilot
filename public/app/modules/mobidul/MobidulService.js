@@ -60,6 +60,7 @@ function MobidulService (
     getProgress       : getProgress,
     setProgress       : setProgress,
     adminSetProgress  : adminSetProgress,
+    cloneMobidul      : cloneMobidul,
 
     /// app config
     Config :
@@ -264,6 +265,23 @@ function MobidulService (
       $log.error(response);
       $log.error(status);
     });
+  }
+
+  /**
+   *
+   * @param mobidulCode Code of the current
+   * @returns {*}
+   */
+  function cloneMobidul(mobidulCode) {
+    $log.info("FLO 2: SERVICE was working." + "Mobidulcode: " + mobidulCode);
+    return $http.get( cordovaUrl + '/' + mobidulCode + '/clone' )
+      .success(function (response, status, headers, config) {
+        return response;
+      })
+      .error(function (response, status, headers, config) {
+        $log.error(response);
+        $log.error(status);
+      });
   }
 
 

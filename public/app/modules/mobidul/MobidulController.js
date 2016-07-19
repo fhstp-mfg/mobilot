@@ -30,6 +30,7 @@ function MobidulController (
 	mobidul.switchContent      = switchContent;
 	mobidul.switchState        = switchState;
 	mobidul.switchAdminContent = switchAdminContent;
+	mobidul.cloneMyMobidul	 	 = cloneMyMobidul;
 
 
 	/// construct
@@ -339,6 +340,20 @@ function MobidulController (
 
 					default : break;
 				}
+			});
+	}
+
+	/**
+	 *
+	 */
+	function cloneMyMobidul()
+	{
+		var mobidulCode = StateManager.state.params.mobidulCode;
+		$log.info("FLO 1: CONTROLLER was working.");
+		MobidulService
+			.cloneMobidul(mobidulCode)
+			.then(function (response, status, headers, config, statusText) {
+				$log.info('FLO 3: SPEICHERN ' + response.data.msg);
 			});
 	}
 }

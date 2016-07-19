@@ -345,7 +345,7 @@ function HomeController (
         // $log.debug(data);
 
         var mobidulsData = home.prepareMobidulsData( data );
-
+        
         // NOTE - save mobiduls data to show
         home.mobiduls = mobidulsData;
       })
