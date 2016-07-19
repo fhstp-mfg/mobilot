@@ -1,44 +1,45 @@
 <div ng-app="StationCreator">
 
-	<!-- StationCreatorController as stationCreator -->
+  <!-- StationCreatorController as stationCreator -->
 
-	<md-content
-		class="station-creator-content"
-		layout-padding>
+  <md-content
+    class="station-creator-content"
+    layout-padding
+    ng-class="{ 'ios-top-margin': stationCreator.isCordovaIos }"
+  >
+    <md-list>
+      <md-list-item ng-repeat="option in stationCreator.stationOptions">
+        <md-checkbox
+          class="md-primary"
+          ng-model="option.selected">
+        </md-checkbox>
 
-		<!-- <h3 class="section-title">Optionen</h3> -->
+        <p>{{ option.name }}</p>
 
-		<md-list>
-			<md-list-item ng-repeat="option in stationCreator.stationOptions">
-				<md-checkbox
-					class="md-primary"
-					ng-model="option.selected">
-				</md-checkbox>
-
-	    		<p>{{ option.name }}</p>
-				<!-- TODO - find better solution to display settings description -->
-				<!-- <p>{{ option.description }}</p> -->
-			</md-list-item>
-		</md-list>
+        <!-- TODO - find better solution to display settings description -->
+        <!-- <p>{{ option.description }}</p> -->
+      </md-list-item>
+    </md-list>
 
 
-		<!-- Dangerous -->
+    <!-- Dangerous settings -->
 
-		<br>
-		<div layout="column">
-			<p class="helper center dangerous">
-				<span>Station wird unwiderruflich gelöscht.</span>
-			</p>
+    <br>
 
-			<md-button
-				class="md-raised md-warn"
-				ng-show="true"
-				ng-click="stationCreator.deleteStation()"
-				flex>
+    <div layout="column">
+      <p class="helper center dangerous">
+        <span>Station wird unwiderruflich gelöscht.</span>
+      </p>
 
-				<md-icon>delete</md-icon>
-				<span>Station löschen</span>
-			</md-button>
-		</div>
-	</md-content>
+      <md-button
+        class="md-raised md-warn"
+        ng-show="true"
+        ng-click="stationCreator.deleteStation()"
+        flex
+      >
+        <md-icon>delete</md-icon>
+        <span>Station löschen</span>
+      </md-button>
+    </div>
+  </md-content>
 </div>

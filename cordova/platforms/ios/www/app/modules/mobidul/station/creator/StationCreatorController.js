@@ -6,7 +6,6 @@ angular
 StationCreatorController.$inject = [
   '$log', '$rootScope', '$scope', '$q',
   '$state', '$stateParams', 'StateManager',
-  /*'uiGmapGoogleMapApi', 'uiGmapIsReady',*/
   '$mdDialog',
   'UtilityService', 'HeaderService', 'MobidulService',
   'StationCreatorService', 'MapService', 'StationService'
@@ -16,7 +15,6 @@ StationCreatorController.$inject = [
 function StationCreatorController (
   $log, $rootScope, $scope, $q,
   $state, $stateParams, StateManager,
-  /*uiGmapGoogleMapApi, uiGmapIsReady,*/
   $mdDialog,
   UtilityService, HeaderService, MobidulService,
   StationCreatorService, MapService, StationService
@@ -25,7 +23,7 @@ function StationCreatorController (
   var stationCreator = this;
 
   /// constants
-  stationCreator._mobilotUrl     = 'www.mobilot.at';
+  stationCreator._mobilotUrl = 'www.mobilot.at';
 
   stationCreator._codeHelperGenerating = 'wird generiert ...';
   stationCreator._codeHelperGenerated  = 'automatisch generiert';
@@ -33,6 +31,7 @@ function StationCreatorController (
 
 
   /// vars
+  stationCreator.isCordovaIos = isCordova && isIos;
 
   // StationCreator general
   stationCreator.stationTabIndex =
@@ -42,20 +41,16 @@ function StationCreatorController (
   stationCreator.categories     = [];
   stationCreator.origCategories = [];
 
-  stationCreator.stationOptions =
-  [
-    {
-      name      : 'Unveränderbar',
-      description : 'Die Station ist unveränderbar.',
-      selected    : false
-    },
-    {
-      name      : 'Auf Karte verstecken',
-      description : 'Die Station wird nicht auf der Karte angezeigt.',
-      selected    : false
-    }
-  ];
-  stationCreator.origStationOptions = angular.copy( stationCreator.stationOptions );
+  stationCreator.stationOptions = [{
+    name        : 'Unveränderbar',
+    description : 'Die Station ist unveränderbar.',
+    selected    : false
+  }, {
+    name        : 'Auf Karte verstecken',
+    description : 'Die Station wird nicht auf der Karte angezeigt.',
+    selected    : false
+  }];
+  stationCreator.origStationOptions = angular.copy(stationCreator.stationOptions);
 
   stationCreator.myPosition         = {};
   stationCreator.circleColor        = MapService.circleColor;
@@ -63,15 +58,13 @@ function StationCreatorController (
   stationCreator.isRally            = false;
 
   // basic
-  stationCreator.basis =
-  {
-    originalCode : '',
-    generateCode : false,
+  stationCreator.basis = {
+    originalCode: '',
+    generateCode: false,
 
-    codeHelper :
-    {
-      show : false,
-      text : ''
+    codeHelper: {
+      show: false,
+      text: ''
     }
   };
 
@@ -111,7 +104,6 @@ function StationCreatorController (
   function _init ()
   {
     $log.debug('StationCreatorController init');
-
 
     HeaderService.refresh();
 

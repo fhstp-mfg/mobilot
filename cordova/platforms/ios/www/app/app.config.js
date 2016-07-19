@@ -391,7 +391,7 @@ angular
 								url : '/edit/place',
 								views : {
 									'stationCreatorContent' : {
-										templateUrl : 'app/modules/mobidul/station/creator/StationCreatorPlaceNgPartial.html',
+										templateUrl : 'app/modules/mobidul/station/creator/StationCreatorPlacePartial.html',
 										controller  : 'MapController as map'
 									}
 								}

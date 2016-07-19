@@ -219,14 +219,14 @@ md-toolbar,
 /*** map ***/
 
 map {
-  position : absolute;
+  position : fixed;
   top      : 56px;
   bottom   : 0;
   left     : 0;
   right    : 0;
 }
 .ng-map {
-  top: 48px
+  top: 104px;
 }
 
 
@@ -234,17 +234,19 @@ map {
 #station_creator_tabs
 {
   position   : fixed;
-  top        : 4em;
+  width      : 100%;
+  top        : 56px;
   left       : 0;
   right      : 0;
-  width      : 100%;
+  background : #fff;
   z-index    : 1;
 }
 
 .station-creator-content
 {
   position : fixed;
-  top      : 7em;
+  /* 56px header height + 48px station_creator_tabs height */
+  top      : 104px;
   left     : 0;
   right    : 0;
   bottom   : 0;
@@ -253,11 +255,11 @@ map {
 #creator_tabs
 {
   position   : fixed;
+  width      : 100%;
   top        : 56px;
   left       : 0;
   right      : 0;
-  width      : 100%;
-  background : white;
+  background : #fff;
   z-index    : 1;
 }
 
@@ -269,7 +271,7 @@ map {
   right    : 0;
   bottom   : 0;
   /* HACK: TO PREVENT SC OPTIONS TO SCROLL-X */
-  overflow-x: hidden;
+  /*overflow-x: hidden;*/
 }
 .creator-content-new {
   top : 56px;
