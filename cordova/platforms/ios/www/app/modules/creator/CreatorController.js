@@ -29,7 +29,7 @@ function CreatorController (
 
 
   /// vars
-  creator.isCordovaIOS = isCordova && isIOS;
+  creator.isCordovaIos = isCordova && isIos;
 
   creator.categories = [
     { name : 'Neue Kategorie', isNewCategory : true }
@@ -328,13 +328,13 @@ function CreatorController (
     }
 
 
-    function _isOriginalCode (mobidulCode)
+  function _isOriginalCode (mobidulCode)
   {
     return mobidulCode === creator.mobidul.originalCode;
   }
 
 
-    function _restoreOriginalStationCode ()
+  function _restoreOriginalStationCode ()
   {
     creator.mobidul.code = creator.mobidul.originalCode;
 
@@ -342,7 +342,7 @@ function CreatorController (
   }
 
 
-    function _refreshCodeHelper (mobidulCode, codeHelperText)
+  function _refreshCodeHelper (mobidulCode, codeHelperText)
   {
     var  isOriginalCode = _isOriginalCode( mobidulCode );
 

@@ -29,7 +29,7 @@ function CreatorController (
 
 
   /// vars
-  creator.isCordovaIOS = isCordova && isIOS;
+  creator.isCordovaIos = isCordova && isIos;
 
   creator.categories = [
     { name : 'Neue Kategorie', isNewCategory : true }

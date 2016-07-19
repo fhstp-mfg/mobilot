@@ -186,13 +186,13 @@ p { margin: 0; }
 .header-content
 {
   position : fixed;
-  top      : 4em;
+  top      : 56px;
   left     : 0;
   right    : 0;
   bottom   : 0;
 }
 .header-tabs-content {
-  top : 7em
+  top: 7em
 }
 
 .search-type-controls
@@ -335,7 +335,7 @@ element-container{
 
 li.selected element-container{
     border: none;
-} 
+}
 
 #tinyeditor_left_controls{
     display:none;

@@ -26,7 +26,7 @@ function MenuController (
 
 
   /// vars
-  menu.isCordovaIOS = isCordova && isIOS;
+  menu.isCordovaIos = isCordova && isIos;
 
   menu.profile = {};
 

@@ -8,7 +8,7 @@ mobilePattern = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
 iosPattern = /iPhone|iPad|iPod/i;
 
 var isMobile  = mobilePattern.test(navigator.userAgent);
-var isIOS     = iosPattern.test(navigator.userAgent);
+var isIos     = iosPattern.test(navigator.userAgent);
 
 delete mobilePattern;
 delete iosPattern;

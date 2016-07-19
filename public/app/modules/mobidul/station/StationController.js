@@ -23,6 +23,8 @@ function StationController (
   // ...
 
   /// vars
+  station.isCordovaIos  = isCordova && isIos;
+
   station.mediaList     = [];
   station.imageList     = [];
   station.content       = '';

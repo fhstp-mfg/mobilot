@@ -75,7 +75,7 @@
 
   <div
     class="search-type-controls"
-    ng-class="{ 'ios-top-padding': home.isCordovaIOS }"
+    ng-class="{ 'ios-top-padding': home.isCordovaIos }"
   >
     <md-tabs
       md-autoselect="false"
@@ -91,7 +91,7 @@
     <md-input-container
       class="search-field"
       ng-show=" ! home.requiredLogin"
-      ng-class="{ 'ios-top-margin': home.isCordovaIOS }"
+      ng-class="{ 'ios-top-margin': home.isCordovaIos }"
     >
       <label>{{ home.searchPlaceholder }}</label>
 
@@ -121,7 +121,7 @@
       id="home_mobidule_view"
       class="home-sub-view"
       ng-show=" ! home.requiredLogin"
-      ng-class="{ 'ios-top-padding': home.isCordovaIOS }"
+      ng-class="{ 'ios-top-padding': home.isCordovaIos }"
     >
       <md-progress-circular
         id="homeProgressCircular"
@@ -133,7 +133,7 @@
       <md-list
         id="home_list_mobidule"
         ng-if="home.hasPosition() || home.mobiduls.length"
-        ng-class="{ 'ios-top-margin': home.isCordovaIOS }"
+        ng-class="{ 'ios-top-margin': home.isCordovaIos }"
       >
         <md-list-item
           class="md-3-line"

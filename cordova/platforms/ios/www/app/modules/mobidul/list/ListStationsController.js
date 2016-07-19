@@ -23,7 +23,7 @@ function ListStationsController (
   // ...
 
   /// vars
-  list.isCordovaIOS = isCordova && isIOS;
+  list.isCordovaIos = isCordova && isIos;
 
   list.stations       = [];
   list.loading        = 'block';

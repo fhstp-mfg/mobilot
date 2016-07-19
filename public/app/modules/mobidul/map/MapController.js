@@ -29,7 +29,7 @@ function MapController (
   $scope._stationEditPlaceState = 'mobidul.station.edit.place';
 
   // vars
-  $scope.isCordovaIOS = isCordova && isIOS;
+  $scope.isCordovaIos = isCordova && isIos;
 
   $scope.stations = [];
   $scope.mapZoom = parseInt(10, 10);;
