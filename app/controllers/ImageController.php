@@ -86,7 +86,7 @@ class ImageController extends BaseController
 
         file_put_contents($destinationPath . $filename, $data);
 
-        return Response::json(array("success" => true, "fileName" => $filename));
+        return Response::json(array("success" => true, "fileName" => $filename, "attachment" => $attachment));
     }
 
     public function saveImageForStation ($mobName)

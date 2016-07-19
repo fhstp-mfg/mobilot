@@ -6,10 +6,12 @@ angular
   .factory('PhotoService', PhotoService);
 
 PhotoService.$inject = [
-  '$log'
+  '$log', '$http', '$stateParams'
 ];
 
-function PhotoService($log) {
+function PhotoService(
+  $log, $http, $stateParams
+) {
   /// PhotoService
   var service =
   {
@@ -84,7 +86,7 @@ function PhotoService($log) {
         var ctx = canvas.getContext("2d");
 
         //ctx.(image, 0, 0, imageWidth, imageHeight);
-        scope.drawImageIOSFix(ctx, image, 0, 0, image.width, image.height, 0, 0, Math.round(imageWidth), Math.round(imageHeight), exifOr)
+        _drawImageIOSFix(ctx, image, 0, 0, image.width, image.height, 0, 0, Math.round(imageWidth), Math.round(imageHeight), exifOr)
 
         // The resized file ready for upload
         var finalFile = canvas.toDataURL("image/jpeg", 0.7);
@@ -117,9 +119,10 @@ function PhotoService($log) {
             {
 
               //Add image to list
-              if(response.exists)
-                scope.addedImage(hash);
-
+              if(response.exists){
+                $log.info('file already exists:');
+                $log.debug(response);
+              }
               //upload it
               else
               {
@@ -128,8 +131,9 @@ function PhotoService($log) {
                   // this callback will be called asynchronously
                   // when the response is available
 
-                  scope.addedImage(hash);
-                }, function(response) {
+                  $log.info('response from upload image:');
+                  $log.debug(response);
+                }, function(error) {
                   // called asynchronously if an error occurs
                   // or server returns response with an error status.
                 });
@@ -149,6 +153,68 @@ function PhotoService($log) {
     };
     reader.readAsDataURL(file);
   }
+
+  function _drawImageIOSFix (ctx, img, sx, sy, sw, sh, dx, dy, dw, dh, exifOr) 
+  {
+    var vertSquashRatio = _detectVerticalSquash(img);
+    // Works only if whole image is displayed:
+    //                 ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh / vertSquashRatio);
+    //                 The following works correct also when only a part of the image is displayed:
+    ctx.save();
+    ctx.translate(dw / 2, dh / 2);
+
+    switch (exifOr) {
+      case 6:
+        ctx.rotate(90 * Math.PI / 180);
+        break;
+      case 3:
+        ctx.rotate(180 * Math.PI / 180);
+        break;
+      case 8:
+        ctx.rotate(-90 * Math.PI / 180);
+        break;
+    }
+    if (exifOr == 8 || exifOr == 6) {
+      var tempWidth = dw;
+      dw = dh;
+      dh = tempWidth;
+    }
+
+    ctx.drawImage(img, sx * vertSquashRatio, sy * vertSquashRatio,
+      sw * vertSquashRatio, sh * vertSquashRatio,
+      0 - dw / 2, 0 - dh / 2, dw, dh);
+
+    ctx.restore();
+  }
+  
+  function _detectVerticalSquash (img) 
+  {
+    var iw = img.naturalWidth,
+      ih = img.naturalHeight;
+    var canvas = document.createElement('canvas');
+    canvas.width = 1;
+    canvas.height = ih;
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    var data = ctx.getImageData(0, 0, 1, ih).data;
+    // search image edge pixel position in case it is squashed vertically.
+    var sy = 0;
+    var ey = ih;
+    var py = ih;
+    while (py > sy) {
+      var alpha = data[(py - 1) * 4 + 3];
+      if (alpha === 0) {
+        ey = py;
+      } else {
+        sy = py;
+      }
+      py = (ey + sy) >> 1;
+    }
+    var ratio = (py / ih);
+    return (ratio === 0) ? 1 : ratio;
+  }
+
+
 
   return service;
 }
