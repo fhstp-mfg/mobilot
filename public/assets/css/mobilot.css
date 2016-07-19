@@ -204,9 +204,10 @@ p { margin: 0; }
   z-index    : 1;
 }
 .search-field {
-  margin        : 0.2em 0.8em;
-  margin-bottom  : 0;
-  padding-bottom : 0;
+  margin: 0.2em 0.8em;
+  margin-top: 20px;
+  margin-bottom: 0;
+  padding-bottom: 0;
   display: block;
 }
 

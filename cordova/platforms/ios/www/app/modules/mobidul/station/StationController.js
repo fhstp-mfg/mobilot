@@ -24,7 +24,6 @@ function StationController (
 
   /// vars
   station.isCordovaIos  = isCordova && isIos;
-  alert(station.isCordovaIos);
 
   station.mediaList     = [];
   station.imageList     = [];
