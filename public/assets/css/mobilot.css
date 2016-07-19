@@ -183,6 +183,10 @@ p { margin: 0; }
 }
 
 
+md-toolbar,
+.md-toolbar-tools {
+  min-height: 56px;
+}
 .header-content
 {
   position : fixed;
@@ -395,11 +399,11 @@ md-backdrop.md-sidenav-backdrop {
   position : fixed
 }
 
-.menuLogin button {
+.menu-login button {
   padding : 0 !important
 }
 
-.menuLogin,
+.menu-login,
 .menuDivider
 {
   background : #ccc;

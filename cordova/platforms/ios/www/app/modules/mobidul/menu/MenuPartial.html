@@ -5,14 +5,18 @@
   style="position : fixed"
 >
   <style>
-    .menuLogin, .menuDivider {
+    .menu-login {
+      min-height: 56px;
+      /*padding-top: 4px;*/
+    }
+    .menu-login, .menuDivider {
       background : {{ menu.config.background }};
       color      : {{ menu.config.foreground }};
     }
   </style>
 
   <div
-    class="menuLogin"
+    class="menu-login"
     layout="row"
     layout-padding
     ng-class="{ 'ios-top-padding' : menu.isCordovaIos }"

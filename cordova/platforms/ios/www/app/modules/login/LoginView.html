@@ -15,22 +15,24 @@
       ng-submit="login.loginUser()"
       novalidate
     >
-      <!-- Benutzername -->
+      <!-- Username -->
       <md-input-container class="md-icon-float">
         <label>Benutzername</label>
         <md-icon>person</md-icon>
         <input
           type="text"
-          ng-model="login.credentials.username">
+          ng-model="login.credentials.username"
+        >
       </md-input-container>
 
-      <!-- Passwort -->
+      <!-- Password -->
       <md-input-container class="md-icon-float">
         <label>Passwort</label>
         <md-icon>lock</md-icon>
         <input
           type="password"
-          ng-model="login.credentials.password">
+          ng-model="login.credentials.password"
+        >
       </md-input-container>
 
 
