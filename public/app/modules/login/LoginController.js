@@ -2,7 +2,6 @@ angular
   .module('Login')
   .controller('LoginController', LoginController);
 
-
 LoginController.$inject = [
   '$log', '$rootScope', '$timeout',
   '$state', '$stateParams', 'StateManager',
@@ -10,28 +9,28 @@ LoginController.$inject = [
   'UserService'
 ];
 
-
 function LoginController (
   $log, $rootScope, $timeout,
   $state, $stateParams, StateManager,
   $mdDialog,
   UserService
 ) {
+  /// LoginController
   var login = this;
 
-  // constants
+  /// constants
   // ...
 
-  // vars
-  login.credentials =
-  {
+  /// vars
+  login.isCordovaIos = isCordova && isIos;
+
+  login.credentials = {
     username : '',
     email    : '',
     password : ''
   };
 
-  login.resetData =
-  {
+  login.resetData = {
     resetToken      : $stateParams.token,
     newPassword     : '',
     confirmPassword : ''
@@ -43,7 +42,7 @@ function LoginController (
   login.disableRegisterButton      = false;
   login.disableResetPasswordButton = false;
 
-  // functions
+  /// functions
   login.loginUser          = loginUser;
   login.registerUser       = registerUser;
   login.requestRestore     = requestRestore;

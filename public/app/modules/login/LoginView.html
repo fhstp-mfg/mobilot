@@ -6,7 +6,10 @@
     class="header-content"
     layout="column"
     layout-padding
-    ng-class="{ 'header-tabs-content' : login.isHeaderTabsContent }"
+    ng-class="{
+      'header-tabs-content': login.isHeaderTabsContent,
+      'ios-top-margin': login.isCordovaIos
+    }"
   >
     <h2 class="bottomless">Anmelden</h2>
 

@@ -14,7 +14,7 @@ class AddComponentIdToAttachmentTable extends Migration {
   {
     Schema::table('attachment', function(Blueprint $table)
     {
-      $table->string('componentId')->nullable();
+      $table->string('componentId')->nullable()->after('mobidulId');
     });
   }
 
