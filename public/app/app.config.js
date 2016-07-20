@@ -217,7 +217,8 @@ angular
 							controller  : 'HeaderController as header'
 						},
 						'content' : {
-							templateUrl : 'app/modules/mobidul/about/AboutPartial.html'
+							templateUrl : 'app/modules/mobidul/about/AboutPartial.html',
+              controller: 'AboutController as about'
 						}
 					}
 				})
