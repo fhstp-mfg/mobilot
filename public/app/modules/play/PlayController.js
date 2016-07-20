@@ -1,85 +1,84 @@
 angular
-	.module('Play')
-	.controller('PlayController', PlayController);
+  .module('Play')
+  .controller('PlayController', PlayController);
 
 PlayController.$inject = [
-	'$log', '$rootScope', '$scope',
-	'$state', '$stateParams', 'StateManager',
-	'$mdDialog',
-	'PlayService'
+  '$log', '$rootScope', '$scope',
+  '$state', '$stateParams', 'StateManager',
+  '$mdDialog',
+  'PlayService'
 ];
 
 function PlayController (
-	$log, $rootScope, $scope,
-	$state, $stateParams, StateManager,
-	$mdDialog,
-	PlayService
-)
-{
-	var play = this;
+  $log, $rootScope, $scope,
+  $state, $stateParams, StateManager,
+  $mdDialog,
+  PlayService
+) {
+  /// PlayController
+  var play = this;
 
-	/// constrants
-	// ...
+  /// constrants
+  // ...
 
-	/// vars
-	play.code;
+  /// vars
+  play.isCordovaIos = isCordova && isIos;
 
-	/// functions
-	play.join = join;
+  play.code;
 
-
-	/// construct
-
-	_init();
+  /// functions
+  play.join = join;
 
 
-	/// private functions
+  /// construct
 
-	function _init ()
-	{
-		$log.debug('init PlayController');
-
-		_initDefaultValues();
-	}
-
-	function _initDefaultValues ()
-	{
-		play.code = '';
-	}
+  _init();
 
 
-	/// public functions
+  /// private functions
 
-	function join ()
-	{
-		PlayService
-			.play( play.code )
-			.success(function (response)
-			{
-				// console.warn('join mobidul play callback : ');
-				// console.info(response);
+  function _init ()
+  {
+    $log.debug('PlayController init');
 
-				if ( response )
-				{
-					if ( response.success )
-						$state.go('mobidul.map', { mobidulCode : response.code });
-					else
-					{
-						var msg = 'Dieser Mitmach-Code ist ungültig. Bitte versuche es nochmal oder kontaktiere den Ersteller des Mobiduls.';
+    _initDefaultValues();
+  }
 
-						var invalidPlayDialog =
-							$mdDialog
-								.alert()
-								.parent( angular.element(document.body) )
-								.title('Mitmachen nicht möglich')
-								.textContent( msg )
-								.ariaLabel('Anmeldung Fehler')
-								.ok('Daten überarbeiten');
 
-						$mdDialog.show( invalidPlayDialog );
-					}
-				}
-			});
-	}
+  function _initDefaultValues ()
+  {
+    play.code = '';
+  }
 
+
+  /// public functions
+
+  function join ()
+  {
+    PlayService
+    .play(play.code)
+    .success(function (response) {
+      // console.warn('join mobidul play callback : ');
+      // console.info(response);
+
+      if (response) {
+        if (response.success) {
+          $state.go('mobidul.map', { mobidulCode : response.code });
+        }
+        else {
+          var msg = 'Dieser Mitmach-Code ist ungültig. Bitte versuche es nochmal oder kontaktiere den Ersteller des Mobiduls.';
+
+          var invalidPlayDialog =
+            $mdDialog.alert()
+            .parent( angular.element(document.body) )
+            .title('Mitmachen nicht möglich')
+            .textContent(msg)
+            .ariaLabel('Anmeldung Fehler')
+            .ok('Daten überarbeiten');
+
+          $mdDialog.show(invalidPlayDialog);
+        }
+      }
+    });
+  }
 }
