@@ -7,12 +7,12 @@
 
   PhotoUpload.$inject = [
     '$log', '$rootScope',
-    'PhotoService'
+    'PhotoService', 'ActivityService'
   ];
 
   function PhotoUpload(
     $log, $rootScope,
-    PhotoService
+    PhotoService, ActivityService
   ) {
     return {
 
@@ -35,6 +35,18 @@
             .then(function(photo){
               $log.info('upload was successful:');
               $log.debug(photo);
+
+              ActivityService.commitActivity({
+                type: ActivityService.TYPES.USER_ACTION,
+                name: ActivityService.USER_ACTIONS.UPLOAD_PICTURE,
+                payload: {
+                  picture: photo.fileName,
+                  userId: photo.attachment.userId,
+                  componentId: $scope.id
+                }
+              });
+
+              ActivityService.pushActivity();
 
               $rootScope.$broadcast('action', $scope.success);
             }, function(error){
