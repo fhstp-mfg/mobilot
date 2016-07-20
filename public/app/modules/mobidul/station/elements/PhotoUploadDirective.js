@@ -41,7 +41,6 @@
                 name: ActivityService.USER_ACTIONS.UPLOAD_PICTURE,
                 payload: {
                   picture: photo.fileName,
-                  userId: photo.attachment.userId,
                   componentId: $scope.id
                 }
               });
