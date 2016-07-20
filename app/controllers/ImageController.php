@@ -15,7 +15,7 @@ class ImageController extends BaseController
 
         if ( isset($att) )
         {
-            return Response::json(array("exists" => true));
+            return Response::json(array("exists" => true, "attachment" => $att));
         }
         else
         {
