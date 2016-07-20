@@ -27,7 +27,8 @@ function PhotoService(
 
 
     /// functions
-    uploadPhoto: uploadPhoto
+    uploadPhoto: uploadPhoto,
+    exportPicturesFromComponent: exportPicturesFromComponent
 
   };
 
@@ -184,6 +185,30 @@ function PhotoService(
     });
   }
 
+  function exportPicturesFromComponent (id)
+  {
+    $log.info('PhotoService - exportPicturesFromComponent: ');
+    $log.debug(id);
+
+    $http.get('/exportImages/' + id)
+      .success(function(result){
+        $log.info('result from export:');
+        $log.debug(result);
+
+        var anchor = angular.element('<a/>');
+        anchor.attr({
+          href: result.url,
+          //target: '_blank',
+          download: 'export.zip'
+        })[0].click();
+
+      })
+      .error(function(error){
+        $log.error('error from component picture export:');
+        $log.debug(error);
+      });
+
+  }
 
   return service;
 }

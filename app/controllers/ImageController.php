@@ -166,8 +166,24 @@ class ImageController extends BaseController
     }
   }
 
-  public function exportPicturesFromComponent ()
+  public function exportPicturesFromComponent ($componentId)
   {
+
+    $attachments = Attachment::where('componentId', $componentId)->get();
+
+    $zipName = $componentId . '.zip';
+    $zip = new ZipArchive();
+    $zip->open('export/' . $zipName, ZipArchive::CREATE);
+
+    foreach ($attachments as $attachment) {
+      $file = public_path() . '/' . Config::get('assets.images.paths.input') . '/' . $attachment->url;
+
+      $zip->addFile($file, $attachment->url);
+    }
+
+    $zip->close();
+
+    return Response::json(array('url' => 'export/' . $zipName, 'origName' => $zipName));
 
   }
 }

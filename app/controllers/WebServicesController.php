@@ -24,7 +24,7 @@ class WebServicesController extends BaseController
         "GetCategories",      "GetMobiduls",              "GetContent",
         "GetStation",         "GetCategoriesForStation",  "Play",
         "CanPlay",            "NewMobidul",               "UpdateMobidul",
-        "PushActivity",       "CloneMobidul",
+        "PushActivity",       "CloneMobidul",             "exportImages",
         "AddCategories",      "UpdateCategories",         "RemoveCategories",
         "AddStation",         "RemoveCategory",           "SetStation",
         "RemoveStation",      "RemoveStationByCode",      "GetContentForCode",
