@@ -1,26 +1,26 @@
-<div ng-app="Profile" layout-padding>
+<div ng-app="Profile">
 
   <md-content
     class="header-content"
     layout="column"
     layout-padding
     layout-fill
+    ng-class="{ 'ios-top-margin': profile.isCordovaIos }"
   >
     <h2 class="bottomless">Benutzerprofil</h2>
 
     <div layout="row" class="section">
       <div layout="column">
         <div layout="row">
-          <md-input-container
-            class="md-icon-float"
-          >
+          <md-input-container class="md-icon-float">
             <label>Benutzername</label>
             <md-icon>person</md-icon>
 
             <input
               ng-model="profile.currentUser.username"
-              style="color : #3797c4"
-              disabled>
+              style="color: #3797c4"
+              disabled
+            >
           </md-input-container>
         </div>
 
@@ -28,21 +28,23 @@
           layout="row"
           ng-if="profile.isChangePassword"
         >
-          <md-icon style="color : black; margin-top : 26px">lock</md-icon>
+          <md-icon style="color: black; margin-top: 26px">lock</md-icon>
 
-          <md-input-container style="margin-left : 0.8em; padding-bottom : 0">
+          <md-input-container style="margin-left: 0.8em; padding-bottom: 0">
             <label>Aktuelles Passwort</label>
             <input
               type="password"
               id="currentPasswordInput"
-              ng-model="profile.changePasswordData.oldPassword">
+              ng-model="profile.changePasswordData.oldPassword"
+            >
           </md-input-container>
 
-          <md-input-container style="padding-bottom : 0">
+          <md-input-container style="padding-bottom: 0">
             <label>Neues Passwort</label>
             <input
               type="password"
-              ng-model="profile.changePasswordData.newPassword">
+              ng-model="profile.changePasswordData.newPassword"
+            >
           </md-input-container>
         </div>
 
@@ -50,7 +52,7 @@
           <md-button
             md-no-ink
             class="md-primary"
-            ng-class="{ 'md-raised'  : profile.isChangePassword }"
+            ng-class="{ 'md-raised': profile.isChangePassword }"
             arial-label="Change password"
             ng-click="profile.changePassword()"
           >
@@ -74,9 +76,14 @@
       ng-if="profile.isRallyMode"
     >
       <div layout="column">
-        <h3 style="margin-left: 0.6em; margin-top: 0.4em;">Rally Einstellungen</h3>
+        <h3
+          style="margin-left: 0.6em; margin-top: 0.4em;"
+        >Rally Einstellungen</h3>
 
-        <p style="margin-left: 0.6em; margin-bottom: 0.4em;" class="helper">Achtung! Diese Aktion löscht deinen aktuellen Rally Fortschritt.</p>
+        <p
+          class="helper"
+          style="margin-left: 0.6em; margin-bottom: 0.4em;"
+        >Achtung! Diese Aktion löscht deinen aktuellen Rally Fortschritt.</p>
 
         <div class="row">
           <md-button

@@ -4,8 +4,7 @@ angular
 
 
 ProfileController.$inject = [
-  '$log',
-  '$state', '$stateParams',
+  '$log', '$state', '$stateParams',
   '$mdDialog',
   'UserService', 'StateManager',
   'RallyService', 'MobidulService'
@@ -13,13 +12,12 @@ ProfileController.$inject = [
 
 
 function ProfileController (
-  $log,
-  $state, $stateParams,
+  $log, $state, $stateParams,
   $mdDialog,
   UserService, StateManager,
   RallyService, MobidulService
-)
-{
+) {
+  /// ProfileController
   var profile = this;
 
   /// constants
@@ -27,9 +25,9 @@ function ProfileController (
 
 
   /// vars
-  // ...  
+  profile.isCordovaIos = isCordova && isIos;
 
-  
+
   /// functions
   profile.logout               = logout;
   profile.changePassword       = changePassword;
@@ -49,7 +47,6 @@ function ProfileController (
     // $log.debug('ProfileController init');
 
     _initDefaultValues();
-
     _checkIsLoggedIn();
   }
 
@@ -57,11 +54,13 @@ function ProfileController (
   function _initDefaultValues ()
   {
     MobidulService.getMobidulMode($stateParams.mobidulCode)
-      .then(function(mode){
-        profile.isRallyMode = (mode == MobidulService.MOBIDUL_MODE_RALLY) &&
-          StateManager.comesFrom( StateManager.MOBIDUL );
-      });
-    
+    .then(function (mode) {
+      profile.isRallyMode = (
+        mode == MobidulService.MOBIDUL_MODE_RALLY &&
+        StateManager.comesFrom(StateManager.MOBIDUL)
+      );
+    });
+
     profile.currentUser = {
       username : UserService.Session.username
     };
@@ -77,9 +76,8 @@ function ProfileController (
 
   function _checkIsLoggedIn ()
   {
-    // TODO - what if session expires
-    if ( ! UserService.Session.isLoggedIn )
-    {
+    // TODO: what if session expires
+    if ( ! UserService.Session.isLoggedIn ) {
       var stateParams = StateManager.state.params;
 
       $state.go( StateManager.LOGIN, stateParams );
@@ -98,72 +96,61 @@ function ProfileController (
 
   function logout ()
   {
-    UserService
-      .logout()
-      .then(function ()
-      {
-        $state.go( StateManager.DEFAULT_NAME, StateManager.DEFAULT_PARAMS );
-      });
+    UserService.logout()
+    .then(function () {
+      $state.go( StateManager.DEFAULT_NAME, StateManager.DEFAULT_PARAMS );
+    });
   }
 
 
   function changePassword ()
   {
-    if ( profile.isChangePassword )
+    if (profile.isChangePassword) {
+      UserService.changePassword( profile.changePasswordData )
+      .then(function (response) {
+        // $log.debug('change password callback :');
+        // $log.debug(response);
 
-      UserService
-        .changePassword( profile.changePasswordData )
-        .then(function (response)
-        {
-          // $log.debug('change password callback :');
-          // $log.debug(response);
-
-          var changePasswordDialogTitle,
-              changePasswordDialogContent,
-              changePasswordDialogOk;
+        var changePasswordDialogTitle,
+            changePasswordDialogContent,
+            changePasswordDialogOk;
 
 
-          if ( response.data === 'success' )
-          {
-            changePasswordDialogTitle   = 'Passwort geändert'
-            changePasswordDialogContent = 'Passwort wurde erfolgreich geändert.';
-            changePasswordDialogOk      = 'Weiter';
+        if ( response.data === 'success' ) {
+          changePasswordDialogTitle   = 'Passwort geändert'
+          changePasswordDialogContent = 'Passwort wurde erfolgreich geändert.';
+          changePasswordDialogOk      = 'Weiter';
+
+          cancelChangePassword();
+          _resetChangePasswordData();
+        }
+        else {
+          changePasswordDialogTitle = 'Passwort ändern Fehler'
+
+          changePasswordDialogContent = '';
+          angular.forEach(response.data, function (field, id) {
+            var message = field[0];
+            changePasswordDialogContent += message + ' ';
+          });
+
+          changePasswordDialogOk = 'Daten überarbeiten';
+        }
 
 
-            cancelChangePassword();
+        var changePasswordCompletedDialog =
+          $mdDialog.alert()
+          .parent( angular.element(document.body) )
+          .title(changePasswordDialogTitle)
+          .textContent(changePasswordDialogContent)
+          .ariaLabel('Passwort ändern Informationen')
+          .ok(changePasswordDialogOk);
 
-            _resetChangePasswordData();
-          }
-          else
-          {
-            changePasswordDialogTitle = 'Passwort ändern Fehler'
-
-            changePasswordDialogContent = '';
-            angular.forEach(response.data, function (field, id)
-            {
-              var message = field[0];
-
-              changePasswordDialogContent += message + ' ';
-            });
-
-            changePasswordDialogOk = 'Daten überarbeiten';
-          }
-
-
-          var changePasswordCompletedDialog =
-            $mdDialog
-              .alert()
-              .parent(angular.element(document.body))
-              .title(changePasswordDialogTitle)
-              .textContent(changePasswordDialogContent)
-              .ariaLabel('Passwort ändern Informationen')
-              .ok( changePasswordDialogOk );
-
-          $mdDialog.show( changePasswordCompletedDialog );
-        });
-
-    else
+        $mdDialog.show(changePasswordCompletedDialog);
+      });
+    }
+    else {
       profile.isChangePassword = true;
+    }
   }
 
 
@@ -178,15 +165,14 @@ function ProfileController (
     RallyService.reset();
 
     var resetRallyCompletedDialog =
-      $mdDialog
-        .alert()
-        .parent(angular.element(document.body))
-        .title('Rally zurückgesetzt')
-        .textContent('Dein Rally Fortschitt wurde zurückgesetzt.')
-        .ariaLabel('Rally zurückgesetzt')
-        .ok('Weiter');
+      $mdDialog.alert()
+      .parent( angular.element(document.body) )
+      .title('Rally zurückgesetzt')
+      .textContent('Dein Rally Fortschitt wurde zurückgesetzt.')
+      .ariaLabel('Rally zurückgesetzt')
+      .ok('Weiter');
 
-    $mdDialog.show( resetRallyCompletedDialog );
+    $mdDialog.show(resetRallyCompletedDialog);
   }
 
 
