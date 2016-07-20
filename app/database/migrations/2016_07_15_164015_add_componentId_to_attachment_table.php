@@ -25,10 +25,10 @@ class AddComponentIdToAttachmentTable extends Migration {
    */
   public function down()
   {
-    Schema::table('attachmdnt', function(Blueprint $table)
-    {
-      $table->dropColumn('componentId');
-    });
+    Schema::table('attachment', function(Blueprint $table)
+      {
+         $table->dropColumn('componentId');
+      });
   }
 
 }
