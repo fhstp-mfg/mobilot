@@ -5,13 +5,13 @@ angular
 
 RallyService.$inject = [
   '$log', '$state', '$stateParams', '$localStorage', '$timeout', '$q',
-  'MobidulService'
+  'MobidulService', 'LocalStorageService'
 ];
 
 
 function RallyService (
   $log, $state, $stateParams, $localStorage, $timeout, $q,
-  MobidulService
+  MobidulService, LocalStorageService
 ) {
   /// RallyService
   var service =
@@ -50,7 +50,7 @@ function RallyService (
     getActions        : getActions,
 
     /// XXX just for testing purposes, will be deprecated
-    setProgress       : __setProgress,
+    setProgress       : setProgress,
 
     isStatusActivated : isStatusActivated,
     isStatusOpen      : isStatusOpen,
@@ -65,16 +65,16 @@ function RallyService (
 
   /// XXX temp services
 
-  function __setProgress (progress)
+  function setProgress (progress)
   {
+    var mobidulCode = $stateParams.mobidulCode;
+
     return $q(function(resolve, reject){
-      MobidulService.getMobidulConfig($stateParams.mobidulCode)
+      MobidulService.getMobidulConfig(mobidulCode)
         .then(function(config){
-          MobidulService.adminSetProgress({
-            progress: progress,
-            state: config.states[0]
-          })
-            .then(function(){
+
+          LocalStorageService.setProgress(mobidulCode, progress)
+            .then(function () {
               resolve();
             });
         });
@@ -274,11 +274,11 @@ function RallyService (
       MobidulService.getMobidulConfig($stateParams.mobidulCode)
         .then(function(config){
 
-          MobidulService.setProgress(config.states[0], true)
-            .then(function(progress) {
+          MobidulService.setProgress(config.states[0])
+            .then(function(state) {
 
               $log.info('RallyService - activateNext - progress:');
-              $log.debug(progress);
+              $log.debug(state);
 
               $timeout(function(){
                 resolve();
@@ -404,7 +404,7 @@ function RallyService (
   function setStatus (newStatus, order)
   {
     return $q(function(resolve, reject){
-      MobidulService.setProgress(newStatus, false)
+      MobidulService.setProgress(newStatus)
         .then(function(state){
           //$log.info('RallyService - setStatus:');
           //$log.debug(state);

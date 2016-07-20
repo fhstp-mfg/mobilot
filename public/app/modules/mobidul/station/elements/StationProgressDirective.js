@@ -23,7 +23,7 @@
       },
       template: '<div>' +
         '<ul id="progressbar_container" class="progressbar clearfix" data-progtrckr-steps="{{ length }}">' +
-        '<li data-ng-class="($index <= current) ? \'finished\' : \'\'" '+
+        '<li data-ng-class="($index == current) ? \'current\' : \'\'" '+
             'data-ng-repeat="i in ctrl.getNumber(length) track by $index"' +
             'data-ng-click="ctrl.goToStation($index)"></li>'+
         '</ul></div>',
@@ -43,10 +43,13 @@
         ctrl.goToStation = function(order){
           //$log.info('Go To Station:');
           //$log.debug(order);
-          if(order <= $scope.current){
 
-            RallyService.goToStation(order);
-          }
+          RallyService.setProgress(order)
+            .then(function(){
+              RallyService.goToStation(order);
+            });
+
+
         };
 
         ctrl.getNumber = function(number){

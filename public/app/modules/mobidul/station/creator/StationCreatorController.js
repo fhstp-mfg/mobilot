@@ -586,19 +586,19 @@ function StationCreatorController (
 
     if ( hasChanges )
     {
-      var dialogTitle, stationMsg, saveText;
+      var dialogTitle, stationMsg, saveButtonText;
 
       if ( stationCreator.isNewStation )
       {
         dialogTitle    = 'Station erstellen';
-        stationMsg     = 'Möchtest du diese Station erstellen?'
+        stationMsg     = 'Möchtest du diese Station erstellen?';
         saveButtonText = 'Erstellen';
       }
       else
       {
         dialogTitle = 'Änderungen speichern';
-        stationMsg  = 'Die Station mit dem Code "' + stationCreator.origStation.code + '" wurde geändert. Möchtest du die Änderungen speichern?'
-        saveText    = 'Speichern';
+        stationMsg  = 'Die Station mit dem Code "' + stationCreator.origStation.code + '" wurde geändert. Möchtest du die Änderungen speichern?';
+        saveButtonText    = 'Speichern';
       }
 
 

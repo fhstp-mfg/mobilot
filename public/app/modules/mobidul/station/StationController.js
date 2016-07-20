@@ -66,7 +66,8 @@ function StationController (
   function setRallyState(state){
     RallyService.setStatus(state)
       .then(function(newState){
-        $state.go($state.current, {}, {reload: true});
+        renderJSON();
+        //$state.go($state.current, {}, {reload: true});
       });
   }
 
@@ -162,6 +163,7 @@ function StationController (
                 RallyService.getProgress()
                   .then(function(progress){
                     station.currentStation = progress.progress;
+                    station.currentState   = progress.state;
                   });
 
                 MobidulService.getMobidulConfig(StateManager.state.params.mobidulCode)
@@ -459,6 +461,8 @@ function StationController (
       .then(function (status) {
         $log.info('StationController - renderJSON - RallyService.getStatus - status:');
         $log.debug(status, station, StateManager.isStationCreator());
+
+        station.currentState = status;
 
         if ( ! StateManager.isStationCreator() ) {
           var config = station.config[status];

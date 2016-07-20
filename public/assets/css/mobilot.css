@@ -433,19 +433,18 @@ md-radio-button .md-on{
     Progress Bar
 */
 .progressbar {
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     counter-reset: step;
 }
 
-
-progressbar > div {
+mbl-station-progress > div {
     overflow-y:hidden;
     overflow-x: scroll;
     width:100%;
 }
 
-progressbar > div::-webkit-scrollbar{
+mbl-station-progress > div::-webkit-scrollbar{
     display: none;
 }
 
@@ -492,8 +491,7 @@ progressbar > div::-webkit-scrollbar{
 .progressbar li:before {
     width: 30px;
     height: 30px;
-    font-family: FontAwesome;
-    content: '\f00d';
+    content: counter(step);
     counter-increment: step;
     line-height: 28px;
     border: 2px solid #7d7d7d;
@@ -518,16 +516,19 @@ progressbar > div::-webkit-scrollbar{
 .progressbar li:first-child:after {
     content: none;
 }
-.progressbar li.finished {
+.progressbar li.current {
     color: green;
 }
-.progressbar li.finished:before {
+.progressbar li.current:before {
     border-color: #55b776;
-    content: '\f00c';
 }
 
 .progressbar li.active + li:after {
     background-color: #55b776;
+}
+
+li:focus{
+    outline:none;
 }
 
 
