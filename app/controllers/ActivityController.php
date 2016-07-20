@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Activity;
+use App\Models\User;
 
 class ActivityController extends \BaseController {
 
@@ -14,10 +15,16 @@ class ActivityController extends \BaseController {
     $content = $request->getContent();
     $activities = json_decode($content);
 
+    if ( Auth::check() ){
+        $userId = Auth::id();
+    }else{
+        $userId = User::where('username', Session::getId())->first()->id;
+    }
+
     foreach ($activities as $aIx => $activityData) {
       $activity = new Activity;
       $activity->code = $mobidulCode;
-      $activity->user = Auth::id();
+      $activity->user = $userId;
       $activity->type = $activityData->type;
       $activity->name = $activityData->name;
       $activity->payload = json_encode($activityData->payload);
