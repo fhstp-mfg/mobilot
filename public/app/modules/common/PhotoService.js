@@ -94,7 +94,7 @@ function PhotoService(
   }
 
   /// services
-  function uploadPhoto (file)
+  function uploadPhoto (file, componentId)
   {
     return $q(function(resolve, reject) {
       var reader = new FileReader();
@@ -166,40 +166,14 @@ function PhotoService(
               'file': finalFile,
               'filename': newFileName + ".jpg",
               'hash': hash,
-              'extension': '.jpg'
+              'extension': '.jpg',
+              'componentId': componentId
             };
 
-            //upload it and add the link to the content area
-
-            //checkHash
-            $http
-              .get('/image/checkHash/' + File.hash)
-              .success(function (response, status, headers, config) {
-
-                //Add image to list
-                if (response.exists) {
-                  resolve(response);
-                }
-                //upload it
-                else {
-                  $http.post('/' + $stateParams.mobidulCode + '/saveImage', JSON.stringify(File)).then(function (response) {
-                    // this callback will be called asynchronously
-                    // when the response is available
-
-                    resolve(response.data);
-                  }, function (error) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                    reject(error);
-                  });
-                }
-
-
-              })
-              .error(function (response, status, headers, config) {
-                console.log(response);
-                console.log(status);
-                reject(response);
+              $http.post('/' + $stateParams.mobidulCode + '/saveImage', JSON.stringify(File)).then(function (response) {
+                resolve(response.data);
+              }, function (error) {
+                reject(error);
               });
 
           } else {

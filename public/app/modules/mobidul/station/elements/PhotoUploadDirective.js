@@ -6,12 +6,12 @@
     .directive('mblPhotoUpload', PhotoUpload);
 
   PhotoUpload.$inject = [
-    '$log',
+    '$log', '$rootScope',
     'PhotoService'
   ];
 
   function PhotoUpload(
-    $log,
+    $log, $rootScope,
     PhotoService
   ) {
     return {
@@ -31,7 +31,16 @@
 
         $scope.uploadPhoto = function (e) {
           //$log.debug(e.files[0]);
-          PhotoService.uploadPhoto(e.files[0]);
+          PhotoService.uploadPhoto(e.files[0], $scope.id)
+            .then(function(photo){
+              $log.info('upload was successful:');
+              $log.debug(photo);
+
+              $rootScope.$broadcast('action', $scope.success);
+            }, function(error){
+              $log.error('Error while uploading a photo:');
+              $log.debug(error);
+            });
         };
 
       },
