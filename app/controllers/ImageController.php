@@ -4,6 +4,7 @@ use App\Models\Mobidul;
 use App\Models\NavigationItem;
 use App\Models\Attachment;
 use App\Models\Station;
+use App\Models\User;
 use Illuminate\Support\Facades\Config;
 
 class ImageController extends BaseController
@@ -34,6 +35,12 @@ class ImageController extends BaseController
 
         $filename = $postData->hash.$postData->extension;
 
+        if ( Auth::check() ){
+            $userId = Auth::id();
+        }else{
+            $userId = User::where('username', Session::getId())->first()->id;
+        }
+
         //add attachement entry
         $mob = Mobidul::where('code', $mobName)->first();
 
@@ -43,18 +50,15 @@ class ImageController extends BaseController
         }
         else
         {
-
             $attachment = Attachment::create(
                 array(
                     'mobidulId' => $mob->id,
                     'url'       => $filename,
                     'hash'      => $postData->hash,
-                    // TODO: save guest id -> see #22
-                    'userId'    => Auth::id(),
+                    'userId'    => $userId,
                     'componentId' => $componentId
                 )
             );
-
         }
 
         //var_dump($postData);
