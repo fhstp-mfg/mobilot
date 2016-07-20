@@ -4,6 +4,7 @@ use App\Models\Mobidul;
 use App\Models\NavigationItem;
 use App\Models\Attachment;
 use App\Models\Station;
+use App\Models\User;
 use Illuminate\Support\Facades\Config;
 
 class ImageController extends BaseController
@@ -15,7 +16,7 @@ class ImageController extends BaseController
 
         if ( isset($att) )
         {
-            return Response::json(array("exists" => true));
+            return Response::json(array("exists" => true, "attachment" => $att));
         }
         else
         {
@@ -30,10 +31,15 @@ class ImageController extends BaseController
         // Now we can get the content from it
         $content = $request->getContent();
 		$postData = json_decode($content);
+        $componentId = property_exists($postData, 'componentId') ? $postData->componentId : ' ';
 
         $filename = $postData->hash.$postData->extension;
 
-        //$stationid=$postData->stationid;
+        if ( Auth::check() ){
+            $userId = Auth::id();
+        }else{
+            $userId = User::where('username', Session::getId())->first()->id;
+        }
 
         //add attachement entry
         $mob = Mobidul::where('code', $mobName)->first();
@@ -44,33 +50,15 @@ class ImageController extends BaseController
         }
         else
         {
-            //if attachment exists!!
-            $attachment=Attachment::where('hash', $postData->hash)->first();
-
-            if ( ! $attachment )
-            {
-                $attachment = Attachment::create(
-                    array(
-                        'mobidulId' => $mob->id,
-                        'url'       => $filename,
-                        'hash'      => $postData->hash,
-                        'userId'    => Auth::id()
-                    )
-                );
-            }
-            else
-            {
-                $attachment->url = $filename;
-                $attachment->save();
-            }
-
-            //get station by stationid in  $postdata
-            //add attachement
-            /*$station=Station::find($postData->stationId);
-            if(!$station)
-            {
-                $station->attachments()->attach($attachment);
-            }*/
+            $attachment = Attachment::create(
+                array(
+                    'mobidulId' => $mob->id,
+                    'url'       => $filename,
+                    'hash'      => $postData->hash,
+                    'userId'    => $userId,
+                    'componentId' => $componentId
+                )
+            );
         }
 
         //var_dump($postData);
@@ -86,7 +74,7 @@ class ImageController extends BaseController
 
         file_put_contents($destinationPath . $filename, $data);
 
-        return Response::json(array("success" => true, "fileName" => $filename));
+        return Response::json(array("success" => true, "fileName" => $filename, "attachment" => $attachment));
     }
 
     public function saveImageForStation ($mobName)
