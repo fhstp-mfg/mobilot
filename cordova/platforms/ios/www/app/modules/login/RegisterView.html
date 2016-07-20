@@ -1,4 +1,4 @@
-<div ng-app="Login" layout-padding>
+<div ng-app="Login">
 
   <!-- LoginController as login -->
 
@@ -6,6 +6,7 @@
     class="header-content"
     layout="column"
     layout-padding
+    ng-class="{ 'ios-top-margin': login.isCordovaIos }"
   >
     <h2 class="bottomless">Registrieren</h2>
 
@@ -14,7 +15,6 @@
       ng-submit="login.registerUser()"
       novalidate
     >
-
       <!-- Benutzername -->
       <md-input-container class="md-icon-float">
         <label>Benutzername</label>

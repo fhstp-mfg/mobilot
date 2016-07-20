@@ -1,41 +1,39 @@
-<div ng-app="Login"
-	 layout-padding>
+<div ng-app="Login">
 
-	<!-- LoginController as login -->
+  <!-- LoginController as login -->
 
-	<md-content
-		class="header-content"
-		layout="column"
-		layout-padding>
+  <md-content
+    class="header-content"
+    layout="column"
+    layout-padding
+    ng-class="{ 'ios-top-margin': login.isCordovaIos }"
+  >
+    <h2>Passwort zurücksetzen</h2>
+    <p>Bitte gib die Email Adresse deines Benutzers ein, um das Passwort zurückzusetzen.</p>
 
-		<h2>Passwort zurücksetzen</h2>
-		<p>Bitte gib die Email Adresse deines Benutzers ein, um das Passwort zurückzusetzen.</p>
+    <form
+      name="restoreForm"
+      ng-submit="login.requestRestore()"
+      novalidate
+    >
+      <!-- Email -->
+      <md-input-container class="md-icon-float">
+        <label>Email</label>
+        <md-icon>email</md-icon>
+        <input
+          type="email"
+          ng-model="login.credentials.email"
+        >
+      </md-input-container>
 
-		<form
-			name="restoreForm"
-			ng-submit="login.requestRestore()"
-			novalidate>
-
-			<!-- Email -->
-			<md-input-container class="md-icon-float">
-		    	<label>Email</label>
-		    	<md-icon>email</md-icon>
-
-		    	<input
-					type="email"
-					ng-model="login.credentials.email">
-
-		    </md-input-container>
-
-
-			<!-- Buttons -->
-			<md-button
-				type="submit"
-				class="md-raised md-primary"
-				ng-disabled="login.disableLoginButton">
-
-				<span>Zurücksetzen</span>
-			</md-button>
-		</form>
-	</md-content>
+      <!-- Buttons -->
+      <md-button
+        type="submit"
+        class="md-raised md-primary"
+        ng-disabled="login.disableLoginButton"
+      >
+        <span>Zurücksetzen</span>
+      </md-button>
+    </form>
+  </md-content>
 </div>
