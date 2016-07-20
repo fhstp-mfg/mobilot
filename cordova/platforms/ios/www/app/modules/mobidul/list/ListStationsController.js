@@ -2,7 +2,6 @@ angular
   .module('Mobidul')
   .controller('ListStationsController', ListStationsController);
 
-
 ListStationsController.$inject = [
   '$log', '$scope', '$rootScope',
   '$state', '$stateParams', 'StateManager',
@@ -10,20 +9,20 @@ ListStationsController.$inject = [
   'UserService', 'HeaderService', 'RallyService'
 ];
 
-
 function ListStationsController (
   $log, $scope, $rootScope,
   $state, $stateParams, StateManager,
   ListService, MobidulService, FontService,
   UserService, HeaderService, RallyService
 ) {
+  /// ListStationsController
   var list = this;
 
   /// constants
   // ...
 
   /// vars
-  list.isCordovaIos = isCordova && isIos;
+  list.isCordovaIos   = isCordova && isIos;
 
   list.stations       = [];
   list.loading        = 'block';
@@ -68,9 +67,9 @@ function ListStationsController (
   function _refreshStationActions ()
   {
     UserService.getEditStationPermit()
-      .then(function(permit){
-        list.canEditStation = permit;
-      });
+    .then(function (permit) {
+      list.canEditStation = permit;
+    });
   }
 
 
@@ -79,59 +78,60 @@ function ListStationsController (
     var currentStateParams = StateManager.state.params;
 
     ListService.getStations(
-        currentStateParams.mobidulCode,
-        currentStateParams.category
-      ).then(function(response){
-
+      currentStateParams.mobidulCode,
+      currentStateParams.category
+    )
+    .then(function (response) {
       //console.info('ListStationsController - _getStations');
       //console.log(response);
 
       var hasPermission = response.hasPermission,
           stations = response.stations;
 
-      if(hasPermission){
-
+      if (hasPermission) {
         MobidulService.getMobidulMode(currentStateParams.mobidulCode)
-          .then(function(mode) {
-            if(mode == MobidulService.MOBIDUL_MODE_RALLY && currentStateParams.category !== ListService.ALL_STATIONS) {
-              RallyService.filterStations(stations)
-                .then(function(stations){
-                  list.stations = stations;
-                });
-
-            }else{
+        .then(function (mode) {
+          if (
+            mode == MobidulService.MOBIDUL_MODE_RALLY &&
+            currentStateParams.category !== ListService.ALL_STATIONS
+          ) {
+            RallyService.filterStations(stations)
+            .then(function (stations){
               list.stations = stations;
-            }
-          })
-          .then(function(){
-            list.loading = 'none';
-            ListService.hideAppLoader();
-          });
-      }else{
-
+            });
+          }
+          else {
+            list.stations = stations;
+          }
+        })
+        .then(function () {
+          list.loading = 'none';
+          ListService.hideAppLoader();
+        });
+      }
+      else {
         list.stations = [];
         list.loading  = 'none';
         ListService.hideAppLoader();
+        // TODO: check if the above lines are necessary
 
-        // TODO - check if the above lines are necessary
-
-        $state.go('mobidul.map', {mobidulCode : currentStateParams.mobidulCode});
+        $state.go('mobidul.map', {
+          mobidulCode : currentStateParams.mobidulCode
+        });
       }
     });
 
-    //$log.debug('getStationsResponse : ');
+    // $log.debug('getStationsResponse : ');
     // $log.debug(list.params);
-    //$log.debug(currentStateParams);
-    //$log.debug(getStationsResponse);
-
+    // $log.debug(currentStateParams);
+    // $log.debug(getStationsResponse);
   }
 
 
   function _listenToConfig ()
   {
     var setConfigListener =
-      $rootScope.$on('rootScope:setConfig', function (event, config)
-      {
+      $rootScope.$on('rootScope:setConfig', function (event, config) {
         // $log.debug('Listened to "rootScope:setConfig" in ListStationsController');
         // $log.debug(config);
 
@@ -145,8 +145,7 @@ function ListStationsController (
   function _listenToSessionUpdate ()
   {
     var sessionUpdatedListener =
-      $rootScope.$on('UserService::sessionUpdated', function (event, data)
-      {
+      $rootScope.$on('UserService::sessionUpdated', function (event, data) {
         _init();
       });
 
@@ -172,8 +171,7 @@ function ListStationsController (
 
     var currentStateParams = StateManager.state.params;
 
-    var stateParams =
-    {
+    var stateParams = {
       from        : 'mobidul.list',
       category    : currentStateParams.category,
       mobidulCode : currentStateParams.mobidulCode,
@@ -184,21 +182,19 @@ function ListStationsController (
   }
 
 
-	function moveStation ( index )
-	{
-
+  function moveStation (index)
+  {
     list.stations.splice(index, 1);
 
-    angular.forEach(list.stations, function(station, i){
+    angular.forEach(list.stations, function (station, i) {
       station.order = i;
     });
 
     ListService.saveOrder(StateManager.state.params.mobidulCode, list.stations);
+  }
 
-	}
 
-
-	/// events
-	// ...
+  /// events
+  // ...
 
 }

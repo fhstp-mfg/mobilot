@@ -7,6 +7,8 @@
       width: 100%;
       /* 56px header height + 52px search field height */
       top: 108px;
+      left: 0;
+      right: 0;
       bottom: 0;
     }
 
@@ -69,13 +71,15 @@
   <md-content
     id="list_stations_view"
     class="header-list-tabs-content"
-    ng-class="list.myFont"
     layout="column"
     layout-align="center center"
+    ng-class="{ 'ios-top-margin': list.isCordovaIos }"
   >
-    <div id="list_progress_wrapper"
+    <div
+      id="list_progress_wrapper"
       layout="column"
       layout-align="center center"
+      ng-class="list.myFont"
     >
       <md-progress-circular
         md-mode="indeterminate"
@@ -90,19 +94,21 @@
 
     <md-list
       id="list_stations"
+      class="{ list.myFont }"
       layout="column"
       ng-class="{ 'ios-top-margin': list.isCordovaIos }"
     >
       <ul
         dnd-list="list.stations"
         dnd-disable-if=" ! list.canEditStation"
+        ng-class="{ 'ios-no-top-margin': list.isCordovaIos }"
       >
         <li
           ng-repeat="station in list.stations | filter : list.searchQuery | orderBy : station.order"
           dnd-draggable="station"
-          dnd-moved="list.moveStation($index)"
+          dnd-moved="list.moveStation( $index )"
           dnd-effect-allowed="move"
-          dnd-disable-if="!list.canEditStation"
+          dnd-disable-if=" ! list.canEditStation"
         >
           <md-list-item
             class="station-item"
