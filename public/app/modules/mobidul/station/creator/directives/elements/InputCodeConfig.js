@@ -7,12 +7,12 @@
 
   InputCodeEditor.$inject = [
     '$log',
-    'RallyService'
+    'RallyService', 'UtilityService'
   ];
 
   function InputCodeEditor(
     $log,
-    RallyService
+    RallyService, util
   ){
     return {
 
@@ -30,10 +30,13 @@
       scope: {
         verifier: '=',
         success: '=',
-        error: '='
+        error: '=',
+        id: '='
       },
       link: function($scope, $element, $attrs, ctrl){
-
+        if ( ! $scope.id ) {
+          $scope.id = util.getGUID();
+        }
       },
       controller: InputCodeEditorController,
       controllerAs: 'ctrl'

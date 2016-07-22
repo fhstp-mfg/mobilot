@@ -19,7 +19,8 @@ function InputCode (
     scope: {
       verifier: '@',
       success: '@',
-      error: '@'
+      error: '@',
+      id: '@'
     },
     template: (
       '<div>' +
@@ -55,7 +56,7 @@ function InputCode (
           var verifier = $scope.verifier.toLowerCase();
 
           var payload = {
-            inputCodeId: 'unknown',
+            inputCodeId: $scope.id,
             code: code,
             verifier: verifier
           };

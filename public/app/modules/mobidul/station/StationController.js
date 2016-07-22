@@ -486,7 +486,7 @@ function StationController (
                   case 'inputCode':
                     angular
                       .element(container)
-                      .append($compile("<mbl-input-code verifier='" + obj.verifier + "' success='" + obj.success + "' error='" + obj.error + "'></mbl-input-code>")($scope));
+                      .append($compile("<mbl-input-code data-id='" + obj.id + "' verifier='" + obj.verifier + "' success='" + obj.success + "' error='" + obj.error + "'></mbl-input-code>")($scope));
                     break;
 
                   case 'scanCode':

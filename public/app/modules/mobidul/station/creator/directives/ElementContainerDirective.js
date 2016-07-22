@@ -43,7 +43,7 @@
             break;
 
           case 'inputCode':
-            $element.prepend($compile('<input-code-config data-verifier="ctrl.element.verifier" data-success="ctrl.element.success" error="ctrl.element.error"></input-code-config>')($scope));
+            $element.prepend($compile('<input-code-config data-id="ctrl.element.id" data-verifier="ctrl.element.verifier" data-success="ctrl.element.success" error="ctrl.element.error"></input-code-config>')($scope));
             break;
 
           case 'photoUpload':
