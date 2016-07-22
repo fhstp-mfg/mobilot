@@ -558,10 +558,6 @@ function StationController (
           });
         break;
 
-      case 'showNext':
-        $log.debug("showNext");
-        break;
-
       case 'openThis':
         RallyService.setStatus('open');
         $log.debug('openThis');
@@ -572,28 +568,22 @@ function StationController (
       case 'completeThisAndShowNext':
         $log.debug('completeThisAndShowNext');
         RallyService.setStatus('completed');
-        RallyService.activateNext();
-        RallyService.progressToNext();
+        RallyService.activateNext()
+          .then(function(){
+            RallyService.progressToNext();
+          });
         //$state.go($state.current, {}, {reload: true});
         break;
 
       case 'completeThis':
         $log.debug('completeThis');
         RallyService.setStatus('completed');
-        break;
-
-      case 'activateAndShowNext':
-        RallyService.activateNext();
-        RallyService.progressToNext();
+        renderJSON();
         break;
 
       case 'say':
         // TODO: show modal window
         alert(attr);
-        break;
-
-      case 'showPrev':
-        $log.debug("showPrev");
         break;
 
       case 'verifyIfNear':

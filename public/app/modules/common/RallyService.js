@@ -22,7 +22,7 @@ function RallyService (
     STATUS_OPEN      : 'open',
     STATUS_COMPLETED : 'completed',
 
-    ACTIONS: ['openThis', 'completeThis', 'completeThisAndShowNext', 'say:', 'activateAndShowNext', 'goToCurrent', 'setStatus:'],
+    ACTIONS: ['openThis', 'completeThis', 'completeThisAndShowNext', 'say:', 'goToCurrent', 'setStatus:'],
 
     /// vars
     localStorage     : $localStorage,
@@ -274,11 +274,8 @@ function RallyService (
       MobidulService.getMobidulConfig($stateParams.mobidulCode)
         .then(function(config){
 
-          MobidulService.setProgress(config.states[0])
+          MobidulService.setProgress(config.states[0], true)
             .then(function(state) {
-
-              $log.info('RallyService - activateNext - progress:');
-              $log.debug(state);
 
               $timeout(function(){
                 resolve();

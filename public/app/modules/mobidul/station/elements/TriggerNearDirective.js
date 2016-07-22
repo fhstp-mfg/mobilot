@@ -44,6 +44,7 @@
           if (inaccurate) {
             ctrl.inaccurate = true;
 
+            /* to much noise in activity logs, is this necessary?
             ActivityService.commitActivity({
               type: ActivityService.TYPES.APP_EVENT,
               name: ActivityService.APP_EVENTS.USER_POSITION,
@@ -51,6 +52,7 @@
                 inaccurate: true
               }
             });
+            */
           }
         });
 
