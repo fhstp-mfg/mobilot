@@ -7,12 +7,12 @@ angular
 
 PhotoService.$inject = [
   '$log', '$http', '$q',
-  '$stateParams'
+  '$stateParams', '$mdDialog'
 ];
 
 function PhotoService(
   $log, $http, $q,
-  $stateParams
+  $stateParams, $mdDialog
 ) {
   /// PhotoService
   var service =
@@ -146,7 +146,7 @@ function PhotoService(
           var ctx = canvas.getContext("2d");
 
           //ctx.(image, 0, 0, imageWidth, imageHeight);
-          _drawImageIOSFix(ctx, image, 0, 0, image.width, image.height, 0, 0, Math.round(imageWidth), Math.round(imageHeight), exifOr)
+          _drawImageIOSFix(ctx, image, 0, 0, image.width, image.height, 0, 0, Math.round(imageWidth), Math.round(imageHeight), exifOr);
 
           // The resized file ready for upload
           var finalFile = canvas.toDataURL("image/jpeg", 0.7);
@@ -168,7 +168,8 @@ function PhotoService(
               'filename': newFileName + ".jpg",
               'hash': hash,
               'extension': '.jpg',
-              'componentId': componentId
+              'componentId': componentId,
+              'stationCode': $stateParams.stationCode
             };
 
               $http.post('/' + $stateParams.mobidulCode + '/saveImage', JSON.stringify(File)).then(function (response) {
@@ -190,17 +191,29 @@ function PhotoService(
     $log.info('PhotoService - exportPicturesFromComponent: ');
     $log.debug(id);
 
-    $http.get('/exportImages/' + id)
+    var stationCode = $stateParams.stationCode;
+
+    $http.get( '/' + stationCode + '/exportImages/' + id)
       .success(function(result){
         $log.info('result from export:');
         $log.debug(result);
 
-        var anchor = angular.element('<a/>');
-        anchor.attr({
-          href: result.url,
-          //target: '_blank',
-          download: 'export.zip'
-        })[0].click();
+        if( ! result.empty ){
+          var anchor = angular.element('<a/>');
+          anchor.attr({
+            href: result.url,
+            download: 'export.zip'
+          })[0].click();
+        } else {
+          $mdDialog.show(
+            $mdDialog.alert()
+              .parent(angular.element(document.body))
+              .title('Keine Fotos')
+              .textContent( 'Zu dieser Station wurden noch keine Fotos hochgeladen' )
+              .ariaLabel('OK')
+              .ok('OK')
+          );
+        }
 
       })
       .error(function(error){

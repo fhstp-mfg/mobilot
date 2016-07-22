@@ -32,6 +32,7 @@ class ImageController extends BaseController
     $content = $request->getContent();
     $postData = json_decode($content);
     $componentId = property_exists($postData, 'componentId') ? $postData->componentId : ' ';
+    $stationId = Station::getId($postData->stationCode);
 
     $filename = $postData->hash.$postData->extension;
 
@@ -52,11 +53,12 @@ class ImageController extends BaseController
     {
       $attachment = Attachment::create(
         array(
-          'mobidulId' => $mob->id,
-          'url'       => $filename,
-          'hash'      => $postData->hash,
-          'userId'    => $userId,
-          'componentId' => $componentId
+          'mobidulId'   => $mob->id,
+          'stationId'   => $stationId,
+          'componentId' => $componentId,
+          'url'         => $filename,
+          'hash'        => $postData->hash,
+          'userId'      => $userId
         )
       );
     }
@@ -166,24 +168,31 @@ class ImageController extends BaseController
     }
   }
 
-  public function exportPicturesFromComponent ($componentId)
+  public function exportPicturesFromComponent ($stationCode, $componentId)
   {
+    $station = Station::findByCode($stationCode);
 
-    $attachments = Attachment::where('componentId', $componentId)->get();
+    $attachments = Attachment::where(['componentId' => $componentId, 'mobidulId' => $station->mobidulId, 'stationId' => $station->id])->get();
 
-    $zipName = $componentId . '.zip';
-    $zip = new ZipArchive();
-    $zip->open('export/' . $zipName, ZipArchive::CREATE);
+    if ( ! $attachments->isEmpty() ) {
 
-    foreach ($attachments as $attachment) {
-      $file = public_path() . '/' . Config::get('assets.images.paths.input') . '/' . $attachment->url;
+      $zipName = $componentId . '.zip';
+      $zip = new ZipArchive();
+      $zip->open('export/' . $zipName, ZipArchive::CREATE);
 
-      $zip->addFile($file, $attachment->url);
+      foreach ($attachments as $attachment) {
+        $file = public_path() . '/' . Config::get('assets.images.paths.input') . '/' . $attachment->url;
+
+        $zip->addFile($file, $attachment->url);
+      }
+
+      $zip->close();
+
+      return Response::json(array('url' => 'export/' . $zipName, 'origName' => $zipName, 'empty' => false));
+    } else {
+
+      return Response::json(array('empty' => true));
     }
-
-    $zip->close();
-
-    return Response::json(array('url' => 'export/' . $zipName, 'origName' => $zipName));
 
   }
 }
