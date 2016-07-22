@@ -4,7 +4,7 @@ angular
 
 
 HeaderController.$inject = [
-  '$log', '$scope', '$rootScope',
+  '$log', '$scope', '$rootScope', '$timeout',
   '$state', '$stateParams', 'StateManager',
   '$mdSidenav', '$mdMedia',
   'UtilityService', 'UserService', 'GeoLocationService',
@@ -13,7 +13,7 @@ HeaderController.$inject = [
 
 
 function HeaderController (
-  $log, $scope, $rootScope,
+  $log, $scope, $rootScope, $timeout,
   $state, $stateParams, StateManager,
   $mdSidenav, $mdMedia,
   UtilityService, UserService, GeoLocationService,
@@ -211,7 +211,11 @@ function HeaderController (
         _refreshTitle();
         _refreshControls();
 
+        //Stop position watching and timeout on state change
         GeoLocationService.stopPositionWatching();
+        $timeout.cancel($rootScope.timeout);
+        // Todo: is this necessary?
+        //$rootScope.timeout = undefined;
       });
 
     $scope.$on('$destroy', refreshHeaderControlsListener);

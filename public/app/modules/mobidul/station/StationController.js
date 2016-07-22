@@ -67,11 +67,17 @@ function StationController (
     RallyService.setStatus(state)
       .then(function(newState){
         renderJSON();
+        //Stop position watching and timeout on state change
+        GeoLocationService.stopPositionWatching();
+        $timeout.cancel($rootScope.timeout);
+        // Todo: is this necessary?
+        //$rootScope.timeout = undefined;
         //$state.go($state.current, {}, {reload: true});
       });
   }
 
   function __progressToNext () {
+    $log.warn('StationController.__progressToNext(): Please don\'t use this any longer');
     RallyService.activateNext()
       .then(function(){
         RallyService.progressToNext();
@@ -79,6 +85,7 @@ function StationController (
   }
 
   function activateThis(){
+    $log.warn('StationController.activateThis(): Please don\'t use this any longer');
     RallyService.setProgress(station.order)
       .then(function(){
         $state.go($state.current, {}, {reload: true});
@@ -525,6 +532,12 @@ function StationController (
                       .append($compile('<mbl-photo-upload data-id="' + obj.id + '" data-success="' + obj.success + '" data-content="' + obj.content + '"></mbl-photo-upload>')($scope));
                     break;
 
+                  case 'setTimeout':
+                    angular
+                      .element(container)
+                      .append($compile('<mbl-set-timeout data-delay="' + obj.delay + '" data-action="' + obj.action + '"></mbl-set-timeout>')($scope));
+                    break;
+
                   default:
                     $log.error("Objecttype not known: " + type);
                     break;
@@ -559,30 +572,37 @@ function StationController (
         break;
 
       case 'openThis':
-        RallyService.setStatus('open');
+        RallyService.setStatus('open')
+          .then(function () {
+            renderJSON();
+          });
         $log.debug('openThis');
-        renderJSON();
         //$state.go($state.current, {}, {reload: true});
         break;
 
       case 'completeThisAndShowNext':
         $log.debug('completeThisAndShowNext');
-        RallyService.setStatus('completed');
-        RallyService.activateNext()
-          .then(function(){
-            RallyService.progressToNext();
+        RallyService.setStatus('completed')
+          .then(function () {
+            RallyService.activateNext()
+              .then(function(){
+                RallyService.progressToNext();
+              });
           });
+
         //$state.go($state.current, {}, {reload: true});
         break;
 
       case 'completeThis':
         $log.debug('completeThis');
-        RallyService.setStatus('completed');
-        renderJSON();
+        RallyService.setStatus('completed')
+          .then(function () {
+            renderJSON()
+          });
         break;
 
       case 'say':
-        // TODO: show modal window
+        // TODO: show dialog
         alert(attr);
         break;
 
