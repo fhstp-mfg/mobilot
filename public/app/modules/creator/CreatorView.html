@@ -1,22 +1,23 @@
 <div ng-app="Creator">
 
-    <!-- CreatorController as creator -->
+  <!-- CreatorController as creator -->
 
-    <md-tabs
-        id="creator_tabs"
-        md-swipe-content="true"
-        md-selected="creator.mobidulTabIndex"
-        md-dynamic-height
-        md-border-bottom
-		md-no-pagination="false"
-        ng-show="creator.showCreatorTabs">
+  <md-tabs
+    id="creator_tabs"
+    md-swipe-content="true"
+    md-selected="creator.mobidulTabIndex"
+    md-dynamic-height
+    md-border-bottom
+    md-no-pagination="false"
+    ng-show="creator.showCreatorTabs"
+    ng-class="{ 'ios-top-margin': creator.isCordovaIos }"
+  >
+    <md-tab
+      label="{{ tab.name }}"
+      ng-repeat="tab in creator.tabs"
+      md-on-select="creator.changeDetailTab()">
+    </md-tab>
+  </md-tabs>
 
-        <md-tab
-            label="{{ tab.name }}"
-            ng-repeat="tab in creator.tabs"
-            md-on-select="creator.changeDetailTab()">
-        </md-tab>
-    </md-tabs>
-
-    <div ui-view="creatorContent"></div>
+  <div ui-view="creatorContent"></div>
 </div>

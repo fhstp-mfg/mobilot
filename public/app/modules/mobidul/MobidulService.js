@@ -30,19 +30,17 @@ function MobidulService (
     MOBIDUL_MODES : [
       {
         name: 'rally',
-        elements: ['html', 'ifNear', 'inputCode', 'button'],
+        elements: ['html', 'ifNear', 'inputCode', 'button', 'photoUpload'],
         states: ['activated', 'open', 'completed'],
         defaultState: 'activated',
-        hiddenStations: true,
-        showProgress: false
+        hiddenStations: true
       },
       {
         name: 'default',
         elements: ['html'],
         states: ['open'],
         defaultState: 'open',
-        hiddenStations: false,
-        showProgress: false
+        hiddenStations: false
       }
     ],
 
@@ -59,7 +57,6 @@ function MobidulService (
     resetProgress     : resetProgress,
     getProgress       : getProgress,
     setProgress       : setProgress,
-    adminSetProgress  : adminSetProgress,
 
     /// app config
     Config :
@@ -156,6 +153,13 @@ function MobidulService (
 
   }
 
+  /**
+   * set new state and say if progress should increase
+   *
+   * @string newState
+   * @bool increaseProgress
+   * @returns {*}
+   */
   function setProgress (newState, increaseProgress) {
     var mobidulCode = $stateParams.mobidulCode;
 
@@ -173,25 +177,14 @@ function MobidulService (
               progress: (increaseProgress) ? ++progress.progress : progress.progress
             };
 
-            LocalStorageService.setProgress(mobidulCode, state)
+            LocalStorageService.setState(mobidulCode, newState)
               .then(function () {
-                resolve(state);
+                resolve(newState);
               });
           });
         } else {
           reject('state not known');
         }
-      });
-    });
-  }
-
-  function adminSetProgress (progress) {
-    var mobidulCode = $stateParams.mobidulCode;
-
-    return $q(function (resolve, reject) {
-      LocalStorageService.setProgress(mobidulCode, progress)
-      .then(function () {
-        resolve();
       });
     });
   }

@@ -1,77 +1,74 @@
-<div ng-app="StationCreator">
+<div>
 
-	<!-- StationCreatorController as stationCreator -->
+  <!-- StationCreatorController as stationCreator -->
 
-	<md-content
-		class="station-creator-content"
-		layout-padding>
-
-		<md-input-container class="less-pb-field">
-	    <label>Name</label>
-	    <input
+  <md-content
+    class="station-creator-content"
+    layout-padding
+    ng-class="{ 'ios-top-margin': stationCreator.isCordovaIos }"
+  >
+    <md-input-container class="less-pb-field">
+      <label>Name</label>
+      <input
         id="station_creator_name"
-				ng-model="stationCreator.station.name"
-				ng-keyup="stationCreator.changeName()"
-				required>
-	  </md-input-container>
+        ng-model="stationCreator.station.name"
+        ng-keyup="stationCreator.changeName()"
+        required>
+    </md-input-container>
 
-		<div layout-sm="column">
-			<!-- <md-input-container class="less-pb-field">
-		    	<label>Mobidul Link</label>
-		    	<input
-					class="url-field mobidul-url-field"
-					ng-model="stationCreator.station.link"
-					disabled>
-		    </md-input-container> -->
+    <div layout-sm="column">
+      <!-- <md-input-container class="less-pb-field">
+          <label>Mobidul Link</label>
+          <input
+          class="url-field mobidul-url-field"
+          ng-model="stationCreator.station.link"
+          disabled>
+        </md-input-container> -->
 
-			<md-input-container class="less-pb-field" flex>
-		    	<label>
-					<span>Station Code</span>
-					<span ng-show="stationCreator.basis.codeHelper.show">
-						- {{ stationCreator.basis.codeHelper.text }}
-					</span>
-				</label>
+      <md-input-container class="less-pb-field" flex>
+        <label>
+          <span>Station Code</span>
+          <span ng-show="stationCreator.basis.codeHelper.show">
+            - {{ stationCreator.basis.codeHelper.text }}
+          </span>
+        </label>
 
-		    	<input
-					class="url-field"
-					ng-model="stationCreator.station.code"
-					ng-keyup="stationCreator.changeCode()"
-					maxlength="20"
-					required>
-		    </md-input-container>
+        <input
+          class="url-field"
+          ng-model="stationCreator.station.code"
+          ng-keyup="stationCreator.changeCode()"
+          maxlength="20"
+          required>
+        </md-input-container>
 
-			<p class="helper">Die Station wird über folgendem Link aufrufbar sein:</p>
-			<p class="url-helper">
-				<!-- <span>{{ creator.mobidul.link }}</span> -->
-				<span>{{ stationCreator._mobilotUrl }}</span>
-				<span>/#/</span>
-				<span>{{ stationCreator.mobidulCode }}</span>
-				<span>/</span>
-				<span>{{ stationCreator.codePreview }}</span>
-			</p>
-		</div>
+      <p class="helper">Die Station wird über folgendem Link aufrufbar sein:</p>
+      <p class="url-helper">
+        <!-- <span>{{ creator.mobidul.link }}</span> -->
+        <span>{{ stationCreator._mobilotUrl }}</span>
+        <span>/#/</span>
+        <span>{{ stationCreator.mobidulCode }}</span>
+        <span>/</span>
+        <span>{{ stationCreator.codePreview }}</span>
+      </p>
+    </div>
 
+    <editor data-config="stationCreator.station.content"></editor>
 
-		<h3 class="section-title">Editor</h3>
+    <!--
+    <textarea
+      ng-if="stationCreator.isRally"
+      ng-model="stationCreator.station.content"
+      rows="20"
+      cols="70">
+    </textarea>
+    <div ng-if="!stationCreator.isRally">
+      <p class="helper">Füge Photos hinzu und formatiere diese Station.</p>
 
-		<editor data-config="stationCreator.station.content"></editor>
-
-		<!--
-		<textarea
-			ng-if="stationCreator.isRally"
-			ng-model="stationCreator.station.content"
-			rows="20"
-			cols="70">
-		</textarea>
-		<div ng-if="!stationCreator.isRally">
-			<p class="helper">Füge Photos hinzu und formatiere diese Station.</p>
-
-			<wysiwyg-edit
-				content="stationCreator.station.content"
-				api="stationCreator.editorAPI">
-			</wysiwyg-edit>
-		</div>
-		-->
-	</md-content>
-
+      <wysiwyg-edit
+        content="stationCreator.station.content"
+        api="stationCreator.editorAPI">
+      </wysiwyg-edit>
+    </div>
+    -->
+  </md-content>
 </div>

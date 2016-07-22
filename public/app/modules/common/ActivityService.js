@@ -22,12 +22,13 @@ function ActivityService (
     APP_EVENTS: {
       USER_POSITION: 'USER_POSITION',
       GEOLOCATION_SUCCESS: 'GEOLOCATION_SUCCESS',
-      GEOLOCATION_ERROR: 'GEOLOCATION_ERROR',
-      INPUTCODE_SUCCESS: 'INPUTCODE_SUCCESS'
+      GEOLOCATION_ERROR: 'GEOLOCATION_ERROR'
     },
 
     USER_ACTIONS: {
-      UPLOAD_PICTURE: 'UPLOAD_PICTURE'
+      UPLOAD_PICTURE: 'UPLOAD_PICTURE',
+      INPUTCODE_SUCCESS: 'INPUTCODE_SUCCESS',
+      INPUTCODE_ERROR: 'INPUTCODE_ERROR'
     },
 
     /// vars
@@ -41,7 +42,7 @@ function ActivityService (
     /// services
     commitActivity: commitActivity,
     pushActivity: pushActivity
-  }
+  };
 
 
   /// services
@@ -76,7 +77,7 @@ function ActivityService (
         type: activity.type,
         name: activity.name,
         payload: activity.payload
-      }
+      };
 
       service._activityStore.push(activityObj);
       // console.debug(service._activityStore);

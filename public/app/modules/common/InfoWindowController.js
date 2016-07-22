@@ -1,46 +1,44 @@
 angular
-	.module('Mobidul')
-	.controller('InfoWindowController', InfoWindowController);
+  .module('Mobidul')
+  .controller('InfoWindowController', InfoWindowController);
 
 InfoWindowController.$inject = [
-	'$log', '$state', 'StateManager'
+  '$log', '$state', 'StateManager'
 ];
 
 
 function InfoWindowController (
-	$log, $state, StateManager
-)
-{
-	var info = this;
+  $log, $state, StateManager
+) {
+  /// InfoWindowController
+  var info = this;
 
-	// vars
-	// ...
+  /// vars
+  // ...
 
-	// functions
-	info.goToStation = goToStation;
+  /// functions
+  info.goToStation = goToStation;
 
 
-	/// private functions
+  /// private functions
 
-	//...
-	
+  //...
 
-	/// public functions
 
-	function goToStation (stationCode)
-	{
-		// $log.debug('go to station');
-		// $log.debug(info.mobidul.code);
-		// $log.debug(stationCode);
+  /// public functions
 
-		var mobidulCode = StateManager.state.params.mobidulCode;
+  function goToStation (stationCode) {
+    // $log.debug('go to station');
+    // $log.debug(info.mobidul.code);
+    // $log.debug(stationCode);
 
-		var routeParams =
-		{
-			mobidulCode : mobidulCode,
-			stationCode : stationCode
-		};
+    var mobidulCode = StateManager.state.params.mobidulCode;
 
-		$state.go('mobidul.station', routeParams);
-	}
+    var routeParams = {
+      mobidulCode : mobidulCode,
+      stationCode : stationCode
+    };
+
+    $state.go('mobidul.station', routeParams);
+  }
 }

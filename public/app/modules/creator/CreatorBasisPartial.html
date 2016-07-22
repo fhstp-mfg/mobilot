@@ -1,83 +1,86 @@
 <div>
 
-	<!-- CreatorController as creator -->
+  <!-- CreatorController as creator -->
 
-	<md-content
-		class="creator-content"
-		ng-class="{ 'creator-content-new' : ! creator.showCreatorTabs }"
-		layout-padding>
-
-		<p class="helper" ng-show=" ! creator.showCreatorTabs">
-			Hier kannst du ein neues Mobidul erstellen.
-			<br>
-			Nachdem du den Namen eingegeben hast, wird ein Code generiert, welches dann manuell geändern werden kann.
-		</p>
+  <md-content
+    class="creator-content"
+    layout-padding
+    ng-class="{
+      'creator-content-new' : ! creator.showCreatorTabs,
+      'ios-top-margin' : creator.isCordovaIos
+    }"
+  >
+    <p class="helper" ng-show=" ! creator.showCreatorTabs">
+      Hier kannst du ein neues Mobidul erstellen.
+      <br>
+      Nachdem du den Namen eingegeben hast, wird ein Code generiert, welches dann manuell geändern werden kann.
+    </p>
 
         <md-input-container class="creator-input-container">
-	    	<label>Name</label>
-	    	<input
-				ng-model="creator.mobidul.name"
-				ng-keyup="creator.changeName()"
-				required>
-	    </md-input-container>
+        <label>Name</label>
+        <input
+        ng-model="creator.mobidul.name"
+        ng-keyup="creator.changeName()"
+        required>
+      </md-input-container>
 
-		<div layout-sm="column">
-			<md-input-container class="creator-input-container" flex>
-		    	<label>
-					<span>Mobidul Code</span>
-					<span ng-show="creator.mobidul.codeHelper.show">
-						- {{ creator.mobidul.codeHelper.text }}
-					</span>
-				</label>
+    <div layout-sm="column">
+      <md-input-container class="creator-input-container" flex>
+          <label>
+          <span>Mobidul Code</span>
+          <span ng-show="creator.mobidul.codeHelper.show">
+            - {{ creator.mobidul.codeHelper.text }}
+          </span>
+        </label>
 
-		    	<input
-					ng-model="creator.mobidul.code"
-					ng-keyup="creator.changeCode()"
-					maxlength="20"
-					required>
-		    </md-input-container>
+          <input
+          ng-model="creator.mobidul.code"
+          ng-keyup="creator.changeCode()"
+          maxlength="20"
+          required>
+        </md-input-container>
 
-			<p class="helper">Das Mobidul wird über folgendem Link aufrufbar sein:</p>
-			<p class="url-helper">
-				<span>{{ creator.mobidul.link }}</span>
-				<span>/#/</span>
-				<span>{{ creator.mobidul.codePreview }}</span>
-			</p>
-		</div>
+      <p class="helper">Das Mobidul wird über folgendem Link aufrufbar sein:</p>
+      <p class="url-helper">
+        <span>{{ creator.mobidul.link }}</span>
+        <span>/#/</span>
+        <span>{{ creator.mobidul.codePreview }}</span>
+      </p>
+    </div>
 
         <div layout-sm="column">
             <md-input-container flex>
-		    	<label>Beschreibung</label>
-		    	<textarea ng-model="creator.mobidul.description"></textarea>
-		    </md-input-container>
+          <label>Beschreibung</label>
+          <textarea ng-model="creator.mobidul.description"></textarea>
+        </md-input-container>
         </div>
 
-		<md-input-container data-ng-if="creator.isNewMobidul">
-			<md-select data-ng-model="creator.mobidul.mode">
-				<md-select-header>
-					<span>Mobidul Mode</span>
-				</md-select-header>
-				<md-option data-ng-repeat="mode in creator.modes"
-									 data-ng-value="mode.name">{{mode.name}}</md-option>
-			</md-select>
-		</md-input-container>
+    <md-input-container data-ng-if="creator.isNewMobidul">
+      <md-select data-ng-model="creator.mobidul.mode">
+        <md-select-header>
+          <span>Mobidul Mode</span>
+        </md-select-header>
+        <md-option data-ng-repeat="mode in creator.modes"
+                   data-ng-value="mode.name">{{mode.name}}</md-option>
+      </md-select>
+    </md-input-container>
 
-		<div layout-sm="column">
-			<md-button
-				class="md-raised md-primary"
-				ng-click="creator.saveBasis()"
-				ng-disabled="creator.canNotSave">
+    <div layout-sm="column">
+      <md-button
+        class="md-raised md-primary"
+        ng-click="creator.saveBasis()"
+        ng-disabled="creator.canNotSave">
 
-					<md-icon ng-show="creator.savingBasisMode">
-						<md-progress-circular
-							ng-class="{ 'save-basis-progress' : creator.savingBasisMode }"
-							md-mode="indeterminate"
-							md-diameter="20">
-						</md-progress-circular>
-					</md-icon>
+          <md-icon ng-show="creator.savingBasisMode">
+            <md-progress-circular
+              ng-class="{ 'save-basis-progress' : creator.savingBasisMode }"
+              md-mode="indeterminate"
+              md-diameter="20">
+            </md-progress-circular>
+          </md-icon>
 
-					<span flex>{{ creator.saveBasisText }}</span>
-			</md-button>
+          <span flex>{{ creator.saveBasisText }}</span>
+      </md-button>
         </div>
     </md-content>
 </div>

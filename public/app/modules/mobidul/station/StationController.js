@@ -23,6 +23,8 @@ function StationController (
   // ...
 
   /// vars
+  station.isCordovaIos  = isCordova && isIos;
+
   station.mediaList     = [];
   station.imageList     = [];
   station.content       = '';
@@ -64,7 +66,8 @@ function StationController (
   function setRallyState(state){
     RallyService.setStatus(state)
       .then(function(newState){
-        $state.go($state.current, {}, {reload: true});
+        renderJSON();
+        //$state.go($state.current, {}, {reload: true});
       });
   }
 
@@ -160,6 +163,7 @@ function StationController (
                 RallyService.getProgress()
                   .then(function(progress){
                     station.currentStation = progress.progress;
+                    station.currentState   = progress.state;
                   });
 
                 MobidulService.getMobidulConfig(StateManager.state.params.mobidulCode)
@@ -458,6 +462,8 @@ function StationController (
         $log.info('StationController - renderJSON - RallyService.getStatus - status:');
         $log.debug(status, station, StateManager.isStationCreator());
 
+        station.currentState = status;
+
         if ( ! StateManager.isStationCreator() ) {
           var config = station.config[status];
           var container = document.getElementById('station-container');
@@ -474,13 +480,13 @@ function StationController (
                   case 'html':
                     angular
                       .element(container)
-                      .append($compile('<mbl-html-container>' + $sanitize(obj.content) + '</mbl-html-container>')($scope))
+                      .append($compile('<mbl-html-container>' + obj.content + '</mbl-html-container>')($scope))
                     break;
 
                   case 'inputCode':
                     angular
                       .element(container)
-                      .append($compile("<mbl-input-code verifier='" + obj.verifier + "' success='" + obj.success + "' error='" + obj.error + "'></mbl-input-code>")($scope));
+                      .append($compile("<mbl-input-code data-id='" + obj.id + "' verifier='" + obj.verifier + "' success='" + obj.success + "' error='" + obj.error + "'></mbl-input-code>")($scope));
                     break;
 
                   case 'scanCode':
@@ -511,6 +517,12 @@ function StationController (
                       .element(container)
                       .append($compile("<mbl-trigger-near range='" + obj.range + "' fallback='" + obj.fallback + "' success='" + obj.success + "'></mbl-trigger-near>")($scope));
 
+                    break;
+
+                  case 'photoUpload':
+                    angular
+                      .element(container)
+                      .append($compile('<mbl-photo-upload data-id="' + obj.id + '" data-success="' + obj.success + '" data-content="' + obj.content + '"></mbl-photo-upload>')($scope));
                     break;
 
                   default:
@@ -546,10 +558,6 @@ function StationController (
           });
         break;
 
-      case 'showNext':
-        $log.debug("showNext");
-        break;
-
       case 'openThis':
         RallyService.setStatus('open');
         $log.debug('openThis');
@@ -560,28 +568,22 @@ function StationController (
       case 'completeThisAndShowNext':
         $log.debug('completeThisAndShowNext');
         RallyService.setStatus('completed');
-        RallyService.activateNext();
-        RallyService.progressToNext();
+        RallyService.activateNext()
+          .then(function(){
+            RallyService.progressToNext();
+          });
         //$state.go($state.current, {}, {reload: true});
         break;
 
       case 'completeThis':
         $log.debug('completeThis');
         RallyService.setStatus('completed');
-        break;
-
-      case 'activateAndShowNext':
-        RallyService.activateNext();
-        RallyService.progressToNext();
+        renderJSON();
         break;
 
       case 'say':
         // TODO: show modal window
         alert(attr);
-        break;
-
-      case 'showPrev':
-        $log.debug("showPrev");
         break;
 
       case 'verifyIfNear':

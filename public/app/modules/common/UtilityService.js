@@ -53,7 +53,6 @@ function UtilityService (
 		// replace everything but (lower case) letters
 		// code = code.replace(/[^a-z0-9]/g, '');
 		code = util.formatCode( code );
-		code = code; // NOTE - check if this is necessary
 
 		// limit the code to <n> chars
 		code = code.slice(0, util._maxCodeCharLimit);
@@ -69,6 +68,14 @@ function UtilityService (
 		return code.replace(/[^a-z0-9]/g, '').trim();
 	};
 
+	util.getGUID = function(){
+
+		// NOTE - copied from https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript/2117523#2117523
+		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+			var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+			return v.toString(16);
+		});
+	};
 
 	// ...
 }

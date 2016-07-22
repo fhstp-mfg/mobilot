@@ -29,11 +29,13 @@ function CreatorController (
 
 
   /// vars
-  creator.categories  = [
+  creator.isCordovaIos = isCordova && isIos;
+
+  creator.categories = [
     { name : 'Neue Kategorie', isNewCategory : true }
   ];
 
-  creator.editMode  = 0;
+  creator.editMode = 0;
   // creator.editModes = [
   //   'Jeder darf alle Stationen editieren',
   //   'Jeder darf nur eigene Stationen editieren',
@@ -196,7 +198,7 @@ function CreatorController (
                 if(hasPermission){
                   //console.info('creator - stations:');
                   //console.log(stations);
-                  
+
                   creator.stations = stations;
                 }else{
                   $log.warn('inside creator withour having permission to view all stations!');
@@ -326,13 +328,13 @@ function CreatorController (
     }
 
 
-    function _isOriginalCode (mobidulCode)
+  function _isOriginalCode (mobidulCode)
   {
     return mobidulCode === creator.mobidul.originalCode;
   }
 
 
-    function _restoreOriginalStationCode ()
+  function _restoreOriginalStationCode ()
   {
     creator.mobidul.code = creator.mobidul.originalCode;
 
@@ -340,7 +342,7 @@ function CreatorController (
   }
 
 
-    function _refreshCodeHelper (mobidulCode, codeHelperText)
+  function _refreshCodeHelper (mobidulCode, codeHelperText)
   {
     var  isOriginalCode = _isOriginalCode( mobidulCode );
 

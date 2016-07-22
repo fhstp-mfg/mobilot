@@ -30,6 +30,7 @@ function LocalStorageService (
     //rally progress functions
     getProgress   : getProgress,
     setProgress   : setProgress,
+    setState      : setState,
     resetProgress : resetProgress
   };
 
@@ -84,7 +85,9 @@ function LocalStorageService (
     //$log.debug(mobidulCode, progress);
 
     return $q(function(resolve, reject){
-      service.localStorage.progressStorage[mobidulCode] = progress;
+      //service.localStorage.progressStorage[mobidulCode] = progress;
+
+      service.localStorage.progressStorage[mobidulCode]['progress'] = progress;
 
       $timeout(function(){
         resolve();
@@ -93,6 +96,23 @@ function LocalStorageService (
 
   }
 
+  function setState(mobidulCode, state){
+    return $q(function(resolve, reject) {
+      service.localStorage.progressStorage[mobidulCode]['state'] = state;
+      $timeout(function(){
+        resolve();
+      });
+    });
+  }
+
+  /**
+   * Returns progress entry from mobidul
+   * Can't inject MobidulService therefore you have to pass the mobidul states
+   *
+   * @param mobidulCode
+   * @param states
+   * @returns {*}
+   */
   function getProgress(mobidulCode, states){
 
     if(!service.localStorage.progressStorage){

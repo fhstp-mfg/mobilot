@@ -48,13 +48,13 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 
 App::error(function(Exception $exception, $code)
 {
-	Log::error($exception);
+  Log::error($exception);
 });
 
 App::missing(function($exception)
 {
-    \Log::info("Missing");
-    return Response::view('404', array(), 404);
+  \Log::info("Missing");
+  return Response::view('404', array(), 404);
 });
 
 /*

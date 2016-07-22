@@ -1,4 +1,4 @@
-<div ng-app="Login" layout-padding>
+<div ng-app="Login">
 
   <!-- LoginController as login -->
 
@@ -6,6 +6,7 @@
     class="header-content"
     layout="column"
     layout-padding
+    ng-class="{ 'ios-top-margin': login.isCordovaIos }"
   >
     <h2>Willkommen bei Mobilot</h2>
     <p>{{ login.activationMessage }}</p>

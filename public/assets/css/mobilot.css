@@ -27,23 +27,23 @@
     height: 0px;
 }
 
-p {
-  margin: 0;
+p { margin: 0; }
+
+.bottomless {
+  padding-bottom: 0;
+  margin-bottom: 0;
 }
 
-.less-pb-field
-{
-  padding-bottom : 0.6em;
+.less-pb-field {
+  padding-bottom: 0.6em;
 }
 .md-mobilot-color,
-.url-field
-{
-  color   : #3797c4 !important
+.url-field {
+  color: #3797c4 !important
 }
-.mobidul-url-field
-{
-  margin-bottom : 0;
-  width : auto;
+.mobidul-url-field {
+  margin-bottom: 0;
+  width: auto;
 }
 
 .section
@@ -155,52 +155,48 @@ p {
 
 .custom-wysiwyg-button
 {
-    color: white;
-    min-height: 30px;
-    margin: 3px 2px;
-    max-height: 30px;
+  color: white;
+  min-height: 30px;
+  margin: 3px 2px;
+  max-height: 30px;
 
-    -webkit-font-smoothing: antialiased;
-    -webkit-user-select: none;
-    box-sizing: border-box;
-    cursor: pointer;
-    display: inline;
-    font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
-    font-size: 14px;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: 500;
-    height: auto;
-    letter-spacing: 0.14px;
-    line-height: 36px;
-    text-align: center;
-    text-indent: 0px;
-    text-shadow: none;
-    text-transform: uppercase;
-    white-space: nowrap;
-    width: auto;
-    word-spacing: 0px;
+  -webkit-font-smoothing: antialiased;
+  -webkit-user-select: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline;
+  font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 500;
+  height: auto;
+  letter-spacing: 0.14px;
+  line-height: 36px;
+  text-align: center;
+  text-indent: 0px;
+  text-shadow: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  width: auto;
+  word-spacing: 0px;
 }
 
 
+md-toolbar,
+.md-toolbar-tools {
+  min-height: 56px;
+}
 .header-content
 {
   position : fixed;
-  top      : 4em;
+  top      : 56px;
   left     : 0;
   right    : 0;
   bottom   : 0;
 }
-.header-tabs-content
-{
-  top : 7em
-}
-
-.ios-top-padding {
-  padding-top: 20px
-}
-.ios-top-margin {
-  margin-top: 20px
+.header-tabs-content {
+  top: 7em
 }
 
 .search-type-controls
@@ -212,9 +208,10 @@ p {
   z-index    : 1;
 }
 .search-field {
-  margin        : 0.2em 0.8em;
-  margin-bottom  : 0;
-  padding-bottom : 0;
+  margin: 0.2em 0.8em;
+  margin-top: 20px;
+  margin-bottom: 0;
+  padding-bottom: 0;
   display: block;
 }
 
@@ -222,32 +219,33 @@ p {
 /*** map ***/
 
 map {
-  position : absolute;
-  top      : 64px;
+  position : fixed;
+  top      : 56px;
   bottom   : 0;
   left     : 0;
   right    : 0;
 }
 .ng-map {
-  top : 48px
+  top: 104px;
 }
 
 
-/* fixes untappable tabs after map positioned */
 #station_creator_tabs
 {
-  position : fixed;
-  top    : 4em;
-  left     : 0;
-  right    : 0;
-  width    : 100%;
-  z-index  : 1;
+  position   : fixed;
+  width      : 100%;
+  top        : 56px;
+  left       : 0;
+  right      : 0;
+  background : #fff;
+  z-index    : 1;
 }
 
 .station-creator-content
 {
   position : fixed;
-  top    : 7em;
+  /* 56px header height + 48px station_creator_tabs height */
+  top      : 104px;
   left     : 0;
   right    : 0;
   bottom   : 0;
@@ -255,23 +253,23 @@ map {
 
 #creator_tabs
 {
-  position : fixed;
-  top    : 56px;
-  left     : 0;
-  right    : 0;
-  width    : 100%;
-  z-index  : 1;
+  position   : fixed;
+  width      : 100%;
+  top        : 56px;
+  left       : 0;
+  right      : 0;
+  background : #fff;
+  z-index    : 1;
 }
 
 .creator-content
 {
   position : fixed;
-  top    : 7em;
+  /* 56px header height + 48px station_creator_tabs height */
+  top      : 104px;
   left     : 0;
   right    : 0;
   bottom   : 0;
-  /* HACK TO PREVENT SC OPTIONS TO SCROLL-X */
-  overflow-x: hidden;
 }
 .creator-content-new {
   top : 56px;
@@ -288,11 +286,6 @@ map {
   -webkit-margin-start: 0px;
   -webkit-margin-end: 0px;
 }
-/*md-input-container .md-input.h1-field{
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-}*/
 
 
 .creator-input-container {
@@ -327,12 +320,21 @@ map {
     padding: 0;
 }
 
+.editor-add-button{
+    min-width: 83px;
+    padding: 0;
+}
+
 element-container{
     border: solid 1px grey;
     display: block;
     position: relative;
     margin-bottom: 1em;
-    padding: 0.5em 1em 0.5em 3em;
+    padding: 0.5em 1em 2.5em 3em;
+}
+
+li.selected element-container{
+    border: none;
 }
 
 #tinyeditor_left_controls{
@@ -365,6 +367,15 @@ li.selected .config-part{
     min-width: 0;
 }
 
+element-container md-input-container{
+    display: block;
+}
+
+element-container mbl-input-code md-input-container{
+    display: inline-block;
+}
+
+
 .save-basis-progress
 {
   position : absolute;
@@ -383,11 +394,11 @@ md-backdrop.md-sidenav-backdrop {
   position : fixed
 }
 
-.menuLogin button {
+.menu-login button {
   padding : 0 !important
 }
 
-.menuLogin,
+.menu-login,
 .menuDivider
 {
   background : #ccc;
@@ -422,19 +433,18 @@ md-radio-button .md-on{
     Progress Bar
 */
 .progressbar {
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     counter-reset: step;
 }
 
-
-progressbar > div {
+mbl-station-progress > div {
     overflow-y:hidden;
     overflow-x: scroll;
     width:100%;
 }
 
-progressbar > div::-webkit-scrollbar{
+mbl-station-progress > div::-webkit-scrollbar{
     display: none;
 }
 
@@ -481,8 +491,7 @@ progressbar > div::-webkit-scrollbar{
 .progressbar li:before {
     width: 30px;
     height: 30px;
-    font-family: FontAwesome;
-    content: '\f00d';
+    content: counter(step);
     counter-increment: step;
     line-height: 28px;
     border: 2px solid #7d7d7d;
@@ -507,16 +516,19 @@ progressbar > div::-webkit-scrollbar{
 .progressbar li:first-child:after {
     content: none;
 }
-.progressbar li.finished {
+.progressbar li.current {
     color: green;
 }
-.progressbar li.finished:before {
+.progressbar li.current:before {
     border-color: #55b776;
-    content: '\f00c';
 }
 
 .progressbar li.active + li:after {
     background-color: #55b776;
+}
+
+li:focus{
+    outline:none;
 }
 
 
@@ -524,48 +536,65 @@ progressbar > div::-webkit-scrollbar{
   Rally Directives
 */
 
-#station-container p{
-    margin-bottom: 1em;
-    margin-top: 1em;
+#station-container p {
+  margin-bottom: 1em;
+  margin-top: 1em;
 }
 
-html-container{
+html-container {
   display: block;
 }
 
-html-container img{
-    max-width:100%;
+html-container img {
+  max-width:100%;
 }
 
-positionicon{
-display:block;
+positionicon {
+  display: block;
 }
 
-positionicon .material-icons{
-float:right;
-    margin-right:0.5em;
+positionicon .material-icons {
+  float: right;
+  margin-right: 0.5em;
 }
 
 
-.search-anim{
-    animation: searching 2s infinite;
-    text-align: center;
+.search-anim {
+  animation: searching 2s infinite;
+  text-align: center;
 }
 
 @keyframes searching {
-    0% {
-        color: #3eb5e4;
-        font-size: 2.1em;
-    }
-    50% {
-        color: #3797c4;
-        font-size: 1.9em;
-    }
-    100% {
-        color: #3eb5e4;
-        font-size: 2.1em;
-    }
+  0% {
+    color: #3eb5e4;
+    font-size: 2.1em;
+  }
+  50% {
+    color: #3797c4;
+    font-size: 1.9em;
+  }
+  100% {
+    color: #3eb5e4;
+    font-size: 2.1em;
+  }
 }
+
+
+
+/**
+ * iOS specific styles
+ */
+.ios-top-padding {
+  padding-top: 20px
+}
+.ios-top-margin {
+  margin-top: 20px
+}
+.ios-no-top-margin {
+  margin-top: 0
+}
+
+
 
 /************Drag and Drop List****************/
 /**
@@ -617,8 +646,6 @@ ul[dnd-list] .dndPlaceholder {
 ul[dnd-list] li {
     background-color: #fff;
     border: 1px solid #ddd;
-    border-top-right-radius: 4px;
-    border-top-left-radius: 4px;
     display: block;
     padding: 5px 15px;
     margin-bottom: -1px;
@@ -634,6 +661,6 @@ ul[dnd-list] li {
 /**
  * Show selected elements in green*/
 ul[dnd-list] li.selected {
-    background-color: #dff0d8;
-    color: #3c763d;
+    background-color: #c3dae6;
+    color: #808080;
 }

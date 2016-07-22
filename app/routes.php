@@ -23,6 +23,7 @@ use App\Models\Mobidul;
 /// ActivityController
 Route::post('/{mobidulCode}/PushActivity', 'ActivityController@PushActivity');
 
+Route::get('{stationCode}/exportImages/{componentId}', 'ImageController@exportPicturesFromComponent');
 
 /// Other
 // TODO: better structure and section routes !

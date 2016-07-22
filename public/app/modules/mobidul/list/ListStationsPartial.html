@@ -1,50 +1,67 @@
-<>
+<div>
   <!-- ListController as list -->
 
   <style>
+    #list_stations_view {
+      position: fixed;
+      width: 100%;
+      /* 56px header height + 52px search field height */
+      top: 108px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
     #list_stations {
-      width : 100%
+      width: 100%;
+      height: 100%;
+      padding-top: 0;
     }
 
     #list_progress_wrapper {
-      height   : 100%;
-      margin-top : 3em;
+      position: fixed;
+      width: 100%;
+      /* 56px header height + 52px search field height */
+      top: 108px;
     }
     #list_progress_wrapper .loading-title {
-      font-size : 1.2em
+      font-size: 1.2em
     }
 
     .header-list-tabs-content {
-      top : 5em
+      top: 56px
     }
 
     .station-item {
-      color : #3797c4
+      color: #3797c4
     }
     .station-odd {
-      color      : #78B2CE;
-      background : #eee;
+      color: #78B2CE;
+      background: #eee;
     }
 
     .stdLink {
-      color           : black;
-      font-weight     : 300;
-      text-decoration : none;
-      cursor          : pointer;
+      color: black;
+      font-weight: 300;
+      text-decoration: none;
+      cursor: pointer;
     }
 
     .secondary-icon {
-      color     : black;
-      font-size : 1.6em;
+      color: black;
+      font-size: 1.6em;
     }
   </style>
 
 
   <div
     class="search-type-controls"
-    ng-class="list.myFont"
+    ng-class="{ 'ios-top-margin': list.isCordovaIos }"
   >
-    <md-input-container class="search-field">
+    <md-input-container
+      class="search-field"
+      ng-class="list.myFont"
+    >
       <label>Suche</label>
       <input ng-model="list.searchQuery">
     </md-input-container>
@@ -52,15 +69,18 @@
 
 
   <md-content
+    id="list_stations_view"
     class="header-list-tabs-content"
-    ng-class="list.myFont"
     layout="column"
     layout-align="center center"
+    ng-class="{ 'ios-top-margin': list.isCordovaIos }"
   >
-    <div id="list_progress_wrapper"
+    <div
+      id="list_progress_wrapper"
       layout="column"
-      layout-align="center center">
-
+      layout-align="center center"
+      ng-class="list.myFont"
+    >
       <md-progress-circular
         md-mode="indeterminate"
         style="display : {{ list.loading }}">
@@ -69,44 +89,46 @@
       <h1
         class="loading-title"
         style="display : {{ list.loading }}"
-      >
-        Stationen werden geladen ...
-      </h1>
+      >Stationen werden geladen ...</h1>
     </div>
 
     <md-list
       id="list_stations"
-      layout="column">
+      layout="column"
+      ng-class="{ 'ios-top-margin': list.isCordovaIos }"
+    >
+      <ul
+        dnd-list="list.stations"
+        dnd-disable-if=" ! list.canEditStation"
+        ng-class="{ 'ios-no-top-margin': list.isCordovaIos }"
+      >
+        <li
+          ng-repeat="station in list.stations | filter : list.searchQuery | orderBy : station.order"
+          dnd-draggable="station"
+          dnd-moved="list.moveStation( $index )"
+          dnd-effect-allowed="move"
+          dnd-disable-if=" ! list.canEditStation"
+        >
+          <md-list-item
+            class="station-item"
+            ng-class-odd="'station-odd'"
+            ng-click="list.switchContent( list.params.mobidulCode, station.code, station )"
+          >
+            <div class="md-list-item-text stdLink">
+              <h3>{{ station.name }} </h3>
+            </div>
 
-      <ul dnd-list="list.stations"
-          dnd-disable-if="!list.canEditStation">
+            <div
+              class="md-secondary secondary-icon"
+              ng-show="station.canEdit"
+              ng-click="list.editStation( station.code )"
+              aria-label="Bearbeiten"
+            >
+              <span>✎</span>
+            </div>
 
-        <li ng-repeat="station in list.stations | filter : list.searchQuery | orderBy : station.order"
-            dnd-draggable="station"
-            dnd-moved="list.moveStation($index)"
-            dnd-effect-allowed="move"
-            dnd-disable-if="!list.canEditStation">
-
-        <md-list-item
-              class="station-item"
-              ng-class-odd="'station-odd'"
-              ng-click="list.switchContent( list.params.mobidulCode, station.code, station )">
-
-              <div class="md-list-item-text stdLink">
-                <h3>{{ station.name }} </h3>
-              </div>
-
-              <div
-                class="md-secondary secondary-icon"
-                ng-show="station.canEdit"
-                ng-click="list.editStation( station.code )"
-                aria-label="Bearbeiten">
-                <span>✎</span>
-              </div>
-
-              <md-divider ng-if=" ! $last"></md-divider>
-            </md-list-item>
-
+            <md-divider ng-if=" ! $last"></md-divider>
+          </md-list-item>
         </li>
       </ul>
     </md-list>

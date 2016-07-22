@@ -23,11 +23,11 @@ function HomeController (
   var home = this;
 
   /// constants
-  home._searchPlaceholder    = 'Mobidule in meiner Nähe durchsuchen';
+  home._searchPlaceholder = 'Mobidule in meiner Nähe durchsuchen';
 
 
   /// vars
-  home.isCordovaIOS = isCordova && isIOS;
+  home.isCordovaIos = isCordova && isIos;
 
   // home.hasPosition     = false;
   home.myPosition         = null;

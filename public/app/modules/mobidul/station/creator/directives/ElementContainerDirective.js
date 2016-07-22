@@ -1,15 +1,15 @@
 (function () {
   'use strict';
-  
+
   angular
     .module('StationCreator')
     .directive('elementContainer', ElementContainer);
-  
+
   ElementContainer.$inject = [
     '$log', '$compile', '$rootScope',
     '$mdDialog'
   ];
-  
+
   function ElementContainer(
     $log, $compile, $rootScope,
     $mdDialog
@@ -39,23 +39,26 @@
             break;
 
           case 'ifNear':
-            $element.prepend($compile("<trigger-near-config data-range='ctrl.element.range' fallback='ctrl.element.fallback' data-success='ctrl.element.success'></trigger-near-config>")($scope));
+            $element.prepend($compile('<trigger-near-config data-range="ctrl.element.range" fallback="ctrl.element.fallback" data-success="ctrl.element.success"></trigger-near-config>')($scope));
             break;
 
           case 'inputCode':
-          $element.prepend($compile("<input-code-config data-verifier='ctrl.element.verifier' data-success='ctrl.element.success' error='ctrl.element.error'></input-code-config>")($scope));
+            $element.prepend($compile('<input-code-config data-id="ctrl.element.id" data-verifier="ctrl.element.verifier" data-success="ctrl.element.success" error="ctrl.element.error"></input-code-config>')($scope));
+            break;
+
+          case 'photoUpload':
+            $element.prepend($compile('<photo-upload-config data-success="ctrl.element.success" data-id="ctrl.element.id" data-content="ctrl.element.content"></photo-upload-config>')($scope));
             break;
 
           default:
             $log.error('couldn\'t render element with type: ' + type);
         }
 
-
       },
       controller: ElementContainerController,
       controllerAs: 'ctrl'
     };
-    
+
     function ElementContainerController($scope, $element, $attrs){
 
       var ctrl = this;
@@ -87,5 +90,5 @@
 
     }
   }
-  
+
 })();

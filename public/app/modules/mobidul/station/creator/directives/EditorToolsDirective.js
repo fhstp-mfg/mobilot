@@ -18,7 +18,7 @@
 
       restrict: 'E',
       template: '<div>' +
-      '<md-button data-ng-repeat="button in ctrl.editorConfig" data-ng-click="ctrl.addElement(button)">{{button}}</md-button>' +
+      '<md-button data-ng-repeat="button in ctrl.editorConfig" data-ng-click="ctrl.addElement(button)" class="editor-add-button">{{button}}</md-button>' +
       '</div>',
       scope: {},
       link: function ($scope, $element, $attr, ctrl) {
