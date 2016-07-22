@@ -77,6 +77,13 @@
       >
         <span>Mobidul Optionen</span>
       </md-list-item>
+
+      <md-list-item
+              ng-if="menu.currentUser.role == 1"
+              ng-click="mobidul.cloneMyMobidul()"
+              ng-show="menu.isGoToAboutEnabled">
+        <span>Aktuelles Mobidul klonen</span>
+      </md-list-item>
     </div>
 
     <!-- Common area -->
@@ -97,13 +104,6 @@
       ng-show="menu.isGoToAboutEnabled"
     >
       <span>Über Mobilot</span>
-    </md-list-item>
-
-    <md-list-item
-      ng-click="mobidul.cloneMyMobidul()"
-      ng-show="menu.isGoToAboutEnabled">
-
-      <span>Aktuelles Mobidul klonen</span>
     </md-list-item>
   </md-list>
 </md-sidenav>

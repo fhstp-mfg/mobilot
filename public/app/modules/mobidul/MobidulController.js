@@ -344,16 +344,30 @@ function MobidulController (
 	}
 
 	/**
-	 *
+	 * This function calls the cloning function on the service and waits for User Input or
 	 */
 	function cloneMyMobidul()
 	{
 		var mobidulCode = StateManager.state.params.mobidulCode;
 		$log.info("FLO 1: CONTROLLER was working.");
-		MobidulService
-			.cloneMobidul(mobidulCode)
-			.then(function (response, status, headers, config, statusText) {
-				$log.info('FLO 3: SPEICHERN ' + response.data.msg);
-			});
+
+		var confirmCloneMobidul = $mdDialog.confirm()
+      .parent(angular.element(document.body))
+			.title('Möchten Sie das aktuelle Mobidul duplizieren?')
+			.textContent('Beim Bestätigen dieses Dialogs wird eine Kopie des aktuellen Mobiduls angefertigt. ' +
+        'Solltest du den Button nochmals drücken, so wird eine weitere Kopie angefertigt.')
+			.ariaLabel('Mobidul duplizieren')
+			.ok('Duplizieren')
+			.cancel('Abbrechen');
+
+		$mdDialog.show(confirmCloneMobidul).then(function() {
+      MobidulService
+        .cloneMobidul(mobidulCode)
+        .then(function (response, status, headers, config, statusText) {
+          $log.info('FLO 3: SPEICHERN ' + response.data.msg);
+        });
+		}, function() {
+			$log.info("NOTHING HAPPENS");
+		});
 	}
 }

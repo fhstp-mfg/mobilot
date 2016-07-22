@@ -268,9 +268,9 @@ function MobidulService (
   }
 
   /**
-   *
-   * @param mobidulCode Code of the current
-   * @returns {*}
+   * This function is used in order to clone the current Mobidul with all it's attributes.
+   * @param mobidulCode Code of the current Mobidul that is cloned
+   * @returns {*} Accessing the cloning function on the Server
    */
   function cloneMobidul(mobidulCode) {
     $log.info("FLO 2: SERVICE was working." + "Mobidulcode: " + mobidulCode);

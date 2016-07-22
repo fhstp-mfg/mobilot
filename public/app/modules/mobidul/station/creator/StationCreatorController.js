@@ -99,6 +99,7 @@ function StationCreatorController (
   // ...
   // settings
   stationCreator.deleteStation = deleteStation;
+  stationCreator.cloneStation = cloneStation;
 
 
   /// construct
@@ -894,5 +895,41 @@ function StationCreatorController (
               alert(response);
             });
       });
+  }
+
+  /**
+   * This function calls the service on the StationCreatorService that clones the current Station.
+   */
+  function cloneStation() {
+    $log.info("FLO 1: CONTROLLER was working.");
+
+    var confirmCloneStation = $mdDialog.confirm()
+      .parent(angular.element(document.body))
+      .title('Aktuelle Station kopieren')
+      .textContent('Beim Bestätigen dieses Dialogs wird eine Kopie des aktuellen Mobiduls angefertigt. ' +
+          'Dannach befinedst du dich automatisch in der duplizierten Station.')
+      .ariaLabel('Station duplizieren')
+      .ok('Duplizieren')
+      .cancel('Abbrechen');
+
+    $mdDialog.show(confirmCloneStation).then(function () {
+      var mobidulCode = StateManager.state.params.mobidulCode || null;
+      var stationCode = StateManager.state.params.stationCode || null;
+
+      if (mobidulCode && stationCode)
+        StationCreatorService
+          .cloneMyStation(mobidulCode, stationCode)
+          .success(function (response, status, headers, config)
+          {
+            $log.info('FLO 3: SPEICHERN ' + response.msg);
+          })
+          .error(function (response, status, headers, config)
+          {
+            $log.error(response);
+            $log.error(status);
+          });
+      }, function () {
+        $log.info("NOTHING HAPPENS");
+    });
   }
 }

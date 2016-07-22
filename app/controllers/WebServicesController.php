@@ -25,7 +25,7 @@ class WebServicesController extends BaseController
         "GetCategories",      "GetMobiduls",              "GetContent",
         "GetStation",         "GetCategoriesForStation",  "Play",
         "CanPlay",            "NewMobidul",               "UpdateMobidul",
-        "PushActivity",       "CloneMobidul",
+        "PushActivity",       "CloneMobidul",             "CloneStation",
         "AddCategories",      "UpdateCategories",         "RemoveCategories",
         "AddStation",         "RemoveCategory",           "SetStation",
         "RemoveStation",      "RemoveStationByCode",      "GetContentForCode",
@@ -101,7 +101,7 @@ class WebServicesController extends BaseController
       }
 
       if($exists) {
-        $newMobidulValue = $maybeMobidulValue . $appendCounter;
+        $newMobidulValue = $maybeMobidulValue . '_' . $appendCounter;
         $appendCounter++;
       } else {
         break;
@@ -110,7 +110,44 @@ class WebServicesController extends BaseController
 
     return $newMobidulValue;
   }
-
+  
+  /**
+   * This function allows the change of various fields in the Station table. Depending on the modifier the respective
+   * fields values is changed by adding a incrementing number to it.
+   * @param null $valueToChange The value that needs to be changed
+   * @param null $modifier What type of value it is
+   * @return null|string If changed the new value is returned otherwise the old one
+   */
+  public function ChangeStationData($valueToChange = null, $modifier = null) {
+    $maybeStationValue = $valueToChange;
+    $newStationValue = $valueToChange;
+    $appendCounter = 2;
+    $exists = true;
+    
+    while($exists) {
+      switch ($modifier) {
+        case 'code':
+          $exists = Station::findByCode($newStationValue);
+          break;
+        case 'name':
+          $exists = Station::where('name', $newStationValue)->first();
+          break;
+        //... Implement further cases here
+        default:
+          break;
+      }
+      
+      if($exists) {
+        $newStationValue = $maybeStationValue . $appendCounter;
+        $appendCounter++;
+      } else {
+        break;
+      }
+    }
+    
+    return $newStationValue;
+  }
+  
   public function GetForCode ($mobidulCode, $stationCode)
   {
     // \Log::info('GET_FOR_CODE');
@@ -359,7 +396,7 @@ class WebServicesController extends BaseController
     return $result;
   }*/
 
-
+  
   public function GetCategories ($mobidulCode)
   {
     return DB::table('category')
@@ -668,53 +705,189 @@ class WebServicesController extends BaseController
    */
   public function CloneMobidul ($mobidulCode)
   {
-    $mobidul = Mobidul::findByCode($mobidulCode);   //Find the Mobidul itself first
+    $response = [
+      'msg'   => "Couldn't clone Mobidul.",
+      'success' => false
+    ];
+    
+    if (Auth::check()) {
+  
+      $mobidul = Mobidul::findByCode($mobidulCode);   //Find the Mobidul itself first
+  
+      if ($mobidul) {
+        $mobidulId = Mobidul::GetId($mobidulCode);    //Read the ID of the current Mobidul
+    
+        //FIRST: Read all the relevant tables after  the mobidul is found
+        //----------------------------------------------------------------------------------------------------------------
+        $attachmentOC = Attachment::where('mobidulId', $mobidulId)->get(); //Read the attachments of the stations
+        $categoryOC = Category::where('mobidulId', $mobidulId)->get();     //Read the current Category of Mobidul
+        $navigationOC = NavigationItem::where('mobidulId', $mobidulId)->get();  //Read the current Navigation Items
+        $stationOC = Station::where('mobidulId', $mobidulId)->get();       //Read the Mobidul stations
+        $userOC = User2Mobidul::where('mobidulId', $mobidulId)->first();     //Read the user of the current Mobidul
+//      $codesOC = Codes::where('mobidulId', $mobidulId)->get();           //Read the codes of the mobidul
+    
+        //SECOND: Before cloning the other tables and relating them to Mobidul the Mobidul hast to be replicated
+        //----------------------------------------------------------------------------------------------------------------
+        $clonedMobidul = $mobidul->replicate();   //Replicate all the values and fields from the original Mobidul
+    
+        $clonedMobidulCode = $clonedMobidul->code;    //Read out the code of the cloned Mobidul in order to change it
+        if (strlen($clonedMobidulCode) > 19) {        //If the code is too long or would be too long (20 chars)
+          $clonedMobidulCode = substr($clonedMobidulCode, 0, -1);                       //Trim last character
+          $clonedMobidul->code = $this->ChangeMobidulData($clonedMobidulCode, "code");  //Change the Mobidul code
+        } else {
+          $clonedMobidul->code = $this->ChangeMobidulData($clonedMobidulCode, "code");  //Change the Mobidul code
+        }
 
-    if($mobidul) {
-      $mobidulId = Mobidul::GetId($mobidulCode);    //Read the ID of the current Mobidul
-      //----------------------------------Tables------------------------------------------------------------------------
-      $attachmentOC = Attachment::where('mobidulId', $mobidulId)->get(); //Read the attachments of the stations
-      $categoryOC = Category::where('mobidulId', $mobidulId)->get();     //Read the current Category of Mobidul
-//      $category2StationOC = Category2Station::where('mobidulId', $mobidulId)->get();  //Read Category 2 station
-      $navigationOC = NavigationItem::where('mobidulId', $mobidulId)->get();  //Read the current Navigation Items
-      $stationOC = Station::where('mobidulId', $mobidulId)->first();       //Read the Mobidul stations
-      $userOC = User2Mobidul::where('mobidulId', $mobidulId)->get();     //Read the user of the current Mobidul
-      $codesOC = Codes::where('mobidulId', $mobidulId)->get();           //Read the codes of the mobidul
+        $clonedMobidulName = $clonedMobidul->name;    //Read out the current name of the cloned Mobidul
+        if (strlen($clonedMobidulName) > 250) {       //If name would be too long (20 chars)
+          $clonedMobidulName = substr($clonedMobidulName, 0, -1);                       //Trim last character
+          $clonedMobidul->name = $this->ChangeMobidulData($clonedMobidulName, "name");  //Change the name of the Mobidul
+        } else {
+          $clonedMobidul->name = $this->ChangeMobidulData($clonedMobidulName, "name");  //Change the name of the Mobidul
+        }
+        
+        $clonedMobidul->save();   //Save the Mobidul in the Database
+        $clonedMobidulID = $clonedMobidul->id;     //Save the ID of the cloned Mobidul
+    
+        //THIRD: Clone now the rest of the current Mobidul and relate it to the new cloned one
+        //------------------------------------------------------------------------------------------------------------------
+        //THIRD - A: Insert the new user2Mobidul with same rights as userOC (user of current mobidul)
+        DB::table('user2mobidul')->insert(
+          [
+            'userId' => $userOC->userId,
+            'mobidulId' => $clonedMobidulID,
+            'rights' => $userOC->rights,
+            'created_at' => $userOC->created_at,
+            'updated_at' => $userOC->updated_at,
+            'code' => $userOC->code
+          ]);
+    
+//        //THIRD - B: Replicate the categories for the current Mobidul if there are some
+        if (count($categoryOC) > 0) {
+          foreach ($categoryOC as $category) {
+            $clonedCategory = $category->replicate();   //Replicate the original model and save it
+            $clonedCategory->mobidulId = $clonedMobidulID;    //Replace the Mobidul Id with the new one
+            $clonedCategory->save();    //Save it to the database
+          }
+        }
+    
+        //THIRD - C: Replicate the stations for the current Mobidul if it has some
+        if (count($stationOC) > 0) {
+          foreach ($stationOC as $station) {
+            $clonedStation = $station->replicate();         //Replicate the current station
+            $clonedStation->mobidulId = $clonedMobidulID;   //Change the MobidulId of the current station
+            $clonedStation->save();                         //Save the new Station
+  
+//            $stationId = $station->id;    //Save the Id of the original Station
+//            $category2StationOC = Category2Station::where('stationId', $stationId)->get();  //Read Category 2 station of the original
+//
+//            foreach ($category2StationOC as $cat2Station) {
+//              $categoryOC = Category::where('id', $cat2Station->categoryId)->first();
+//              $clonedCategory = $categoryOC->replicate();
+//              $clonedCategory->mobidulId = $clonedMobidulID;    //Replace the Mobidul Id with the new one
+//              $clonedCategory->save();
+//
+//              $categoryExists = $this->CategoryExists($clonedCategory->id, $clonedCategory->mobidulId);
+//              \Log::info($categoryExists);
+//              DB::table('category2station')->insert(
+//                [
+//                  'categoryId' => $clonedCategory->id,
+//                  'stationId' => $clonedStation->id
+//                ]);
+//            }
+//            $categoryID = Category::where('mobidulId', $clonedMobidulID)->get();  //Read the category of the cloned Stations
+//
 
-      //Before cloning the other tables and relating them to Mobidul
-      //------------------------------------------------------------------------------------------------------------------
-      $clonedMobidul = $mobidul->replicate();   //First replicate all the values and fields from the original Mobidul
-
-      $clonedMobidulCode = $clonedMobidul->code;    //Read out the code of the cloned Mobidul in order to change it
-      $clonedMobidul->code = $this->ChangeMobidulData($clonedMobidulCode, "code");  //Change the Mobidul code
-      $clonedMobidulName = $clonedMobidul->name;    //Read out the current name of the cloned Mobidul
-      $clonedMobidul->name = $this->ChangeMobidulData($clonedMobidulName, "name");  //Change the name of the Mobidul
-
-      $clonedMobidul->save();   //Save the Mobidul in the Database
-
-      //Clone now the stations of the current Mobidul and relate them to the new cloned one
-      //------------------------------------------------------------------------------------------------------------------
-      $clonedMobidulID =  $clonedMobidul->id;   //Save the ID of the cloned Mobidul
-
-      if(count($stationOC) > 0)
-      {
-        $clonedStations = $stationOC->replicate();
-        $clonedStations->mobidulId = $clonedMobidulID;
-        $clonedStations->save();
-
-        \Log::info($stationOC);
-        \Log::info("--------------------------------------------");
-        \Log::info($clonedStations);
+//
+//          $joinTry = DB::table('category2Station')
+//            ->select('categoryId', 'stationId')
+//            ->join('station', 'category2Station.stationId', '=', 'station.id')
+//            ->where('station.id', $stationId)
+//            ->get();
+//          \Log::info($joinTry);
+//          if($category2StationOC != null) {
+//            $clonedCat2Station = $category2StationOC[0]->replicate();
+//            $clonedCat2Station->stationId = $clonedStation->id;
+////            $clonedCat2Station->categoryId = $categoryID[0]->id;
+//            $clonedCat2Station->save();
+//          }
+          }
+        }
+    
+        //THIRD - D: Replicate also the navigation items of the current Mobidul
+        if (count($navigationOC) > 0) {
+          foreach ($navigationOC as $navigation) {
+            $clonedStation = $navigation->replicate();
+            $clonedStation->mobidulId = $clonedMobidulID;
+            $clonedStation->save();
+          }
+        }
+    
+        $response = [
+          'msg' => "Successfully cloned the current Mobidul."
+        ];
       }
-
-      $response = [
-        'msg' => "Successfully cloned the current Mobidul."
-      ];
     }
-
     return $response;
   }
+  
+  /**
+   * This function is used in order to clone a specific station by its code and Mobidul code.
+   * @param $mobidulCode Mobidul code where the station belongs to
+   * @param $stationCode Code of the station that should be cloned
+   * @return array With information about the status or if it worked or not
+   */
+  public function CloneStation ($mobidulCode, $stationCode)
+  {
+    $response = [
+      'msg' => "Couldn't clone Station.",
+      'success' => false,
+      'stationCode' => $stationCode
+    ];
+    
+    if (Auth::check()) {
+      $stationOC = Station::findByCode($stationCode);     //Find the Current Station by its code.
+            
+      if ($stationOC) {
+        //FIRST: Clone the station
+        //--------------------------------------------------------------------------------------------------------------
+        $clonedStation = $stationOC->replicate();         //Replicate it
+        $clonedStationCode = $clonedStation->code;        //Read the code of the cloned Station
+        $clonedStationName = $clonedStation->name;        //Read the name of the cloned Station
 
+        //SECOND: Change the Code and Name of the Station
+        //--------------------------------------------------------------------------------------------------------------
+        if(strlen($clonedStationCode) > 19) {             //If length of name would exceed limitation in Client (20 chars)
+          $clonedStationCode = substr($clonedStationCode, 0, -1);                       //Trim of last character
+          $clonedStation->code = $this->ChangeStationData($clonedStationCode, "code");  //Change the code of Station
+        } else {
+          $clonedStation->code = $this->ChangeStationData($clonedStationCode, "code");  //Change the code of Station
+        }
+  
+        if(strlen($clonedStationCode) > 19) {             //If length of name would exceed limitation in Client (20 chars)
+          $clonedStationName = substr($clonedStationName, 0, -1);                       //Trim of last character
+          $clonedStation->name = $this->ChangeStationData($clonedStationName, "name");  //Change the name of Station
+        } else {
+          $clonedStation->name = $this->ChangeStationData($clonedStationName, "name");  //Change the name of Station
+        }
+        
+        //THIRD: Change the order or increment it by 1 simply
+        //--------------------------------------------------------------------------------------------------------------
+        $numberOfStations = Station::where('mobidulId', Mobidul::GetId($mobidulCode))->get();   //Count number of stations from Mobidul
+        $clonedStation->order = $clonedStation->order + count($numberOfStations) - 1;           //Change order to new Number
+        $clonedStation->save();                                                                 //Save new Station
+        
+        $codeOfNewStation = $clonedStation->code;
+
+        $response = [
+          'msg' => "Successfully cloned station with ID: " . $codeOfNewStation,
+          'success' => true,
+          'stationCode' => $codeOfNewStation
+        ];
+      }
+    }
+    return $response;
+  }
 
   public function GetOwnerOfMobidul ($mobidulCode)
   {
@@ -1613,8 +1786,15 @@ class WebServicesController extends BaseController
              ->where('mobidulId', $mobidulId)
              ->first();
   }
-
-
+  
+  public function CategoryExists ($categoryId, $mobidulId) {
+    return DB::table('category')
+      ->select('id')
+      ->where('id', $categoryId)
+      ->where('mobidulId', $mobidulId)
+      ->first();
+  }
+  
   public function IsAllowed ($mobidulCode)
   {
     if ( $this->GetIsOwnerOfMobidul($mobidulCode) )
