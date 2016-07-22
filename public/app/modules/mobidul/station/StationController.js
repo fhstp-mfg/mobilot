@@ -480,7 +480,7 @@ function StationController (
                   case 'html':
                     angular
                       .element(container)
-                      .append($compile('<mbl-html-container>' + $sanitize(obj.content) + '</mbl-html-container>')($scope))
+                      .append($compile('<mbl-html-container>' + obj.content + '</mbl-html-container>')($scope))
                     break;
 
                   case 'inputCode':
