@@ -114,6 +114,16 @@
           var e;
           if (position.error) {
             e = position.error;
+
+            ActivityService.commitActivity({
+              type: ActivityService.TYPES.APP_EVENT,
+              name: ActivityService.APP_EVENTS.GEOLOCATION_ERROR,
+              payload: {
+                position: position,
+                config: currentPositionConfig,
+                msg: 'Error inside position object'
+              }
+            });
           }
 
           var accuracy = position.coords.accuracy;

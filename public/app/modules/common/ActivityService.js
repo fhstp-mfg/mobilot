@@ -42,7 +42,7 @@ function ActivityService (
     /// services
     commitActivity: commitActivity,
     pushActivity: pushActivity
-  }
+  };
 
 
   /// services
@@ -77,7 +77,7 @@ function ActivityService (
         type: activity.type,
         name: activity.name,
         payload: activity.payload
-      }
+      };
 
       service._activityStore.push(activityObj);
       // console.debug(service._activityStore);
