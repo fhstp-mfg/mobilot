@@ -50,6 +50,10 @@
             $element.prepend($compile('<photo-upload-config data-success="ctrl.element.success" data-id="ctrl.element.id" data-content="ctrl.element.content"></photo-upload-config>')($scope));
             break;
 
+          case 'setTimeout':
+            $element.prepend($compile('<set-timeout-config data-action="ctrl.element.action" data-delay="ctrl.element.delay"></set-timeout-config>')($scope));
+            break;
+
           default:
             $log.error('couldn\'t render element with type: ' + type);
         }
