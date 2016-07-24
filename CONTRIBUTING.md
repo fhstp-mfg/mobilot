@@ -9,10 +9,12 @@ Please add a short, concise commit message describing **what the commit does**, 
 **Multiple changes**:
 
 ```
-- Adds short, concise commit message for first change (see #1)
-- Fixes short, concise commit message for second change (see #2)
-- Updates short, concise commit message for second change (see #3)
-- Code revision
+Multiple changes
+
+* Adds short, concise commit message for first change (see #1)
+* Fixes short, concise commit message for second change (see #2)
+* Updates short, concise commit message for second change (see #3)
+* Code revision
 ```
 
 
