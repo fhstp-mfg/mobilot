@@ -583,7 +583,11 @@ positionicon .material-icons {
   }
 }
 
-
+mbl-free-text-input textarea{
+    padding: 1em;
+    width: 100%;
+    box-sizing: border-box;
+}
 
 /**
  * iOS specific styles
