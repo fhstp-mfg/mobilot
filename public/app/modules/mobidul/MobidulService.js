@@ -30,7 +30,7 @@ function MobidulService (
     MOBIDUL_MODES : [
       {
         name: 'rally',
-        elements: ['html', 'ifNear', 'inputCode', 'button', 'photoUpload'],
+        elements: ['html', 'ifNear', 'inputCode', 'button', 'photoUpload', 'setTimeout'],
         states: ['activated', 'open', 'completed'],
         defaultState: 'activated',
         hiddenStations: true
