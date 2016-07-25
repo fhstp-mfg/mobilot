@@ -69,7 +69,9 @@ function CreatorService (
 
   function createMobidul (params)
   {
-    return $http.post( cordovaUrl + '/NewMobidul', JSON.stringify(params) )
+    var mobidulData = JSON.stringify(params);
+
+    return $http.post(cordovaUrl + '/NewMobidul', mobidulData)
     .error(function (response, status, headers, config) {
       $log.error(response);
       $log.error(status);
@@ -79,9 +81,9 @@ function CreatorService (
 
   function updateMobidul (mobidulCode, params)
   {
-    var mobidulData = JSON.stringify( params );
+    var mobidulData = JSON.stringify(params);
 
-    return $http.post(cordovaUrl + '/' + mobidulCode + '/UpdateMobidul', mobidulData )
+    return $http.post(cordovaUrl + '/' + mobidulCode + '/UpdateMobidul', mobidulData)
     .error(function (response, status, headers, config) {
       $log.error(response);
       $log.error(status);

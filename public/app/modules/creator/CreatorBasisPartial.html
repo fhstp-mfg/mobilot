@@ -16,29 +16,31 @@
       Nachdem du den Namen eingegeben hast, wird ein Code generiert, welches dann manuell geändern werden kann.
     </p>
 
-        <md-input-container class="creator-input-container">
-        <label>Name</label>
-        <input
+    <md-input-container class="creator-input-container">
+      <label>Name</label>
+      <input
         ng-model="creator.mobidul.name"
         ng-keyup="creator.changeName()"
-        required>
-      </md-input-container>
+        required
+      >
+    </md-input-container>
 
     <div layout-sm="column">
       <md-input-container class="creator-input-container" flex>
-          <label>
+        <label>
           <span>Mobidul Code</span>
           <span ng-show="creator.mobidul.codeHelper.show">
             - {{ creator.mobidul.codeHelper.text }}
           </span>
         </label>
 
-          <input
+        <input
           ng-model="creator.mobidul.code"
           ng-keyup="creator.changeCode()"
           maxlength="20"
-          required>
-        </md-input-container>
+          required
+        >
+      </md-input-container>
 
       <p class="helper">Das Mobidul wird über folgendem Link aufrufbar sein:</p>
       <p class="url-helper">
@@ -48,12 +50,12 @@
       </p>
     </div>
 
-        <div layout-sm="column">
-            <md-input-container flex>
-          <label>Beschreibung</label>
-          <textarea ng-model="creator.mobidul.description"></textarea>
-        </md-input-container>
-        </div>
+    <div layout-sm="column">
+      <md-input-container flex>
+        <label>Beschreibung</label>
+        <textarea ng-model="creator.mobidul.description"></textarea>
+      </md-input-container>
+    </div>
 
     <md-input-container data-ng-if="creator.isNewMobidul">
       <md-select data-ng-model="creator.mobidul.mode">

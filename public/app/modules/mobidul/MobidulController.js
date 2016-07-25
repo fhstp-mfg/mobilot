@@ -1,137 +1,137 @@
 angular
-	.module('Mobidul')
-	.controller('MobidulController', MobidulController);
+  .module('Mobidul')
+  .controller('MobidulController', MobidulController);
 
 
 MobidulController.$inject = [
-	'$log', '$scope', '$rootScope',
-	'$state', '$stateParams', 'StateManager',
-	'$geolocation', '$mdSidenav', '$mdComponentRegistry', '$mdDialog',
-	'MobidulService', 'HeaderService', 'MapService',
+  '$log', '$scope', '$rootScope',
+  '$state', '$stateParams', 'StateManager',
+  '$geolocation', '$mdSidenav', '$mdComponentRegistry', '$mdDialog',
+  'MobidulService', 'HeaderService', 'MapService',
   'LocalStorageService', 'FontService'
 ];
 
 
 function MobidulController (
-	$log, $scope, $rootScope,
-	$state, $stateParams, StateManager,
-	$geolocation, $mdSidenav, $mdComponentRegistry, $mdDialog,
-	MobidulService, HeaderService, MapService,
+  $log, $scope, $rootScope,
+  $state, $stateParams, StateManager,
+  $geolocation, $mdSidenav, $mdComponentRegistry, $mdDialog,
+  MobidulService, HeaderService, MapService,
   LocalStorageService, FontService
-)
-{
-	var mobidul = this;
+) {
+  /// MobidulController
+  var mobidul = this;
 
-	// vars
-	mobidul.menu 	= [];
+  // vars
+  mobidul.menu = [];
 
-
-	// functions
-	mobidul.switchContent      = switchContent;
-	mobidul.switchState        = switchState;
-	mobidul.switchAdminContent = switchAdminContent;
-	mobidul.cloneMyMobidul	 	 = cloneMyMobidul;
-
-
-	/// construct
-
-	_init();
+  // functions
+  mobidul.switchContent      = switchContent;
+  mobidul.switchState        = switchState;
+  mobidul.switchAdminContent = switchAdminContent;
+  mobidul.cloneMyMobidul     = cloneMyMobidul;
 
 
-	/// private functions
+  /// construct
 
-	function _init ()
-	{
-		$log.debug('init MobidulController');
-		// $log.debug(StateManager.state);
+  _init();
+
+
+  /// private functions
+
+  function _init ()
+  {
+    $log.debug('init MobidulController');
+    // $log.debug(StateManager.state);
     LocalStorageService.explainGenericGeoPermit(true);
 
 
-		_initDefaultValues();
+    _initDefaultValues();
 
-		if ( ! mobidul.isNewMobidul )
-			_listenToMenuReady();
-	}
-
-
-	function _initDefaultValues ()
-	{
-		mobidul.isNewMobidul =
-			StateManager.state.params.mobidulCode === StateManager.NEW_MOBIDUL_CODE;
-
-		if(!mobidul.isNewMobidul){
-			MobidulService.initProgress();
-		}
-	}
+    if ( ! mobidul.isNewMobidul ) {
+      _listenToMenuReady();
+    }
+  }
 
 
-	function _listenToMenuReady ()
-	{
-		// $log.debug('Listening to "Menu::ready"');
+  function _initDefaultValues ()
+  {
+    mobidul.isNewMobidul =
+      StateManager.state.params.mobidulCode === StateManager.NEW_MOBIDUL_CODE;
 
-		var menuReadyListener =
-			$rootScope.$on('Menu::ready', function (event)
-			{
-				// $log.debug('Heard "Menu::ready" in MobidulController');
-				// $log.debug(data);
-
-				_requestConfig();
-			});
-
-		$scope.$on('$destroy', menuReadyListener);
-	}
+    if ( ! mobidul.isNewMobidul ) {
+      MobidulService.initProgress();
+    }
+  }
 
 
-	function _requestConfig ()
-	{
-		$log.debug('requestConfig in MobidulController');
+  function _listenToMenuReady ()
+  {
+    // $log.debug('Listening to "Menu::ready"');
 
-		var mobidulCode = StateManager.state.params.mobidulCode;
-		$log.debug(mobidulCode);
+    var menuReadyListener =
+      $rootScope.$on('Menu::ready', function (event)
+      {
+        // $log.debug('Heard "Menu::ready" in MobidulController');
+        // $log.debug(data);
 
-		MobidulService
-			.getConfig( mobidulCode )
-			.then(function (response, status, headers, config, statusText)
-			{
-				$log.debug('MobidulService getConfig callback : ');
-				$log.debug(response);
+        _requestConfig();
+      });
 
-				// TODO - check case where response.data is not defined
-				var mobidulConfig = response.data;
-
-				// TODO - save the whole configuration without overriding
-				// MobidulService.Config.title = config.mobidulName;
-				// HeaderService.title = config.mobidulName;
-				HeaderService.title = mobidulConfig.mobidulName;
+    $scope.$on('$destroy', menuReadyListener);
+  }
 
 
-				// TODO - recheck the $emit event and other solutions
-				$rootScope.$emit('rootScope:setConfig', mobidulConfig);
+  function _requestConfig ()
+  {
+    $log.debug('requestConfig in MobidulController');
+
+    var mobidulCode = StateManager.state.params.mobidulCode;
+    $log.debug(mobidulCode);
+
+    MobidulService
+      .getConfig( mobidulCode )
+      .then(function (response, status, headers, config, statusText)
+      {
+        $log.debug('MobidulService getConfig callback : ');
+        $log.debug(response);
+
+        // TODO - check case where response.data is not defined
+        var mobidulConfig = response.data;
+
+        // TODO - save the whole configuration without overriding
+        // MobidulService.Config.title = config.mobidulName;
+        // HeaderService.title = config.mobidulName;
+        HeaderService.title = mobidulConfig.mobidulName;
 
 
-				// TODO - adapt services to return necessary data
-				var menuData = mobidulConfig.customNav.navigation;
+        // TODO - recheck the $emit event and other solutions
+        $rootScope.$emit('rootScope:setConfig', mobidulConfig);
+
+
+        // TODO - adapt services to return necessary data
+        var menuData = mobidulConfig.customNav.navigation;
 
         // RESET menu before getting it
         mobidul.menu = [];
 
-				angular.forEach( menuData, function (item, key)
-				{
-					var menuItem = {};
-						menuItem.code = item.id;
+        angular.forEach( menuData, function (item, key)
+        {
+          var menuItem = {};
+            menuItem.code = item.id;
             menuItem.func = item.func;
-						menuItem.href = '';
-						menuItem.text = item.text;
-						menuItem.isDivider = item.isDivider;
+            menuItem.href = '';
+            menuItem.text = item.text;
+            menuItem.isDivider = item.isDivider;
 
 
-					if ( item.href )
-						menuItem.href = ( item.href != 'map.html')
-											? item.href : 'map';
+          if ( item.href )
+            menuItem.href = ( item.href != 'map.html')
+                      ? item.href : 'map';
 
 
-					mobidul.menu.push(menuItem);
-				});
+          mobidul.menu.push(menuItem);
+        });
 
 
         // TODO: get Starting page from config
@@ -140,10 +140,10 @@ function MobidulController (
         // "startItemId"  : "",  id || map.html
 
 
-				if ( StateManager.isMobidul() )
+        if ( StateManager.isMobidul() )
                 {
-										//save all stations in Service for rally
-										MobidulService.fetchStations(StateManager.getParams().mobidulCode);
+                    //save all stations in Service for rally
+                    MobidulService.fetchStations(StateManager.getParams().mobidulCode);
 
                     var switchContentParams = {};
 
@@ -160,9 +160,9 @@ function MobidulController (
                     else if ( mobidulConfig.startAbility === 'switchcontent' )
                     {
                         if ( mobidulConfig.startItemId === 'map.html' )
-						{
+            {
                             switchContentParams.href = 'map';
-						}
+            }
                         else
                         {
                             switchContentParams.func = 'switchcontent';
@@ -171,203 +171,245 @@ function MobidulController (
                     }
 
 
-					// NOTE - in some cases the menu isn't ready yet,
-					//			therefore we first have to wait for the menu to be ready,
-					//			and only switch content afterwards
+          // NOTE - in some cases the menu isn't ready yet,
+          //      therefore we first have to wait for the menu to be ready,
+          //      and only switch content afterwards
 
 
 
-					// NOTE - this is only for development !
-					// TODO - implement system to check if is developer version
+          // NOTE - this is only for development !
+          // TODO - implement system to check if is developer version
 
-					var is_developer_mode = true;
+          var is_developer_mode = true;
 
-					// if ( is_developer_mode )
-					// {
-					// 	var confirmDeleteStationDialog =
-					// 		$mdDialog
-					// 			.confirm()
-					// 			.parent( angular.element(document.body) )
-					// 			.title('Developer mode')
-					// 			.textContent('Redirect to start page ?')
-					// 			.ariaLabel('Developer mode')
-					// 			.ok('Redirect')
-					// 			.cancel('Stay');
-					//
-					// 	$mdDialog
-					// 		.show( confirmDeleteStationDialog )
-					// 		.then(function ()
-					// 		{
-					// 			mobidul.switchContent( switchContentParams );
-					// 		});
-					// }
-					// else
-					// 	mobidul.switchContent( switchContentParams );
+          // if ( is_developer_mode )
+          // {
+          //   var confirmDeleteStationDialog =
+          //     $mdDialog
+          //       .confirm()
+          //       .parent( angular.element(document.body) )
+          //       .title('Developer mode')
+          //       .textContent('Redirect to start page ?')
+          //       .ariaLabel('Developer mode')
+          //       .ok('Redirect')
+          //       .cancel('Stay');
+          //
+          //   $mdDialog
+          //     .show( confirmDeleteStationDialog )
+          //     .then(function ()
+          //     {
+          //       mobidul.switchContent( switchContentParams );
+          //     });
+          // }
+          // else
+          //   mobidul.switchContent( switchContentParams );
 
 
-					// NOTE - simply don't redirect when is developer mode
-					if ( ! is_developer_mode )
-						mobidul.switchContent( switchContentParams );
+          // NOTE - simply don't redirect when is developer mode
+          if ( ! is_developer_mode )
+            mobidul.switchContent( switchContentParams );
                 }
-			})
-			.then(function ()
-			{
-				$rootScope.$emit('rootScope:toggleAppLoader', { action : 'hide' });
-			});
-	}
+      })
+      .then(function ()
+      {
+        $rootScope.$emit('rootScope:toggleAppLoader', { action : 'hide' });
+      });
+  }
 
 
-	function _closeMenu ()
-	{
-		// $log.debug('close menu in MobidulController');
+  function _closeMenu ()
+  {
+    // $log.debug('close menu in MobidulController');
 
-		// TODO - review and implement as needed
-		// var defer = $q.defer();
-		//
-		// $mdComponentRegistry
-		// 	.when('menu')
-		// 	.then(function (menu)
-		// 	{
-		// 		menu.close();
-		//
-		// 		defer.resolve();
-		// 	});
-		//
-		// return defer.promise;
+    // TODO - review and implement as needed
+    // var defer = $q.defer();
+    //
+    // $mdComponentRegistry
+    //   .when('menu')
+    //   .then(function (menu)
+    //   {
+    //     menu.close();
+    //
+    //     defer.resolve();
+    //   });
+    //
+    // return defer.promise;
 
-		return $mdSidenav('menu').close();
-	}
-
-
-	/// public functions
-
-	// ...
+    return $mdSidenav('menu').close();
+  }
 
 
-	/// events
+  /// public functions
 
-	function switchContent (item)
-	{
+  // ...
+
+
+  /// events
+
+  function switchContent (item)
+  {
         $log.debug('switchContent in MobidulController : ');
-		$log.debug(item);
+    $log.debug(item);
 
         if ( ! item.isDivider )
         {
             _closeMenu()
-				.then(function ()
-				{
-					var mobidulCode = StateManager.state.params.mobidulCode;
+        .then(function ()
+        {
+          var mobidulCode = StateManager.state.params.mobidulCode;
 
 
-					if ( item.href == 'map' )
-					{
-		                $state.go('mobidul.map');
-					}
-		            else if ( item.func == 'getForCategory' )
-					{
-		                MobidulService.Mobidul.categoryName = item.text;
+          if ( item.href == 'map' )
+          {
+                   $state.go('mobidul.map');
+          }
+               else if ( item.func == 'getForCategory' )
+          {
+                   MobidulService.Mobidul.categoryName = item.text;
 
-						var stateParams = {
-							mobidulCode : mobidulCode,
-			                category    : item.href
-						};
+            var stateParams = {
+              mobidulCode : mobidulCode,
+                     category    : item.href
+            };
 
-						$state.go('mobidul.list', stateParams);
-					}
-		            else
-					{
-		                $state.go('mobidul.station',
-						{
-		                    mobidulCode : mobidulCode,
-		                    stationCode : item.href
-		                });
-					}
-				});
+            $state.go('mobidul.list', stateParams);
+          }
+               else
+          {
+                   $state.go('mobidul.station',
+            {
+                       mobidulCode : mobidulCode,
+                       stationCode : item.href
+                   });
+          }
+        });
         }
-	}
+  }
 
 
-	function switchState (state)
-	{
-		_closeMenu().then(function ()
-		{
-			if ( state === StateManager.HOME )
-				MapService.reset();
+  function switchState (state)
+  {
+    _closeMenu().then(function ()
+    {
+      if ( state === StateManager.HOME )
+        MapService.reset();
 
-			$state.go(state);
-		});
-	}
+      $state.go(state);
+    });
+  }
 
 
-	function switchAdminContent (adminContentId)
-	{
-		_closeMenu()
-			.then(function ()
-			{
-				// $log.debug('closeMenu callback in MobidulController')
+  function switchAdminContent (adminContentId)
+  {
+    _closeMenu()
+      .then(function ()
+      {
+        // $log.debug('closeMenu callback in MobidulController')
 
-				var mobidulCode = StateManager.state.params.mobidulCode;
+        var mobidulCode = StateManager.state.params.mobidulCode;
 
-				switch ( adminContentId )
-				{
-					case MobidulService.ALL_STATIONS :
+        switch ( adminContentId )
+        {
+          case MobidulService.ALL_STATIONS :
 
-						$state.go('mobidul.list', { category : 'all' });
+            $state.go('mobidul.list', { category : 'all' });
 
-						break;
+            break;
 
-					case MobidulService.NEW_STATION :
+          case MobidulService.NEW_STATION :
 
-						var stateParams = {
-							mobidulCode : mobidulCode,
-							stationCode : StateManager.NEW_STATION_CODE
-						};
+            var stateParams = {
+              mobidulCode : mobidulCode,
+              stationCode : StateManager.NEW_STATION_CODE
+            };
 
-						// $log.debug('switchAdminContent params:');
-						// $log.debug(stateParams);
+            // $log.debug('switchAdminContent params:');
+            // $log.debug(stateParams);
 
-						$state.go('mobidul.station.edit.basis', stateParams);
+            $state.go('mobidul.station.edit.basis', stateParams);
 
-						break;
+            break;
 
-					case MobidulService.MOBIDUL_OPTIONS :
+          case MobidulService.MOBIDUL_OPTIONS :
                         var stateParams = {
-							mobidulCode : mobidulCode
-						};
+              mobidulCode : mobidulCode
+            };
                         $state.go('mobidul.creator.basis', stateParams);
 
-						break;
+            break;
 
-					default : break;
-				}
-			});
-	}
+          default : break;
+        }
+      });
+  }
 
-	/**
-	 * This function calls the cloning function on the service and waits for User Input or
-	 */
-	function cloneMyMobidul()
-	{
-		var mobidulCode = StateManager.state.params.mobidulCode;
-		$log.info("FLO 1: CONTROLLER was working.");
+  /**
+   * This function calls the cloning function on the service and
+   * waits for User Input or ...
+   */
+  function cloneMyMobidul ()
+  {
+    var mobidulName = StateManager.getTitle();
+    var mobidulCode = StateManager.state.params.mobidulCode;
 
-		var confirmCloneMobidul = $mdDialog.confirm()
-      .parent(angular.element(document.body))
-			.title('Möchten Sie das aktuelle Mobidul duplizieren?')
-			.textContent('Beim Bestätigen dieses Dialogs wird eine Kopie des aktuellen Mobiduls angefertigt. ' +
-        'Solltest du den Button nochmals drücken, so wird eine weitere Kopie angefertigt.')
-			.ariaLabel('Mobidul duplizieren')
-			.ok('Duplizieren')
-			.cancel('Abbrechen');
+    $log.info("FLO 1: CONTROLLER was working.");
 
-		$mdDialog.show(confirmCloneMobidul).then(function() {
-      MobidulService
-        .cloneMobidul(mobidulCode)
-        .then(function (response, status, headers, config, statusText) {
-          $log.info('FLO 3: SPEICHERN ' + response.data.msg);
-        });
-		}, function() {
-			$log.info("NOTHING HAPPENS");
-		});
-	}
+
+    var cloneDialogOptions = {
+      parent: angular.element(document.body),
+      title: 'Mobidul klonen',
+      clickOutsideToClose: true,
+
+      templateUrl: 'app/modules/mobidul/menu/dialog/CloneMobidulDialog.html',
+
+      controller: function ($scope, $mdDialog) {
+        $scope.mobidul = {
+          name         : mobidulName,
+          code         : mobidulCode,
+          link         : 'www.mobilot.at',
+
+          originalCode : '',
+          generateCode : false,
+
+          codeHelper   : {
+            show : false,
+            text : '',
+          }
+        };
+
+
+        /// functions
+
+        $scope.changeName = function () {
+          $log.debug('CloneMobidulDialog changeName:')
+        }
+
+        $scope.changeCode = function () {
+          $log.debug('CloneMobidulDialog changeCode:')
+        }
+
+        $scope.closeDialog = function () {
+          $mdDialog.hide();
+        }
+
+        $scope.cloneMobidul = function () {
+          var params = {
+            name: $scope.mobidul.name,
+            code: $scope.mobidul.code
+          };
+
+          MobidulService.cloneMobidul(params)
+          .then(function (response, status, headers, config, statusText) {
+            $log.debug(response);
+            $log.debug('FLO 3: SPEICHERN ' + response.data.msg);
+          });
+        }
+      },
+    };
+
+    $mdDialog.show(cloneDialogOptions)
+    .then(function () {
+      $log.debug('opened dialog');
+    });
+  }
 }

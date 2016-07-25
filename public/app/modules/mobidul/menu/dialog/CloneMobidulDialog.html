@@ -1,0 +1,69 @@
+<md-dialog aria-label="Mobidul klonen">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Mobidul klonen</h2>
+      <span flex></span>
+      <md-button
+        class="md-icon-button"
+        ng-click="closeDialog()"
+      >
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content>
+    <md-content layout-padding>
+      <div layout-sm="column">
+        <p class="helper">Gib den Namen des neuen Mobiduls ein:</p>
+        <br>
+
+        <md-input-container>
+          <label>Mobidul Name</label>
+          <input
+            ng-model="mobidul.name"
+            ng-keyup="changeName()"
+            required
+          >
+        </md-input-container>
+      </div>
+
+      <div layout-sm="column">
+        <md-input-container flex>
+          <label>
+            <span>Mobidul Code</span>
+            <span ng-show="mobidul.codeHelper.show">
+              - {{ codeHelper.text }}
+            </span>
+          </label>
+
+          <input
+            ng-model="mobidul.code"
+            ng-keyup="changeCode()"
+            maxlength="20"
+            required
+          >
+        </md-input-container>
+
+        <p class="helper">Das Mobidul wird über folgendem Link aufrufbar sein:</p>
+        <p class="url-helper">
+          <span>{{ mobidul.link }}</span>
+          <span>/#/</span>
+          <span>{{ mobidul.code }}</span>
+        </p>
+      </div>
+    </md-content>
+  </md-dialog-content>
+
+  <md-dialog-actions>
+    <md-button
+      ng-click="closeDialog()"
+      class="md-primary"
+    >Abbrechen</md-button>
+
+    <md-button
+      ng-click="cloneMobidul()"
+      class="md-primary md-raised"
+    >Klonen</md-button>
+  </md-dialog-actions>
+</md-dialog>
