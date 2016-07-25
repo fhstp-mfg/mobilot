@@ -51,7 +51,7 @@
             break;
 
           case 'setTimeout':
-            $element.prepend($compile('<set-timeout-config data-action="ctrl.element.action" data-delay="ctrl.element.delay"></set-timeout-config>')($scope));
+            $element.prepend($compile('<set-timeout-config data-action="ctrl.element.action" data-delay="ctrl.element.delay" data-showCountdown="ctrl.element.showCountdown"></set-timeout-config>')($scope));
             break;
 
           default:
