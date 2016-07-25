@@ -131,24 +131,19 @@ class WebServicesController extends BaseController
 
   public function GetForCategoryId ($mobidulCode, $categoryId)
   {
-    $mobidulId  = Mobidul::GetId($mobidulCode);
+    $mobidulId = Mobidul::GetId($mobidulCode);
 
-    $stationIds = DB::table('category2station')
-                    ->select('stationId')
-                    ->where('categoryId', $categoryId)
-                    ->get();
-
-    $station = DB::table('station')
-                  ->select(
-                    'id', 'code', 'lat', 'lon',
-                    'name', 'type', 'order', 'station.updated_at'
-                  )
-                  ->join('category2station', 'station.id', '=', 'category2station.stationId')
-                  ->where('category2station.categoryId', $categoryId)
-                  ->where('mobidulId', $mobidulId)
-                  // ->orderBy('name')
-                  ->orderBy('order')
-                  ->get();
+    $station = (
+    DB::table('station')
+      ->select(
+       'id', 'code', 'lat', 'lon',
+       'name', 'type', 'order', 'station.updated_at'
+      )
+      ->join('category2station', 'station.id', '=', 'category2station.stationId')
+      ->where('category2station.categoryId', $categoryId)
+      ->where('mobidulId', $mobidulId)
+      ->orderBy('order')
+      ->get();
 
 
     return json_encode($station);
@@ -733,7 +728,7 @@ class WebServicesController extends BaseController
 
       return DB::table('user2mobidul')
                 ->where('userId', $userid)
-                ->whereIn('rights', array(1, 2))
+                ->whereIn('rights', [1, 2])
                 ->leftJoin('mobidul', 'mobidul.Id', '=', 'user2mobidul.mobidulId')
                 ->select('id', 'name', 'description', 'mobidul.code', 'background', 'foreground', 'rights')
                 ->get();

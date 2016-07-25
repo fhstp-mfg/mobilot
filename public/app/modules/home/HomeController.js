@@ -1,3 +1,4 @@
+/// Home
 angular
   .module('Home')
   .controller('HomeController', HomeController);
@@ -18,8 +19,8 @@ function HomeController (
   $mdDialog,
   $geolocation, MapService,
   HomeService, UserService, LocalStorageService
-)
-{
+) {
+  /// HomeController
   var home = this;
 
   /// constants
@@ -71,35 +72,6 @@ function HomeController (
 
     LocalStorageService.init();
     LocalStorageService.explainNearGeoPermit(true);
-
-
-    // NOTE XXX - deprecated, since the initialization never requires a geo permit,
-    //        since ALL_MOBIDULE tab is defaultly opened !
-
-    // if ( home.searchTypeIndex == HomeService.NEAR_ME_MOBIDULE )
-    // {
-    //   var informAboutGeoPermitDialog =
-    //     $mdDialog
-    //       .alert()
-    //       .parent(angular.element(document.body))
-    //       .title('Information')
-    //       .textContent( MapService.EXPLAIN_GENERIC_GEO_PERMIT )
-    //       .ariaLabel('Information')
-    //       .ok('Ich verstehe');
-    //
-    //   $mdDialog
-    //     .show( informAboutGeoPermitDialog )
-    //     .then(function ()
-    //     {
-    //       home.getMyPosition()
-    //         .then(function (position)
-    //         {
-    //           home.changeSearchType();
-    //         });
-    //     });
-    // }
-
-    // ...
   }
 
 
