@@ -917,6 +917,7 @@ function StationCreatorController (
       var stationCode = StateManager.state.params.stationCode || null;
 
       if (mobidulCode && stationCode)
+
         StationCreatorService
           .cloneMyStation(mobidulCode, stationCode)
           .success(function (response, status, headers, config)
