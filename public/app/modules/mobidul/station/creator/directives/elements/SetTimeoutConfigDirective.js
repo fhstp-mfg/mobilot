@@ -25,7 +25,7 @@ function SetTimeoutConfig(
       '</md-input-container>' +
       '<md-input-container>' +
         '<input type="number" data-ng-model="ctrl.seconds" name="seconds">' +
-        '<label for="seconds">Sekunden</label> ' +
+        '<label for="seconds">Sekunden</label>' +
       '</md-input-container>' +
       '<md-checkbox data-ng-model="show" aria-label="Show Countdown">Countdown anzeigen?</md-checkbox>' +
       '<action-selector data-opts="ctrl.actionOpts" data-selection="action" data-name="Aktion"></action-selector>' +

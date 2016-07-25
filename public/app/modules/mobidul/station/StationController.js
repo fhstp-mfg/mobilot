@@ -535,7 +535,7 @@ function StationController (
                   case 'setTimeout':
                     angular
                       .element(container)
-                      .append($compile('<mbl-set-timeout data-delay="' + obj.delay + '" data-action="' + obj.action + '"></mbl-set-timeout>')($scope));
+                      .append($compile('<mbl-set-timeout data-show="' + obj.show + '" data-delay="' + obj.delay + '" data-action="' + obj.action + '"></mbl-set-timeout>')($scope));
                     break;
 
                   default:
