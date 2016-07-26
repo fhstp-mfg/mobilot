@@ -903,32 +903,61 @@ function StationCreatorController (
   function cloneStation() {
     $log.info("FLO 1: CONTROLLER was working.");
 
+    //First create a confirm Dialog in order to ask the user if he really wants to duplicate the current station.
     var confirmCloneStation = $mdDialog.confirm()
       .parent(angular.element(document.body))
       .title('Aktuelle Station kopieren')
-      .textContent('Beim Bestätigen dieses Dialogs wird eine Kopie des aktuellen Mobiduls angefertigt. ' +
-          'Dannach befinedst du dich automatisch in der duplizierten Station.')
+      .textContent('Beim Bestätigen dieses Dialogs wird eine Kopie der aktuellen Station ' + stationCreator.station.name
+        + ' angefertigt. Dannach befindest du dich automatisch in der duplizierten Station, um den Ort zu ändern.')
       .ariaLabel('Station duplizieren')
       .ok('Duplizieren')
       .cancel('Abbrechen');
 
+    //Show the dialog and read the current station parameters
     $mdDialog.show(confirmCloneStation).then(function () {
       var mobidulCode = StateManager.state.params.mobidulCode || null;
       var stationCode = StateManager.state.params.stationCode || null;
 
-      if (mobidulCode && stationCode)
+      if(mobidulCode && stationCode) {
+        stationCreator.saveChanges();   //Save the changes to the current station
+      }
 
-        StationCreatorService
-          .cloneMyStation(mobidulCode, stationCode)
-          .success(function (response, status, headers, config)
-          {
-            $log.info('FLO 3: SPEICHERN ' + response.msg);
-          })
-          .error(function (response, status, headers, config)
-          {
-            $log.error(response);
-            $log.error(status);
-          });
+      //Call the cloning service of the current station
+      StationCreatorService
+        .cloneMyStation(mobidulCode, stationCode)
+        .success(function (response, status, headers, config) {
+          $log.info('FLO 3: SPEICHERN ' + response.stationCode);
+          var cloneStationCode = response.stationCode;
+
+          //Show a dialog to inform the user he is in new station and has to change position
+          var informAboutStationChange =
+            $mdDialog
+              .alert()
+              .parent(angular.element(document.body))
+              .clickOutsideToClose(true)
+              .title('Aktuelle Station: ' + stationCreator.station.name)
+              .textContent('Nach dem Duplizieren befindest du dich nun in der Kopie um den Ort zu ändern.')
+              .ariaLabel('Duplizierte Station')
+              .ok('Schließen');
+
+          $mdDialog.show(informAboutStationChange)
+            .then(function() {
+              //Change the view to the new station if the cloning was successful
+              if(response.worked) {
+                $state.go(
+                  'mobidul.station.edit.place',
+                  {stationCode: cloneStationCode},
+                  {'reload': true}
+                );
+              }
+            });
+
+        })
+        .error(function (response, status, headers, config)
+        {
+          $log.error(response);
+          $log.error(status);
+        });
       }, function () {
         $log.info("NOTHING HAPPENS");
     });
