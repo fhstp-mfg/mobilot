@@ -19,8 +19,9 @@
   font-weight: 400;
 }
 
+.hidden { display: none }
 .clearfix:after {
-    content: ".";
+    content: '.';
     clear: both;
     display: block;
     visibility: hidden;
