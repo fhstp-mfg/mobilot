@@ -73,8 +73,8 @@ Route::post('{mobidulCode}/AddCategories', 'WebServicesController@AddCategories'
 Route::post('{mobidulCode}/UpdateCategories', 'WebServicesController@UpdateCategories');
 Route::post('{mobidulCode}/RemoveCategories', 'WebServicesController@RemoveCategories');
 Route::get('{mobidulCode}/RemoveCategory/{categoryId}', 'WebServicesController@RemoveCategory');
-Route::get('{mobidulCode}/clone', 'WebServicesController@CloneMobidul');
-
+Route::post('{mobidulCode}/clone', 'WebServicesController@CloneMobidul');
+Route::get('{mobidulCode}/cloneStation/{stationCode}', 'WebServicesController@CloneStation');
 
 /*
  * Stations

@@ -23,13 +23,13 @@ function MobidulController (
   var mobidul = this;
 
   /// vars
-  mobidul.menu   = [];
+  mobidul.menu = [];
 
-
-  /// functions
+  // functions
   mobidul.switchContent      = switchContent;
   mobidul.switchState        = switchState;
   mobidul.switchAdminContent = switchAdminContent;
+  mobidul.cloneMyMobidul     = cloneMyMobidul;
 
 
   /// construct
@@ -127,10 +127,6 @@ function MobidulController (
       });
 
 
-      // TODO: get Starting page from config
-      //
-      // "startAbility" : "", "switchContent" || "getForCategory"
-      // "startItemId"  : "",  id || map.html
 
 
       if ( StateManager.isMobidul() )
@@ -167,27 +163,6 @@ function MobidulController (
 
         var is_developer_mode = true;
 
-        // if ( is_developer_mode )
-        // {
-        //   var confirmDeleteStationDialog =
-        //     $mdDialog
-        //       .confirm()
-        //       .parent( angular.element(document.body) )
-        //       .title('Developer mode')
-        //       .textContent('Redirect to start page ?')
-        //       .ariaLabel('Developer mode')
-        //       .ok('Redirect')
-        //       .cancel('Stay');
-        //
-        //   $mdDialog
-        //     .show( confirmDeleteStationDialog )
-        //     .then(function ()
-        //     {
-        //       mobidul.switchContent( switchContentParams );
-        //     });
-        // }
-        // else
-        //   mobidul.switchContent( switchContentParams );
 
 
         // NOTE: simply don't redirect when is developer mode

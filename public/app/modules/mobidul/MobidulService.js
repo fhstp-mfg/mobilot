@@ -57,6 +57,8 @@ function MobidulService (
     resetProgress     : resetProgress,
     getProgress       : getProgress,
     setProgress       : setProgress,
+    adminSetProgress  : adminSetProgress,
+    cloneMobidul      : cloneMobidul,
 
     /// app config
     Config :
@@ -67,7 +69,8 @@ function MobidulService (
 
       // NOTE: these are directly tied to a Mobidul
       isGoToHomeEnabled  : true,
-      isGoToAboutEnabled : true
+      isGoToAboutEnabled : true,
+      isCloneMobidulEnabled : true
     },
 
     /// mobidul config
@@ -249,9 +252,31 @@ function MobidulService (
     $log.warn('MobidulService.isRally is deprecated - use MobidulService.getMobidulMode instead!');
 
     // TODO: check if service.Mobidul exists to prevent redundant call
-    return $http.get( cordovaUrl + '/' + mobidulCode + '/getConfig' )
+    return $http.get(cordovaUrl + '/' + mobidulCode + '/getConfig')
     .success(function (response, status, headers, config) {
       return response.mode == service.MOBIDUL_MODE_RALLY;
+    })
+    .error(function (response, status, headers, config) {
+      $log.error(response);
+      $log.error(status);
+    });
+  }
+
+  /**
+   * This function is used in order to clone the current Mobidul with all it's attributes.
+   *
+   * @param mobidul An object containing the new name and code of the mobidul
+   * @return {*} Accessing the cloning function on the Server
+   */
+  function cloneMobidul (mobidul) {
+    $log.debug("FLO 2: SERVICE was working." + "Mobidulcode: " + mobidul.code);
+    $log.debug(mobidul);
+
+    var mobidulData = JSON.stringify(mobidul);
+
+    return $http.post(cordovaUrl + '/' + mobidul.code + '/clone', mobidulData)
+    .success(function (response, status, headers, config) {
+      return response;
     })
     .error(function (response, status, headers, config) {
       $log.error(response);
