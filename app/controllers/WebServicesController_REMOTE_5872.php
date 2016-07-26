@@ -222,7 +222,14 @@ class WebServicesController extends BaseController
                   // ->orderBy('name')
                   ->orderBy('order')
                   ->get();
-    
+
+
+    \Log::info($mobidulId);
+    \Log::info("--------------------------------");
+    \Log::info($stationIds);
+    \Log::info("--------------------------------");
+    \Log::info($station);
+    \Log::info("--------------------------------");
     return json_encode($station);
   }
 
@@ -667,7 +674,11 @@ class WebServicesController extends BaseController
 
       // Now we can get the content from it
       $content     = $request->getContent();
+      \Log::info($content);
       $mobidulJson = json_decode($content);
+      \Log::info($mobidulJson);
+      \Log::info($mobidulJson->name);
+      \Log::info($mobidulJson->code);
 
       $mobidul = Mobidul::where('code', $mobidulCode)->first();
 
@@ -771,16 +782,8 @@ class WebServicesController extends BaseController
             'updated_at' => $userOC->updated_at,
             'code' => $userOC->code
           ]);
-  
-        //THIRD - D: Replicate also the navigation items of the current Mobidul
-        if (count($navigationOC) > 0) {
-          foreach ($navigationOC as $navigation) {
-            $clonedNavigation = $navigation->replicate();                //Replicate the current navigation Item
-            $clonedNavigation->mobidulId = $clonedMobidulID;             //Add the cloned MobidulId to the Navigation
-            $clonedNavigation->save();                                   //Save the cloned navigation item
-          }
-        }
-        
+
+
         /*
          * Important as it stores the cloned Categories and checks if they already exist so if one station is assigned
          * to multiple categories, the categories won't get duplicated. Each time is checked if the clone category already
@@ -816,30 +819,6 @@ class WebServicesController extends BaseController
                   'categoryId' => $clonedCategory->id,
                   'stationId' => $clonedStation->id
                 ]);
-              
-              //Replace Navigation items Id and Category
-              $navCategory = NavigationItem::where('mobidulId', $clonedMobidulID)->where('categoryId', $categoryOC->id)->first();
-              $navStation = NavigationItem::where('mobidulId', $clonedMobidulID)->where('stationId', $stationId)->first();
-
-              if($navCategory) {
-                $navCategory->categoryId = $clonedCategory->id;
-                $navCategory->save();
-              }
-              if($navStation) {
-                $navStation->stationId = $clonedStation->id;
-                $navStation->save();
-              }
-              
-//              DB::table('navigationitems')
-//                          ->where('mobidulId', $clonedMobidulID)
-//                          ->where(function($query) use($categoryOC, $stationId) {
-//                            $query->orwhere('categoryId', $categoryOC->id)
-//                                  ->orwhere('stationId', $stationId);
-//                          })
-//                          ->update([
-//                            'categoryId' => $clonedCategory->id,
-//                            'stationId' => $clonedStation->id
-//                          ]);
             }
           }
         }
@@ -855,8 +834,16 @@ class WebServicesController extends BaseController
             }
           }
         }
-        
-    
+
+        //THIRD - D: Replicate also the navigation items of the current Mobidul
+        if (count($navigationOC) > 0) {
+          foreach ($navigationOC as $navigation) {
+            $clonedNavigation = $navigation->replicate();                //Replicate the current navigation Item
+            $clonedNavigation->mobidulId = $clonedMobidulID;             //Add the cloned MobidulId to the Navigation
+            $clonedNavigation->save();                                   //Save the cloned navigation item
+          }
+        }
+
         $response = [                                                    //Message when Cloning of Mobidul was successful
           'msg' => "Successfully cloned the current Mobidul.",
           'success' => true

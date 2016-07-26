@@ -30,9 +30,10 @@ function MenuController (
 
   menu.profile = {};
 
-  menu.isGoToHomeEnabled    = MobidulService.Config.isGoToHomeEnabled;
-  menu.isGoToAboutEnabled   = MobidulService.Config.isGoToAboutEnabled;
-  menu.isLastDividerEnabled = true;
+  menu.isGoToHomeEnabled     = MobidulService.Config.isGoToHomeEnabled;
+  menu.isGoToAboutEnabled    = MobidulService.Config.isGoToAboutEnabled;
+  menu.isCloneMobidulEnabled = MobidulService.Config.isCloneMobidulEnabled;
+  menu.isLastDividerEnabled  = true;
 
   menu.isLoggedIn      = false;
   menu.accountItemText = menu._loginAccountText;
@@ -173,14 +174,13 @@ function MenuController (
   function resetRally ()
   {
     var resetRallyConfirmDialog =
-      $mdDialog
-        .confirm()
-        .parent( angular.element(document.body) )
-        .title('Rally zurücksetzten')
-        .textContent('Bitte bestätige, dass du deinen Rally Fortschritt zurücksetzen möchtest.')
-        .ariaLabel('Rally zurücksetzten')
-        .ok('Zurücksetzten')
-        .cancel('Abbrechen');
+      $mdDialog.confirm()
+      .parent( angular.element(document.body) )
+      .title('Rally zurücksetzten')
+      .textContent('Bitte bestätige, dass du deinen Rally Fortschritt zurücksetzen möchtest.')
+      .ariaLabel('Rally zurücksetzten')
+      .ok('Zurücksetzten')
+      .cancel('Abbrechen');
 
     $mdDialog
       .show( resetRallyConfirmDialog )

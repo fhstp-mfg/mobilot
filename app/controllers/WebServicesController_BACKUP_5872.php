@@ -222,7 +222,18 @@ class WebServicesController extends BaseController
                   // ->orderBy('name')
                   ->orderBy('order')
                   ->get();
+<<<<<<< .merge_file_a08908
     
+=======
+
+
+    \Log::info($mobidulId);
+    \Log::info("--------------------------------");
+    \Log::info($stationIds);
+    \Log::info("--------------------------------");
+    \Log::info($station);
+    \Log::info("--------------------------------");
+>>>>>>> .merge_file_a10196
     return json_encode($station);
   }
 
@@ -667,7 +678,11 @@ class WebServicesController extends BaseController
 
       // Now we can get the content from it
       $content     = $request->getContent();
+      \Log::info($content);
       $mobidulJson = json_decode($content);
+      \Log::info($mobidulJson);
+      \Log::info($mobidulJson->name);
+      \Log::info($mobidulJson->code);
 
       $mobidul = Mobidul::where('code', $mobidulCode)->first();
 
@@ -771,6 +786,7 @@ class WebServicesController extends BaseController
             'updated_at' => $userOC->updated_at,
             'code' => $userOC->code
           ]);
+<<<<<<< .merge_file_a08908
   
         //THIRD - D: Replicate also the navigation items of the current Mobidul
         if (count($navigationOC) > 0) {
@@ -781,6 +797,10 @@ class WebServicesController extends BaseController
           }
         }
         
+=======
+
+
+>>>>>>> .merge_file_a10196
         /*
          * Important as it stores the cloned Categories and checks if they already exist so if one station is assigned
          * to multiple categories, the categories won't get duplicated. Each time is checked if the clone category already
@@ -855,8 +875,21 @@ class WebServicesController extends BaseController
             }
           }
         }
+<<<<<<< .merge_file_a08908
         
     
+=======
+
+        //THIRD - D: Replicate also the navigation items of the current Mobidul
+        if (count($navigationOC) > 0) {
+          foreach ($navigationOC as $navigation) {
+            $clonedNavigation = $navigation->replicate();                //Replicate the current navigation Item
+            $clonedNavigation->mobidulId = $clonedMobidulID;             //Add the cloned MobidulId to the Navigation
+            $clonedNavigation->save();                                   //Save the cloned navigation item
+          }
+        }
+
+>>>>>>> .merge_file_a10196
         $response = [                                                    //Message when Cloning of Mobidul was successful
           'msg' => "Successfully cloned the current Mobidul.",
           'success' => true
@@ -876,7 +909,7 @@ class WebServicesController extends BaseController
   {
     $response = [                                          //Respond with current station code if duplication didn't work
       'msg' => "Couldn't clone Station.",
-      'success' => false,
+      'worked' => false,
       'stationCode' => $stationCode
     ];
 
@@ -917,7 +950,7 @@ class WebServicesController extends BaseController
 
         $response = [                                                                   //Respond with the new station code
           'msg' => "Successfully cloned station with ID: " . $codeOfNewStation,
-          'success' => true,
+          'worked' => true,
           'stationCode' => $codeOfNewStation
         ];
       }
@@ -1949,8 +1982,8 @@ class WebServicesController extends BaseController
 
   /**
    * This function is used to return the category in the given array by it's name.
-   * @param $array The array where the Category gets extracted from
-   * @param $name The name of the category to extract
+   * @param $array where the Category gets extracted from
+   * @param $name of the category to extract
    * @return null category is returned if found
    */
   public function GetCategoryByName ($array, $name) {

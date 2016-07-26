@@ -14,10 +14,12 @@ app/storage
 public/upload
 #public/lib # TODO when updating bower dependencies
 
-
 # Laravel 5
 .env.*.php
 .env.php
+
+# Cordova source folders
+cordova/platforms/ios/www/
 
 # Other
 .excluded/
