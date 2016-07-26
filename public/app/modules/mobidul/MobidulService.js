@@ -40,6 +40,7 @@ function MobidulService (
         'photoUpload',
         'setTimeout'
       ],
+
       // states: [
       //   RallyService.STATUS_ACTIVATED,
       //   RallyService.STATUS_OPEN,
@@ -48,16 +49,21 @@ function MobidulService (
       states: [
         'versteckt', 'aktiviert', 'geöffnet', 'abgeschlossen'
       ],
+
       // defaultState: RallyService.STATUS_ACTIVATED,
       defaultState: 'aktiviert',
+
       hiddenStations: true
     }, {
       name: 'default',
       elements: [ 'html' ],
+
       // states: [ RallyService.STATUS_OPEN ],
       states: 'geöffnet',
+
       // defaultState: RallyService.STATUS_OPEN,
       defaultState: 'geöffnet',
+      
       hiddenStations: false
     }],
 
