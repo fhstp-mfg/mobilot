@@ -889,69 +889,67 @@ function StationCreatorController (
       });
   }
 
-  /**
-   * This function calls the service on the StationCreatorService that clones the current Station.
-   */
-  function cloneStation() {
-    $log.info("FLO 1: CONTROLLER was working.");
 
-    //First create a confirm Dialog in order to ask the user if he really wants to duplicate the current station.
+  /**
+   * This function clones the current station and redirects to the new station.
+   */
+  function cloneStation () {
+    // First create a confirm Dialog in order to ask the user
+    // if he really wants to duplicate the current station.
     var confirmCloneStation = $mdDialog.confirm()
-      .parent(angular.element(document.body))
-      .title('Aktuelle Station kopieren')
-      .textContent('Beim Bestätigen dieses Dialogs wird eine Kopie der aktuellen Station ' + stationCreator.station.name
-        + ' angefertigt. Dannach befindest du dich automatisch in der duplizierten Station, um den Ort zu ändern.')
-      .ariaLabel('Station duplizieren')
-      .ok('Duplizieren')
+      .parent( angular.element(document.body) )
+      .title('Station klonen')
+      .textContent('Bitte bestätige, dass du diese Station klonen möchtest.')
+      .ariaLabel('Station klonen')
+      .ok('Klonen')
       .cancel('Abbrechen');
 
-    //Show the dialog and read the current station parameters
-    $mdDialog.show(confirmCloneStation).then(function () {
-      var mobidulCode = StateManager.state.params.mobidulCode || null;
-      var stationCode = StateManager.state.params.stationCode || null;
+    // Show the dialog and read the current station parameters.
+    $mdDialog.show(confirmCloneStation)
+      .then(function () {
+        var mobidulCode = StateManager.state.params.mobidulCode || null;
+        var stationCode = StateManager.state.params.stationCode || null;
 
-      if(mobidulCode && stationCode) {
-        stationCreator.saveChanges();   //Save the changes to the current station
-      }
+        if ( mobidulCode && stationCode ) {
+          // Save the changes to the current station.
+          stationCreator.saveChanges();
+        }
 
-      //Call the cloning service of the current station
-      StationCreatorService
-        .cloneMyStation(mobidulCode, stationCode)
-        .success(function (response, status, headers, config) {
-          $log.info('FLO 3: SPEICHERN ' + response.stationCode);
-          var cloneStationCode = response.stationCode;
+        // Call the cloning service of the current station.
+        StationCreatorService.cloneMyStation(mobidulCode, stationCode)
+          .success(function (response, status, headers, config) {
+            var cloneStationCode = response.stationCode;
 
-          //Show a dialog to inform the user he is in new station and has to change position
-          var informAboutStationChange =
-            $mdDialog
-              .alert()
-              .parent(angular.element(document.body))
+            // Show a dialog to inform the user about
+            // changing the position of the new station.
+            var informAboutStationChange = $mdDialog.alert()
+              .parent( angular.element(document.body) )
               .clickOutsideToClose(true)
-              .title('Aktuelle Station: ' + stationCreator.station.name)
-              .textContent('Nach dem Duplizieren befindest du dich nun in der Kopie um den Ort zu ändern.')
-              .ariaLabel('Duplizierte Station')
+              .title('Station erfolgreich geklont')
+              .textContent('Bitte ändere den Ort der neuen Station.')
+              .ariaLabel('Station erfolgreich geklont')
               .ok('Schließen');
 
-          $mdDialog.show(informAboutStationChange)
-            .then(function() {
-              //Change the view to the new station if the cloning was successful
-              if(response.worked) {
-                $state.go(
-                  'mobidul.station.edit.place',
-                  {stationCode: cloneStationCode},
-                  {'reload': true}
-                );
-              }
-            });
-
-        })
-        .error(function (response, status, headers, config)
-        {
-          $log.error(response);
-          $log.error(status);
-        });
+            $mdDialog.show(informAboutStationChange)
+              .then(function () {
+                // Change the view to the new station,
+                // if the station has been cloned successfully.
+                if (response.worked) {
+                  $state.go(
+                    'mobidul.station.edit.place',
+                    {stationCode: cloneStationCode},
+                    {'reload': true}
+                  );
+                }
+              });
+          })
+          .error(function (response, status, headers, config)
+          {
+            $log.error(response);
+            $log.error(status);
+          });
       }, function () {
-        $log.info("NOTHING HAPPENS");
-    });
+        $log.info('TODO: check this case in StationCreatorController');
+      });
   }
 }

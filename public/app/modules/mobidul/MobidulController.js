@@ -286,5 +286,76 @@ function MobidulController (
       }
     });
   }
-  
+
+
+  /**
+   * This function calls the cloning function on the service and
+   * waits for User Input or ...
+   */
+  function cloneMyMobidul ()
+  {
+    var mobidulName = StateManager.getTitle();
+    var mobidulCode = StateManager.state.params.mobidulCode;
+
+    $log.info("FLO 1: CONTROLLER was working.");
+
+
+    var cloneDialogOptions = {
+      parent: angular.element(document.body),
+      title: 'Mobidul klonen',
+      clickOutsideToClose: true,
+
+      templateUrl: 'app/modules/mobidul/menu/dialog/CloneMobidulDialog.html',
+
+      controller: function ($scope, $mdDialog) {
+        $scope.mobidul = {
+          name         : mobidulName,
+          code         : mobidulCode,
+          link         : 'www.mobilot.at',
+
+          originalCode : '',
+          generateCode : false,
+
+          codeHelper   : {
+            show : false,
+            text : '',
+          }
+        };
+
+
+        /// functions
+
+        $scope.changeName = function () {
+          $log.debug('CloneMobidulDialog changeName:')
+        }
+
+        $scope.changeCode = function () {
+          $log.debug('CloneMobidulDialog changeCode:')
+        }
+
+        $scope.closeDialog = function () {
+          $mdDialog.hide();
+        }
+
+        $scope.cloneMobidul = function () {
+          var params = {
+            name: $scope.mobidul.name,
+            code: $scope.mobidul.code
+          };
+
+          MobidulService.cloneMobidul(params)
+          .then(function (response, status, headers, config, statusText) {
+            $log.debug(response);
+            $log.debug('FLO 3: SPEICHERN ' + response.data.msg);
+          });
+        }
+      },
+    };
+
+    $mdDialog.show(cloneDialogOptions)
+    .then(function () {
+      $log.debug('opened dialog');
+    });
+  }
+
 }

@@ -57,7 +57,6 @@ function MobidulService (
     resetProgress     : resetProgress,
     getProgress       : getProgress,
     setProgress       : setProgress,
-    adminSetProgress  : adminSetProgress,
     cloneMobidul      : cloneMobidul,
 
     /// app config
