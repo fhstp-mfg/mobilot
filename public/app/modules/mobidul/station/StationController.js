@@ -146,51 +146,72 @@ function StationController (
                 station.order        = response.order;
                 station.coords       = response.coords;
 
-                /// XXX this is just for testing purposes
+                /// XXX: this is just for testing purposes
                 /// choosing right content based on Mobidul type
                 RallyService.refresh();
 
                 var statusContent = [];
-                statusContent['hidden']    = '<p style="background:#eee; font-weight:bold">This is the content for status "hidden"</p>';
-                statusContent['activated'] = '<p style="background:#eee; font-weight:bold">This is the content for status "activated"</p>';
-                statusContent['open']      = '<p style="background:#eee; font-weight:bold">This is the content for status "open"</p>';
-                statusContent['completed'] = '<p style="background:#eee; font-weight:bold">This is the content for status "completed"</p>';
+                statusContent[ RallyService.STATUS_HIDDEN ] = `
+                  <p style="background: #eee; font-weight: bold">
+                    Diese Station hat für den Status "` + RallyService.STATUS_HIDDEN + `" keinen Inhalt.
+                  </p>
+                `;
+                statusContent[ RallyService.STATUS_ACTIVATED] = `
+                  <p style="background: #eee; font-weight: bold">
+                    Diese Station hat für den Status "` + RallyService.STATUS_ACTIVATED + `" keinen Inhalt.
+                  </p>
+                `;
+                statusContent[ RallyService.STATUS_OPEN] = `
+                  <p style="background: #eee; font-weight: bold">
+                    Diese Station hat für den Status "` + RallyService.STATUS_OPEN + `" keinen Inhalt.
+                  </p>
+                `;
+                statusContent[ RallyService.STATUS_COMPLETED] = `
+                  <p style="background: #eee; font-weight: bold">
+                    Diese Station hat für den Status "` + RallyService.STATUS_COMPLETED + `" keinen Inhalt.
+                  </p>
+                `;
 
-                //station.content      = statusContent[ RallyService.getStatus( station.order ) ] + response.content;
-                //station.content      = response.content;
+                // station.content = statusContent[ RallyService.getStatus( station.order ) ] + response.content;
+                // station.content = response.content;
 
                 StationService.setName( response.stationName );
 
                 //get length of all stations belonging to this mobidul to display progressbar correctly
                 RallyService.getRallyLength()
-                  .then(function(length){
+                  .then(function (length) {
                     station.rallyLength = parseInt(length);
                   });
 
                 RallyService.getProgress()
-                  .then(function(progress){
+                  .then(function (progress) {
                     station.currentStation = progress.progress;
-                    station.currentState   = progress.state;
+                    station.currentState = progress.state;
                   });
 
-                MobidulService.getMobidulConfig(StateManager.state.params.mobidulCode)
-                  .then(function (config) {
-                    station.mobidulConfig = config;
-                  });
+                MobidulService.getMobidulConfig(
+                  StateManager.state.params.mobidulCode
+                )
+                .then(function (config) {
+                  station.mobidulConfig = config;
+                });
 
-                // TODO document what this is doing !!
 
-                station.mediaList[response.stationId] = [];
+                // TODO: document what the following is doing !
+
+                station.mediaList[ response.stationId ] = [];
 
                 for (var i = 0; i < response.mediaList.length; i++) {
                   var currMediaListHash = response.mediaList[i].hash;
 
-                  station.mediaList[response.stationId].push({
+                  station.mediaList[ response.stationId ].push({
                     'hash'      : currMediaListHash,
                     'timestamp' : response.mediaList[i].timestamp
                   });
 
-                  if (typeof station.imageList[currMediaListHash] == 'undefined') {
+                  if (
+                    typeof station.imageList[currMediaListHash] == 'undefined'
+                  ) {
                     station.imageList[currMediaListHash] = {
                       'url'            : response.mediaList[i].url,
                       'uploaded'       : true,
@@ -202,17 +223,16 @@ function StationController (
 
                 // Check whether Station has JSON Content
                 try {
-                  // $log.debug(station.content);
                   station.config = JSON.parse(station.content);
-
-                  $log.info('station.config:');
-                  $log.debug(station.config);
+                  // $log.info('station.config:');
+                  // $log.debug(station.config);
 
                   // Display dev tools for rally
                   station.isOwner = UserService.Session.role == 1;
 
                   renderJSON();
                 } catch (e) {
+                  // TODO: Add better error !
                   $log.info('No JSON');
                   $log.error(e);
                   // station.renderText();
@@ -221,7 +241,6 @@ function StationController (
             });
         }
 
-        // station.loading = 'hidden';
         station.loading = 'none';
       })
       .error(function (response, status, headers, config) {
@@ -229,7 +248,6 @@ function StationController (
         $log.error(response);
         $log.error(status);
 
-        // station.loading = 'hidden';
         station.loading = 'none';
       })
       .then(function () {
@@ -250,8 +268,7 @@ function StationController (
   function _listenToConfig ()
   {
     var setConfigListener =
-      $rootScope.$on('rootScope:setConfig', function (event, config)
-      {
+      $rootScope.$on('rootScope:setConfig', function (event, config) {
         // $log.debug('Listened to "rootScope:setConfig" in StationController');
         // $log.debug(config);
 
@@ -418,12 +435,10 @@ function StationController (
         });
       }
 
-      if ( i == 7 )
-      {
+      if ( i == 7 ) {
         var stateParams = StateManager.state.params;
 
-        ergebnis = ergebnis.replace( oneRegExp, function (match, audioFileName)
-        {
+        ergebnis = ergebnis.replace(oneRegExp, function (match, audioFileName) {
           var audiostring = '<audio controls style="width : 100%">' +
             '<source src="http://mobilot.at/media/'                 +
               stateParams.mobidulCode + '/'                         +
@@ -440,9 +455,7 @@ function StationController (
 
     if ( this.disablelinks ) {
       ergebnis = ergebnis.replace(/-{3}(\w+)-{3}/g, '<font color="blue" style="text-decoration:underline">Klick</font>');
-    }
-    else // <paper-button affirmative on-tap="{{ positiveDeleteStation }}">Löschen</paper-button>
-    {
+    } else {
       ergebnis = ergebnis.replace(/-{3}(\w+)-{3}/g, '<a href="#/' + StateManager.state.params.mobidulCode + '/$1/">Station $1</a>');
     }
     ///*href="' + location.protocol + '//' + location.host + '/' + this.mobidul + '/#/content/$1\"
@@ -549,6 +562,7 @@ function StationController (
       });
   }
 
+
   /**
    * Rally-Directives trigger these actions
    *
@@ -557,11 +571,10 @@ function StationController (
   function actionPerformed (actionString)
   {
     // allowing passing additional parameters with the action string
-    var action = actionString.split(':')[0],
-        attr = actionString.replace(action + ':', '');
+    var action = actionString.split(':')[0];
+    var attr = actionString.replace(action + ':', '');
 
-    switch (action)
-    {
+    switch (action) {
       case 'setStatus':
         RallyService.setStatus(attr)
           .then(function (state) {
@@ -572,30 +585,29 @@ function StationController (
         break;
 
       case 'openThis':
-        RallyService.setStatus('open')
+        RallyService.setStatusOpen()
           .then(function () {
             renderJSON();
           });
         $log.debug('openThis');
-        //$state.go($state.current, {}, {reload: true});
+        // $state.go($state.current, {}, {reload: true});
         break;
 
       case 'completeThisAndShowNext':
         $log.debug('completeThisAndShowNext');
-        RallyService.setStatus('completed')
+        RallyService.setStatusCompleted()
           .then(function () {
             RallyService.activateNext()
-              .then(function(){
+              .then(function () {
                 RallyService.progressToNext();
               });
           });
-
-        //$state.go($state.current, {}, {reload: true});
+        // $state.go($state.current, {}, {reload: true});
         break;
 
       case 'completeThis':
         $log.debug('completeThis');
-        RallyService.setStatus('completed')
+        RallyService.setStatusCompleted()
           .then(function () {
             renderJSON()
           });
@@ -624,10 +636,12 @@ function StationController (
   function getPictureByHash (hash) {
     if ( hash != null ) {
       // suche in Bildliste nach Bild
-      if ( typeof station.imageList[ hash ] != 'undefined' )
-        return station.imageList[ hash ];
+      if ( typeof station.imageList[hash] != 'undefined' ) {
+        return station.imageList[hash];
+      }
     }
-    return null
+
+    return null;
   }
 
 

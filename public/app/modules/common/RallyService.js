@@ -4,75 +4,82 @@ angular
 
 
 RallyService.$inject = [
-  '$log', '$state', '$stateParams', '$localStorage', '$timeout', '$q',
+  '$log', '$state', '$stateParams',
+  '$localStorage', '$timeout', '$q',
   'MobidulService', 'LocalStorageService'
 ];
 
 
 function RallyService (
-  $log, $state, $stateParams, $localStorage, $timeout, $q,
+  $log, $state, $stateParams,
+  $localStorage, $timeout, $q,
   MobidulService, LocalStorageService
 ) {
   /// RallyService
-  var service =
-  {
+  var service = {
     /// constants
-    STATUS_HIDDEN    : 'hidden',
-    STATUS_ACTIVATED : 'activated',
-    STATUS_OPEN      : 'open',
-    STATUS_COMPLETED : 'completed',
+    STATUS_HIDDEN    : 'versteckt',
+    STATUS_ACTIVATED : 'aktiviert',
+    STATUS_OPEN      : 'geöffnet',
+    STATUS_COMPLETED : 'abgeschlossen',
 
-    ACTIONS: ['openThis', 'completeThis', 'completeThisAndShowNext', 'say:', 'goToCurrent', 'setStatus:'],
+    ACTIONS: [
+      'openThis',
+      'completeThis',
+      'completeThisAndShowNext',
+      'say:',
+      'goToCurrent',
+      'setStatus:'
+    ],
 
     /// vars
-    localStorage     : $localStorage,
-    // NOTE the originStations are the passed stations to the filterStations
+    localStorage       : $localStorage,
+    // NOTE: the originStations are the passed stations to the filterStations
     //  function, before filtering and the filteredStations, after filtering.
-    originStations   : [],
-    // NOTE currently obsolete and not used
-    filteredStations : [],
+    originStations     : [],
+    // NOTE: currently obsolete and not used
+    filteredStations   : [],
 
     /// services
-    refresh           : refresh,
-    reset             : reset,
+    refresh            : refresh,
+    reset              : reset,
 
-    isRallyMode       : isRallyMode,
-    isEligible        : isEligible,
+    isEligible         : isEligible,
 
-    filterStations    : filterStations,
+    filterStations     : filterStations,
 
-    hasNext           : hasNext,
-    activateNext      : activateNext,
-    progressToNext    : progressToNext,
-    getProgress       : getProgress,
-    goToCurrent       : goToCurrent,
-    getRallyLength    : getRallyLength,
-    getActions        : getActions,
+    hasNext            : hasNext,
+    activateNext       : activateNext,
+    progressToNext     : progressToNext,
+    getProgress        : getProgress,
+    goToCurrent        : goToCurrent,
+    getRallyLength     : getRallyLength,
+    getActions         : getActions,
 
-    /// XXX just for testing purposes, will be deprecated
-    setProgress       : setProgress,
+    /// XXX: just for testing purposes, will be deprecated
+    setProgress        : setProgress,
 
-    isStatusActivated : isStatusActivated,
-    isStatusOpen      : isStatusOpen,
-    isStatusCompleted : isStatusCompleted,
+    isStatusActivated  : isStatusActivated,
+    isStatusOpen       : isStatusOpen,
+    isStatusCompleted  : isStatusCompleted,
 
-    getStatus         : getStatus,
-    setStatus         : setStatus,
+    getStatus          : getStatus,
+    setStatus          : setStatus,
+    setStatusOpen      : setStatusOpen,
+    setStatusCompleted : setStatusCompleted,
 
-    goToStation       : goToStation
+    goToStation        : goToStation
   };
 
 
-  /// XXX temp services
+  /// XXX: temp services
 
-  function setProgress (progress)
-  {
+  function setProgress (progress) {
     var mobidulCode = $stateParams.mobidulCode;
 
-    return $q(function(resolve, reject){
+    return $q(function (resolve, reject) {
       MobidulService.getMobidulConfig(mobidulCode)
-        .then(function(config){
-
+        .then(function (config) {
           LocalStorageService.setProgress(mobidulCode, progress)
             .then(function () {
               resolve();
@@ -88,56 +95,50 @@ function RallyService (
     return service.originStations && service.originStations.length > 0;
   }
 
-  function _getNextStation (currentOrder)
-  {
-
-    return $q(function(resolve, reject){
-
-      if(service.originStations[0]){
-        var next = service.originStations.filter(function(station){
-          //don't increment currentOrder, because it's most likely already incremented...
-          return station.order == (currentOrder);
+  function _getNextStation (currentOrder) {
+    return $q(function (resolve, reject) {
+      if ( service.originStations[0] ) {
+        var next = service.originStations.filter(function (station) {
+          // don't increment currentOrder, because it's most likely already incremented...
+          return station.order == currentOrder;
         })[0];
 
-        if(next){
+        if (next) {
           resolve(next);
-        }else{
+        } else {
           reject();
         }
-
-      }else{
+      } else {
         MobidulService.getStations($stateParams.mobidulCode)
-          .then(function(data){
+          .then(function (data) {
             service.originStations = data;
 
-            var next = service.originStations.filter(function(station){
-              return station.order == (currentOrder);
+            var next = service.originStations.filter(function (station) {
+              return station.order == currentOrder;
             })[0];
 
-            if(next){
+            if (next) {
               resolve(next);
-            }else{
-              reject()
+            } else {
+              reject();
             }
-
-          })
+          });
       }
     });
   }
 
 
-  function _getOriginStations(){
-
-    return $q(function(resolve, reject){
-
-      if(service.originStations[0]){
-        $timeout(function(){
+  function _getOriginStations () {
+    return $q(function (resolve, reject) {
+      if ( service.originStations[0] ) {
+        $timeout(function () {
           resolve(service.originStations);
         });
-      }else{
+      } else {
         MobidulService.getStations($stateParams.mobidulCode)
-          .then(function(stations){
+          .then(function (stations) {
             service.originStations = stations;
+
             resolve(service.originStations);
           });
       }
@@ -147,21 +148,21 @@ function RallyService (
 
   /// services
 
-  function refresh ()
-  {
-    //service.originStations = MobidulService.getStations();
+  function refresh () {
+    // service.originStations = MobidulService.getStations();
     MobidulService.getStations($stateParams.mobidulCode)
-      .then(function(data){
+      .then(function (data) {
         service.originStations = data;
-        //$log.info('Stations from MobidulService:');
-        //$log.debug(service.originStations);
+        // $log.info('Stations from MobidulService:');
+        // $log.debug(service.originStations);
       });
-    
+
     service.localStorage = $localStorage.$default({
       RallyProgress : 0,
-      RallyStatus   : service.STATUS_ACTIVATED
+      RallyStatus : service.STATUS_ACTIVATED
     });
   }
+
 
   function reset () {
     //service.localStorage.RallyProgress = 0;
@@ -169,31 +170,21 @@ function RallyService (
     MobidulService.resetProgress($stateParams.mobidulCode);
   }
 
-  function isRallyMode () {
-    $log.error('RallyService.isRallyeMode() (deprecated) got called - please use MobidulService.isRally()');
-    return true;
-  }
 
-
-  function isEligible (progressOrder)
-  {
-
+  function isEligible (progressOrder) {
     var mobidulCode = $stateParams.mobidulCode;
 
-    return $q(function(resolve, reject){
-
+    return $q(function (resolve, reject) {
       MobidulService.getMobidulConfig(mobidulCode)
-        .then(function(config){
-
+        .then(function (config) {
           MobidulService.getProgress(mobidulCode)
-            .then(function(progress){
-
-              //$log.info('isEligible - progress');
-              //$log.debug(progressOrder, progress, config);
-
-              if(!config.hiddenStations || progressOrder <= progress.progress){
+            .then(function (progress) {
+              if (
+                ! config.hiddenStations ||
+                progressOrder <= progress.progress
+              ) {
                 resolve(true);
-              }else{
+              } else {
                 resolve(false);
               }
             });
@@ -201,30 +192,26 @@ function RallyService (
     });
   }
 
-  function filterStations (stations)
-  {
+  function filterStations (stations) {
     service.originStations = stations;
-    
+
     return MobidulService.getMobidulConfig($stateParams.mobidulCode)
-      .then(function(config){
-        if ( stations.length == 1 || !config.hiddenStations)
-        {
+      .then(function (config) {
+        if ( stations.length == 1 || ! config.hiddenStations ) {
           return service.originStations;
-        }
-        else
-        {
+        } else {
           var filteredStations = [];
 
-          angular.forEach( service.originStations, function (station, key)
-          {
+          angular.forEach(service.originStations, function (station, key) {
             // if ( station.order < service.localStorage.RallyProgress ||
             //      ( station.order == service.localStorage.RallyProgress &&
             //        service.localStorage.RallyStatus != service.STATUS_HIDDEN )
-            if ( station.order <= service.localStorage.RallyProgress )
-              filteredStations.push( station );
+            if ( station.order <= service.localStorage.RallyProgress ) {
+              filteredStations.push(station);
+            }
           });
 
-          // NOTE XXX currently obsolete and not used
+          // NOTE XXX: currently obsolete and not used
           service.filteredStations = filteredStations;
 
           return filteredStations;
@@ -232,109 +219,82 @@ function RallyService (
       });
   }
 
-  function getRallyLength ()
-  {
+  function getRallyLength () {
     return MobidulService.getStations($stateParams.mobidulCode)
-      .then(function(data){
-        //$log.info('getRallyLength - data:');
-        //$log.debug(data);
+      .then(function (data) {
         return data.length;
       });
   }
 
-  function getActions ()
-  {
+  function getActions () {
     return service.ACTIONS;
   }
 
-  function hasNext ()
-  {
+  function hasNext () {
     var nextStation = _getNextStation();
 
-    if ( nextStation === false )
-    {
+    if ( nextStation === false ) {
       alert('ERROR: You probably accessed the station directly ! Therefore there is no data about other stations and proceeding to the next station will not work! Please open a Station from StationList or MobidulMap ! (TODO can be fixed !)');
-
       return false;
-    }
-    else if ( nextStation === null )
-    {
-      alert('This is the last Station. You completed the Rally !');
-
+    } else if ( nextStation === null ) {
+      alert('Das ist die letzte Station. Du hast das Rally erfolgreich abgeschlossen!');
       return false;
-    }
-    else
+    } else {
       return true;
+    }
   }
 
 
-  function activateNext ()
-  {
-    return $q(function(resolve, reject){
+  function activateNext () {
+    return $q(function (resolve, reject) {
       MobidulService.getMobidulConfig($stateParams.mobidulCode)
-        .then(function(config){
-
+        .then(function (config) {
           MobidulService.setProgress(config.states[0], true)
-            .then(function(state) {
-
-              $timeout(function(){
+            .then(function (state) {
+              $timeout(function () {
                 resolve();
               });
-
             });
         });
     });
   }
 
 
-  // NOTE only run after activateNext has been called !
-  function progressToNext ()
-  {
-
+  // NOTE: only run after activateNext has been called !
+  function progressToNext () {
     MobidulService.getProgress($stateParams.mobidulCode)
-      .then(function(progress){
-
+      .then(function (progress) {
         _getNextStation(progress.progress)
-          .then(function(next){
-
-            $timeout(function(){
+          .then(function (next) {
+            $timeout(function () {
               $state.go('mobidul.station', { stationCode: next.code});
             });
-          },function(){
-            alert('This is the last Station. You completed the Mobidul !');
+          }, function () {
+            alert('Das ist die letzte Station. Du hast das Rally erfolgreich abgeschlossen!');
           });
-
       });
   }
 
-  function goToCurrent ()
-  {
-
+  function goToCurrent () {
     MobidulService.getProgress($stateParams.mobidulCode)
-      .then(function(progress){
-
-        if(service.originStations){
-
+      .then(function (progress) {
+        if ( service.originStations ) {
           MobidulService.getStations($stateParams.mobidulCode)
-            .then(function(stations){
+            .then(function (stations) {
               service.originStations = stations;
 
-              //$log.info('service.originStations:');
-              //$log.debug(stations);
+              var currentCode = service.originStations[ progress.progress ].code;
 
-              var currentCode = service.originStations[progress.progress].code;
-
-              $state.go('mobidul.station', {stationCode : currentCode});
-
+              $state.go('mobidul.station', { stationCode : currentCode });
             });
-        }else{
-          var currentCode = service.originStations[progress.progress].code;
+        } else {
+          var currentCode = service.originStations[ progress.progress ].code;
 
-          $state.go('mobidul.station', {stationCode : currentCode});
+          $state.go('mobidul.station', { stationCode : currentCode });
         }
       });
   }
-  
+
 
   function getProgress () {
     return $q(function(resolve, reject){
@@ -345,15 +305,15 @@ function RallyService (
     });
   }
 
-  function goToStation(order) {
-
+  function goToStation (order) {
     _getOriginStations()
-      .then(function(stations){
-        var goTo = stations.filter(function(station){
+      .then(function (stations) {
+        var goTo = stations.filter(function (station) {
           return station.order == order;
         })[0];
 
-        $state.go('mobidul.station', { stationCode: goTo.code});
+        // TODO: What if goTo is undefined ?
+        $state.go('mobidul.station', { stationCode: goTo.code });
       });
   }
 
@@ -369,28 +329,25 @@ function RallyService (
     return service.localStorage.RallyStatus == service.STATUS_COMPLETED;
   }
 
-  function getStatus (progressOrder)
-  {
 
+  function getStatus (progressOrder) {
     var mobidulCode = $stateParams.mobidulCode;
 
-    return $q(function(resolve, reject){
+    return $q(function (resolve, reject) {
       MobidulService.getMobidulConfig(mobidulCode)
-        .then(function(config){
-
+        .then(function (config) {
           MobidulService.getProgress(mobidulCode)
-            .then(function(progress){
-
-              if(progressOrder < progress.progress){
-                resolve(config.states[config.states.length -1 ]);
-              }else if(progressOrder > progress.progress){
-                if(config.hiddenStations){
-                  resolve('hidden');
-                }else{
-                  resolve(config.defaultState);
+            .then(function (progress) {
+              if ( progressOrder < progress.progress ) {
+                resolve( config.states[ config.states.length-1 ] );
+              } else if ( progressOrder > progress.progress ) {
+                if ( config.hiddenStations ) {
+                  resolve( RallyService.STATUS_HIDDEN );
+                } else {
+                  resolve( config.defaultState );
                 }
-              }else{
-                resolve(progress.state);
+              } else {
+                resolve( progress.state );
               }
             });
         });
@@ -398,25 +355,33 @@ function RallyService (
   }
 
 
-  function setStatus (newStatus, order)
-  {
-    return $q(function(resolve, reject){
+  function setStatus (newStatus, order) {
+    return $q(function (resolve, reject) {
       MobidulService.setProgress(newStatus)
-        .then(function(state){
-          //$log.info('RallyService - setStatus:');
-          //$log.debug(state);
+        .then(function (state) {
           resolve(state);
-        },function(error){
+        }, function (error) {
           reject(error);
         });
     });
+  }
+
+  function setStatusOpen (order) {
+    return setStatus(RallyService.STATUS_OPEN, order);
+  }
+
+  function setStatusCompleted (order) {
+    return setStatus(RallyService.STATUS_COMPLETED, order);
   }
 
 
   /// events
 
   function _onNotCompleted () {
-    alert('The current "activated" station has to be "completed" first, before the next station can be "activated" !');
+    alert(`
+      Die aktuelle "aktivierte" Station muss zuerst "abgeschlossen" werden,
+      bevor die nächste Station aktiviert werden kann!
+    `);
   }
 
 

@@ -6,13 +6,13 @@ angular
   .factory('PhotoService', PhotoService);
 
 PhotoService.$inject = [
-  '$log', '$http', '$q',
-  '$stateParams', '$mdDialog'
+  '$log', '$http', '$stateParams', '$q',
+  '$mdDialog'
 ];
 
 function PhotoService(
-  $log, $http, $q,
-  $stateParams, $mdDialog
+  $log, $http, $stateParams, $q,
+  $mdDialog
 ) {
   /// PhotoService
   var service =

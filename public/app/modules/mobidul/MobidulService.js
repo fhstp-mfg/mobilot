@@ -4,45 +4,62 @@ angular
 
 
 MobidulService.$inject = [
-  '$log', '$rootScope', '$http', '$q', '$timeout',
-  '$stateParams', 'LocalStorageService'
+  '$log', '$rootScope', '$stateParams',
+  '$http', '$q', '$timeout',
+  'LocalStorageService'
+  /*'RallyService'*/
 ];
 
 
 function MobidulService (
-  $log, $rootScope, $http, $q, $timeout,
-  $stateParams, LocalStorageService
+  $log, $rootScope, $stateParams,
+  $http, $q, $timeout,
+  LocalStorageService
+  /*RallyService*/
 )
 {
   /// MobidulService
-  var service =
-  {
+  var service = {
     // constants
     ALL_STATIONS    : 0,
     NEW_STATION     : 1,
     MOBIDUL_OPTIONS : 2,
 
-    NEW_MOBIDUL_TITLE   : 'Neues Mobidul',
+    NEW_MOBIDUL_TITLE : 'Neues Mobidul',
 
-    MOBIDUL_MODE_RALLY  : 'rally',
-    MOBIDUL_MODE_DEFAULT: 'default',
+    MOBIDUL_MODE_RALLY : 'rally',
+    MOBIDUL_MODE_DEFAULT : 'default',
 
-    MOBIDUL_MODES : [
-      {
-        name: 'rally',
-        elements: ['html', 'ifNear', 'inputCode', 'button', 'photoUpload', 'setTimeout'],
-        states: ['activated', 'open', 'completed'],
-        defaultState: 'activated',
-        hiddenStations: true
-      },
-      {
-        name: 'default',
-        elements: ['html'],
-        states: ['open'],
-        defaultState: 'open',
-        hiddenStations: false
-      }
-    ],
+    MOBIDUL_MODES: [{
+      name: 'rally',
+      elements: [
+        'html',
+        'ifNear',
+        'inputCode',
+        'button',
+        'photoUpload',
+        'setTimeout'
+      ],
+      // states: [
+      //   RallyService.STATUS_ACTIVATED,
+      //   RallyService.STATUS_OPEN,
+      //   RallyService.STATUS_COMPLETED
+      // ],
+      states: [
+        'versteckt', 'aktiviert', 'geöffnet', 'abgeschlossen'
+      ],
+      // defaultState: RallyService.STATUS_ACTIVATED,
+      defaultState: 'aktiviert',
+      hiddenStations: true
+    }, {
+      name: 'default',
+      elements: [ 'html' ],
+      // states: [ RallyService.STATUS_OPEN ],
+      states: 'geöffnet',
+      // defaultState: RallyService.STATUS_OPEN,
+      defaultState: 'geöffnet',
+      hiddenStations: false
+    }],
 
     /// services
     menuReady         : menuReady,
@@ -236,11 +253,11 @@ function MobidulService (
     return service.getMobidulMode(mobidulCode)
     .then(function (response) {
       var mode = response.data.mode;
-      // $log.info('MobidulService - mode:');
-      // $log.debug(mode);
-      return service.MOBIDUL_MODES.filter(function (mobidulMode) {
+      var mobidulMode = service.MOBIDUL_MODES.filter(function (mobidulMode) {
         return mode == mobidulMode.name;
       })[0];
+
+      return mobidulMode;
     });
   }
 
