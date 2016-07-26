@@ -72,14 +72,14 @@
         <span>Neue Station</span>
       </md-list-item>
       <md-list-item
-        ng-if="menu.currentUser.role == 1 || menu.currentUser.role == 2"
+        ng-if="menu.currentUser.role == 1"
         ng-click="mobidul.switchAdminContent( 2 )"
       >
         <span>Mobidul Optionen</span>
       </md-list-item>
 
       <md-list-item
-        ng-if="menu.currentUser.role == 1 || menu.currentUser.role == 2"
+        ng-if="menu.currentUser.role == 1"
         ng-click="mobidul.cloneMyMobidul()"
         ng-show="menu.isCloneMobidulEnabled"
       >
