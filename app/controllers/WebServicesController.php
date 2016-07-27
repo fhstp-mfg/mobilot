@@ -294,7 +294,7 @@ class WebServicesController extends BaseController
     foreach ( $result as $station )
     {
       $station->canEdit =
-        is  bool( $this->CanEditStation( $station->id ) ) &&
+        is_bool( $this->CanEditStation( $station->id ) ) &&
         $this->CanEditStation( $station->id )            &&
         $this->IsAllowed( $mobidulCode );
     }
