@@ -695,8 +695,6 @@ class WebServicesController extends BaseController
 
   /**
    * This function duplicates a mobidul in the database and all it's subtables by the given mobidulcode.
-   *
-   * @param $mobidul An object containing the new name and code of the mobidul
    * @return array With response whether the the cloning was successful or not
    */
   public function CloneMobidul ($mobidulCode)
@@ -714,7 +712,7 @@ class WebServicesController extends BaseController
     ];
 
     if ( $this->CanUserCloneMobidul() ) {               //Check if user is allowed to clone the Mobidul (logged in)
-      $mobidul = Mobidul::findByCode($mobidulCode);   //Find the Mobidul itself first
+      $mobidul = Mobidul::findByCode($mobidulCode);     //Find the Mobidul itself first
 
       if ($mobidul) {                                 //Proceed only if Mobidul is found
         $mobidulId = Mobidul::GetId($mobidulCode);    //Read the ID of the current Mobidul

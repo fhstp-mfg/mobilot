@@ -934,7 +934,7 @@ function StationCreatorController (
               .then(function () {
                 // Change the view to the new station,
                 // if the station has been cloned successfully.
-                if (response.worked) {
+                if (response.success) {
                   $state.go(
                     'mobidul.station.edit.place',
                     {stationCode: cloneStationCode},
