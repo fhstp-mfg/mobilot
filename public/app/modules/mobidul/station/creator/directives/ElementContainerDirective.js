@@ -75,10 +75,6 @@ function ElementContainer(
 
     var ctrl = this;
 
-    setInterval(function () {
-      console.log(ctrl.element);
-    }, 1000);
-
     ctrl.delete = function(){
       $rootScope.$broadcast('delete:editorElement', ctrl.element.$$hashKey);
     };

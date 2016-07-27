@@ -26,7 +26,7 @@ class ConfigController extends BaseController
                                  'version'             => '1.0',
                                  'contentDomain'       => $contentDomain,
                                  'mobidulName'         => $mob->name,
-                                 'mobidulIdentifier'   => $mob->code,
+                                 'mobidulCode'         => $mob->code,
                                  'mobidulDescription'  => $mob->description,
                                  'background'          => $mob->background,
                                  'foreground'          => $mob->foreground,

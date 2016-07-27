@@ -289,67 +289,20 @@ function MobidulController (
 
 
   /**
-   * This function calls the cloning function on the service and
-   * waits for User Input or ...
+   * Opens a dialog and initializes the Mobidul cloning process.
    */
-  function cloneMyMobidul ()
-  {
+  function cloneMyMobidul () {
     var mobidulName = StateManager.getTitle();
     var mobidulCode = StateManager.state.params.mobidulCode;
 
-    $log.info("FLO 1: CONTROLLER was working.");
-
-
     var cloneDialogOptions = {
-      parent: angular.element(document.body),
-      title: 'Mobidul klonen',
-      clickOutsideToClose: true,
+      parent       : angular.element(document.body),
+      title        : 'Mobidul klonen',
+      templateUrl  : 'app/modules/mobidul/menu/dialog/CloneMobidulDialog.html',
+      controller   : CloneMobidulDialogController,
+      controllerAs : 'cloneMobidulDialog',
 
-      templateUrl: 'app/modules/mobidul/menu/dialog/CloneMobidulDialog.html',
-
-      controller: function ($scope, $mdDialog) {
-        $scope.mobidul = {
-          name         : mobidulName,
-          code         : mobidulCode,
-          link         : 'www.mobilot.at',
-
-          originalCode : '',
-          generateCode : false,
-
-          codeHelper   : {
-            show : false,
-            text : '',
-          }
-        };
-
-
-        /// functions
-
-        $scope.changeName = function () {
-          $log.debug('CloneMobidulDialog changeName:')
-        }
-
-        $scope.changeCode = function () {
-          $log.debug('CloneMobidulDialog changeCode:')
-        }
-
-        $scope.closeDialog = function () {
-          $mdDialog.hide();
-        }
-
-        $scope.cloneMobidul = function () {
-          var params = {
-            name: $scope.mobidul.name,
-            code: $scope.mobidul.code
-          };
-
-          MobidulService.cloneMobidul(params)
-          .then(function (response, status, headers, config, statusText) {
-            $log.debug(response);
-            $log.debug('FLO 3: SPEICHERN ' + response.data.msg);
-          });
-        }
-      },
+      clickOutsideToClose: true
     };
 
     $mdDialog.show(cloneDialogOptions)
@@ -358,4 +311,5 @@ function MobidulController (
     });
   }
 
+  // ...
 }

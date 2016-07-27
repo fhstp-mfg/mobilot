@@ -5,7 +5,7 @@
       <span flex></span>
       <md-button
         class="md-icon-button"
-        ng-click="closeDialog()"
+        ng-click="cloneMobidulDialog.close()"
       >
         <md-icon>close</md-icon>
       </md-button>
@@ -21,8 +21,8 @@
         <md-input-container>
           <label>Mobidul Name</label>
           <input
-            ng-model="mobidul.name"
-            ng-keyup="changeName()"
+            ng-model="cloneMobidulDialog.mobidul.name"
+            ng-keyup="cloneMobidulDialog.changeName()"
             required
           >
         </md-input-container>
@@ -32,14 +32,14 @@
         <md-input-container flex>
           <label>
             <span>Mobidul Code</span>
-            <span ng-show="mobidul.codeHelper.show">
-              - {{ codeHelper.text }}
+            <span ng-show="cloneMobidulDialog.mobidul.codeHelper.show">
+              - {{ cloneMobidulDialog.mobidul.codeHelper.text }}
             </span>
           </label>
 
           <input
-            ng-model="mobidul.code"
-            ng-keyup="changeCode()"
+            ng-model="cloneMobidulDialog.mobidul.code"
+            ng-keyup="cloneMobidulDialog.changeCode()"
             maxlength="20"
             required
           >
@@ -47,9 +47,9 @@
 
         <p class="helper">Das Mobidul wird über folgendem Link aufrufbar sein:</p>
         <p class="url-helper">
-          <span>{{ mobidul.link }}</span>
+          <span>{{ cloneMobidulDialog.mobidul.link }}</span>
           <span>/#/</span>
-          <span>{{ mobidul.code }}</span>
+          <span>{{ cloneMobidulDialog.mobidul.code }}</span>
         </p>
       </div>
     </md-content>
@@ -57,12 +57,12 @@
 
   <md-dialog-actions>
     <md-button
-      ng-click="closeDialog()"
+      ng-click="cloneMobidulDialog.close()"
       class="md-primary"
     >Abbrechen</md-button>
 
     <md-button
-      ng-click="cloneMobidul()"
+      ng-click="cloneMobidulDialog.cloneMobidul()"
       class="md-primary md-raised"
     >Klonen</md-button>
   </md-dialog-actions>

@@ -28,6 +28,7 @@ Route::get('{stationCode}/exportImages/{componentId}', 'ImageController@exportPi
 /// Other
 // TODO: better structure and section routes !
 
+Route::get('GenerateMobidulCode/{mobidulName}', 'WebServicesController@GenerateMobidulCode');
 Route::get('RequestValidCode/{stationCode?}', 'WebServicesController@GenerateStationCode');
 
 Route::get('/{mobidulCode}/GetForCode/{stationCode}', 'WebServicesController@GetForCode');

@@ -3,16 +3,18 @@ angular
   .directive('mobidulMenu', MobidulMenu);
 
 
-function MobidulMenu ()
-{
+MobidulMenu.$inject = [];
+
+
+function MobidulMenu () {
   return {
     restrict    : 'E',
     replace     : true,
     templateUrl : 'app/modules/mobidul/menu/MenuPartial.html',
-    controller  : 'MenuController as menu',
+    controller  : MenuController,
+    controllerAs: 'menu',
 
-    link : function (scope, element, attrs, MenuController)
-    {
+    link: function (scope, element, attrs, MenuController) {
       MenuController.init();
     }
   }

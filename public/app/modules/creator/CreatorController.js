@@ -23,6 +23,7 @@ function CreatorController (
 
 
   /// constants
+  // NOTE: TODO: Code duplication w/ CloneMobidulDialogController
   creator._codeHelperGenerating = 'wird generiert ...';
   creator._codeHelperGenerated  = 'automatisch generiert';
   creator._codeHelperManual     = 'manuell geändert';
@@ -59,7 +60,7 @@ function CreatorController (
     CreatorService.BASIS_TAB_INDEX
   );
 
-  // TODO - remove this and use StateManager params to check if it is new mobidul .
+  // TODO: remove this and use StateManager params to check if it is new mobidul .
   creator.isNewMobidul    = true;
   creator.showCreatorTabs = false;
 
@@ -312,106 +313,96 @@ function CreatorController (
   }
 
 
-    function showToast (message)
-    {
-      $mdToast.show(
-          $mdToast
-        .simple()
-              .textContent(message)
-              .position(
-        {
-                  bottom : true,
-                  top    : false,
-                  left   : true,
-                  right  : false
-              })
-              .hideDelay(3000));
-    }
+  function showToast (message) {
+    $mdToast.show(
+      $mdToast.simple()
+      .textContent(message)
+      .position({
+        bottom: true,
+        top: false,
+        left: true,
+        right: false
+      })
+      .hideDelay(3000)
+    );
+  }
 
 
-  function _isOriginalCode (mobidulCode)
-  {
+  // NOTE: TODO: Code duplication w/ CloneMobidulDialogController
+  function _isOriginalCode (mobidulCode) {
     return mobidulCode === creator.mobidul.originalCode;
   }
 
 
-  function _restoreOriginalStationCode ()
-  {
+  // NOTE: TODO: Code duplication w/ CloneMobidulDialogController
+  function _restoreOriginalStationCode () {
     creator.mobidul.code = creator.mobidul.originalCode;
 
     _resetCodeHelper();
   }
 
 
-  function _refreshCodeHelper (mobidulCode, codeHelperText)
-  {
-    var  isOriginalCode = _isOriginalCode( mobidulCode );
+  // NOTE: TODO: Code duplication w/ CloneMobidulDialogController
+  function _refreshCodeHelper (mobidulCode, codeHelperText) {
+    var isOriginalCode = _isOriginalCode(mobidulCode);
 
-    if ( isOriginalCode )
+    if (isOriginalCode) {
       creator.mobidul.codeHelper.text = '';
-    else
+    } else {
       creator.mobidul.codeHelper.text = codeHelperText;
+    }
 
     creator.mobidul.codeHelper.show = ! isOriginalCode;
   }
 
 
-  function _resetCodeHelper ()
-  {
+  // NOTE: TODO: Code duplication w/ CloneMobidulDialogController
+  function _resetCodeHelper () {
     creator.mobidul.codeHelper.show = false;
     creator.mobidul.codeHelper.text = '';
   }
 
 
-  function changeName ()
-  {
-    if ( creator.isNewMobidul || creator.mobidul.generateCode )
-    {
+  function changeName () {
+    if ( creator.isNewMobidul || creator.mobidul.generateCode ) {
       var mobidulName = creator.mobidul.name.trim();
-      var mobidulCode = UtilityService.getCodeFromName( mobidulName );
+      var mobidulCode = UtilityService.getCodeFromName(mobidulName);
 
-
-      if ( mobidulCode )
+      if (mobidulCode) {
         creator.mobidul.codeHelper.text = creator._codeHelperGenerating;
-
-
-      if ( creator.isNewMobidul ||
-         ( ! creator.isNewMobidul &&
-           ! _isOriginalCode( mobidulCode ) ) )
-      {
-        CreatorService
-          .existsMobidul( mobidulCode )
-          .success(function (response, status, headers, config)
-          {
-            // $log.debug('request valid code callback from changeName : ');
-            // $log.debug(code);
-
-            // TODO add exists from the responseobject
-            creator.canNotSave = response.exists;
-            mobidulCode = response.mobidulCode;
-
-            if ( mobidulCode )
-            {
-              creator.mobidul.code = mobidulCode;
-
-
-              _refreshCodeHelper( mobidulCode, creator._codeHelperGenerated );
-
-
-              if ( ! creator.isNewMobidul )
-
-                creator.mobidul.generateCode = false;
-            }
-            else
-            {
-              creator.mobidul.code = '';
-
-              _resetCodeHelper();
-            }
-          });
       }
-      else
+
+      if (
+        creator.isNewMobidul ||
+        ( ! creator.isNewMobidul &&
+          ! _isOriginalCode( mobidulCode ) )
+      ) {
+        CreatorService.existsMobidul(mobidulCode)
+        .success(function (response, status, headers, config) {
+          // $log.debug('request valid code callback from changeName : ');
+          // $log.debug(code);
+
+          // TODO: add exists from the responseobject
+          creator.canNotSave = response.exists;
+          mobidulCode = response.mobidulCode;
+
+          if (mobidulCode) {
+            creator.mobidul.code = mobidulCode;
+
+            _refreshCodeHelper( mobidulCode, creator._codeHelperGenerated );
+
+            if ( ! creator.isNewMobidul ) {
+              creator.mobidul.generateCode = false;
+            }
+          } else {
+            creator.mobidul.code = '';
+
+            _resetCodeHelper();
+          }
+        });
+      } else {
         _restoreOriginalStationCode();
+      }
     }
   }
 
@@ -442,8 +433,8 @@ function CreatorController (
             // $log.debug('request valid code callback from changeName : ');
             // $log.debug(code);
 
-                        //TODO add exists from the responseobject
-                        creator.canNotSave = response.exists;
+            // TODO: add exists from the responseobject
+            creator.canNotSave = response.exists;
 
             var code = response.mobidulCode
             creator.mobidul.code = code;

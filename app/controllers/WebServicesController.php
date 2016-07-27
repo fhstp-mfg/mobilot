@@ -12,6 +12,11 @@ use App\Models\User2Mobidul;
 
 class WebServicesController extends BaseController
 {
+  /// fields
+  private $maxCodeCharLimit = 20;
+
+
+  /// public functions
 
   public function isMobidulCodeProtected ($name)
   {
@@ -25,7 +30,7 @@ class WebServicesController extends BaseController
         "GetStation",         "GetCategoriesForStation",  "Play",
         "CanPlay",            "NewMobidul",               "UpdateMobidul",
         "PushActivity",       "CloneMobidul",             "CloneStation",
-		"exportImages",
+        "exportImages",       "GenerateMobidulCode",
         "AddCategories",      "UpdateCategories",         "RemoveCategories",
         "AddStation",         "RemoveCategory",           "SetStation",
         "RemoveStation",      "RemoveStationByCode",      "GetContentForCode",
@@ -48,8 +53,7 @@ class WebServicesController extends BaseController
   }
 
 
-  public function GenerateStationCode ($stationCode = null)
-  {
+  public function GenerateStationCode ($stationCode = null) {
     // \Log::info('GenerateStationCode');
 
     $maybeStationCode = $stationCode;
@@ -58,36 +62,73 @@ class WebServicesController extends BaseController
 
     $exists = true;
 
-    while ( $exists )
-    {
+    while ($exists) {
       $exists = Station::findByCode($newStationCode);
 
-      if ( $exists )
-      {
+      if ($exists) {
+        // TODO: Add code length checking
         $newStationCode = $maybeStationCode . $appendCounter;
         $appendCounter++;
-      }
-      else
+      } else {
         break;
+      }
     }
 
     return $newStationCode;
   }
 
+
+  public function GenerateMobidulCode ($mobidulName) {
+    // \Log::info('GenerateMobidulCode: ');
+
+    $maybeMobidulCode = $this->getCodeFromName($mobidulName);
+    $newMobidulCode = clone $maybeMobidulCode;
+    $appendCounter = 2;
+
+    $exists = true;
+
+    while ($exists) {
+      $exists = Station::findByCode($newMobidulCode);
+
+      if ($exists) {
+        // Checks whether the length of the maybe-code plus the appended counter
+        // is not longer than the max code char limit and cuts the surplus
+        // before appending the counter
+        $totalLength = count($maybeMobidulCode) + strlen((string)$appendCounter);
+
+        if ( $totalLength > $this->maxCodeCharLimit ) {
+          $lengthSurplus = $this->maxCodeCharLimit - $totalLength;
+          $negLengthSurplus = -1 * $lengthSurplus;
+          $maybeStationCode = substr($maybeStationCode, 0, $negLengthSurplus);
+        }
+
+        $newMobidulCode = $maybeStationCode . $appendCounter;
+        $appendCounter++;
+      } else {
+        break;
+      }
+    }
+
+    return $newMobidulCode;
+  }
+
+
   /**
-   * This function allows the change of various fields in the Mobidul table. Depending on the modifier the respective
-   * fields values is changed by adding a incrementing number to it.
+   * This function allows to change various fields in the Mobidul table.
+   * Depending on the modifier the respective field values are changed
+   * by incrementing the number.
+   *
    * @param $valueToChange  The value that needs to be changed
    * @param $modifier What type of value it is
    * @return null|string If changed the new value is returned otherwise the old one
    */
-  public function ChangeMobidulData($valueToChange = null, $modifier = null) {
+  public function ChangeMobidulData ($valueToChange = null, $modifier = null) {
     $maybeMobidulValue = $valueToChange;
     $newMobidulValue = $valueToChange;
     $appendCounter = 2;
     $exists = true;
 
-    while($exists) {
+    while ($exists) {
       switch ($modifier) {
         case 'code':
           $exists = Mobidul::findByCode($newMobidulValue);
@@ -95,12 +136,12 @@ class WebServicesController extends BaseController
         case 'name':
           $exists = Mobidul::where('name', $newMobidulValue)->first();
           break;
-        //... Implement further cases here
+        // Implement further cases here
         default:
           break;
       }
 
-      if($exists) {
+      if ($exists) {
         $newMobidulValue = $maybeMobidulValue . '_' . $appendCounter;
         $appendCounter++;
       } else {
@@ -253,7 +294,7 @@ class WebServicesController extends BaseController
     foreach ( $result as $station )
     {
       $station->canEdit =
-        is_bool( $this->CanEditStation( $station->id ) ) &&
+        is  bool( $this->CanEditStation( $station->id ) ) &&
         $this->CanEditStation( $station->id )            &&
         $this->IsAllowed( $mobidulCode );
     }
@@ -608,20 +649,20 @@ class WebServicesController extends BaseController
    * @param $mobidulCode
    * @return array('exists' -> boolean, 'mobidulCode' -> string)
    */
-  public function checkMobidulCode ($mobidulCode)
-  {
+  public function checkMobidulCode ($mobidulCode) {
     $name = $this->mobidulExists($mobidulCode);
 
-    if ( $this->isMobidulCodeProtected($mobidulCode) || $name['exists'] )
-      return array(
-        'exists'      => true,
+    if ( $this->isMobidulCodeProtected($mobidulCode) || $name['exists'] ) {
+      return [
+        'exists' => true,
         'mobidulCode' => $mobidulCode
-      );
-    else
-      return array(
-        'exists'      => false,
+      ];
+    } else {
+      return [
+        'exists' => false,
         'mobidulCode' => $mobidulCode
-      );
+      ];
+    }
   }
 
   /**
@@ -766,7 +807,7 @@ class WebServicesController extends BaseController
             'updated_at' => $userOC->updated_at,
             'code' => $userOC->code
           ]);
-  
+
         //THIRD - D: Replicate also the navigation items of the current Mobidul
         if (count($navigationOC) > 0) {
           foreach ($navigationOC as $navigation) {
@@ -775,7 +816,7 @@ class WebServicesController extends BaseController
             $clonedNavigation->save();                                   //Save the cloned navigation item
           }
         }
-        
+
         /*
          * Important as it stores the cloned Categories and checks if they already exist so if one station is assigned
          * to multiple categories, the categories won't get duplicated. Each time is checked if the clone category already
@@ -811,7 +852,7 @@ class WebServicesController extends BaseController
                   'categoryId' => $clonedCategory->id,
                   'stationId' => $clonedStation->id
                 ]);
-              
+
               //Replace Navigation items Id and Category
               $navCategory = NavigationItem::where('mobidulId', $clonedMobidulID)->where('categoryId', $categoryOC->id)->first();
               $navStation = NavigationItem::where('mobidulId', $clonedMobidulID)->where('stationId', $stationId)->first();
@@ -824,7 +865,7 @@ class WebServicesController extends BaseController
                 $navStation->stationId = $clonedStation->id;
                 $navStation->save();
               }
-              
+
 //              DB::table('navigationitems')
 //                          ->where('mobidulId', $clonedMobidulID)
 //                          ->where(function($query) use($categoryOC, $stationId) {
@@ -850,8 +891,8 @@ class WebServicesController extends BaseController
             }
           }
         }
-        
-    
+
+
         $response = [                                                    //Message when Cloning of Mobidul was successful
           'msg' => "Successfully cloned the current Mobidul.",
           'success' => true
@@ -1957,17 +1998,16 @@ class WebServicesController extends BaseController
     return null;
   }
 
-  public function CanUserCloneMobidul ()
-  {
+  public function CanUserCloneMobidul () {
     $user2Mobidul = null;
 
-    if (Auth::check()) {
+    if ( Auth::check() ) {
       $userid = Auth::id();
 
       $user2Mobidul = DB::table('user2mobidul')
-        ->where('userId', $userid)
-        ->whereIn('rights', array(1, 2))
-        ->get();
+      ->where('userId', $userid)
+      ->whereIn('rights', [1, 2])
+      ->get();
     }
 
     return !!$user2Mobidul;
@@ -1975,4 +2015,29 @@ class WebServicesController extends BaseController
 
   // ...
 
+
+
+
+
+  /// private functions
+
+  private function getCodeFromName ($mobidulName = null) {
+    $code = $mobidulName || '';
+
+    // make code lower case
+    $code = mb_strtolower($code);
+    // replace everything but (lower case) letters and numbers
+    $code = preg_replace('/[^a-z0-9]äöü/g', '', $code);
+    $umlautSearch = [ '/ä/g', '/ö/g', '/ü/g' ];
+    $umlautReplacement = [ 'ae', 'oe', 'ue' ];
+    $code = preg_replace($umlautSearch, $umlautReplacement, $code);
+    // trim string
+    $code = trim($code);
+    // limit the code to <n> chars
+    $code = substr($code, 0, $this->maxCodeCharLimit);
+
+    return $code;
+  }
+
+  // ...
 }
