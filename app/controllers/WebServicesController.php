@@ -133,7 +133,7 @@ class WebServicesController extends BaseController
   {
     $mobidulId = Mobidul::GetId($mobidulCode);
 
-    $station = (
+    $station =
     DB::table('station')
       ->select(
        'id', 'code', 'lat', 'lon',
