@@ -16,7 +16,7 @@ function CloneMobidulDialogController (
   UtilityService
 ) {
   /// CloneMobidulDialogController
-  var cloneMobidulDialog = this
+  var cloneMobidulDialog = this;
 
   // constants
   // NOTE: TODO: Code duplication w/ CreatorController
@@ -149,14 +149,16 @@ function CloneMobidulDialogController (
 
   function cloneMobidul () {
     var params = {
-      name: $scope.mobidul.name,
-      code: $scope.mobidul.code
+      oldCode:  MobidulService.Mobidul.mobidulCode,
+      name:     cloneMobidulDialog.mobidul.name,
+      code:     cloneMobidulDialog.mobidul.code
     };
 
     MobidulService.cloneMobidul(params)
     .then(function (response, status, headers, config, statusText) {
       $log.debug(response);
       $log.debug('FLO 3: SPEICHERN ' + response.data.msg);
+      cloneMobidulDialog.close();
     });
   }
 
