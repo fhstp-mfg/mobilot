@@ -9,9 +9,9 @@ HtmlEditor.$inject = [
   '$log'
 ];
 
-function HtmlEditor(
+function HtmlEditor (
   $log
-){
+) {
 
   return {
     restrict: 'E',

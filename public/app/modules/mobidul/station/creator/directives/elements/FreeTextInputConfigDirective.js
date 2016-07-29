@@ -7,12 +7,12 @@ angular
 
 FreeTextInputConfig.$inject = [
   '$log',
-  'UtilityService'
+  'UtilityService', 'RallyService'
 ];
 
 function FreeTextInputConfig(
   $log,
-  util
+  util, RallyService
 ) {
   return {
 
@@ -22,11 +22,13 @@ function FreeTextInputConfig(
       '<md-input-container>' +
         '<input type="text" ng-model="question" placeholder="Frage">' +
       '</md-input-container>' +
+      '<action-selector data-opts="ctrl.actionOpts" data-selection="success"></action-selector>' +
       '<md-button data-ng-click="ctrl.exportAnswers()">Antworten runterladen</md-button>' +
     '</div>',
     scope: {
       question: '=',
-      id: '='
+      id: '=',
+      success: '='
     },
     link: function ($scope, $element, $attr, ctrl) {
 
@@ -43,7 +45,9 @@ function FreeTextInputConfig(
 
     ctrl.exportAnswers = function () {
       $log.debug('Exporting Answers for:', $scope.id);
-    }
+    };
+
+    ctrl.actionOpts = RallyService.getActions();
 
   }
 }

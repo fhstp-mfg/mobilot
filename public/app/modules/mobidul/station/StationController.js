@@ -541,7 +541,7 @@ function StationController (
                   case 'freeText':
                     angular
                       .element(container)
-                      .append($compile('<mbl-free-text-input data-question="' + obj.question + '" data-id="' + obj.id + '"></mbl-free-text-input>')($scope));
+                      .append($compile('<mbl-free-text-input data-success="' + obj.success + '" data-question="' + obj.question + '" data-id="' + obj.id + '"></mbl-free-text-input>')($scope));
                     break;
 
                   default:

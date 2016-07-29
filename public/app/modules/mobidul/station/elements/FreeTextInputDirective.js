@@ -6,12 +6,12 @@ angular
   .directive('mblFreeTextInput', FreeTextInput);
 
 FreeTextInput.$inject = [
-  '$log',
+  '$log', '$rootScope',
   'ActivityService'
 ];
 
 function FreeTextInput(
-  $log,
+  $log, $rootScope,
   ActivityService
 ) {
   return {
@@ -25,7 +25,8 @@ function FreeTextInput(
     '</div>',
     scope: {
       question: '@',
-      id: '@'
+      id: '@',
+      success: '@'
     },
     link: function ($scope, $element, $attr, ctrl) {
 
@@ -53,6 +54,9 @@ function FreeTextInput(
       ActivityService.pushActivity();
 
       ctrl.disabled = true;
+
+      $rootScope.$broadcast('action', $attrs.success);
+
     }
 
   }

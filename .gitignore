@@ -12,6 +12,7 @@ app/storage
 
 # Laravel
 public/upload
+public/export
 #public/lib # TODO when updating bower dependencies
 
 # Laravel 5

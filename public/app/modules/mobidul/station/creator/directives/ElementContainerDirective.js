@@ -63,7 +63,7 @@ function ElementContainer(
           break;
 
         case 'freeText':
-          $element.prepend($compile('<free-text-input-config data-question="ctrl.element.question" data-id="ctrl.element.id"></free-text-input-config>')($scope));
+          $element.prepend($compile('<free-text-input-config data-success="ctrl.element.success" data-question="ctrl.element.question" data-id="ctrl.element.id"></free-text-input-config>')($scope));
           break;
 
         default:
@@ -102,7 +102,7 @@ function ElementContainer(
 
         });
 
-    }
+    };
 
   }
 }
