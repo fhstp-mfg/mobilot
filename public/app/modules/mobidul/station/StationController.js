@@ -5,7 +5,7 @@ angular
 
 StationController.$inject = [
   '$log', '$rootScope', '$sce', '$scope', '$compile', '$interval', '$timeout',
-  '$state', '$sanitize', '$stateParams', 'StateManager',
+  '$state', '$sanitize', '$stateParams', 'StateManager', '$mdDialog',
   'StationService', 'MobidulService', 'HeaderService', 'MapService', 'StationCreatorService',
   'UserService', 'RallyService', 'GeoLocationService', 'FontService'
 ];
@@ -13,7 +13,7 @@ StationController.$inject = [
 
 function StationController (
   $log, $rootScope, $sce, $scope, $compile, $interval, $timeout,
-  $state, $sanitize, $stateParams, StateManager,
+  $state, $sanitize, $stateParams, StateManager, $mdDialog,
   StationService, MobidulService, HeaderService, MapService, StationCreatorService,
   UserService, RallyService, GeoLocationService, FontService
 ) {
@@ -614,8 +614,15 @@ function StationController (
         break;
 
       case 'say':
-        // TODO: show dialog
-        alert(attr);
+        var sayActionDialog = $mdDialog.alert()
+        .parent( angular.element(document.body) )
+        .clickOutsideToClose(true)
+        .title(station.stationName)
+        .textContent(attr)
+        .ariaLabel('"Sagen" Aktion')
+        .ok('Schließen');
+
+        $mdDialog.show(sayActionDialog);
         break;
 
       case 'verifyIfNear':
