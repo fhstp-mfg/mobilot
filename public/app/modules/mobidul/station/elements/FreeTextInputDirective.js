@@ -7,12 +7,12 @@ angular
 
 FreeTextInput.$inject = [
   '$log', '$rootScope',
-  'ActivityService'
+  'AttachmentService'
 ];
 
 function FreeTextInput(
   $log, $rootScope,
-  ActivityService
+  AttachmentService
 ) {
   return {
 
@@ -42,16 +42,13 @@ function FreeTextInput(
 
     ctrl.sendAnswer = function () {
 
-      ActivityService.commitActivity({
-        type: ActivityService.TYPES.USER_ACTION,
-        name: ActivityService.USER_ACTIONS.FREE_TEXT_INPUT,
-        payload: {
-          answer: ctrl.answer,
-          componentId: $scope.id
-        }
+      AttachmentService.saveTextInput(ctrl.answer, $attrs.id)
+      .success(function(response, status, headers, config){
+        $log.info('response form saving text:', response);
+      })
+      .error(function (response, status, headers, config) {
+        $log.error('error while saving text:,', response);
       });
-
-      ActivityService.pushActivity();
 
       ctrl.disabled = true;
 

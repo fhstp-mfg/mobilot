@@ -3,14 +3,14 @@
 
 angular
 .module('Mobilot')
-.factory('ExportService', ExportService);
+.factory('AttachmentService', AttachmentService);
 
 ExportService.$inject = [
   '$log', '$http',
   '$stateParams'
 ];
 
-function ExportService (
+function AttachmentService (
   $log, $http,
   $stateParams
 ) {
@@ -26,6 +26,7 @@ function ExportService (
 
 
     /// functions
+    saveTextInput: saveTextInput,
     exportPicturesFromComponent: exportPicturesFromComponent
 
   };
@@ -36,6 +37,16 @@ function ExportService (
 
 
   /// services
+  function saveTextInput (text, componentId) {
+
+    var stationCode = $stateParams.stationCode,
+        mobidulCode = $stateParams.mobidulCode,
+        url = '/' + mobidulCode + '/' + stationCode + '/saveText/' + componentId,
+        data = {payload: {text: text}};
+
+    return $http.post(url, data);
+  }
+
   function exportPicturesFromComponent (id)
   {
     //$log.info('PhotoService - exportPicturesFromComponent: ');
@@ -43,10 +54,10 @@ function ExportService (
 
     var stationCode = $stateParams.stationCode;
 
-    $http.get( '/' + stationCode + '/exportImages/' + id)
+    $http.get( '/' + stationCode + '/exportImages/' + id )
     .success(function(result){
-      $log.info('result from export:');
-      $log.debug(result);
+      //$log.info('result from export:');
+      //$log.debug(result);
 
       if( ! result.empty ){
         var anchor = angular.element('<a/>');
@@ -69,6 +80,20 @@ function ExportService (
     .error(function(error){
       $log.error('error from component picture export:');
       $log.debug(error);
+    });
+  }
+
+  function exportTextsFromComponent (id) {
+
+    var stationCode = $stateParams.stationCode,
+        mobidulCode = $stateParams.mobidulCode;
+
+    $http.get( '/' + mobidulCode + '/' + stationCode + '/exportTexts/' + id )
+    .success(function(result){
+      $log.info('result from export:');
+      $log.debug(result);
+
+      // Todo: change attachment table to accept generic payloads
     });
 
   }

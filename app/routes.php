@@ -24,6 +24,8 @@ use App\Models\Mobidul;
 Route::post('/{mobidulCode}/PushActivity', 'ActivityController@PushActivity');
 
 Route::get('{stationCode}/exportImages/{componentId}', 'ImageController@exportPicturesFromComponent');
+Route::get('{stationCode}/exportTexts/{componentId}', 'AttachmentController@exportTextsFromComponent');
+Route::post('{mobidulCode}/{stationCode}/saveText/{componentId}', 'AttachmentController@saveTextFromComponent');
 
 /// Other
 // TODO: better structure and section routes !
