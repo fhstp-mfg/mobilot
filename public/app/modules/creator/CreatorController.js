@@ -23,6 +23,7 @@ function CreatorController (
 
 
   /// constants
+  // NOTE: TODO: Code duplication w/ CloneMobidulDialogController
   creator._codeHelperGenerating = 'wird generiert ...';
   creator._codeHelperGenerated  = 'automatisch generiert';
   creator._codeHelperManual     = 'manuell geändert';
@@ -59,7 +60,7 @@ function CreatorController (
     CreatorService.BASIS_TAB_INDEX
   );
 
-  // TODO - remove this and use StateManager params to check if it is new mobidul .
+  // TODO: remove this and use StateManager params to check if it is new mobidul .
   creator.isNewMobidul    = true;
   creator.showCreatorTabs = false;
 
@@ -100,27 +101,28 @@ function CreatorController (
 
 
   /// functions
-  creator.changeName      = changeName;
-  creator.changeCode      = changeCode;
-  creator.saveBasis       = saveBasis;
-  creator.saveOptions     = saveOptions;
-  creator.showToast       = showToast;
-  creator.deleteCategory  = deleteCategory;
-  creator.deleteMenuItem  = deleteMenuItem;
-  creator.addCategory     = addCategory;
-  creator.focusCategory   = focusCategory;
-  creator.blurCategory    = blurCategory;
-  creator.saveCategories  = saveCategories;
-  creator.showAddMenuItem = showAddMenuItem;
-  creator.saveMenu        = saveMenu;
-  creator.addMenuItem     = addMenuItem;
-  creator.closeDialog     = closeDialog;
-  creator.changeDetailTab = changeDetailTab;
-  creator.deleteCode      = deleteCode;
-  creator.toggleCode      = toggleCode;
-  creator.requestCode     = requestCode;
-  creator.showQRCode      = showQRCode;
-  creator.deleteMobidul   = deleteMobidul;
+  creator.changeName       = changeName;
+  creator.changeCode       = changeCode;
+  creator.saveBasis        = saveBasis;
+  creator.saveOptions      = saveOptions;
+  creator.showToast        = showToast;
+  creator.deleteCategory   = deleteCategory;
+  creator.deleteMenuItem   = deleteMenuItem;
+  creator.addCategory      = addCategory;
+  creator.focusCategory    = focusCategory;
+  creator.blurCategory     = blurCategory;
+  creator.saveCategories   = saveCategories;
+  creator.showAddMenuItem  = showAddMenuItem;
+  creator.saveMenu         = saveMenu;
+  creator.addMenuItem      = addMenuItem;
+  // TODO: which dialog ? use more explicit name !
+  creator.closeDialog      = closeDialog;
+  creator.changeDetailTab  = changeDetailTab;
+  creator.deleteCode       = deleteCode;
+  creator.toggleCode       = toggleCode;
+  creator.requestCode      = requestCode;
+  creator.showQRCode       = showQRCode;
+  creator.deleteMobidul    = deleteMobidul;
 
 
   var lastCommitedCode = '';
@@ -311,106 +313,96 @@ function CreatorController (
   }
 
 
-    function showToast (message)
-    {
-      $mdToast.show(
-          $mdToast
-        .simple()
-              .textContent(message)
-              .position(
-        {
-                  bottom : true,
-                  top    : false,
-                  left   : true,
-                  right  : false
-              })
-              .hideDelay(3000));
-    }
+  function showToast (message) {
+    $mdToast.show(
+      $mdToast.simple()
+      .textContent(message)
+      .position({
+        bottom: true,
+        top: false,
+        left: true,
+        right: false
+      })
+      .hideDelay(3000)
+    );
+  }
 
 
-  function _isOriginalCode (mobidulCode)
-  {
+  // NOTE: TODO: Code duplication w/ CloneMobidulDialogController
+  function _isOriginalCode (mobidulCode) {
     return mobidulCode === creator.mobidul.originalCode;
   }
 
 
-  function _restoreOriginalStationCode ()
-  {
+  // NOTE: TODO: Code duplication w/ CloneMobidulDialogController
+  function _restoreOriginalStationCode () {
     creator.mobidul.code = creator.mobidul.originalCode;
 
     _resetCodeHelper();
   }
 
 
-  function _refreshCodeHelper (mobidulCode, codeHelperText)
-  {
-    var  isOriginalCode = _isOriginalCode( mobidulCode );
+  // NOTE: TODO: Code duplication w/ CloneMobidulDialogController
+  function _refreshCodeHelper (mobidulCode, codeHelperText) {
+    var isOriginalCode = _isOriginalCode(mobidulCode);
 
-    if ( isOriginalCode )
+    if (isOriginalCode) {
       creator.mobidul.codeHelper.text = '';
-    else
+    } else {
       creator.mobidul.codeHelper.text = codeHelperText;
+    }
 
     creator.mobidul.codeHelper.show = ! isOriginalCode;
   }
 
 
-  function _resetCodeHelper ()
-  {
+  // NOTE: TODO: Code duplication w/ CloneMobidulDialogController
+  function _resetCodeHelper () {
     creator.mobidul.codeHelper.show = false;
     creator.mobidul.codeHelper.text = '';
   }
 
 
-  function changeName ()
-  {
-    if ( creator.isNewMobidul || creator.mobidul.generateCode )
-    {
+  function changeName () {
+    if ( creator.isNewMobidul || creator.mobidul.generateCode ) {
       var mobidulName = creator.mobidul.name.trim();
-      var mobidulCode = UtilityService.getCodeFromName( mobidulName );
+      var mobidulCode = UtilityService.getCodeFromName(mobidulName);
 
-
-      if ( mobidulCode )
+      if (mobidulCode) {
         creator.mobidul.codeHelper.text = creator._codeHelperGenerating;
-
-
-      if ( creator.isNewMobidul ||
-         ( ! creator.isNewMobidul &&
-           ! _isOriginalCode( mobidulCode ) ) )
-      {
-        CreatorService
-          .existsMobidul( mobidulCode )
-          .success(function (response, status, headers, config)
-          {
-            // $log.debug('request valid code callback from changeName : ');
-            // $log.debug(code);
-
-            // TODO add exists from the responseobject
-            creator.canNotSave = response.exists;
-            mobidulCode = response.mobidulCode;
-
-            if ( mobidulCode )
-            {
-              creator.mobidul.code = mobidulCode;
-
-
-              _refreshCodeHelper( mobidulCode, creator._codeHelperGenerated );
-
-
-              if ( ! creator.isNewMobidul )
-
-                creator.mobidul.generateCode = false;
-            }
-            else
-            {
-              creator.mobidul.code = '';
-
-              _resetCodeHelper();
-            }
-          });
       }
-      else
+
+      if (
+        creator.isNewMobidul ||
+        ( ! creator.isNewMobidul &&
+          ! _isOriginalCode( mobidulCode ) )
+      ) {
+        CreatorService.existsMobidul(mobidulCode)
+        .success(function (response, status, headers, config) {
+          // $log.debug('request valid code callback from changeName : ');
+          // $log.debug(code);
+
+          // TODO: add exists from the responseobject
+          creator.canNotSave = response.exists;
+          mobidulCode = response.mobidulCode;
+
+          if (mobidulCode) {
+            creator.mobidul.code = mobidulCode;
+
+            _refreshCodeHelper( mobidulCode, creator._codeHelperGenerated );
+
+            if ( ! creator.isNewMobidul ) {
+              creator.mobidul.generateCode = false;
+            }
+          } else {
+            creator.mobidul.code = '';
+
+            _resetCodeHelper();
+          }
+        });
+      } else {
         _restoreOriginalStationCode();
+      }
     }
   }
 
@@ -441,8 +433,8 @@ function CreatorController (
             // $log.debug('request valid code callback from changeName : ');
             // $log.debug(code);
 
-                        //TODO add exists from the responseobject
-                        creator.canNotSave = response.exists;
+            // TODO: add exists from the responseobject
+            creator.canNotSave = response.exists;
 
             var code = response.mobidulCode
             creator.mobidul.code = code;
@@ -468,91 +460,74 @@ function CreatorController (
 
   function saveBasis ()
   {
-        // check if everything is correct.
-        // TODO Check if new mobidul
+    // check if everything is correct.
+    // TODO: Check if new mobidul
 
-        var params =
-        {
-          'name'        : creator.mobidul.name,
-          'code'        : creator.mobidul.code,
-          'description' : creator.mobidul.description,
-          'mode'        : creator.mobidul.mode
-        };
+    var params = {
+      'name'        : creator.mobidul.name,
+      'code'        : creator.mobidul.code,
+      'description' : creator.mobidul.description,
+      'mode'        : creator.mobidul.mode
+    };
 
     creator.savingBasisMode = true;
     creator.canNotSave      = true;
 
 
-    if ( creator.isNewMobidul )
-    {
+    if ( creator.isNewMobidul ) {
       creator.saveBasisText = CreatorService.CREATING_MOBIDUL;
 
-          CreatorService
-              .createMobidul( params )
-              .success(function (response, status, headers, config)
-              {
-          // $log.debug('Created Mobidul successfully callback : ');
-          // $log.debug(response);
+      CreatorService.createMobidul(params)
+      .success(function (response, status, headers, config) {
+        // $log.debug('Created Mobidul successfully callback : ');
+        // $log.debug(response);
 
-          var saveMobidulOptionsDialog =
-            $mdDialog
-              .alert()
-              .parent(angular.element(document.body))
-              .title('Mobidul erstellen')
-              .textContent( response.msg )
-              .ariaLabel('Mobidul erstellen')
-              .ok('Mobidul öffnen');
+        var saveMobidulOptionsDialog =
+          $mdDialog.alert()
+            .parent( angular.element(document.body) )
+            .title('Mobidul erstellen')
+            .textContent( response.msg )
+            .ariaLabel('Mobidul erstellen')
+            .ok('Mobidul öffnen');
 
-          $mdDialog
-            .show( saveMobidulOptionsDialog )
-            .then(function ()
-            {
-              if ( response.code )
-              {
-                $state.go('mobidul.creator.basis',
-                {
-                  mobidulCode : response.code
-                });
-
-                _initDefaultValues();
-              }
+        $mdDialog.show(saveMobidulOptionsDialog)
+        .then(function () {
+          if ( response.code ) {
+            $state.go('mobidul.creator.basis', {
+              mobidulCode : response.code
             });
+
+            _initDefaultValues();
+          }
         });
-    }
-    else
-    {
+      });
+    } else {
       creator.saveBasisText = CreatorService.UPDATING_MOBIDUL;
 
-      CreatorService
-                .updateMobidul( creator.mobidul.originalCode, params )
-                .success(function (response, status, headers, config)
-                {
-          // $log.debug('Updated Mobidul successfully callback : ');
-          // $log.debug(response);
+      CreatorService.updateMobidul(creator.mobidul.originalCode, params)
+      .success(function (response, status, headers, config) {
+        // $log.debug('Updated Mobidul successfully callback : ');
+        // $log.debug(response);
 
-          var saveMobidulOptionsDialog =
-            $mdDialog
-              .alert()
-              .parent(angular.element(document.body))
-              .title('Mobidul aktualisieren')
-              .textContent( response.msg )
-              .ariaLabel('Mobidul aktualisieren')
-              .ok('Schließen');
+        var saveMobidulOptionsDialog =
+          $mdDialog.alert()
+          .parent( angular.element(document.body) )
+          .title('Mobidul aktualisieren')
+          .textContent( response.msg )
+          .ariaLabel('Mobidul aktualisieren')
+          .ok('Schließen');
 
-          $mdDialog
-            .show( saveMobidulOptionsDialog )
-            .then(function ()
-            {
-              $state.go('mobidul.creator.basis',
-              {
-                mobidulCode : params.code
-              });
+        $mdDialog.show(saveMobidulOptionsDialog)
+        .then(function () {
+          $state.go('mobidul.creator.basis', {
+            mobidulCode : params.code
+          });
 
-              _initDefaultValues();
-            });
-                });
+          _initDefaultValues();
+        });
+      });
     }
-    }
+  }
 
 
   function saveOptions ()
@@ -823,25 +798,24 @@ function CreatorController (
 
     function showAddMenuItem ()
     {
-        $mdDialog.show(
-    {
-            locals : {
-        categories : creator.categories,
-                stations   : creator.stations
-      },
-            controller  : DialogController,
-          templateUrl : 'app/modules/creator/CreatorAddMenuItemDialogTemplate.html',
-      parent     : angular.element(document.body),
-          clickOutsideToClose : true
-        })
-        .then(function (param)
-    {
-            $log.debug('type ' + param.type + ' id ' + param.id);
-            creator.addMenuItem( param.type, param.id );
+      $mdDialog.show({
+        locals : {
+          categories : creator.categories,
+          stations   : creator.stations
         },
-    function () {
-      // canceled the dialog;
-        });
+        controller  : DialogController,
+        templateUrl : 'app/modules/creator/CreatorAddMenuItemDialogTemplate.html',
+        parent      : angular.element(document.body),
+        clickOutsideToClose : true
+      })
+      .then(function (param)
+      {
+        $log.debug('type ' + param.type + ' id ' + param.id);
+        creator.addMenuItem( param.type, param.id );
+      },
+      function () {
+        // canceled the dialog
+      });
     }
 
     function saveMenu ()

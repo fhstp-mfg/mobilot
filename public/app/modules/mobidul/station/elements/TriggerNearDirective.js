@@ -1,100 +1,106 @@
 (function () {
-  'use strict';
+'use strict';
 
-  angular
-    .module('Mobidul')
-    .directive('mblTriggerNear', TriggerNear);
+angular
+  .module('Mobidul')
+  .directive('mblTriggerNear', TriggerNear);
 
-  TriggerNear.$inject = [
-    '$log', '$rootScope',
-    'GeoLocationService', 'ActivityService'
-  ];
 
-  function TriggerNear (
-    $log, $rootScope,
-    GeoLocationService, ActivityService
-  ) {
-    return {
-      restrict: 'E',
-      scope: {
-        fallback: '@',
-        success: '@',
-        range: '@'
-      },
-      template: "<div>" +
-        "<div data-ng-if='ctrl.inaccurate'>" +
-          "<span>GPS zu ungenau - gib den Code bei der Station ein:</span>" +
-          "<mbl-input-code data-verifier='{{fallback}}' data-success='verifyIfNear:{{success}}' data-error='say:Falscher Code, probiers nochmal!'></mbl-input-code>" +
-        "</div>" +
-        "<div data-ng-if='!ctrl.inaccurate'>" +
-          "<md-icon data-ng-if='ctrl.trigger'>room</md-icon>" +
-          "<div data-ng-if='!ctrl.trigger'>" +
-            "<span>{{ctrl.default}}</span>" +
-            "<span data-ng-if='ctrl.distance'>Du bist noch {{ctrl.distance}} Meter entfernt. (± {{ctrl.accuracy}}m)</span>" +
-            "<md-icon class='search-anim'>track_changes</md-icon>" +
-          "</div>" +
-        "</div>" +
-      "</div>",
+TriggerNear.$inject = [
+  '$log', '$rootScope',
+  'GeoLocationService', 'ActivityService'
+];
 
-      link: function ($scope, $element, $attrs, ctrl) {
-        // $log.info('positionicon - link - attrs:');
-        // $log.debug($attrs);
 
-        $scope.$on('inaccurate', function (event, inaccurate) {
-          if (inaccurate) {
-            ctrl.inaccurate = true;
+function TriggerNear (
+  $log, $rootScope,
+  GeoLocationService, ActivityService
+) {
+  return {
+    restrict: 'E',
+    scope: {
+      fallback: '@',
+      success: '@',
+      range: '@'
+    },
+    template: `
+      <div>
+        <div ng-if="triggerNear.inaccurate">
+          <span>Dein GPS ist zu ungenau. Gib den richtigen Code bei der Station ein:</span>
+          <mbl-input-code
+            data-verifier="{{ fallback }}"
+            data-success="verifyIfNear:{{ success }}"
+            data-error="say:Das war der falsche Code. Probiere es nochmal!"
+          ></mbl-input-code>
+        </div>
 
-            /* to much noise in activity logs, is this necessary?
-            ActivityService.commitActivity({
-              type: ActivityService.TYPES.APP_EVENT,
-              name: ActivityService.APP_EVENTS.USER_POSITION,
-              payload: {
-                inaccurate: true
-              }
-            });
-            */
-          }
-        });
+        <div ng-if=" ! triggerNear.inaccurate">
+          <md-icon ng-if="triggerNear.trigger">room</md-icon>
+          <div ng-if=" ! triggerNear.trigger">
+            <span>{{ triggerNear.default }}</span>
+            <span ng-if="triggerNear.distance">
+              Du bist noch zirka {{ triggerNear.distance }} Meter von der Station entfernt.
+              (± {{ triggerNear.accuracy }}m)
+            </span>
+            <md-icon class="search-anim">track_changes</md-icon>
+          </div>
+        </div>
+      </div>
+    `,
 
-        $scope.$on('distance', function (event, msg) {
-          if (msg) {
-            ctrl.default = null;
-            ctrl.inaccurate = false;
-            ctrl.distance = parseInt(msg.d);
-            ctrl.accuracy = parseInt(msg.a);
+    link: function ($scope, $element, $attrs, TriggerNear) {
+      $scope.$on('inaccurate', function (event, inaccurate) {
+        if (inaccurate) {
+          TriggerNear.inaccurate = true;
+        }
+      });
 
-            ctrl.range = parseInt($attrs.range) + ctrl.accuracy;
+      $scope.$on('distance', function (event, msg) {
+        if (msg) {
+          TriggerNear.default = null;
+          TriggerNear.inaccurate = false;
+          TriggerNear.distance = parseInt(msg.d);
+          TriggerNear.accuracy = parseInt(msg.a);
 
-            ActivityService.commitActivity({
-              type: ActivityService.TYPES.APP_EVENT,
-              name: ActivityService.APP_EVENTS.USER_POSITION,
-              payload: {
-                distance: ctrl.distance,
-                accuracy: ctrl.accuracy,
-                range: ctrl.range,
-                inaccurate: false
-              }
-            });
+          TriggerNear.range = parseInt($attrs.range) + TriggerNear.accuracy;
 
-            if (ctrl.distance <= ctrl.range) {
-              $log.info('User in Range!');
-              GeoLocationService.stopPositionWatching();
-
-              ctrl.trigger = true;
-
-              $rootScope.$broadcast('action', $attrs.success);
+          ActivityService.commitActivity({
+            type: ActivityService.TYPES.APP_EVENT,
+            name: ActivityService.APP_EVENTS.USER_POSITION,
+            payload: {
+              distance: TriggerNear.distance,
+              accuracy: TriggerNear.accuracy,
+              range: TriggerNear.range,
+              inaccurate: false
             }
-          }
-        });
-      },
-      controller: function ($scope, $element, $attrs) {
-        var ctrl = this;
+          });
 
-        ctrl.default = 'GPS wird abgerufen...';
-        ctrl.inaccurate = false;
-        ctrl.trigger = false;
-      },
-      controllerAs: 'ctrl'
-    }
+          if ( TriggerNear.distance <= TriggerNear.range ) {
+            GeoLocationService.stopPositionWatching();
+
+            TriggerNear.trigger = true;
+
+            $rootScope.$broadcast('action', $attrs.success);
+          }
+        }
+      });
+    },
+
+    controller: TriggerNearController,
+    controllerAs: 'triggerNear'
   }
+
+
+
+  function TriggerNearController (
+    $scope, $element, $attrs
+  ) {
+    var triggerNear = this;
+
+    triggerNear.default = 'GPS wird abgerufen...';
+    triggerNear.inaccurate = false;
+    triggerNear.trigger = false;
+  }
+}
+
 })();

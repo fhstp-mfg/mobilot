@@ -19,8 +19,9 @@
   font-weight: 400;
 }
 
+.hidden { display: none }
 .clearfix:after {
-    content: ".";
+    content: '.';
     clear: both;
     display: block;
     visibility: hidden;
@@ -117,6 +118,10 @@ p { margin: 0; }
 }
 .md-ghost {
   background : ghostwhite !important
+}
+
+md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon {
+    background-color: #3797c4;
 }
 
 .accuracy-ribbon
@@ -579,7 +584,11 @@ positionicon .material-icons {
   }
 }
 
-
+mbl-free-text-input textarea{
+    padding: 1em;
+    width: 100%;
+    box-sizing: border-box;
+}
 
 /**
  * iOS specific styles

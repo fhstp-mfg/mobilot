@@ -7,19 +7,22 @@ angular
 
 PhotoUploadConfig.$inject = [
   '$log',
-  'UtilityService', 'RallyService', 'PhotoService'
+  'UtilityService', 'RallyService', 'PhotoService',
+  'AttachmentService'
 ];
 
 function PhotoUploadConfig(
   $log,
-  util, RallyService, PhotoService
+  util, RallyService, PhotoService,
+  AttachmentService
 ) {
   return {
 
     restrict: 'E',
-    template: '<div>' +
+    template:
+    '<div>' +
       '{{content}}' +
-      '<md-button class="md-raised md-primary">Foto hochladen</md-button><br>' +
+      '<md-button class="md-raised md-primary">Foto hochladen</md-button><br/>' +
       '<div class="config-part">' +
         '<md-input-container><input type="text" ng-model="content" placeholder="Erklärungstext"></md-input-container>' +
         '<action-selector data-opts="ctrl.actionOpts" data-selection="success" data-name="Erflogsaktion"></action-selector>' +
@@ -49,7 +52,7 @@ function PhotoUploadConfig(
     ctrl.actionOpts = RallyService.getActions();
 
     ctrl.exportPictures = function(){
-      PhotoService.exportPicturesFromComponent($scope.id);
+      AttachmentService.exportPicturesFromComponent($scope.id);
     };
   }
 }

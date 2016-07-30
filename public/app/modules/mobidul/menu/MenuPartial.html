@@ -66,7 +66,7 @@
     <!-- Admin area -->
     <div ng-if="menu.currentUser.role > 0">
       <md-list-item class="menuDivider">
-        <span>Admin</span>
+        <span>Mobidul</span>
       </md-list-item>
 
       <md-list-item ng-click="mobidul.switchAdminContent( 0 )">
@@ -79,7 +79,15 @@
         ng-if="menu.currentUser.role == 1"
         ng-click="mobidul.switchAdminContent( 2 )"
       >
-        <span>Mobidul Optionen</span>
+        <span>Optionen</span>
+      </md-list-item>
+
+      <md-list-item
+        ng-if="menu.currentUser.role == 1"
+        ng-click="mobidul.cloneMyMobidul()"
+        ng-show="menu.isCloneMobidulEnabled"
+      >
+        <span>Klonen</span>
       </md-list-item>
     </div>
 

@@ -4,45 +4,62 @@ angular
 
 
 MobidulService.$inject = [
-  '$log', '$rootScope', '$http', '$q', '$timeout',
-  '$stateParams', 'LocalStorageService'
+  '$log', '$rootScope', '$stateParams',
+  '$http', '$q', '$timeout',
+  'LocalStorageService'
+  /*'RallyService'*/
 ];
 
 
 function MobidulService (
-  $log, $rootScope, $http, $q, $timeout,
-  $stateParams, LocalStorageService
+  $log, $rootScope, $stateParams,
+  $http, $q, $timeout,
+  LocalStorageService
+  /*RallyService*/
 )
 {
   /// MobidulService
-  var service =
-  {
+  var service = {
     // constants
     ALL_STATIONS    : 0,
     NEW_STATION     : 1,
     MOBIDUL_OPTIONS : 2,
 
-    NEW_MOBIDUL_TITLE   : 'Neues Mobidul',
+    NEW_MOBIDUL_TITLE : 'Neues Mobidul',
 
-    MOBIDUL_MODE_RALLY  : 'rally',
-    MOBIDUL_MODE_DEFAULT: 'default',
+    MOBIDUL_MODE_RALLY : 'rally',
+    MOBIDUL_MODE_DEFAULT : 'default',
 
     MOBIDUL_MODES : [
-      {
-        name: 'rally',
-        elements: ['html', 'ifNear', 'inputCode', 'button', 'photoUpload'],
-        states: ['activated', 'open', 'completed'],
-        defaultState: 'activated',
-        hiddenStations: true
-      },
-      {
-        name: 'default',
-        elements: ['html'],
-        states: ['open'],
-        defaultState: 'open',
-        hiddenStations: false
-      }
-    ],
+    {
+      name: 'rally',
+      // states: [
+      //   RallyService.STATUS_ACTIVATED,
+      //   RallyService.STATUS_OPEN,
+      //   RallyService.STATUS_COMPLETED
+      // ],
+      states: [
+        'versteckt', 'aktiviert', 'geöffnet', 'abgeschlossen'
+      ],
+
+      elements: ['html', 'ifNear', 'inputCode', 'button', 'photoUpload', 'setTimeout', 'freeText'],
+
+      // defaultState: RallyService.STATUS_ACTIVATED,
+      defaultState: 'aktiviert',
+
+      hiddenStations: true
+    }, {
+      name: 'default',
+      elements: [ 'html' ],
+
+      // states: [ RallyService.STATUS_OPEN ],
+      states: 'geöffnet',
+
+      // defaultState: RallyService.STATUS_OPEN,
+      defaultState: 'geöffnet',
+      
+      hiddenStations: false
+    }],
 
     /// services
     menuReady         : menuReady,
@@ -57,6 +74,7 @@ function MobidulService (
     resetProgress     : resetProgress,
     getProgress       : getProgress,
     setProgress       : setProgress,
+    cloneMobidul      : cloneMobidul,
 
     /// app config
     Config :
@@ -67,7 +85,8 @@ function MobidulService (
 
       // NOTE: these are directly tied to a Mobidul
       isGoToHomeEnabled  : true,
-      isGoToAboutEnabled : true
+      isGoToAboutEnabled : true,
+      isCloneMobidulEnabled : true
     },
 
     /// mobidul config
@@ -234,11 +253,11 @@ function MobidulService (
     return service.getMobidulMode(mobidulCode)
     .then(function (response) {
       var mode = response.data.mode;
-      // $log.info('MobidulService - mode:');
-      // $log.debug(mode);
-      return service.MOBIDUL_MODES.filter(function (mobidulMode) {
+      var mobidulMode = service.MOBIDUL_MODES.filter(function (mobidulMode) {
         return mode == mobidulMode.name;
       })[0];
+
+      return mobidulMode;
     });
   }
 
@@ -249,9 +268,31 @@ function MobidulService (
     $log.warn('MobidulService.isRally is deprecated - use MobidulService.getMobidulMode instead!');
 
     // TODO: check if service.Mobidul exists to prevent redundant call
-    return $http.get( cordovaUrl + '/' + mobidulCode + '/getConfig' )
+    return $http.get(cordovaUrl + '/' + mobidulCode + '/getConfig')
     .success(function (response, status, headers, config) {
       return response.mode == service.MOBIDUL_MODE_RALLY;
+    })
+    .error(function (response, status, headers, config) {
+      $log.error(response);
+      $log.error(status);
+    });
+  }
+
+  /**
+   * This function is used in order to clone the current Mobidul with all it's attributes.
+   *
+   * @param mobidul An object containing the new name and code of the mobidul
+   * @return {*} Accessing the cloning function on the Server
+   */
+  function cloneMobidul (mobidul) {
+    $log.debug("FLO 2: SERVICE was working." + "Mobidulcode: " + mobidul.code);
+    $log.debug(mobidul);
+
+    var mobidulData = JSON.stringify(mobidul);
+
+    return $http.post(cordovaUrl + '/' + mobidul.code + '/clone', mobidulData)
+    .success(function (response, status, headers, config) {
+      return response;
     })
     .error(function (response, status, headers, config) {
       $log.error(response);

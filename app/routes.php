@@ -23,11 +23,15 @@ use App\Models\Mobidul;
 /// ActivityController
 Route::post('/{mobidulCode}/PushActivity', 'ActivityController@PushActivity');
 
+// Attachments
 Route::get('{stationCode}/exportImages/{componentId}', 'ImageController@exportPicturesFromComponent');
+Route::get('{mobidulCode}/{stationCode}/exportTexts/{componentId}', 'AttachmentController@exportTextsFromComponent');
+Route::post('{mobidulCode}/{stationCode}/saveText/{componentId}', 'AttachmentController@saveTextFromComponent');
 
 /// Other
 // TODO: better structure and section routes !
 
+Route::get('GenerateMobidulCode/{mobidulName}', 'WebServicesController@GenerateMobidulCode');
 Route::get('RequestValidCode/{stationCode?}', 'WebServicesController@GenerateStationCode');
 
 Route::get('/{mobidulCode}/GetForCode/{stationCode}', 'WebServicesController@GetForCode');
@@ -73,8 +77,8 @@ Route::post('{mobidulCode}/AddCategories', 'WebServicesController@AddCategories'
 Route::post('{mobidulCode}/UpdateCategories', 'WebServicesController@UpdateCategories');
 Route::post('{mobidulCode}/RemoveCategories', 'WebServicesController@RemoveCategories');
 Route::get('{mobidulCode}/RemoveCategory/{categoryId}', 'WebServicesController@RemoveCategory');
-Route::get('{mobidulCode}/clone', 'WebServicesController@CloneMobidul');
-
+Route::post('{mobidulCode}/clone', 'WebServicesController@CloneMobidul');
+Route::get('{mobidulCode}/cloneStation/{stationCode}', 'WebServicesController@CloneStation');
 
 /*
  * Stations

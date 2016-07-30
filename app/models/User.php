@@ -11,20 +11,20 @@ use App\Models\Mobidul;
 
 class User extends \Eloquent {
 
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'user';
+  /**
+   * The database table used by the model.
+   *
+   * @var string
+   */
+  protected $table = 'user';
 
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden   = array('password');
-	protected $fillable = array('username', 'email', 'password', 'activated_at', 'activation_code', 'guest');
+  /**
+   * The attributes excluded from the model's JSON form.
+   *
+   * @var array
+   */
+  protected $hidden   = array('password');
+  protected $fillable = array('username', 'email', 'password', 'activated_at', 'activation_code', 'guest');
 
 
 
@@ -94,44 +94,44 @@ class User extends \Eloquent {
 
 
 
-		// NOTE - query user roles for (optionally given) mobidul
+    // NOTE - query user roles for (optionally given) mobidul
 
-		// if ( ! is_null($mobidulCode) )
-		// {
-		// 	\Log.info('Getting mobidulId for mobidulCode : ');
-		// 	\Log::info($mobidulCode);
-		//
-		// 	$mobidulId = Mobidul::GetId($mobidulCode);
-		// 	\Log::info($mobidulId);
-		//
-		//
-		// 	if ( $this->isAdminInMobidul($mobidulId) )
-		// 		$user->role = 1;
-		//
-		// 	else if ( $this->isPlayerInMobidul($mobidulId) )
-		// 		$user->role = 2;
-		//
-		// 	else
-		// 		$user->role = 0;
-		// }
-		// else
-		// 	\Log::info('No mobidul code given.');
-		//
-		//
-		// \Log::info('Returning CurrentUser');
-		// \Log::info($user);
+    // if ( ! is_null($mobidulCode) )
+    // {
+    //   \Log.info('Getting mobidulId for mobidulCode : ');
+    //   \Log::info($mobidulCode);
+    //
+    //   $mobidulId = Mobidul::GetId($mobidulCode);
+    //   \Log::info($mobidulId);
+    //
+    //
+    //   if ( $this->isAdminInMobidul($mobidulId) )
+    //     $user->role = 1;
+    //
+    //   else if ( $this->isPlayerInMobidul($mobidulId) )
+    //     $user->role = 2;
+    //
+    //   else
+    //     $user->role = 0;
+    // }
+    // else
+    //   \Log::info('No mobidul code given.');
+    //
+    //
+    // \Log::info('Returning CurrentUser');
+    // \Log::info($user);
 
 
         return $user;
     }
 
 
-	public static function getUserByEmail ($email)
-	{
-		$user = static::where('email', '=', $email)->first();
+  public static function getUserByEmail ($email)
+  {
+    $user = static::where('email', '=', $email)->first();
 
-		return $user;
-	}
+    return $user;
+  }
 
 
     public static function getCurrentUserId ()
@@ -140,32 +140,32 @@ class User extends \Eloquent {
     }
 
 
-	public static function activate ($token)
-	{
-		$user = static::where('activation_code', '=', $token)->first();
+  public static function activate ($token)
+  {
+    $user = static::where('activation_code', '=', $token)->first();
 
-		if ( $user )
-		{
-			if ( ! $user->activated_at )
-			{
-				\Log::info('Activating user at: ' . date('Y-m-d H:i:s', time()));
-				$user->activated_at = date('Y-m-d H:i:s', time());
-				$user->save();
-			}
+    if ( $user )
+    {
+      if ( ! $user->activated_at )
+      {
+        \Log::info('Activating user at: ' . date('Y-m-d H:i:s', time()));
+        $user->activated_at = date('Y-m-d H:i:s', time());
+        $user->save();
+      }
 
-			return true;
-		}
+      return true;
+    }
 
-		return false;
-	}
+    return false;
+  }
 
 
     public function isPlayerInMobidul ($mobidulId)
     {
         $user2Mobidul = static::user2Mobidul()
-        					  ->where('userId', $this->id)
-        					  ->where('mobidulId', $mobidulId)
-        					  ->first();
+                    ->where('userId', $this->id)
+                    ->where('mobidulId', $mobidulId)
+                    ->first();
 
 
         if ( $user2Mobidul )
@@ -184,8 +184,8 @@ class User extends \Eloquent {
 
 
         $rights = static::user2Mobidul()
-		                ->where('mobidulId', $mobidulId)
-		                ->first();
+                    ->where('mobidulId', $mobidulId)
+                    ->first();
 
 
         if ( $rights )
@@ -200,9 +200,9 @@ class User extends \Eloquent {
     /*public function isPlayerInMobidul ($mobidulId)
     {
         return static::user2Mobidul()
-		             ->where('userId', 	  $this->userId)
-		             ->where('mobidulId', $this->$mobidulId)
-		             ->first()
-		             ->rights == 2;
+                 ->where('userId',     $this->userId)
+                 ->where('mobidulId', $this->$mobidulId)
+                 ->first()
+                 ->rights == 2;
     }*/
 }

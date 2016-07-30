@@ -92,6 +92,7 @@ function StationCreatorController (
   // ...
   // settings
   stationCreator.deleteStation = deleteStation;
+  stationCreator.cloneStation = cloneStation;
 
 
   /// construct
@@ -885,6 +886,70 @@ function StationCreatorController (
               // TODO - alert window einbauen und dann weiterleitung auf (?)
               alert(response);
             });
+      });
+  }
+
+
+  /**
+   * This function clones the current station and redirects to the new station.
+   */
+  function cloneStation () {
+    // First create a confirm Dialog in order to ask the user
+    // if he really wants to duplicate the current station.
+    var confirmCloneStation = $mdDialog.confirm()
+      .parent( angular.element(document.body) )
+      .title('Station klonen')
+      .textContent('Bitte bestätige, dass du diese Station klonen möchtest.')
+      .ariaLabel('Station klonen')
+      .ok('Klonen')
+      .cancel('Abbrechen');
+
+    // Show the dialog and read the current station parameters.
+    $mdDialog.show(confirmCloneStation)
+      .then(function () {
+        var mobidulCode = StateManager.state.params.mobidulCode || null;
+        var stationCode = StateManager.state.params.stationCode || null;
+
+        if ( mobidulCode && stationCode ) {
+          // Save the changes to the current station.
+          stationCreator.saveChanges();
+        }
+
+        // Call the cloning service of the current station.
+        StationCreatorService.cloneMyStation(mobidulCode, stationCode)
+          .success(function (response, status, headers, config) {
+            var cloneStationCode = response.stationCode;
+
+            // Show a dialog to inform the user about
+            // changing the position of the new station.
+            var informAboutStationChange = $mdDialog.alert()
+              .parent( angular.element(document.body) )
+              .clickOutsideToClose(true)
+              .title('Station erfolgreich geklont')
+              .textContent('Bitte ändere den Ort der neuen Station.')
+              .ariaLabel('Station erfolgreich geklont')
+              .ok('Schließen');
+
+            $mdDialog.show(informAboutStationChange)
+              .then(function () {
+                // Change the view to the new station,
+                // if the station has been cloned successfully.
+                if (response.success) {
+                  $state.go(
+                    'mobidul.station.edit.place',
+                    {stationCode: cloneStationCode},
+                    {'reload': true}
+                  );
+                }
+              });
+          })
+          .error(function (response, status, headers, config)
+          {
+            $log.error(response);
+            $log.error(status);
+          });
+      }, function () {
+        $log.info('TODO: check this case in StationCreatorController');
       });
   }
 }

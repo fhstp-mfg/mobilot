@@ -22,24 +22,34 @@
     </md-list>
 
 
-    <!-- Dangerous settings -->
+	<!-- Duplicate -->
+	<md-button
+		ng-show="true"
+		ng-click="stationCreator.cloneStation()"
+		flex>
+		<md-icon>content_copy</md-icon>
+		<span>Station duplizieren</span>
+	</md-button>
 
-    <br>
 
-    <div layout="column">
-      <p class="helper center dangerous">
-        <span>Station wird unwiderruflich gelöscht.</span>
-      </p>
+	<!-- Dangerous settings -->
 
-      <md-button
-        class="md-raised md-warn"
-        ng-show="true"
-        ng-click="stationCreator.deleteStation()"
-        flex
-      >
-        <md-icon>delete</md-icon>
-        <span>Station löschen</span>
-      </md-button>
-    </div>
+	<br>
+
+	<div layout="column">
+		<p class="helper center dangerous">
+			<span>Station wird unwiderruflich gelöscht.</span>
+		</p>
+
+		<md-button
+			class="md-raised md-warn"
+			ng-show="true"
+			ng-click="stationCreator.deleteStation()"
+			flex>
+
+			<md-icon>delete</md-icon>
+			<span>Station löschen</span>
+		</md-button>
+	</div>
   </md-content>
 </div>

@@ -31,21 +31,18 @@ function ListService (
 
   ///private functions
 
-  function _getPermissionByCat(cat){
-
-    return $q(function(resolve, reject){
-
-      if(cat === service.ALL_STATIONS){
+  function _getPermissionByCat (cat) {
+    return $q(function (resolve, reject) {
+      if (cat === service.ALL_STATIONS) {
         UserService.getRequestAllStationsPermit()
-          .then(function(RequestAllStationsPermit){
-
-            resolve(RequestAllStationsPermit);
-          });
-      }else{
-        UserService.getRequestCategoryStationsPermit()
-          .then(function(RequestCategoryStationsPermit){
-            resolve(RequestCategoryStationsPermit);
-          });
+        .then(function (RequestAllStationsPermit) {
+          resolve(RequestAllStationsPermit);
+        });
+      } else {
+        UserService.getRequestCategoryStationsPermit ()
+        .then(function (RequestCategoryStationsPermit) {
+          resolve(RequestCategoryStationsPermit);
+        });
       }
     });
   }

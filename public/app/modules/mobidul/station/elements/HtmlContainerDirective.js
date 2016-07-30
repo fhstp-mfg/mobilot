@@ -1,21 +1,29 @@
 (function () {
-  'use strict';
+'use strict';
 
-  angular
-    .module('Mobidul')
-    .directive('mblHtmlContainer', htmlContainer);
+angular
+  .module('Mobidul')
+  .directive('mblHtmlContainer', HtmlContainer);
 
-  htmlContainer.$inject = [
-  ];
 
-  function htmlContainer(
-  ){
+HtmlContainer.$inject = [
+  /* ... */
+];
 
-    return {
-      restrict: 'E',
-      transclude: true,
-      template: '<div><div ng-transclude></div><br/></div>'
-    };
+
+function HtmlContainer (
+  /* ... */
+) {
+  return {
+    restrict: 'E',
+    transclude: true,
+    template: `
+      <div>
+        <div ng-transclude></div>
+        <br>
+      </div>
+    `
   }
+}
 
 })();
