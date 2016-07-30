@@ -5,7 +5,7 @@ angular
 .module('Mobilot')
 .factory('AttachmentService', AttachmentService);
 
-ExportService.$inject = [
+AttachmentService.$inject = [
   '$log', '$http',
   '$stateParams'
 ];
@@ -27,6 +27,7 @@ function AttachmentService (
 
     /// functions
     saveTextInput: saveTextInput,
+    exportTextsFromComponent: exportTextsFromComponent,
     exportPicturesFromComponent: exportPicturesFromComponent
 
   };
@@ -46,6 +47,22 @@ function AttachmentService (
 
     return $http.post(url, data);
   }
+
+  function exportTextsFromComponent (componentId) {
+
+    var stationCode = $stateParams.stationCode,
+        mobidulCode = $stateParams.mobidulCode,
+        url = '/' + mobidulCode + '/' + stationCode + '/exportTexts/' + componentId;
+
+    $http.get(url).success(function(response, status, headers, config){
+      $log.info('response from exportTextsFromComponent:', response);
+    })
+    .error(function(response, status, headers, config){
+      $log.error('error while exporting texts:', response);
+    })
+
+  }
+
 
   function exportPicturesFromComponent (id)
   {
@@ -82,22 +99,6 @@ function AttachmentService (
       $log.debug(error);
     });
   }
-
-  function exportTextsFromComponent (id) {
-
-    var stationCode = $stateParams.stationCode,
-        mobidulCode = $stateParams.mobidulCode;
-
-    $http.get( '/' + mobidulCode + '/' + stationCode + '/exportTexts/' + id )
-    .success(function(result){
-      $log.info('result from export:');
-      $log.debug(result);
-
-      // Todo: change attachment table to accept generic payloads
-    });
-
-  }
-
 
   return service;
 }

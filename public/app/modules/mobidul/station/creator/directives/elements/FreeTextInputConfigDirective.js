@@ -7,12 +7,12 @@ angular
 
 FreeTextInputConfig.$inject = [
   '$log',
-  'UtilityService', 'RallyService'
+  'UtilityService', 'RallyService', 'AttachmentService'
 ];
 
 function FreeTextInputConfig(
   $log,
-  util, RallyService
+  util, RallyService, AttachmentService
 ) {
   return {
 
@@ -45,6 +45,9 @@ function FreeTextInputConfig(
 
     ctrl.exportAnswers = function () {
       $log.debug('Exporting Answers for:', $scope.id);
+
+      AttachmentService.exportTextsFromComponent($scope.id);
+
     };
 
     ctrl.actionOpts = RallyService.getActions();

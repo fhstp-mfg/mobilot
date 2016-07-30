@@ -41,4 +41,21 @@ class AttachmentController extends \BaseController {
 
     }
 
+  public function exportTextsFromComponent ($mobidulCode, $stationCode, $componentId){
+    $stationId = Station::getId($stationCode);
+    $mobidulId = Mobidul::getId($mobidulCode);
+
+    $attachments = Attachment::where(['componentId' => $componentId, 'mobidulId' => $mobidulId, 'stationId' => $stationId])->get();
+
+    // TODO: Add Authentication
+
+    if ( ! $attachments->isEmpty() ) {
+
+      return Response::json(array('attachments' => $attachments, 'empty' => false));
+    } else {
+
+      return Response::json(array('empty' => true));
+    }
+  }
+
 }
