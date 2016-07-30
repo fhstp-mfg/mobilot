@@ -42,6 +42,8 @@ function MobidulService (
         'versteckt', 'aktiviert', 'geöffnet', 'abgeschlossen'
       ],
 
+      elements: ['html', 'ifNear', 'inputCode', 'button', 'photoUpload', 'setTimeout', 'freeText'],
+
       // defaultState: RallyService.STATUS_ACTIVATED,
       defaultState: 'aktiviert',
 
