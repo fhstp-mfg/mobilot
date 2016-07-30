@@ -10,10 +10,10 @@ HtmlEditor.$inject = [
   '$log'
 ];
 
-
 function HtmlEditor (
   $log
 ) {
+
   return {
     restrict: 'E',
     scope: {

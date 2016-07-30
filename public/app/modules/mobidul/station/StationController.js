@@ -551,6 +551,12 @@ function StationController (
                       .append($compile('<mbl-set-timeout data-show="' + obj.show + '" data-delay="' + obj.delay + '" data-action="' + obj.action + '"></mbl-set-timeout>')($scope));
                     break;
 
+                  case 'freeText':
+                    angular
+                      .element(container)
+                      .append($compile('<mbl-free-text-input data-success="' + obj.success + '" data-question="' + obj.question + '" data-id="' + obj.id + '"></mbl-free-text-input>')($scope));
+                    break;
+
                   default:
                     $log.error("Objecttype not known: " + type);
                     break;

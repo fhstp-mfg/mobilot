@@ -7,12 +7,14 @@ angular
 
 PhotoUploadConfig.$inject = [
   '$log',
-  'UtilityService', 'RallyService', 'PhotoService'
+  'UtilityService', 'RallyService', 'PhotoService',
+  'ExportService'
 ];
 
 function PhotoUploadConfig(
   $log,
-  util, RallyService, PhotoService
+  util, RallyService, PhotoService,
+  ExportService
 ) {
   return {
 
@@ -50,7 +52,7 @@ function PhotoUploadConfig(
     ctrl.actionOpts = RallyService.getActions();
 
     ctrl.exportPictures = function(){
-      PhotoService.exportPicturesFromComponent($scope.id);
+      ExportService.exportPicturesFromComponent($scope.id);
     };
   }
 }

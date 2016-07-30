@@ -62,6 +62,10 @@ function ElementContainer(
           $element.prepend($compile('<set-timeout-config data-action="ctrl.element.action" data-delay="ctrl.element.delay" data-show="ctrl.element.show"></set-timeout-config>')($scope));
           break;
 
+        case 'freeText':
+          $element.prepend($compile('<free-text-input-config data-success="ctrl.element.success" data-question="ctrl.element.question" data-id="ctrl.element.id"></free-text-input-config>')($scope));
+          break;
+
         default:
           $log.error('couldn\'t render element with type: ' + type);
       }
@@ -98,7 +102,7 @@ function ElementContainer(
 
         });
 
-    }
+    };
 
   }
 }
