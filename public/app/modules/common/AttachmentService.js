@@ -14,7 +14,7 @@ function AttachmentService (
   $log, $http,
   $stateParams
 ) {
-  /// ExportService
+  /// AttachmentService
   var service =
   {
     /// constants
