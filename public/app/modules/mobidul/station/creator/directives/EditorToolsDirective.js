@@ -37,8 +37,8 @@ function EditorPanel(
 
     MobidulService.getMobidulConfig(currentMobidulCode)
       .then(function(config){
-        $log.info('config in editorpanel:');
-        $log.debug(config);
+        // $log.info('config in editorpanel:');
+        // $log.debug(config);
         ctrl.editorConfig = config.elements;
       });
 

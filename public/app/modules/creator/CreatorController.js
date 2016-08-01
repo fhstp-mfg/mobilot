@@ -137,7 +137,7 @@ function CreatorController (
 
   function _init ()
   {
-    $log.debug('CreatorController init');
+    // $log.debug('CreatorController init');
 
     _initDefaultValues();
 
@@ -163,7 +163,7 @@ function CreatorController (
           .getOptions( mobidulCode )
           .success(function (response, status, headers, config)
           {
-            $log.debug('getOptions success in CreatorController');
+            // $log.debug('getOptions success in CreatorController');
 
             var mobidulPrivate = response.private;
             var mobidulLocked  = response.locked;
@@ -183,7 +183,7 @@ function CreatorController (
             .getConfig( mobidulCode )
             .success(function (response, status, headers, config)
             {
-              $log.debug('getConfig success in CreatorController');
+              // $log.debug('getConfig success in CreatorController');
 
               creator.mobidul.description = response.mobidulDescription;
               creator.menu                = response.customNav.navigation;
@@ -232,7 +232,7 @@ function CreatorController (
             .getCategories( mobidulCode )
                 .success(function (categories, status, headers, config)
                 {
-                    $log.debug('getCategories success in CreatorController');
+                    // $log.debug('getCategories success in CreatorController');
 
           var newCategories = [];
           angular.forEach( categories, function (category, cIx)
@@ -281,7 +281,7 @@ function CreatorController (
 
     function changeDetailTab ()
   {
-    $log.debug('changeDetailTab in CreatorController : ');
+    // $log.debug('changeDetailTab in CreatorController : ');
 
     var editRoute = 'mobidul.creator.';
 
@@ -305,7 +305,7 @@ function CreatorController (
         break;
     }
 
-    $log.debug('goto route : ' + editRoute);
+    // $log.debug('goto route : ' + editRoute);
 
     var currentStateParams = StateManager.state.params || {};
 
@@ -721,7 +721,7 @@ function CreatorController (
 
   function saveCategories ()
   {
-    $log.debug('Save categories in CreatorController');
+    // $log.debug('Save categories in CreatorController');
 
     // only allow to save if the list is not empty and every category has a name
     var canSave = true;
@@ -810,7 +810,7 @@ function CreatorController (
       })
       .then(function (param)
       {
-        $log.debug('type ' + param.type + ' id ' + param.id);
+        // $log.debug('type ' + param.type + ' id ' + param.id);
         creator.addMenuItem( param.type, param.id );
       },
       function () {
@@ -874,8 +874,8 @@ function CreatorController (
 
     function addMenuItem (type, id)
     {
-        $log.debug(type);
-        $log.debug(id);
+        // $log.debug(type);
+        // $log.debug(id);
         creator.closeDialog();
 
         switch ( type )
@@ -1049,9 +1049,9 @@ function CreatorController (
       .show( confirmDeleteMobidulDialog )
       .then(function ()
       {
-        $log.debug('Mobidul löschen triggered');
-        $log.debug('die 2 sollten gleich sein :');
-        $log.debug(StateManager.state.params.mobidulCode + ' === ' + creator.mobidul.code);
+        //$log.debug('Mobidul löschen triggered');
+        //$log.debug('die 2 sollten gleich sein :');
+        //$log.debug(StateManager.state.params.mobidulCode + ' === ' + creator.mobidul.code);
 
         // TODO - check if it is the same as creator.mobidul.code
         var mobidulCode = StateManager.state.params.mobidulCode;
@@ -1060,8 +1060,8 @@ function CreatorController (
           .deleteMobidul( mobidulCode )
           .success(function (response)
           {
-            $log.debug('delete Mobidul in CreatorController callback :');
-            $log.debug(response);
+            // $log.debug('delete Mobidul in CreatorController callback :');
+            // $log.debug(response);
 
             if ( response )
             {
