@@ -6,12 +6,12 @@ angular
   .directive('mblFreeTextInput', FreeTextInput);
 
 FreeTextInput.$inject = [
-  '$log', '$rootScope',
+  '$log', '$rootScope', '$stateParams',
   'AttachmentService'
 ];
 
 function FreeTextInput(
-  $log, $rootScope,
+  $log, $rootScope, $stateParams,
   AttachmentService
 ) {
   return {
@@ -42,12 +42,14 @@ function FreeTextInput(
 
     ctrl.sendAnswer = function () {
 
-      AttachmentService.saveTextInput(ctrl.answer, $attrs.id)
-      .success(function(response, status, headers, config){
+      var mobidulCode = $stateParams.mobidulCode,
+          stationCode = $stateParams.stationCode;
+
+      AttachmentService.saveTextInput(ctrl.answer, mobidulCode, stationCode , $attrs.id)
+      .then(function (response) {
         $log.info('response form saving text:', response);
-      })
-      .error(function (response, status, headers, config) {
-        $log.error('error while saving text:,', response);
+      }, function (error) {
+        $log.error('error while saving text:,', error);
       });
 
       ctrl.disabled = true;

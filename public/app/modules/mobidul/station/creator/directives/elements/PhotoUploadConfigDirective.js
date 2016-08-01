@@ -6,13 +6,13 @@ angular
   .directive('photoUploadConfig', PhotoUploadConfig);
 
 PhotoUploadConfig.$inject = [
-  '$log',
+  '$log', '$stateParams',
   'UtilityService', 'RallyService', 'PhotoService',
   'AttachmentService'
 ];
 
 function PhotoUploadConfig(
-  $log,
+  $log, $stateParams,
   util, RallyService, PhotoService,
   AttachmentService
 ) {
@@ -52,7 +52,10 @@ function PhotoUploadConfig(
     ctrl.actionOpts = RallyService.getActions();
 
     ctrl.exportPictures = function(){
-      AttachmentService.exportPicturesFromComponent($scope.id);
+
+      var stationCode = $stateParams.stationCode;
+
+      AttachmentService.exportPicturesFromComponent(stationCode, $scope.id);
     };
   }
 }

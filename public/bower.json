@@ -43,6 +43,7 @@
     "ngGeolocation": "~0.0.8",
     "ngmap": "~1.14.14",
     "waypoints": "~4.0.0",
-    "angular-ui": "~0.4.0"
+    "angular-ui": "~0.4.0",
+    "angular-mocks": "1.4.7"
   }
 }
