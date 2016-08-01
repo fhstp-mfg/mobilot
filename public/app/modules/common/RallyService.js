@@ -333,16 +333,20 @@ function RallyService (
   function getStatus (progressOrder) {
     var mobidulCode = $stateParams.mobidulCode;
 
+    progressOrder = parseInt(progressOrder);
+
     return $q(function (resolve, reject) {
       MobidulService.getMobidulConfig(mobidulCode)
         .then(function (config) {
           MobidulService.getProgress(mobidulCode)
             .then(function (progress) {
+              progress.progress = parseInt(progress.progress);
               if ( progressOrder < progress.progress ) {
                 resolve( config.states[ config.states.length-1 ] );
               } else if ( progressOrder > progress.progress ) {
                 if ( config.hiddenStations ) {
-                  resolve( RallyService.STATUS_HIDDEN );
+                  console.log(service.STATUS_HIDDEN);
+                  resolve( service.STATUS_HIDDEN );
                 } else {
                   resolve( config.defaultState );
                 }
@@ -367,11 +371,11 @@ function RallyService (
   }
 
   function setStatusOpen (order) {
-    return setStatus(RallyService.STATUS_OPEN, order);
+    return setStatus(service.STATUS_OPEN, order);
   }
 
   function setStatusCompleted (order) {
-    return setStatus(RallyService.STATUS_COMPLETED, order);
+    return setStatus(service.STATUS_COMPLETED, order);
   }
 
 
