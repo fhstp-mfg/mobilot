@@ -1,5 +1,5 @@
 (function () {
-  'use strict';
+'use strict';
 
 angular
   .module('StationCreator')
@@ -10,59 +10,52 @@ Editor.$inject = [
   'MobidulService'
 ];
 
-function Editor(
+function Editor (
   $log, $rootScope, $stateParams,
   MobidulService
-){
-
+) {
   return {
     restrict: 'E',
     template:
-    '<div style="height:100%;">' +
-      '<md-tabs id="editortabs" data-md-selected="ctrl.selectedIndex">' +
-        '<editortab data-tabconfig="tabconfig" data-tabname="tabname" ng-repeat="(tabname, tabconfig) in ctrl.config"></editortab>' +
+    '<div style="height: 100%">' +
+      '<md-tabs id="editortabs" data-md-selected="editor.selectedIndex">' +
+        '<editortab data-tabconfig="tabconfig" data-tabname="tabname" ng-repeat="(tabname, tabconfig) in editor.config"></editortab>' +
       '</md-tabs>' +
     '</div>',
-    scope:{
+    scope: {
       config: '='
     },
     controller: EditorController,
-    controllerAs: 'ctrl',
-    link: function($scope, $element, $attrs, ctrl){
-
-      $scope.$watch('config', function(config){
-        if(config){
-          ctrl.config = config;
-          //$log.info('config editor:');
-          //$log.debug(ctrl.config);
+    controllerAs: 'editor',
+    link: function ($scope, $element, $attrs, Editor) {
+      $scope.$watch('config', function (config) {
+        if (config) {
+          Editor.config = config;
+          // $log.info('config editor:');
+          // $log.debug(Editor.config);
         }
       });
     }
   };
 
-  function EditorController($scope, $element, $attrs){
-    var ctrl = this;
+
+  function EditorController ($scope, $element, $attrs) {
+    var editor = this;
 
     MobidulService.getMobidulConfig($stateParams.mobidulCode)
-      .then(function(config){
-        ctrl.stateMapping = config.states;
-      });
+    .then(function (config) {
+      editor.stateMapping = config.states;
+    });
 
-    $rootScope.$on('add:editorElement', function(event, type){
-
-      var stateConfig = ctrl.config[ctrl.stateMapping[ctrl.selectedIndex]];
-
-      var selected = stateConfig.filter(function(elem){
-        return elem.selected == true;
+    $rootScope.$on('add:editorElement', function (event, type) {
+      var stateConfig = editor.config[ editor.stateMapping[ editor.selectedIndex ] ];
+      var selected = stateConfig.filter(function (elem) {
+        return elem.selected == true
       })[0];
-
       var insertIndex = stateConfig.indexOf(selected) + 1;
 
-      stateConfig.splice(insertIndex, 0, {type: type});
-
+      stateConfig.splice(insertIndex, 0, { type: type });
     });
   }
-}
 
-
-})();
+} })();
