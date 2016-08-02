@@ -35,7 +35,7 @@
 
     function startPositionWatching (station)
     {
-      $log.info('start position watching for:');
+      //$log.info('start position watching for:');
       $log.debug(station);
 
       service.interval = $interval(function () {

@@ -92,7 +92,7 @@ function MapService (
 
   function getCurrentPosition ()
   {
-    $log.debug('getting current position in MapService :');
+    // $log.debug('getting current position in MapService :');
 
     var currentPositionPromise =
       $geolocation
@@ -161,8 +161,8 @@ function MapService (
 
   function clearWatch ()
   {
-    $log.debug('Clear watch with ID :');
-    $log.debug(service.watchPositionId);
+    // $log.debug('Clear watch with ID :');
+    // $log.debug(service.watchPositionId);
 
     if ( service.watchPositionId )
     {
@@ -203,7 +203,7 @@ function MapService (
         service.pollStationsIntervalPromise = null;
     }
     else
-      $log.debug('No poll station interval promise defined.');
+      // $log.debug('No poll station interval promise defined.');
 
     // TODO - check if this is the right time to resolve the defer
     defer.resolve();
@@ -253,8 +253,9 @@ function MapService (
       if ( canceled )
         service.gatheringPositionIntervalPromise = null;
     }
-    else
-      $log.debug('No gathering position interval promise defined.');
+    else {
+      $log.warn('No gathering position interval promise defined.');
+    }
   }
 
 

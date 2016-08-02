@@ -6,12 +6,12 @@ angular
   .directive('freeTextInputConfig', FreeTextInputConfig);
 
 FreeTextInputConfig.$inject = [
-  '$log',
+  '$log', '$stateParams',
   'UtilityService', 'RallyService', 'AttachmentService'
 ];
 
 function FreeTextInputConfig(
-  $log,
+  $log, $stateParams,
   util, RallyService, AttachmentService
 ) {
   return {
@@ -44,9 +44,11 @@ function FreeTextInputConfig(
     var ctrl = this;
 
     ctrl.exportAnswers = function () {
-      $log.debug('Exporting Answers for:', $scope.id);
 
-      AttachmentService.exportTextsFromComponent($scope.id);
+      var stationCode = $stateParams.stationCode,
+          mobidulCode = $stateParams.mobidulCode;
+
+      AttachmentService.exportTextsFromComponent(mobidulCode, stationCode, $scope.id);
 
     };
 

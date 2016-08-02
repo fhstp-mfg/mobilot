@@ -91,7 +91,7 @@ function MapController (
 
   function _init ()
   {
-    $log.debug('MapController init');
+    // $log.debug('MapController init');
     // $log.debug('isNewStation : ' + map.isNewStation);
     // LocalStorageService.explainGenericGeoPermit(true);
 
@@ -115,7 +115,7 @@ function MapController (
 
   function _initDefaultValues ()
   {
-    $log.debug('init default values in MapController');
+    // $log.debug('init default values in MapController');
 
     $scope.isMobidulMap          = StateManager.isMobidulMap();
     $scope.isStationCreatorPlace = StateManager.isStationCreatorPlace();
@@ -159,7 +159,7 @@ function MapController (
     $scope
       .$on('mapInitialized', function (event, map)
       {
-        $log.debug('mapInitialized event');
+        // $log.debug('mapInitialized event');
         // $log.debug('isMobidulMap : ' + $scope.isMobidulMap );
         // $log.debug('isStationCreatorPlace : ' + $scope.isStationCreatorPlace );
 
@@ -181,7 +181,7 @@ function MapController (
         }
         else if ( $scope.isStationCreatorPlace )
         {
-          $log.debug('GoogleMaps ready for StationCreatorPlace');
+          // $log.debug('GoogleMaps ready for StationCreatorPlace');
 
           MapService.stopPollStations();
 
@@ -197,8 +197,8 @@ function MapController (
 
   function _initWatchPosition ()
   {
-    $log.debug('watchPosition in MapController : ');
-    $log.debug($scope.myPosition);
+    // $log.debug('watchPosition in MapController : ');
+    // $log.debug($scope.myPosition);
 
     if (
       ! $scope.myPosition &&
@@ -236,8 +236,8 @@ function MapController (
     var watchPositionId =
       navigator.geolocation.watchPosition(function (position)
       {
-        $log.debug('watchPosition in MapController callback :');
-        $log.debug(position);
+        // $log.debug('watchPosition in MapController callback :');
+        // $log.debug(position);
 
         $scope.myPosition = position;
 
@@ -261,8 +261,8 @@ function MapController (
           fitToMarkers();
         }
 
-        $log.debug('centering to my position :');
-        $log.debug($scope.centerToMyPosition);
+        // $log.debug('centering to my position :');
+        // $log.debug($scope.centerToMyPosition);
 
         if ( $scope.centerToMyPosition )
         {
@@ -440,7 +440,7 @@ function MapController (
   {
     $scope.$on('$destroy', function ()
     {
-      $log.debug('MapController $destroy :');
+      // $log.debug('MapController $destroy :');
 
       MapService.lastCenter = {};
       MapService.lastCenter.latitude  = $scope.map.getCenter().lat();
@@ -451,8 +451,8 @@ function MapController (
       MapService.stopPollStations();
       MapService.clearWatch();
 
-      $log.debug(MapService.lastCenter);
-      $log.debug(MapService.lastZoom);
+      // $log.debug(MapService.lastCenter);
+      // $log.debug(MapService.lastZoom);
     });
   }
 
@@ -476,8 +476,8 @@ function MapController (
 
   function _initOriginMap ()
   {
-    $log.debug('init origin map');
-    $log.debug('Map is first load : ' + MapService.firstLoad);
+    // $log.debug('init origin map');
+    // $log.debug('Map is first load : ' + MapService.firstLoad);
 
     var gmap = $scope.map;
 
@@ -519,8 +519,8 @@ function MapController (
 
   function _initStationCreatorMap ()
   {
-    $log.debug('init station creator map');
-    $log.debug('(not doing anything)');
+    // $log.debug('init station creator map');
+    // $log.debug('(not doing anything)');
 
     // $scope.centerToMyPosition = true;
   }
@@ -560,13 +560,13 @@ function MapController (
 
   function goToStation (stationCode)
   {
-    $log.debug('go to station');
+    // $log.debug('go to station');
 
     // var stationCode = marker.id;
-    $log.debug(stationCode);
+    // $log.debug(stationCode);
 
     var mobidulCode = StateManager.state.params.mobidulCode;
-    $log.debug(mobidulCode);
+    // $log.debug(mobidulCode);
 
     var routeParams =
     {
@@ -618,7 +618,7 @@ function MapController (
 
   function fitToMarkers ()
   {
-    $log.debug('fitToMarkers');
+    // $log.debug('fitToMarkers');
 
     $scope.centerToMyPosition = false;
 
@@ -628,7 +628,7 @@ function MapController (
     /// MobidulMap
     if ( $scope.isMobidulMap )
     {
-      $log.debug('isMobidulMap');
+      // $log.debug('isMobidulMap');
 
       var bounds = new google.maps.LatLngBounds();
 
@@ -654,7 +654,7 @@ function MapController (
     /// StationCreatorPlace
     if ( $scope.isStationCreatorPlace )
     {
-      $log.debug('isStationCreatorPlace');
+      // $log.debug('isStationCreatorPlace');
 
       var newStationPosition =
         new google.maps.LatLng( StationCreatorService.marker.coords.latitude,
@@ -711,8 +711,8 @@ function MapController (
               .getMapStations( mobidulCode )
               .success(function (stations, status, headers)
               {
-                $log.debug('Map Stations response success :');
-                $log.debug(stations);
+                // $log.debug('Map Stations response success :');
+                // $log.debug(stations);
 
                 RallyService.refresh();
 

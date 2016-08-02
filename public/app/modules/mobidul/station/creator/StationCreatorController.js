@@ -104,7 +104,7 @@ function StationCreatorController (
 
   function _init ()
   {
-    $log.debug('StationCreatorController init');
+    // $log.debug('StationCreatorController init');
 
     HeaderService.refresh();
 
@@ -235,7 +235,7 @@ function StationCreatorController (
     var cancelEditListener =
       $rootScope.$on('Header::cancelEdit', function (event, config)
       {
-        $log.debug('Listened to "Header::cancelEdit"');
+        // $log.debug('Listened to "Header::cancelEdit"');
 
         // _saveStation();
 
@@ -349,7 +349,7 @@ function StationCreatorController (
 
   function _loadStation (mobidulCode, stationCode)
   {
-    $log.debug('StationCreatorController _loadStation : ');
+    // $log.debug('StationCreatorController _loadStation : ');
     // $log.debug(mobidulCode);
     // $log.debug(stationCode);
 
@@ -357,8 +357,8 @@ function StationCreatorController (
       .loadStation( mobidulCode, stationCode )
       .success(function (response, status, headers, config)
       {
-        $log.debug('StationCreatorController _loadStation callback : ');
-        $log.debug(response);
+        // $log.debug('StationCreatorController _loadStation callback : ');
+        // $log.debug(response);
 
         var stationData = response || null;
 
@@ -444,7 +444,7 @@ function StationCreatorController (
 
   function _saveStation ()
   {
-    $log.debug('> Saving station');
+    // $log.debug('> Saving station');
 
     var currentStateParams = StateManager.state.params;
     // $log.debug(currentStateParams);
@@ -487,8 +487,8 @@ function StationCreatorController (
       };
 
 
-      $log.debug('station data : ');
-      $log.debug(stationData);
+      // $log.debug('station data : ');
+      // $log.debug(stationData);
 
 
       // NOTE - add station
@@ -534,16 +534,16 @@ function StationCreatorController (
             stationData
           )
           .then(function (response) {
-            $log.debug('save station StationCreatorService callback :');
-            $log.debug(response);
-            $log.debug(currentStateParams.stationCode);
+            // $log.debug('save station StationCreatorService callback :');
+            // $log.debug(response);
+            // $log.debug(currentStateParams.stationCode);
 
             var saved = response.data.saved;
             var msg = response.data.msg || 'Unknown error';
 
             if (saved) {
               var stationCode = response.data.code;
-              $log.debug(stationCode);
+              // $log.debug(stationCode);
 
               $state.go(
                 'mobidul.station',
@@ -563,7 +563,7 @@ function StationCreatorController (
 
   function _checkForChanges ()
   {
-    $log.debug('StationCreator checkForChanges : ');
+    // $log.debug('StationCreator checkForChanges : ');
 
     var hasStationChanges    = ! angular.equals( stationCreator.station, stationCreator.origStation );
     var hasCategoriesChanges = ! angular.equals( stationCreator.categories, stationCreator.origCategories );
@@ -949,7 +949,7 @@ function StationCreatorController (
             $log.error(status);
           });
       }, function () {
-        $log.info('TODO: check this case in StationCreatorController');
+        $log.warn('TODO: check this case in StationCreatorController');
       });
   }
 }

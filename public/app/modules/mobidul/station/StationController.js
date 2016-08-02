@@ -233,7 +233,7 @@ function StationController (
                   renderJSON();
                 } catch (e) {
                   // TODO: Add better error !
-                  $log.info('No JSON');
+                  $log.warn('No JSON');
                   $log.error(e);
                   // station.renderText();
                 }
@@ -479,8 +479,8 @@ function StationController (
   {
     RallyService.getStatus(station.order)
       .then(function (status) {
-        $log.info('StationController - renderJSON - RallyService.getStatus - status:');
-        $log.debug(status, station, StateManager.isStationCreator());
+        // $log.info('StationController - renderJSON - RallyService.getStatus - status:');
+        // $log.debug(status, station, StateManager.isStationCreator());
 
         station.currentState = status;
 
