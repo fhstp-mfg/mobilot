@@ -390,10 +390,15 @@ function HomeController (
 
   function switchToCreator ()
   {
-    $state.go('mobidul.creator.basis',
-    {
-      mobidulCode : StateManager.NEW_MOBIDUL_CODE
-    });
+    if ( ! UserService.Session.isLoggedIn ) {
+      var stateParams = StateManager.state.params;
+      $state.go(StateManager.LOGIN, stateParams);
+    } else {
+      $state.go('mobidul.creator.basis',
+        {
+          mobidulCode: StateManager.NEW_MOBIDUL_CODE
+        });
+    }
   }
 
   function switchToPlay ()

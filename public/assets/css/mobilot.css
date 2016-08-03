@@ -120,8 +120,9 @@ p { margin: 0; }
   background : ghostwhite !important
 }
 
-md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon {
-    background-color: #3797c4;
+md-checkbox.md-default-theme.md-checked .md-icon,
+md-checkbox.md-checked .md-icon {
+  background-color: #3797c4;
 }
 
 .accuracy-ribbon
@@ -304,80 +305,79 @@ map {
   padding-right : 0
 }
 
-.tinyeditor
-{
+.tinyeditor {
   padding : 0;
   border  : 0;
 }
 
-.tinyeditor .sizer{
-    min-height: 0px;
-    margin-bottom:2.5em;
+.tinyeditor .sizer {
+  min-height: 0px;
+  margin-bottom: 2.5em;
 }
 
-#editortabs{
-    height:100%;
+#editortabs {
+  height: 100%;
 }
 
-#editortabs ul{
-    list-style: none;
-    margin: 0;
-    padding: 0;
+#editortabs ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.editor-add-button{
-    min-width: 83px;
-    padding: 0;
+.editor-add-button {
+  min-width: 83px;
+  padding: 0;
 }
 
-element-container{
-    border: solid 1px grey;
-    display: block;
-    position: relative;
-    margin-bottom: 1em;
-    padding: 0.5em 1em 2.5em 3em;
+element-container {
+  border: solid 1px grey;
+  display: block;
+  position: relative;
+  margin-bottom: 1em;
+  padding: 0.5em 1em 2.5em 3em;
 }
 
-li.selected element-container{
-    border: none;
+li.selected element-container {
+  border: none;
 }
 
-#tinyeditor_left_controls{
-    display:none;
+#tinyeditor_left_controls {
+  display: none;
 }
 
-li.selected #tinyeditor_left_controls{
-    display: flex;
+li.selected #tinyeditor_left_controls {
+  display: flex;
 }
 
-.config-part{
-    display: none;
+.config-part {
+  display: none;
 }
 
-li.selected .config-part{
-    display: block;
+li.selected .config-part {
+  display: block;
 }
 
-.editor-element-delete{
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-    min-width:0;
+.editor-element-delete {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  min-width:0;
 }
 
-.editor-element-info{
-    position: absolute;
-    top: 0;
-    left: 0;
-    min-width: 0;
+.editor-element-info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 0;
 }
 
-element-container md-input-container{
-    display: block;
+element-container md-input-container {
+  display: block;
 }
 
-element-container mbl-input-code md-input-container{
-    display: inline-block;
+element-container mbl-input-code md-input-container {
+  display: inline-block;
 }
 
 

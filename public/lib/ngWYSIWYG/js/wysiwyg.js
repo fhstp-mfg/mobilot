@@ -427,7 +427,7 @@ angular.module('ngWYSIWYG').directive('wysiwygEdit', ['$log', '$compile', '$time
 			},
 			restrict: 'AE',
 			replace: true,
-			templateUrl: '/lib/ngWYSIWYG/tpl/wysiwyg.tpl'
+			templateUrl: 'lib/ngWYSIWYG/tpl/wysiwyg.tpl'
 		}
 	}
 ]);

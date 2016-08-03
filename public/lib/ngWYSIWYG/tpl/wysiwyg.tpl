@@ -6,7 +6,7 @@
 
             <div id="tinyeditor_left_controls" layout="column">
 
-                <choose-file-button style="max-width : 133px; height : 64px">
+                <choose-file-button style="max-width: 133px; height: 64px">
                     <!-- <md-button
                         aria-label="Upload a file"
                         class="md-raised tinyeditor-control"
