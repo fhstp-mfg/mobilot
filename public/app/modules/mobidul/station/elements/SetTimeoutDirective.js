@@ -16,11 +16,12 @@ function SetTimeout (
 ) {
   return {
     restrict: 'E',
-    template: '
-      <div data-ng-if="setTimeout.show">
-        <span>{{ setTimeout.countdown }}</span>
-      </div>
-    ',
+    template: '' +
+      '<div data-ng-if="setTimeout.show">' +
+        '<span>{{ setTimeout.countdown }}</span>' +
+      '</div>'
+    ,
+
     scope: {
       delay: '@',
       action: '@',
@@ -29,7 +30,7 @@ function SetTimeout (
 
     link: function ($scope, $element, $attr, SetTimeout) {
       SetTimeout.countdown = parseInt($scope.delay);
-      SetTimeout.show = ( $scope.show == 'true' );
+      SetTimeout.show = $scope.show == 'true';
 
       if ( SetTimeout.show ) {
         $rootScope.countdown = $interval(function () {
@@ -56,6 +57,7 @@ function SetTimeout (
     $scope, $element, $attrs
   ) {
     var setTimeout = this;
+    
     // ...
   }
 }

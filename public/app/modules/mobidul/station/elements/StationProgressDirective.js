@@ -22,21 +22,21 @@ function StationProgress (
       current: '@',
       length: '@'
     },
-    template: '
-      <div>
-        <ul
-          id="ProgressBar"
-          class="progressbar clearfix"
-          data-progtrckr-steps="{{ length }}"
-        >
-          <li
-            ng-class="( $index == current ) ? \'current\' : \'\'"
-            ng-repeat="i in stationProgress.getNumber(length) track by $index"
-            ng-click="stationProgress.goToStation($index)">
-          </li>
-        </ul>
-      </div>
-    ',
+    template: '' +
+      '<div>' +
+        '<ul ' +
+          'id="ProgressBar" ' +
+          'class="progressbar clearfix" ' +
+          'data-progtrckr-steps="{{ length }}" ' +
+        '>' +
+          '<li ' +
+            'ng-class="( $index == current ) ? \'current\' : \'\'" ' +
+            'ng-repeat="i in stationProgress.getNumber(length) track by $index" ' +
+            'ng-click="stationProgress.goToStation($index)">' +
+          '</li>' +
+        '</ul>' +
+      '</div>'
+    ,
 
     link: function ($scope, $element, $attrs, StationProgress) {
       $scope.length = parseInt($scope.length);
