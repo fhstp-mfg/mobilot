@@ -28,6 +28,7 @@ function PlayController (
 
   /// functions
   play.join = join;
+  play.scan = scan;
 
 
   /// construct
@@ -37,35 +38,30 @@ function PlayController (
 
   /// private functions
 
-  function _init ()
-  {
+  function _init () {
     $log.debug('PlayController init');
 
     _initDefaultValues();
   }
 
 
-  function _initDefaultValues ()
-  {
+  function _initDefaultValues () {
     play.code = '';
   }
 
 
   /// public functions
 
-  function join ()
-  {
-    PlayService
-    .play(play.code)
+  function join () {
+    PlayService.play(play.code)
     .success(function (response) {
       // console.warn('join mobidul play callback : ');
       // console.info(response);
 
       if (response) {
         if (response.success) {
-          $state.go('mobidul.map', { mobidulCode : response.code });
-        }
-        else {
+          $state.go('mobidul.map', { mobidulCode: response.code });
+        } else {
           var msg = 'Dieser Mitmach-Code ist ungültig. Bitte versuche es nochmal oder kontaktiere den Ersteller des Mobiduls.';
 
           var invalidPlayDialog =
@@ -80,5 +76,12 @@ function PlayController (
         }
       }
     });
+  }
+
+
+  function scan () {
+    if (isCordova) {
+      alert('scan awaiting')
+    }
   }
 }
