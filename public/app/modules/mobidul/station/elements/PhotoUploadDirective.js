@@ -35,7 +35,7 @@ function PhotoUpload (
         '<md-button ' +
           'class="md-raised md-primary" ' +
           'ng-click="photoUpload.selectPhoto()"' +
-        '>Foto hochladen</md-button>'
+        '>Foto hochladen</md-button>' +
       '</div>'
     ,
     scope: {
