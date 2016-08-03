@@ -32,10 +32,28 @@ module.exports = function(config) {
       './public/lib/angular-pan-zoom/release/panzoom.min.js',
       './public/assets/js/angular-drag-and-drop-lists.js',
       './public/lib/angular-mousewheel/mousewheel.js',
-
+      './public/lib/angular-translate/angular-translate.min.js',
 
 
       './public/app/app.module.js',
+      //'./public/app/app.config.js',
+
+      './public/app/modules/core/StateManager.js',
+      './public/app/modules/core/models/StateModel.js',
+      './public/app/modules/common/UtilityService.js',
+      './public/app/modules/core/HeaderService.js',
+      './public/app/modules/mobidul/MobidulService.js',
+      './public/app/modules/common/LocalStorageService.js',
+      './public/app/modules/mobidul/station/creator/StationCreatorService.js',
+      './public/app/modules/creator/CreatorService.js',
+      './public/app/modules/common/UserService.js',
+       './public/assets/js/mobile_imports.js',
+      // './public/app/modules/mobidul/station/creator/StationCreatorService.js',
+      // './public/app/modules/mobidul/station/creator/StationCreatorService.js',
+      // './public/app/modules/mobidul/station/creator/StationCreatorService.js',
+
+      './public/app/modules/core/LanguageService.js',
+      './public/app/modules/core/LanguageServiceSpec.js',
 
       './public/app/modules/common/AttachmentService.js',
       './public/app/modules/common/AttachmentServiceSpec.js'
@@ -89,4 +107,4 @@ module.exports = function(config) {
     // how many browser should be started simultaneous
     concurrency: Infinity
   })
-}
+};
