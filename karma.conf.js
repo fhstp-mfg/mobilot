@@ -43,6 +43,7 @@ module.exports = function(config) {
       './public/app/modules/common/UtilityService.js',
       './public/app/modules/core/HeaderService.js',
       './public/app/modules/mobidul/MobidulService.js',
+      './public/app/modules/mobidul/MobidulServiceSpec.js',
       './public/app/modules/common/LocalStorageService.js',
       './public/app/modules/mobidul/station/creator/StationCreatorService.js',
       './public/app/modules/creator/CreatorService.js',

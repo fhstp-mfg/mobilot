@@ -235,14 +235,17 @@ function MobidulService (
   }
 
   function getMobidulMode (mobidulCode) {
-    return $http.get(cordovaUrl + '/' + mobidulCode + '/getConfig')
-    .success(function (response, status, headers, config) {
-      return response.mode;
-    })
-    .error(function (response, status, headers, config) {
-      $log.error(response);
-      $log.error(status);
-    })
+    return $q(function ( resolve, reject ) {
+      $http.get(cordovaUrl + '/' + mobidulCode + '/getConfig')
+      .success(function (response, status, headers, config) {
+        resolve(response.mode);
+      })
+      .error(function (response, status, headers, config) {
+        $log.error(response);
+        $log.error(status);
+        reject(response);
+      })
+    });
   }
 
   function getModes () {
@@ -251,8 +254,7 @@ function MobidulService (
 
   function getMobidulConfig (mobidulCode) {
     return service.getMobidulMode(mobidulCode)
-    .then(function (response) {
-      var mode = response.data.mode;
+    .then(function (mode) {
       var mobidulMode = service.MOBIDUL_MODES.filter(function (mobidulMode) {
         return mode == mobidulMode.name;
       })[0];
