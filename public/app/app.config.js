@@ -4,8 +4,8 @@
 
 angular
   .module('Mobilot')
-  .config([   '$logProvider', '$stateProvider', '$urlRouterProvider',
-    function ( $logProvider,   $stateProvider,   $urlRouterProvider )
+  .config([   '$logProvider', '$stateProvider', '$urlRouterProvider', '$translateProvider',
+    function ( $logProvider,   $stateProvider,   $urlRouterProvider,   $translateProvider )
     {
       /// debugging
       var isDeveloperEnv = document.location.hostname != 'mobilot.at';
@@ -13,6 +13,12 @@ angular
 
       $logProvider.debugEnabled( isDeveloperEnv );
 
+      $translateProvider.useStaticFilesLoader({
+        prefix: 'assets/lang/lang-',
+        suffix: '.json'
+      });
+
+      $translateProvider.preferredLanguage('de_DE');
 
       /// redirects
 
