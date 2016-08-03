@@ -382,10 +382,8 @@ function RallyService (
   /// events
 
   function _onNotCompleted () {
-    alert(`
-      Die aktuelle "aktivierte" Station muss zuerst "abgeschlossen" werden,
-      bevor die nächste Station aktiviert werden kann!
-    `);
+    alert('Die aktuelle "aktivierte" Station muss zuerst "abgeschlossen" werden, ' +
+          'bevor die nächste Station aktiviert werden kann!');
   }
 
 

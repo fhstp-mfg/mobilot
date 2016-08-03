@@ -18,7 +18,7 @@ function PhotoUpload (
 ) {
   return {
     restrict: 'E',
-    template: `
+    template: '
       <div class="PhotoUpload">
         {{ content }}
 
@@ -37,7 +37,7 @@ function PhotoUpload (
           ng-click="photoUpload.selectPhoto()"
         >Foto hochladen</md-button>
       </div>
-    `,
+    ',
     scope: {
       id: '@',
       content: '@',

@@ -23,7 +23,7 @@ function TriggerNear (
       success: '@',
       range: '@'
     },
-    template: `
+    template: '
       <div>
         <div ng-if="triggerNear.inaccurate">
           <span>Dein GPS ist zu ungenau. Gib den richtigen Code bei der Station ein:</span>
@@ -46,7 +46,7 @@ function TriggerNear (
           </div>
         </div>
       </div>
-    `,
+    ',
 
     link: function ($scope, $element, $attrs, TriggerNear) {
       $scope.$on('inaccurate', function (event, inaccurate) {

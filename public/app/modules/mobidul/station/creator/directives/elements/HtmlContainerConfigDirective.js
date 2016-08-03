@@ -19,14 +19,14 @@ function HtmlEditor (
     scope: {
       content: '='
     },
-    template: `
+    template: '
       <div>
         <wysiwyg-edit
           content="content"
           api="htmlEditor.api">
         </wysiwyg-edit>
       </div>
-    `,
+    ',
 
     link: function ($scope, $element, $attrs, HtmlEditor) {
       // ...

@@ -20,7 +20,7 @@ function ActionButton (
     scope: {
       success: '@'
     },
-    template: `
+    template: '
       <div>
         <md-button
           class="md-raised md-primary"
@@ -29,7 +29,7 @@ function ActionButton (
           <ng-transclude></ng-transclude>
         </md-button>
       </div>
-    `,
+    ',
     controller: ActionButtonController,
     controllerAs: 'actionButton'
   }

@@ -16,11 +16,11 @@ function SetTimeout (
 ) {
   return {
     restrict: 'E',
-    template: `
+    template: '
       <div data-ng-if="setTimeout.show">
         <span>{{ setTimeout.countdown }}</span>
       </div>
-    `,
+    ',
     scope: {
       delay: '@',
       action: '@',

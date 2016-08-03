@@ -24,8 +24,8 @@ function InputCode (
       error: '@',
       id: '@'
     },
-    template: `
-      '<div>
+    template: '
+      <div>
         <form ng-submit="inputCode.submit()">
           <md-input-container>
             <input
@@ -41,7 +41,7 @@ function InputCode (
           >Go</md-button>
         </form>
       </div>
-    `,
+    ',
 
     link: function ($scope, $element, $attrs, InputCode) {
       // ...

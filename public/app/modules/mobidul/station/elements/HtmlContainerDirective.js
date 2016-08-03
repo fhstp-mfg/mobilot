@@ -17,12 +17,12 @@ function HtmlContainer (
   return {
     restrict: 'E',
     transclude: true,
-    template: `
+    template: '
       <div>
         <div ng-transclude></div>
         <br>
       </div>
-    `
+    '
   }
 }
 

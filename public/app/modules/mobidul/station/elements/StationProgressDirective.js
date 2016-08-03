@@ -22,7 +22,7 @@ function StationProgress (
       current: '@',
       length: '@'
     },
-    template: `
+    template: '
       <div>
         <ul
           id="ProgressBar"
@@ -36,7 +36,7 @@ function StationProgress (
           </li>
         </ul>
       </div>
-    `,
+    ',
 
     link: function ($scope, $element, $attrs, StationProgress) {
       $scope.length = parseInt($scope.length);
