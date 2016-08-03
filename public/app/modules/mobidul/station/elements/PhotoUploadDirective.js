@@ -30,7 +30,7 @@ function PhotoUpload (
             'onchange="angular.element(this).scope().uploadPhoto(this)" ' +
             'accept="image/*"' +
           '>' +
-        '</form>'
+        '</form>' +
 
         '<md-button ' +
           'class="md-raised md-primary" ' +
