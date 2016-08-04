@@ -249,8 +249,8 @@ function CreatorController (
       creator.canNotSave      = isNewMobidul; // TODO - check if this is right
       creator.saveBasisText   =
         creator.isNewMobidul
-          ? CreatorService.CREATE_MOBIDUL
-          : CreatorService.UPDATE_MOBIDUL;
+          ? $translate.instant('CREATE_MOBIDUL')
+          : $translate.instant('SAVE');
     }
   }
 
@@ -455,7 +455,7 @@ function CreatorController (
 
 
     if ( creator.isNewMobidul ) {
-      creator.saveBasisText = CreatorService.CREATING_MOBIDUL;
+      creator.saveBasisText = $translate.instant('MOBIDUL_IS_CREATED');
 
       CreatorService.createMobidul(params)
       .success(function (response, status, headers, config) {
@@ -482,7 +482,7 @@ function CreatorController (
         });
       });
     } else {
-      creator.saveBasisText = CreatorService.UPDATING_MOBIDUL;
+      creator.saveBasisText = $translate.instant('MOBIDUL_IS_SAVED');
 
       CreatorService.updateMobidul(creator.mobidul.originalCode, params)
       .success(function (response, status, headers, config) {

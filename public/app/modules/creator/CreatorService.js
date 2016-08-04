@@ -21,11 +21,6 @@ function CreatorService (
 
     MOBIDUL_CODE_EXAMPLE : 'mobidul-code',
 
-    CREATE_MOBIDUL       : $translate.instant('CREATE_MOBIDUL'),
-    CREATING_MOBIDUL     : $translate.instant('MOBIDUL_IS_CREATED'),
-    UPDATE_MOBIDUL       : $translate.instant('SAVE'),
-    UPDATING_MOBIDUL     : $translate.instant('MOBIDUL_IS_SAVED'),
-
     DEFAULT_FONT         : 'default',
 
 

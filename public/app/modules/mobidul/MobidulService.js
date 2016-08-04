@@ -25,8 +25,6 @@ function MobidulService (
     NEW_STATION     : 1,
     MOBIDUL_OPTIONS : 2,
 
-    NEW_MOBIDUL_TITLE : $translate.instant('NEW_MOBIDUL_NAME'),
-
     MOBIDUL_MODE_RALLY : 'rally',
     MOBIDUL_MODE_DEFAULT : 'default',
 
@@ -39,7 +37,7 @@ function MobidulService (
       //   RallyService.STATUS_COMPLETED
       // ],
       states: [
-        'HIDDEN', 'ACTIVATED', 'OPEN', 'COMPLETED'
+        'ACTIVATED', 'OPEN', 'COMPLETED'
       ],
 
       elements: ['html', 'ifNear', 'inputCode', 'button', 'photoUpload', 'setTimeout', 'freeText'],
