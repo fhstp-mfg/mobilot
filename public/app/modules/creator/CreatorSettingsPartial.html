@@ -56,8 +56,8 @@
 
     <div class="section">
       <div layout-sm="column">
-        <h3 class="section-title">Berechtigungen</h3>
-        <p class="helper"><strong>Welche</strong> Stationen dürfen editiert werden?</p>
+        <h3 class="section-title" translate="RIGHTS"></h3>
+        <p class="helper" translate="WHICH_STATIONS_ALLOWED_TO_EDIT"></p>
       </div>
 
       <div layout="row" layout-sm="column">
@@ -86,7 +86,7 @@
           class="md-raised md-primary"
           ng-click="creator.saveOptions()"
         >
-          <span flex>Einstellungen Speichern</span>
+          <span flex translate="SAVE_OPTIONS"></span>
         </md-button>
       </div>
     </div>
@@ -96,7 +96,7 @@
     <!-- Mitmach–Codes -->
 
     <div class="section">
-      <h3 class="section-title">Mitmach–Codes</h3>
+      <h3 class="section-title" translate="JOIN_CODES"></h3>
 
       <div layout="row" layout-sm="column">
         <md-list ng-if="creator.codes.length">
@@ -135,10 +135,7 @@
       </div>
 
       <div layout-sm="column">
-        <p class="helper">
-          Mitmach-Codes geben die Möglichkeit beim einem Mobidul mitzumachen.
-          Benutzer welche den gleichen Code verwenden, gehören der selben Gruppe an.
-        </p>
+        <p class="helper" translate="GROUP_EXPLANATION"></p>
       </div>
 
       <div layout-sm="column" style="margin-top: 1em">
@@ -146,7 +143,7 @@
           class="md-raised"
           ng-click="creator.requestCode()"
         >
-          <span flex>Code anfordern</span>
+          <span flex translate="REQUEST_CODE"></span>
         </md-button>
       </div>
     </div>
@@ -160,7 +157,7 @@
 
     <div layout="column">
       <p class="helper center dangerous">
-        <span>Mobidul wird unwiderruflich gelöscht.</span>
+        <span translate="DELETE_MOBIDUL_WARNING"></span>
       </p>
 
       <md-button
@@ -170,7 +167,7 @@
         flex>
 
         <md-icon>delete</md-icon>
-        <span>Mobidul löschen</span>
+        <span translate="DELETE_MOBIDUL"></span>
       </md-button>
     </div>
   </md-content>

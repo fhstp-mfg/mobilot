@@ -31,18 +31,17 @@ function MobidulService (
     MOBIDUL_MODES : [
     {
       name: 'rally',
-      // states: [
-      //   RallyService.STATUS_ACTIVATED,
-      //   RallyService.STATUS_OPEN,
-      //   RallyService.STATUS_COMPLETED
-      // ],
+
       states: [
         'ACTIVATED', 'OPEN', 'COMPLETED'
       ],
 
-      elements: ['html', 'ifNear', 'inputCode', 'button', 'photoUpload', 'setTimeout', 'freeText'],
+      elements: [
+        'html', 'ifNear', 'inputCode',
+        'button', 'photoUpload', 'setTimeout',
+        'freeText', 'confirmSocial'
+      ],
 
-      // defaultState: RallyService.STATUS_ACTIVATED,
       defaultState: 'ACTIVATED',
 
       hiddenStations: true
@@ -50,10 +49,8 @@ function MobidulService (
       name: 'default',
       elements: [ 'html' ],
 
-      // states: [ RallyService.STATUS_OPEN ],
       states: 'OPEN',
 
-      // defaultState: RallyService.STATUS_OPEN,
       defaultState: 'OPEN',
       
       hiddenStations: false

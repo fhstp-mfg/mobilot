@@ -497,32 +497,20 @@ function StationController (
                 switch (type) {
                   case 'html':
                     angular
-                      .element(container)
-                      .append($compile('<mbl-html-container>' + obj.content + '</mbl-html-container>')($scope))
+                    .element(container)
+                    .append($compile('<mbl-html-container>' + obj.content + '</mbl-html-container>')($scope))
                     break;
 
                   case 'inputCode':
                     angular
-                      .element(container)
-                      .append($compile("<mbl-input-code data-id='" + obj.id + "' verifier='" + obj.verifier + "' success='" + obj.success + "' error='" + obj.error + "'></mbl-input-code>")($scope));
-                    break;
-
-                  case 'scanCode':
-                    angular
-                      .element(container)
-                      .append($compile("<scancode></scancode>")($scope));
-                    break;
-
-                  case 'navigator':
-                    angular
-                      .element(container)
-                      .append($compile("<navigator></navigator>")($scope));
+                    .element(container)
+                    .append($compile("<mbl-input-code data-id='" + obj.id + "' verifier='" + obj.verifier + "' success='" + obj.success + "' error='" + obj.error + "'></mbl-input-code>")($scope));
                     break;
 
                   case 'button':
                     angular
-                      .element(container)
-                      .append($compile("<mbl-action-button success='" + obj.success + "'>" + obj.content + "</mbl-action-button>")($scope));
+                    .element(container)
+                    .append($compile("<mbl-action-button success='" + obj.success + "'>" + obj.content + "</mbl-action-button>")($scope));
                     break;
 
                   case 'ifNear':
@@ -532,27 +520,34 @@ function StationController (
                     }, 0);
 
                     angular
-                      .element(container)
-                      .append($compile("<mbl-trigger-near range='" + obj.range + "' fallback='" + obj.fallback + "' success='" + obj.success + "'></mbl-trigger-near>")($scope));
+                    .element(container)
+                    .append($compile("<mbl-trigger-near range='" + obj.range + "' fallback='" + obj.fallback + "' success='" + obj.success + "'></mbl-trigger-near>")($scope));
 
                     break;
 
                   case 'photoUpload':
                     angular
-                      .element(container)
-                      .append($compile('<mbl-photo-upload data-id="' + obj.id + '" data-success="' + obj.success + '" data-content="' + obj.content + '"></mbl-photo-upload>')($scope));
+                    .element(container)
+                    .append($compile('<mbl-photo-upload data-id="' + obj.id + '" data-success="' + obj.success + '" data-content="' + obj.content + '"></mbl-photo-upload>')($scope));
                     break;
 
                   case 'setTimeout':
                     angular
-                      .element(container)
-                      .append($compile('<mbl-set-timeout data-show="' + obj.show + '" data-delay="' + obj.delay + '" data-action="' + obj.action + '"></mbl-set-timeout>')($scope));
+                    .element(container)
+                    .append($compile('<mbl-set-timeout data-show="' + obj.show + '" data-delay="' + obj.delay + '" data-action="' + obj.action + '"></mbl-set-timeout>')($scope));
                     break;
 
                   case 'freeText':
                     angular
-                      .element(container)
-                      .append($compile('<mbl-free-text-input data-success="' + obj.success + '" data-question="' + obj.question + '" data-id="' + obj.id + '"></mbl-free-text-input>')($scope));
+                    .element(container)
+                    .append($compile('<mbl-free-text-input data-success="' + obj.success + '" data-question="' + obj.question + '" data-id="' + obj.id + '"></mbl-free-text-input>')($scope));
+                    break;
+
+                  case 'confirmSocial':
+                    angular
+                    .element(container)
+                    .append($compile('<mbl-confirm-social data-success="' + obj.success + '" data-id="' + obj.id + '"></mbl-confirm-social>')($scope));
+
                     break;
 
                   default:

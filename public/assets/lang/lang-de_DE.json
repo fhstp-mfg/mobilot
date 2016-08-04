@@ -22,6 +22,7 @@
   "EDIT": "Bearbeiten",
 
   "OPTIONS": "Optionen",
+  "RIGHTS": "Berechtigungen",
 
   "STATE": "Status",
   "HIDDEN": "versteckt",
@@ -98,9 +99,12 @@
   "DISTANCE": "Distanz {{distance}}",
 
   "JOIN_CODE": "Mitmach-Code",
+  "JOIN_CODES": "Mitmach-Codes",
+  "REQUEST_CODE": "Code anfordern",
   "JOIN_CODE_INPUT_DESCRIPTION": "Mitmach-Codes können vom Ersteller eines Mobidul bereitgestellt werden.\nUm bei einem Mobidul als \"Redakteur\" mitzumachen, kannst du einen Mitmach-Code eingeben oder einen QR-Code einscannen.",
   "JOIN_NOT_POSSIBLE": "Mitmachen nicht möglich",
   "JOIN_CODE_INVALID_EXPLANATION": "Dieser Mitmach-Code ist ungültig. Bitte versuche es nochmal oder kontaktiere den Ersteller des Mobiduls.",
+  "GROUP_EXPLANATION": "Mitmach-Codes geben die Möglichkeit beim einem Mobidul mitzumachen.\nBenutzer welche den gleichen Code verwenden, gehören der selben Gruppe an.",
 
   "HIDE_ON_HOME": "Auf der Startseite verberger",
 
@@ -139,6 +143,7 @@
   "MOBIDUL_OPTIONS_SAVED": "Mobidul Optionen wurden gespeichert.",
 
   "DELETE_MOBIDUL": "Mobidul löschen",
+  "DELETE_MOBIDUL_WARNING": "Mobidul wird unwiderruflich gelöscht.",
   "DELETE_MOBIDUL_CONFIRMATION_TITLE": "Mobidul löschen bestätigen",
   "DELETE_MOBIDUL_CONFIRMATION_BODY": "Bitte bestätige, dass dieses Mobidul gelöscht werden soll.",
   "DELETE_MOBIDUL_ERROR_MSG": "Mobidul konnte nicht gelöscht werden! Bitte kontaktieren Sie einen Administrator",
@@ -167,6 +172,9 @@
   "MENU_SAVED": "Mobidul Menü wurde gespeichert.",
 
   "GENERIC_NOT_ALLOWED": "Sie dürfen das nicht!",
+
+  "WHICH_STATIONS_ALLOWED_TO_EDIT": "<strong>Welche</strong> Stationen dürfen editiert werden?",
+  "SAVE_OPTIONS": "Einstellungen speichern",
 
   "MAP": "Karte",
   "ADD_MAP": "Karte hinzufügen",
@@ -270,6 +278,7 @@
   "DISTANCE_FEEDBACK": "Du bist noch zirka {{ distance }} Meter von der Station entfernt. \n (± {{ accuracy }}m)",
 
   "SCAN_CODE": "Code einscannen",
+  "OPEN_CODE": "Code öffnen",
 
   "CONTACT": "Kontakt",
 

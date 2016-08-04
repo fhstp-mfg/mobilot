@@ -29,10 +29,7 @@ function InputCode (
         '<form ng-submit="inputCode.submit()">' +
           '<md-input-container>' +
             '<input ' +
-              'ng-model="inputCode.code" ' +
-              'data-success="success" ' +
-              'data-error="error">' +
-            '</input>' +
+              'ng-model="inputCode.code"/>' +
           '</md-input-container>' +
 
           '<md-button ' +

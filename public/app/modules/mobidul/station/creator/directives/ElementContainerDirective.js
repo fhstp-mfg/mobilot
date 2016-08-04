@@ -66,6 +66,10 @@ function ElementContainer(
           $element.append($compile('<free-text-input-config data-success="ctrl.element.success" data-question="ctrl.element.question" data-id="ctrl.element.id"></free-text-input-config>')($scope));
           break;
 
+        case 'confirmSocial':
+          $element.append($compile('<confirm-social-config data-id="ctrl.element.id" data-success="ctrl.element.success"></confirm-social-config>')($scope));
+          break;
+
         default:
           $log.error('couldn\'t render element with type: ' + type);
       }

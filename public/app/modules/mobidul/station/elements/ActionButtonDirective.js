@@ -32,7 +32,7 @@ function ActionButton (
     ,
     controller: ActionButtonController,
     controllerAs: 'actionButton'
-  }
+  };
 
 
 
