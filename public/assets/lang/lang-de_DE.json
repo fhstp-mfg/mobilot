@@ -98,7 +98,7 @@
   "DISTANCE": "Distanz {{distance}}",
 
   "JOIN_CODE": "Mitmach-Code",
-  "JOIN_CODE_INPUT_DESCRIPTION": "Mitmach-Codes können vom Ersteller eines Mobidul bereitgestellt werden.\nUm bei einem Mobidul als \"Redakteur\" mitzumachen, gib dein Mitmach-Code hier ein.",
+  "JOIN_CODE_INPUT_DESCRIPTION": "Mitmach-Codes können vom Ersteller eines Mobidul bereitgestellt werden.\nUm bei einem Mobidul als \"Redakteur\" mitzumachen, kannst du einen Mitmach-Code eingeben oder einen QR-Code einscannen.",
   "JOIN_NOT_POSSIBLE": "Mitmachen nicht möglich",
   "JOIN_CODE_INVALID_EXPLANATION": "Dieser Mitmach-Code ist ungültig. Bitte versuche es nochmal oder kontaktiere den Ersteller des Mobiduls.",
 
@@ -265,8 +265,11 @@
   "RANGE_INPUT_PLACEHOLDER": "Entfernung (in Meter)",
   "FALLBACK": "Absicherung",
 
+  "GPS_FETCHING": "GPS wird abgerufen...",
   "GPS_INACCURATE_FALLBACK": "Dein GPS ist zu ungenau. Gib den richtigen Code bei der Station ein:",
   "DISTANCE_FEEDBACK": "Du bist noch zirka {{ distance }} Meter von der Station entfernt. \n (± {{ accuracy }}m)",
+
+  "SCAN_CODE": "Code einscannen",
 
   "CONTACT": "Kontakt",
 

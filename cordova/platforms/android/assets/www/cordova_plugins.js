@@ -11,6 +11,13 @@ module.exports = [
         "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
         "id": "cordova-plugin-geolocation.PositionError",
         "runs": true
+    },
+    {
+        "file": "plugins/phonegap-plugin-barcodescanner/www/barcodescanner.js",
+        "id": "phonegap-plugin-barcodescanner.BarcodeScanner",
+        "clobbers": [
+            "cordova.plugins.barcodeScanner"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -18,7 +25,8 @@ module.exports.metadata =
 {
     "cordova-plugin-compat": "1.0.0",
     "cordova-plugin-geolocation": "2.2.0",
-    "cordova-plugin-whitelist": "1.2.2"
+    "cordova-plugin-whitelist": "1.2.2",
+    "phonegap-plugin-barcodescanner": "6.0.1"
 };
 // BOTTOM OF METADATA
 });

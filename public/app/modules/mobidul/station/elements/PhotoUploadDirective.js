@@ -18,26 +18,26 @@ function PhotoUpload (
 ) {
   return {
     restrict: 'E',
-    template: `
-      <div class="PhotoUpload">
-        {{ content }}
+    template: '' +
+      '<div class="PhotoUpload">' +
+        '{{ content }}' +
 
-        <form>
-          <input
-            type="file"
-            class="hidden"
-            id="{{ id }}"
-            onchange="angular.element(this).scope().uploadPhoto(this)"
-            accept="image/*"
-          >
-        </form>
+        '<form>' +
+          '<input ' +
+            'type="file" ' +
+            'class="hidden" ' +
+            'id="{{ id }}" ' +
+            'onchange="angular.element(this).scope().uploadPhoto(this)" ' +
+            'accept="image/*"' +
+          '>' +
+        '</form>' +
 
-        <md-button
-          class="md-raised md-primary"
-          ng-click="photoUpload.selectPhoto()"
-        >{{ \'UPLOAD_PHOTO\' | translate }}</md-button>
-      </div>
-    `,
+        '<md-button ' +
+          'class="md-raised md-primary" ' +
+          'ng-click="photoUpload.selectPhoto()"' +
+        '>{{ \'UPLOAD_PHOTO\' | translate }}</md-button>' +
+      '</div>'
+    ,
     scope: {
       id: '@',
       content: '@',

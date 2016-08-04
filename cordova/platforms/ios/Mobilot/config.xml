@@ -18,6 +18,9 @@
     <feature name="Geolocation">
         <param name="ios-package" value="CDVLocation" />
     </feature>
+    <feature name="BarcodeScanner">
+        <param name="ios-package" value="CDVBarcodeScanner" />
+    </feature>
     <name>Mobilot</name>
     <description>
         Mobilot is a system for creating intuitive mobile information systems.

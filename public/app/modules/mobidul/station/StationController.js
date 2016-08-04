@@ -153,12 +153,22 @@ function StationController (
                 RallyService.refresh();
 
                 var statusContent = [];
-                MobidulService.getMobidulConfig(StateManager.state.params.mobidulCode)
-                .then(function (config) {
-                  angular.forEach(config.states, function (state) {
-                    statusContent[ state ] = '<p style="background: #eee; font-weight: bold">' + $translate.instant('STATION_NO_CONTENT', {state: state}) + '</p>';
-                  });
-                });
+                statusContent[ RallyService.STATUS_HIDDEN ] = '' +
+                  '<p style="background: #eee; font-weight: bold">' +
+                    'Diese Station hat für den Status "' + RallyService.STATUS_HIDDEN + '" keinen Inhalt.' +
+                  '</p>';
+                statusContent[ RallyService.STATUS_ACTIVATED] = '' +
+                  '<p style="background: #eee; font-weight: bold">' +
+                    'Diese Station hat für den Status "' + RallyService.STATUS_ACTIVATED + '" keinen Inhalt.' +
+                  '</p>';
+                statusContent[ RallyService.STATUS_OPEN] = '' +
+                  '<p style="background: #eee; font-weight: bold">' +
+                    'Diese Station hat für den Status "' + RallyService.STATUS_OPEN + '" keinen Inhalt.' +
+                  '</p>';
+                statusContent[ RallyService.STATUS_COMPLETED] = '' +
+                  '<p style="background: #eee; font-weight: bold">'
+                    'Diese Station hat für den Status "' + RallyService.STATUS_COMPLETED + '" keinen Inhalt.' +
+                  '</p>';
 
                 // station.content = statusContent[ RallyService.getStatus( station.order ) ] + response.content;
                 // station.content = response.content;
@@ -467,8 +477,8 @@ function StationController (
   {
     RallyService.getStatus(station.order)
       .then(function (status) {
-         $log.info('StationController - renderJSON - RallyService.getStatus - status:');
-         $log.debug(status, station, StateManager.isStationCreator());
+        // $log.info('StationController - renderJSON - RallyService.getStatus - status:');
+        // $log.debug(status, station, StateManager.isStationCreator());
 
         station.currentState = status;
 

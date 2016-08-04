@@ -1,6 +1,6 @@
 angular
-.module('Creator')
-.controller('CreatorController', CreatorController);
+  .module('Creator')
+  .controller('CreatorController', CreatorController);
 
 CreatorController.$inject = [
   '$log', '$rootScope', '$scope', '$timeout', '$q',
@@ -947,25 +947,22 @@ function CreatorController (
 
 
   function showQRCode ($index, $event) {
-    // TODO
     $event.stopPropagation();
-    //var protocol = 'http:'
-    var url = location.protocol + '//' + location.host + '/Play/' + creator.codes[ $index ].code;
 
     $mdDialog.show({
-      locals : { code : creator.codes[ $index ].code },
+      locals      : { code : creator.codes[ $index ].code },
       controller  : QRDialogController,
       templateUrl : 'app/modules/creator/CreatorQRCodeTemplate.html',
-      parent     : angular.element(document.body),
+      parent      : angular.element(document.body),
       clickOutsideToClose : true
     })
     .then(function (param) {
-        // $log.debug("type " + param.type + " id " + param.id);
-        // creator.addMenuItem( param.type, param.id );
-      },
-      function () {
-        // canceled the dialog ;
-      });
+      // $log.debug("type " + param.type + " id " + param.id);
+      // creator.addMenuItem( param.type, param.id );
+    },
+    function () {
+      // canceled the dialog
+    });
   }
 
 

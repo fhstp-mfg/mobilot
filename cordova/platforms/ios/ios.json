@@ -11,6 +11,10 @@
                         {
                             "xml": "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"BarcodeScanner\"><param name=\"ios-package\" value=\"CDVBarcodeScanner\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -36,6 +40,9 @@
         },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "phonegap-plugin-barcodescanner": {
+            "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
         }
     },
     "dependent_plugins": {},
@@ -71,11 +78,20 @@
             "clobbers": [
                 "navigator.geolocation"
             ]
+        },
+        {
+            "file": "plugins/phonegap-plugin-barcodescanner/www/barcodescanner.js",
+            "id": "phonegap-plugin-barcodescanner.BarcodeScanner",
+            "pluginId": "phonegap-plugin-barcodescanner",
+            "clobbers": [
+                "cordova.plugins.barcodeScanner"
+            ]
         }
     ],
     "plugin_metadata": {
         "cordova-plugin-compat": "1.0.0",
         "cordova-plugin-geolocation": "2.2.0",
-        "cordova-plugin-whitelist": "1.2.2"
+        "cordova-plugin-whitelist": "1.2.2",
+        "phonegap-plugin-barcodescanner": "6.0.1"
     }
 }
