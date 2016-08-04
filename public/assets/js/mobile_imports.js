@@ -54,9 +54,9 @@ if ( isMobile ) {
     cordovaUrl = _online_server;
 
 
-    // @todo - after cordova has finished loading, recheck if windows.cordova is available,
+    // TODO - after cordova has finished loading, recheck if windows.cordova is available,
     //          in order to correctly set isCordova global variable
-    // @note - not necessary yet
+    // NOTE - not necessary yet
 
     //isCordova  = typeof window.cordova !== undefined;
     //cordovaUrl = isCordova ? 'http://mobilot.at' : '';

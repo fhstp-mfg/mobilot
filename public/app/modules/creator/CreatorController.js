@@ -984,43 +984,37 @@ function CreatorController (
 
     function getPlayCodes ()
     {
-        var mobidulCode = StateManager.state.params.mobidulCode;
+      var mobidulCode = StateManager.state.params.mobidulCode;
 
-         CreatorService
-            .getCodes( mobidulCode )
-            .success(function (codes, status, headers, config)
-            {
-                // $log.debug('getCodes success in CreatorController');
-        // $log.debug(codes);
+      CreatorService.getCodes(mobidulCode)
+      .success(function (codes, status, headers, config)
+      {
+        $log.debug('getCodes success in CreatorController');
+        $log.debug(codes);
 
-        if ( codes )
-        {
-          angular.forEach( codes, function (code, cIx)
-          {
+        if (codes) {
+          angular.forEach(codes, function (code, cIx) {
             // $log.debug(code.locked);
             // $log.debug(typeof code.locked);
 
             code.locked = code.locked == 1 ? 1 : 0;
           });
 
-                  creator.codes = codes;
+          creator.codes = codes;
         }
-            });
+      });
     }
 
 
   function showQRCode ($index, $event)
   {
-    // TODO
     $event.stopPropagation();
-    //var protocol = 'http:'
-    var url = location.protocol + '//' + location.host + '/Play/' + creator.codes[ $index ].code;
 
     $mdDialog.show({
-      locals : { code : creator.codes[ $index ].code },
+      locals      : { code : creator.codes[ $index ].code },
       controller  : QRDialogController,
       templateUrl : 'app/modules/creator/CreatorQRCodeTemplate.html',
-      parent     : angular.element(document.body),
+      parent      : angular.element(document.body),
       clickOutsideToClose : true
     })
     .then(function (param) {
@@ -1028,7 +1022,7 @@ function CreatorController (
       // creator.addMenuItem( param.type, param.id );
     },
     function () {
-      // canceled the dialog ;
+      // canceled the dialog
     });
   }
 

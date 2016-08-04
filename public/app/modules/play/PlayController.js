@@ -22,6 +22,7 @@ function PlayController (
   // ...
 
   /// vars
+  play.isCordova = isCordova;
   play.isCordovaIos = isCordova && isIos;
 
   play.code;
@@ -81,7 +82,27 @@ function PlayController (
 
   function scan () {
     if (isCordova) {
-      alert('scan awaiting')
+      cordova.plugins.barcodeScanner.scan(function (result) {
+        alert("We got a barcode\n" +
+              "Result: " + result.text + "\n" +
+              "Format: " + result.format + "\n" +
+              "Cancelled: " + result.cancelled);
+      }, function (error) {
+        alert("Scanning failed: " + error);
+      },
+      {
+        // NOTE: supported on iOS and Android
+        "preferFrontCamera" : false,
+        // NOTE: supported on iOS and Android
+        "showFlipCameraButton" : true,
+        // NOTE: supported on Android only
+        // "prompt" : "Plaziere den QR-Code im Aufnahmebereich",
+        // NOTE: default: all but PDF_417 and RSS_EXPANDED
+        "formats" : "QR_CODE",
+        // NOTE: supported on Android only (portrait|landscape),
+        // default: unset so it rotates with the device
+        // "orientation" : "portrait"
+      });
     }
   }
 }
