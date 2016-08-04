@@ -8,8 +8,8 @@
     layout-padding
     ng-class="{ 'ios-top-margin': login.isCordovaIos }"
   >
-    <h2>Passwort zurücksetzen</h2>
-    <p>Gib hier dein neues Passwort ein.</p>
+    <h2 translate="RESET_PASSWORD"></h2>
+    <p translate="ENTER_NEW_PASSWORD"></p>
 
     <br>
 
@@ -32,7 +32,7 @@
 
       <!-- Password -->
       <md-input-container class="md-icon-float">
-        <label>Neues Passwort</label>
+        <label translate="NEW_PASSWORD"></label>
         <md-icon>lock</md-icon>
         <input
           type="password"
@@ -42,7 +42,7 @@
 
       <!-- Password confirm -->
       <md-input-container class="md-icon-float">
-        <label>Passwort bestätigen</label>
+        <label translate="CONFIRM_PASSWORD"></label>
         <md-icon>lock_outline</md-icon>
         <input
           type="password"
@@ -57,7 +57,7 @@
         class="md-raised md-primary"
         ng-disabled="login.disableResetPasswordButton"
       >
-        <span>Passwort ändern</span>
+        <span translate="CHANGE_PASSWORD"></span>
       </md-button>
     </form>
   </md-content>

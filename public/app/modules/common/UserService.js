@@ -4,13 +4,15 @@ angular
 
 
 UserService.$inject = [
-  '$log', '$rootScope', '$http', '$q', '$timeout', '$stateParams',
+  '$log', '$rootScope', '$http', '$q', '$timeout',
+  '$stateParams', '$translate',
   'HeaderService'
 ];
 
 
 function UserService (
-  $log, $rootScope, $http, $q, $timeout, $stateParams,
+  $log, $rootScope, $http, $q, $timeout,
+  $stateParams, $translate,
   HeaderService
 ) {
   /// constants
@@ -34,7 +36,7 @@ function UserService (
   var service =
   {
     // _guestName     : 'Gast',
-    _guestName     : 'Anmelden',
+    _guestName     : $translate.instant('LOGIN'),
 
     login          : login,
     logout          : logout,

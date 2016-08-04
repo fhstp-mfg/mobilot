@@ -4,7 +4,7 @@ angular
 
 
 MapController.$inject = [
-  '$log', '$interval', '$timeout', '$q',
+  '$log', '$interval', '$timeout', '$q', '$translate',
   '$scope', '$rootScope', '$compile',
   '$state', 'StateManager',
   '$geolocation', '$mdDialog',
@@ -14,7 +14,7 @@ MapController.$inject = [
 
 
 function MapController (
-  $log, $interval, $timeout, $q,
+  $log, $interval, $timeout, $q, $translate,
   $scope, $rootScope, $compile,
   $state, StateManager,
   $geolocation, $mdDialog,
@@ -205,16 +205,14 @@ function MapController (
       LocalStorageService.shouldExplainGenericGeoPermit()
     ) {
       var informAboutGeoPermitDialog =
-        $mdDialog
-          .alert()
+        $mdDialog.alert()
           .parent(angular.element(document.body))
-          .title('Information')
-          .textContent( MapService.EXPLAIN_GENERIC_GEO_PERMIT )
-          .ariaLabel('Information')
-          .ok('OK');
+          .title($translate.instant('INFORMATION'))
+          .textContent( $translate.instant('EXPLAIN_GENERIC_GEO_PERMIT') )
+          .ariaLabel($translate.instant('INFORMATION'))
+          .ok($translate.instant('OK'));
 
-      $mdDialog
-        .show( informAboutGeoPermitDialog )
+      $mdDialog.show( informAboutGeoPermitDialog )
         .then(function ()
         {
           LocalStorageService.explainGenericGeoPermit(false);
@@ -293,23 +291,23 @@ function MapController (
         $log.error('watchPosition error in MapController :');
         $log.error(error);
 
-        // NOTE TODO - implement possibility for retries here as well !!!
+        // TODO - implement possibility for retries here as well !!!
         var retryPossible = false; // default : true
-        var errorMessage  = MapService.UNKNOWN_ERROR_MSG;
+        var errorMessage  = $translate.instant('UNKNOWN_ERROR_MSG');
 
         switch ( error.code )
         {
           case MapService.PERMISSION_DENIED :
-            errorMessage  = MapService.PERMISSION_DENIED_MSG;
+            errorMessage  = $translate.instant('PERMISSION_DENIED_MSG');
             retryPossible = false;
           break;
 
           case MapService.POSITION_UNAVAILABLE :
-            errorMessage = MapService.POSITION_UNAVAILABLE_MSG;
+            errorMessage = $translate.instant('POSITION_UNAVAILABLE_MSG');
           break;
 
           case MapService.TIMEOUT :
-            errorMessage = MapService.TIMEOUT_MSG;
+            errorMessage = $translate.instant('TIMEOUT_MSG');
           break;
 
           default : break;
@@ -318,17 +316,15 @@ function MapController (
 
         if ( retryPossible ) {
           var positionErrorDialog =
-            $mdDialog
-              .alert()
+            $mdDialog.alert()
               .parent(angular.element(document.body))
-              .title('Position Fehler')
+              .title($translate.instant('POSITION_ERROR_TITLE'))
               .textContent(errorMessage)
-              .ariaLabel('Position Fehler')
-              .ok('Nochmal versuchen')
-              .cancel('Zu alle Mobidule');
+              .ariaLabel($translate.instant('POSITION_ERROR_TITLE'))
+              .ok($translate.instant('TRY AGAIN'))
+              .cancel($translate.instant('BACK_TO_MOBIDULS'));
 
-          $mdDialog
-            .show( positionErrorDialog )
+          $mdDialog.show( positionErrorDialog )
             .then(function ()
             {
               home.getMyPosition()
@@ -342,16 +338,14 @@ function MapController (
             });
         } else {
           var positionErrorDialog =
-            $mdDialog
-              .alert()
+            $mdDialog.alert()
               .parent(angular.element(document.body))
-              .title('Position Fehler')
+              .title($translate.instant('POSITION_ERROR_TITLE'))
               .content(errorMessage)
-              .ariaLabel('Position Fehler')
-              .ok('Zur Karte');
+              .ariaLabel($translate.instant('POSITION_ERROR_TITLE'))
+              .ok($translate.instant('TO_MAP'));
 
-          $mdDialog
-            .show( positionErrorDialog )
+          $mdDialog.show( positionErrorDialog )
             .then(function ()
             {
               // ...

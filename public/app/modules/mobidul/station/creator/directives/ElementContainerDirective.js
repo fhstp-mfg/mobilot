@@ -6,12 +6,12 @@ angular
   .directive('elementContainer', ElementContainer);
 
 ElementContainer.$inject = [
-  '$log', '$compile', '$rootScope',
+  '$log', '$compile', '$rootScope', '$translate',
   '$mdDialog'
 ];
 
 function ElementContainer(
-  $log, $compile, $rootScope,
+  $log, $compile, $rootScope, $translate,
   $mdDialog
 ){
   return {
@@ -39,31 +39,31 @@ function ElementContainer(
       switch(type){
 
         case 'html':
-          $element.prepend($compile('<html-container-config data-content="ctrl.element.content"></html-container-config>')($scope));
+          $element.append($compile('<html-container-config data-content="ctrl.element.content"></html-container-config>')($scope));
           break;
 
         case 'button':
-          $element.prepend($compile('<action-button-config data-success="ctrl.element.success" data-content="ctrl.element.content"></action-button-config>')($scope));
+          $element.append($compile('<action-button-config data-success="ctrl.element.success" data-content="ctrl.element.content"></action-button-config>')($scope));
           break;
 
         case 'ifNear':
-          $element.prepend($compile('<trigger-near-config data-range="ctrl.element.range" fallback="ctrl.element.fallback" data-success="ctrl.element.success"></trigger-near-config>')($scope));
+          $element.append($compile('<trigger-near-config data-range="ctrl.element.range" fallback="ctrl.element.fallback" data-success="ctrl.element.success"></trigger-near-config>')($scope));
           break;
 
         case 'inputCode':
-          $element.prepend($compile('<input-code-config data-id="ctrl.element.id" data-verifier="ctrl.element.verifier" data-success="ctrl.element.success" error="ctrl.element.error"></input-code-config>')($scope));
+          $element.append($compile('<input-code-config data-id="ctrl.element.id" data-verifier="ctrl.element.verifier" data-success="ctrl.element.success" error="ctrl.element.error"></input-code-config>')($scope));
           break;
 
         case 'photoUpload':
-          $element.prepend($compile('<photo-upload-config data-success="ctrl.element.success" data-id="ctrl.element.id" data-content="ctrl.element.content"></photo-upload-config>')($scope));
+          $element.append($compile('<photo-upload-config data-success="ctrl.element.success" data-id="ctrl.element.id" data-content="ctrl.element.content"></photo-upload-config>')($scope));
           break;
 
         case 'setTimeout':
-          $element.prepend($compile('<set-timeout-config data-action="ctrl.element.action" data-delay="ctrl.element.delay" data-show="ctrl.element.show"></set-timeout-config>')($scope));
+          $element.append($compile('<set-timeout-config data-action="ctrl.element.action" data-delay="ctrl.element.delay" data-show="ctrl.element.show"></set-timeout-config>')($scope));
           break;
 
         case 'freeText':
-          $element.prepend($compile('<free-text-input-config data-success="ctrl.element.success" data-question="ctrl.element.question" data-id="ctrl.element.id"></free-text-input-config>')($scope));
+          $element.append($compile('<free-text-input-config data-success="ctrl.element.success" data-question="ctrl.element.question" data-id="ctrl.element.id"></free-text-input-config>')($scope));
           break;
 
         default:
@@ -87,16 +87,15 @@ function ElementContainer(
       //alert(ctrl.element.type);
 
       var saveMobidulOptionsDialog =
-        $mdDialog
-          .alert()
+        $mdDialog.alert()
           .parent(angular.element(document.body))
           .title(ctrl.element.type)
+          // TODO: implement component description
           .textContent( 'lorem ipsum' )
-          .ariaLabel('Schließen')
-          .ok('Schließen');
+          .ariaLabel($translate.instant('CLOSE'))
+          .ok($translate.instant('CLOSE'));
 
-      $mdDialog
-        .show( saveMobidulOptionsDialog )
+      $mdDialog.show( saveMobidulOptionsDialog )
         .then(function ()
         {
 

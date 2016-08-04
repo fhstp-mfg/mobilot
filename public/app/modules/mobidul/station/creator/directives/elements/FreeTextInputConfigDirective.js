@@ -6,12 +6,12 @@ angular
   .directive('freeTextInputConfig', FreeTextInputConfig);
 
 FreeTextInputConfig.$inject = [
-  '$log', '$stateParams',
+  '$log', '$stateParams', '$translate',
   'UtilityService', 'RallyService', 'AttachmentService'
 ];
 
 function FreeTextInputConfig(
-  $log, $stateParams,
+  $log, $stateParams, $translate,
   util, RallyService, AttachmentService
 ) {
   return {
@@ -20,10 +20,10 @@ function FreeTextInputConfig(
     template:
     '<div>' +
       '<md-input-container>' +
-        '<input type="text" ng-model="question" placeholder="Frage">' +
+        '<input type="text" ng-model="question" placeholder="{{ \'QUESTION\' | translate }}">' +
       '</md-input-container>' +
       '<action-selector data-opts="ctrl.actionOpts" data-selection="success"></action-selector>' +
-      '<md-button data-ng-click="ctrl.exportAnswers()">Antworten runterladen</md-button>' +
+      '<md-button data-ng-click="ctrl.exportAnswers()">{{ \'DOWNLOAD_ANSWERS\' | translate }}</md-button>' +
     '</div>',
     scope: {
       question: '=',

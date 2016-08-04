@@ -5,7 +5,7 @@ angular
 
 
 HomeController.$inject = [
-  '$log', '$scope', '$rootScope', '$q',
+  '$log', '$scope', '$rootScope', '$q', '$translate',
   '$state', '$stateParams', 'StateManager',
   '$mdDialog',
   '$geolocation', 'MapService',
@@ -14,7 +14,7 @@ HomeController.$inject = [
 
 
 function HomeController (
-  $log, $scope, $rootScope, $q,
+  $log, $scope, $rootScope, $q, $translate,
   $state, $stateParams, StateManager,
   $mdDialog,
   $geolocation, MapService,
@@ -23,10 +23,6 @@ function HomeController (
   /// HomeController
   var home = this;
 
-  /// constants
-  home._searchPlaceholder = 'Mobidule in meiner Nähe durchsuchen';
-
-
   /// vars
   home.isCordovaIos = isCordova && isIos;
 
@@ -34,8 +30,6 @@ function HomeController (
   home.myPosition         = null;
   home.mobiduls           = [];
   home.loading            = 'block';
-
-  home.searchPlaceholder  = home._searchPlaceholder;
 
   home.searchTypeIndex    = ! StateManager.isHomeLogin()
                               ? ( $stateParams.type || HomeService.DEFAULT_SEARCH_TYPE )
@@ -86,16 +80,17 @@ function HomeController (
           path = '/MobidulNearMe/' +
               home.myPosition.coords.latitude + '/' +
               home.myPosition.coords.longitude;
+          home.searchPlaceholder = $translate.instant('HOME_SEARCH_PLACEHOLDER_NEAR');
         break;
 
       case 1 :
         path = '/GetNewestMobiduls';
-        home.searchPlaceholder = 'Alle Mobidule durchsuchen';
+        home.searchPlaceholder = $translate.instant('HOME_SEARCH_PLACEHOLDER_ALL');
         break;
 
       case 2 :
         path = '/MyMobiduls';
-        home.searchPlaceholder = 'Eigene Mobidule durchsuchen';
+        home.searchPlaceholder = $translate.instant('HOME_SEARCH_PLACEHOLDER_MINE');
         break;
 
       default :
@@ -144,27 +139,27 @@ function HomeController (
       .getCurrentPosition()
       .then(function (response)
       {
-        $log.debug('HomeController getCurrentPosition callback :');
-        $log.debug(response);
+        //$log.debug('HomeController getCurrentPosition callback :');
+        //$log.debug(response);
 
         if ( response.error )
         {
           var retryPossible = true;
-          var errorMessage  = MapService.UNKNOWN_ERROR_MSG;
+          var errorMessage  = $translate.instant('UNKNOWN_ERROR_MSG');
 
           switch ( response.error.code )
           {
             case MapService.PERMISSION_DENIED :
-              errorMessage  = MapService.PERMISSION_DENIED_MSG;
+              errorMessage  = $translate.instant('PERMISSION_DENIED_MSG');
               retryPossible = false;
               break;
 
             case MapService.POSITION_UNAVAILABLE :
-              errorMessage = MapService.POSITION_UNAVAILABLE_MSG;
+              errorMessage = $translate.instant('POSITION_UNAVAILABLE_MSG');
               break;
 
             case MapService.TIMEOUT :
-              errorMessage = MapService.TIMEOUT_MSG;
+              errorMessage = $translate.instant('TIMEOUT_MSG');
               break;
 
           }
@@ -173,17 +168,15 @@ function HomeController (
           if ( retryPossible )
           {
             var positionErrorDialog =
-              $mdDialog
-                .alert()
+              $mdDialog.alert()
                 .parent(angular.element(document.body))
-                .title('Position Fehler')
+                .title($translate.instant('POSITION_ERROR_TITLE'))
                 .textContent(errorMessage)
-                .ariaLabel('Position Fehler')
-                .ok('Nochmal versuchen')
-                .cancel('Abbrechen');
+                .ariaLabel($translate.instant('POSITION_ERROR_TITLE'))
+                .ok($translate.instant('TRY_AGAIN'))
+                .cancel($translate.instant('CANCEL'));
 
-            $mdDialog
-              .show( positionErrorDialog )
+            $mdDialog.show( positionErrorDialog )
               .then(function ()
               {
                 home.getMyPosition()
@@ -200,16 +193,14 @@ function HomeController (
           else
           {
             var positionErrorDialog =
-              $mdDialog
-                .alert()
+              $mdDialog.alert()
                 .parent(angular.element(document.body))
-                .title('Position Fehler')
+                .title($translate.instant('POSITION_ERROR_TITLE'))
                 .textContent( errorMessage )
-                .ariaLabel('Position Fehler')
-                .ok('Zu alle Mobidule');
+                .ariaLabel($translate.instant('POSITION_ERROR_TITLE'))
+                .ok($translate.instant('BACK_TO_MOBIDULS'));
 
-            $mdDialog
-              .show( positionErrorDialog )
+            $mdDialog.show( positionErrorDialog )
               .then(function ()
               {
                 home.searchTypeIndex = HomeService.ALL_MOBIDULE;
@@ -241,8 +232,8 @@ function HomeController (
 
   function changeSearchType ()
   {
-    $log.debug('changeSearchType called at tab index :');
-    $log.debug(home.searchTypeIndex);
+    //$log.debug('changeSearchType called at tab index :');
+    //$log.debug(home.searchTypeIndex);
 
     home.mobiduls = [];
     home.loading  = 'block';
@@ -253,16 +244,14 @@ function HomeController (
       LocalStorageService.shouldExplainNearGeoPermit()
     ) {
       var informAboutGeoPermitDialog =
-        $mdDialog
-          .alert()
+        $mdDialog.alert()
           .parent(angular.element(document.body))
-          .title('Information')
-          .textContent( MapService.EXPLAIN_NEAR_GEO_PERMIT )
-          .ariaLabel('Information')
-          .ok('OK');
+          .title($translate.instant('INFORMATION'))
+          .textContent($translate.instant('EXPLAIN_NEAR_GEO_PERMIT'))
+          .ariaLabel($translate.instant('INFORMATION'))
+          .ok($translate.instant('OK'));
 
-      $mdDialog
-        .show( informAboutGeoPermitDialog )
+      $mdDialog.show( informAboutGeoPermitDialog )
         .then(function ()
         {
           LocalStorageService.explainNearGeoPermit(false);

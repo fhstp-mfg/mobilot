@@ -13,12 +13,15 @@ angular
 
       $logProvider.debugEnabled( isDeveloperEnv );
 
+
+      //Language Settings
       $translateProvider.useStaticFilesLoader({
         prefix: 'assets/lang/lang-',
         suffix: '.json'
       });
 
       $translateProvider.preferredLanguage('de_DE');
+      //$translateProvider.usePostCompiling(true);
 
       /// redirects
 

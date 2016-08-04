@@ -4,7 +4,7 @@ angular
 
 
 CloneMobidulDialogController.$inject = [
-  '$log', '$scope', '$mdDialog',
+  '$log', '$scope', '$mdDialog', '$translate',
   'MobidulService', 'CreatorService',
   'UtilityService'
 ];
@@ -20,9 +20,9 @@ function CloneMobidulDialogController (
 
   // constants
   // NOTE: TODO: Code duplication w/ CreatorController
-  cloneMobidulDialog._codeHelperGenerating = 'wird generiert ...';
-  cloneMobidulDialog._codeHelperGenerated  = 'automatisch generiert';
-  cloneMobidulDialog._codeHelperManual     = 'manuell geändert';
+  cloneMobidulDialog._codeHelperGenerating = $translate.instant('CREATING');
+  cloneMobidulDialog._codeHelperGenerated  = $translate.instant('AUTOMATICALLY_CREATED');
+  cloneMobidulDialog._codeHelperManual     = $translate.instant('MANUALLY_CREATED');
 
   // vars
   cloneMobidulDialog.canNotSave = false;
@@ -114,11 +114,11 @@ function CloneMobidulDialogController (
     if ( ! _isOriginalCode(mobidulCode) ) {
       CreatorService.existsMobidul(mobidulCode)
       .success(function (response, status, headers, config) {
-        $log.debug('existsMobidul success response: ');
-        $log.debug(response);
+        //$log.debug('existsMobidul success response: ');
+        //$log.debug(response);
 
         // TODO: add exists from the responseobject
-        $log.debug('response.exists: ' + response.exists);
+        //$log.debug('response.exists: ' + response.exists);
 
         cloneMobidulDialog.canNotSave = response.exists;
         mobidulCode = response.mobidulCode;
@@ -156,8 +156,6 @@ function CloneMobidulDialogController (
 
     MobidulService.cloneMobidul(params)
     .then(function (response, status, headers, config, statusText) {
-      $log.debug(response);
-      $log.debug('FLO 3: SPEICHERN ' + response.data.msg);
       cloneMobidulDialog.close();
     });
   }

@@ -10,7 +10,7 @@
     <!-- Mobidul Optionen -->
 
     <div class="section">
-      <h3 class="section-title">Allgemein</h3>
+      <h3 class="section-title" translate="GENERAL"></h3>
       <br>
 
       <div layout="column">
@@ -20,7 +20,7 @@
           ng-true-value="0"
           ng-false-value="1"
         >
-          <label>Auf der Startseite verborgen</label>
+          <label translate="HIDE_ON_HOME"></label>
         </md-checkbox>
 
         <md-checkbox
@@ -29,13 +29,13 @@
           ng-true-value="0"
           ng-false-value="1"
         >
-          <label>Unveränderbar</label>
+          <label translate="IMMUTABLE"></label>
         </md-checkbox>
 
         <h3>Schriftart</h3>
         <md-select
           ng-model="creator.mobidul.font"
-          placeholder="Wähle eine Schriftart"
+          placeholder="{{ 'CHOOSE_FONT' | translate}}"
           style="margin-top:0"
           ng-class="{ 'font--druckschrift95' : creator.class.druckschrift95 }"
         >

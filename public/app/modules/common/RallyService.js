@@ -18,10 +18,10 @@ function RallyService (
   /// RallyService
   var service = {
     /// constants
-    STATUS_HIDDEN    : 'versteckt',
-    STATUS_ACTIVATED : 'aktiviert',
-    STATUS_OPEN      : 'geöffnet',
-    STATUS_COMPLETED : 'abgeschlossen',
+    STATUS_HIDDEN    : 'HIDDEN',
+    STATUS_ACTIVATED : 'ACTIVATED',
+    STATUS_OPEN      : 'OPEN',
+    STATUS_COMPLETED : 'COMPLETED',
 
     ACTIONS: [
       'openThis',
@@ -345,7 +345,6 @@ function RallyService (
                 resolve( config.states[ config.states.length-1 ] );
               } else if ( progressOrder > progress.progress ) {
                 if ( config.hiddenStations ) {
-                  console.log(service.STATUS_HIDDEN);
                   resolve( service.STATUS_HIDDEN );
                 } else {
                   resolve( config.defaultState );

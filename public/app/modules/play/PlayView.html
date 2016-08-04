@@ -17,13 +17,12 @@
     layout-padding
     ng-class="{ 'ios-top-margin': play.isCordovaIos }"
   >
-    <p class="helper">Mitmach-Codes können vom Ersteller eines Mobidul bereitgestellt werden.</p>
-    <p class="helper">Um bei einem Mobidul als "Redakteur" mitzumachen, gib dein Mitmach-Code hier ein.</p>
+    <p class="helper" translate="JOIN_CODE_INPUT_DESCRIPTION"></p>
 
     <md-input-container>
-      <label>Mitmach-Code</label>
+      <label translate="JOIN_CODE"></label>
       <input
-        placeholder="Mitmach-Code"
+        placeholder="{{ 'JOIN_CODE' | translate }}"
         ng-model="play.code"
         ng-required="true"
         ng-maxlength="6"
@@ -33,6 +32,6 @@
     <md-button
       class="md-raised md-primary md-mobilot"
       ng-click="play.join()"
-    >Zum Mobidul</md-button>
+    >{{ 'TO_MOBIDUL' | translate }}</md-button>
   </md-content>
 </div>

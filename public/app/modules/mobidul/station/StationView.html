@@ -28,7 +28,7 @@
             ng-repeat="state in station.mobidulConfig.states"
             ng-click="station.setRallyState(state)"
             md-active="state == station.currentState"
-          >Status: {{ state }}</md-tab>
+          >{{'STATE' | translate}} : {{ state | translate}}</md-tab>
         </md-tabs>
       </div>
 

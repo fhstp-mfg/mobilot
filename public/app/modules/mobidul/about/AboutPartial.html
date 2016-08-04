@@ -6,35 +6,31 @@
     layout-padding
     ng-class="{ 'ios-top-margin': about.isCordovaIos }"
   >
-    <h1>Über Mobilot</h1>
+    <h1 translate="ABOUT_MOBILOT"></h1>
 
-    <p>Mobilot (der mobile Pilot) ist ein in mehreren Forschungsprojekten entstandenes System zum einfachen Erstellen kontextbasierter Informationssysteme.</p>
-    <p>Mit Mobilot können sogenannte Mobidule kostenlos erstellt werden.</p>
-    <p>Wir bitten unsere Anwender die gesetzliche Regeln und die der Ethik und des guten Geschmacks einzuhalten und behalten uns vor, Mobidule, die diese Regeln verletzten, zu löschen. Wir übernehmen keine Verantwortung für Inhalte unserer Nutzer.</p>
+    <p translate="MOBILOT_DESCRIPTION"></p>
 
-    <h3 style="margin-bottom:0">Kontakt</h3>
+    <h3 style="margin-bottom:0" translate="CONTACT"></h3>
     <div>
       <span>FH-Prof. DI Dr. Grischa Schmiedl</span><br>
       <span>
-        <a href="http://mfg.fhstp.ac.at">Mobile Forschungsgruppe</a>
+        <a href="http://mfg.fhstp.ac.at" translate="MFG"></a>
       </span>
       <br><br>
-      <span>Institut für Creative\Media/Technologies</span><br>
+      <span translate="ICMT"></span><br>
       <span>
-        <a href="https://www.fhstp.ac.at">
-          University of Applied Sciences St. Pölten
-        </a>
+        <a href="https://www.fhstp.ac.at" tranlate="FHSTP"></a>
       </span>
     </div>
 
     <!-- <p><a href="mailto:mfg@fhstp.ac.at">mfg@fhstp.ac.at</a></p> -->
 
-    <h3 style="margin-bottom:.2em">Presented by</h3>
+    <h3 style="margin-bottom:.2em" translate="PRESENTED_BY"></h3>
     <a href="https://www.fhstp.ac.at" target="_blank">
       <img
         src="assets/img/fh-logo.jpg"
-        alt="University of Applied Sciences St. Pölten"
-        title="University of Applied Sciences St. Pölten"
+        alt="{{ 'FHSTP' | translate }}"
+        title="{{ 'FHSTP' | translate }}"
         style="max-width : 100px"
       >
     </a>

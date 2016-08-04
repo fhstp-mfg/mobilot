@@ -176,29 +176,26 @@ function MenuController (
     var resetRallyConfirmDialog =
       $mdDialog.confirm()
       .parent( angular.element(document.body) )
-      .title('Rally zurücksetzten')
-      .textContent('Bitte bestätige, dass du deinen Rally Fortschritt zurücksetzen möchtest.')
-      .ariaLabel('Rally zurücksetzten')
-      .ok('Zurücksetzten')
-      .cancel('Abbrechen');
+      .title($translate.instant('RESET_RALLY'))
+      .textContent($translate.instant('RESET_RALLY_CONFIRMATION'))
+      .ariaLabel($translate.instant('RESET_RALLY'))
+      .ok($translate.instant('RESET'))
+      .cancel($translate.instant('CANCEL'));
 
-    $mdDialog
-      .show( resetRallyConfirmDialog )
+    $mdDialog.show( resetRallyConfirmDialog )
       .then(function ()
       {
         RallyService.reset();
 
         var resetRallyCompletedDialog =
-          $mdDialog
-            .alert()
+          $mdDialog.alert()
             .parent(angular.element(document.body))
-            .title('Rally zurückgesetzt')
-            .textContent('Dein Rally Fortschitt wurde zurückgesetzt.')
-            .ariaLabel('Rally zurückgesetzt')
-            .ok('Weiter');
+            .title($translate.instant('RALLY_RESET'))
+            .textContent($translate.instant('RALLY_RESET_SUCCESS'))
+            .ariaLabel($translate.instant('RALLY_RESET'))
+            .ok($translate.instant('OK'));
 
-        $mdDialog
-          .show( resetRallyCompletedDialog )
+        $mdDialog.show( resetRallyCompletedDialog )
           .then(function ()
           {
             $state.go($state.current, $stateParams, { reload: true });

@@ -3,14 +3,14 @@ angular
   .controller('ListStationsController', ListStationsController);
 
 ListStationsController.$inject = [
-  '$log', '$scope', '$rootScope',
+  '$log', '$scope', '$rootScope', '$translate',
   '$state', '$stateParams', 'StateManager',
   'ListService', 'MobidulService', 'FontService',
   'UserService', 'HeaderService', 'RallyService'
 ];
 
 function ListStationsController (
-  $log, $scope, $rootScope,
+  $log, $scope, $rootScope, $translate,
   $state, $stateParams, StateManager,
   ListService, MobidulService, FontService,
   UserService, HeaderService, RallyService

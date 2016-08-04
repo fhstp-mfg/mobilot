@@ -5,16 +5,16 @@ angular
 
 ProfileController.$inject = [
   '$log', '$state', '$stateParams',
-  '$mdDialog',
-  'UserService', 'StateManager',
+  '$mdDialog', '$translate',
+  'UserService', 'StateManager', 'LanguageService',
   'RallyService', 'MobidulService'
 ];
 
 
 function ProfileController (
   $log, $state, $stateParams,
-  $mdDialog,
-  UserService, StateManager,
+  $mdDialog, $translate,
+  UserService, StateManager, LanguageService,
   RallyService, MobidulService
 ) {
   /// ProfileController
@@ -33,7 +33,7 @@ function ProfileController (
   profile.changePassword       = changePassword;
   profile.cancelChangePassword = cancelChangePassword;
   profile.resetRally           = resetRally;
-
+  profile.selectLanguage       = selectLanguage;
 
   /// construct
 
@@ -53,13 +53,8 @@ function ProfileController (
 
   function _initDefaultValues ()
   {
-    MobidulService.getMobidulMode($stateParams.mobidulCode)
-    .then(function (mode) {
-      profile.isRallyMode = (
-        mode == MobidulService.MOBIDUL_MODE_RALLY &&
-        StateManager.comesFrom(StateManager.MOBIDUL)
-      );
-    });
+    profile.language = LanguageService.getCurrentLanguage();
+    profile.availableLanguages = LanguageService.LANGUAGES;
 
     profile.currentUser = {
       username : UserService.Session.username
@@ -117,15 +112,15 @@ function ProfileController (
 
 
         if ( response.data === 'success' ) {
-          changePasswordDialogTitle   = 'Passwort geändert'
-          changePasswordDialogContent = 'Passwort wurde erfolgreich geändert.';
-          changePasswordDialogOk      = 'Weiter';
+          changePasswordDialogTitle   = $translate.instant('PASSWORD_CHANGED');
+          changePasswordDialogContent = $translate.instant('PASSWORD_CHANGED_SUCCESS');
+          changePasswordDialogOk      = $translate.instant('CONTINUE');
 
           cancelChangePassword();
           _resetChangePasswordData();
         }
         else {
-          changePasswordDialogTitle = 'Passwort ändern Fehler'
+          changePasswordDialogTitle = $translate.instant('PASSWORD_CHANGED_ERROR');
 
           changePasswordDialogContent = '';
           angular.forEach(response.data, function (field, id) {
@@ -133,7 +128,7 @@ function ProfileController (
             changePasswordDialogContent += message + ' ';
           });
 
-          changePasswordDialogOk = 'Daten überarbeiten';
+          changePasswordDialogOk = $translate.instant('EDIT_CREDENTIALS');
         }
 
 
@@ -142,7 +137,7 @@ function ProfileController (
           .parent( angular.element(document.body) )
           .title(changePasswordDialogTitle)
           .textContent(changePasswordDialogContent)
-          .ariaLabel('Passwort ändern Informationen')
+          .ariaLabel($translate.instant('CHANGE_PASSWORD_INFORMATION'))
           .ok(changePasswordDialogOk);
 
         $mdDialog.show(changePasswordCompletedDialog);
@@ -162,21 +157,25 @@ function ProfileController (
 
   function resetRally ()
   {
+    $log.warn('Is this still used?');
+
     RallyService.reset();
 
     var resetRallyCompletedDialog =
       $mdDialog.alert()
       .parent( angular.element(document.body) )
-      .title('Rally zurückgesetzt')
-      .textContent('Dein Rally Fortschitt wurde zurückgesetzt.')
-      .ariaLabel('Rally zurückgesetzt')
-      .ok('Weiter');
+      .title($translate.instant('RALLY_RESET'))
+      .textContent($translate.instant('RALLY_RESET_SUCCESS'))
+      .ariaLabel($translate.instant('RALLY_RESET'))
+      .ok($translate.instant('CONTINUE'));
 
     $mdDialog.show(resetRallyCompletedDialog);
   }
 
 
   /// events
-  // ...
+  function selectLanguage () {
+    LanguageService.switchLanguage(profile.language);
+  }
 
 }

@@ -48,7 +48,7 @@
         ng-click="creator.showAddMenuItem()"
       >
         <md-icon>add</md-icon>
-        <span>Menü Eintrag hinzufügen</span>
+        <span translate="ADD_MENU_ENTRY"></span>
       </md-button>
     </div>
 
@@ -58,7 +58,7 @@
       <md-button
         class="md-raised md-primary"
         ng-click="creator.saveMenu()"
-      >Speichern</md-button>
+      >{{ 'SAVE' | translate }}</md-button>
     </div>
   </md-content>
 </div>

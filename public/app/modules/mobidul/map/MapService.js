@@ -52,14 +52,6 @@ function MapService (
     PERMISSION_DENIED    : 1,
     POSITION_UNAVAILABLE : 2,
     TIMEOUT              : 3,
-    // geolocation messages
-    EXPLAIN_GENERIC_GEO_PERMIT       : 'Mobilot benötigt die Berechtigung deine Position zu ermitteln.',
-    EXPLAIN_NEAR_GEO_PERMIT  : 'Um Mobidule in deiner Nähe zu finden, benötigt Mobilot die Berechtigung deine Position zu ermitteln.',
-    // geolocation error message
-    UNKNOWN_ERROR_MSG        : 'Unbekannter Fehler. Bitte kontaktiere einen Administrator.',
-    PERMISSION_DENIED_MSG    : 'Deine Position konnte nicht ermittelt werden. Bitte aktiviere in den Einstellungen die Berechtigung, um deine Position zu ermitteln.',
-    POSITION_UNAVAILABLE_MSG : 'Leider konnte deine Position nicht ermittelt werden. Möchtest du es nochmal probieren?',
-    TIMEOUT_MSG              : 'Leider hat es zu lange gedauert deine Position zu ermitteln. Möchtest du es nochmal probieren?',
 
     // functions
     reset : reset,

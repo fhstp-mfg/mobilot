@@ -4,12 +4,12 @@ angular
 
 
 CreatorService.$inject = [
-  '$log', '$http'
+  '$log', '$http', '$translate'
 ];
 
 
 function CreatorService (
-  $log, $http
+  $log, $http, $translate
 ) {
   /// CreatorService
   var service = {
@@ -21,10 +21,10 @@ function CreatorService (
 
     MOBIDUL_CODE_EXAMPLE : 'mobidul-code',
 
-    CREATE_MOBIDUL       : 'Mobidul erstellen',
-    CREATING_MOBIDUL     : 'Mobidul wird erstellt',
-    UPDATE_MOBIDUL       : 'Speichern',
-    UPDATING_MOBIDUL     : 'Mobidul wird gespeichert',
+    CREATE_MOBIDUL       : $translate.instant('CREATE_MOBIDUL'),
+    CREATING_MOBIDUL     : $translate.instant('MOBIDUL_IS_CREATED'),
+    UPDATE_MOBIDUL       : $translate.instant('SAVE'),
+    UPDATING_MOBIDUL     : $translate.instant('MOBIDUL_IS_SAVED'),
 
     DEFAULT_FONT         : 'default',
 

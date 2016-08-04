@@ -7,13 +7,13 @@ angular
 
 
 PhotoUpload.$inject = [
-  '$log', '$rootScope',
+  '$log', '$translate', '$rootScope',
   'PhotoService', 'ActivityService'
 ];
 
 
 function PhotoUpload (
-  $log, $rootScope,
+  $log, $translate, $rootScope,
   PhotoService, ActivityService
 ) {
   return {
@@ -35,7 +35,7 @@ function PhotoUpload (
         <md-button
           class="md-raised md-primary"
           ng-click="photoUpload.selectPhoto()"
-        >Foto hochladen</md-button>
+        >{{ \'UPLOAD_PHOTO\' | translate }}</md-button>
       </div>
     `,
     scope: {

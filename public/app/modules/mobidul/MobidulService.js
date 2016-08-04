@@ -5,7 +5,7 @@ angular
 
 MobidulService.$inject = [
   '$log', '$rootScope', '$stateParams',
-  '$http', '$q', '$timeout',
+  '$http', '$q', '$timeout', '$translate',
   'LocalStorageService'
   /*'RallyService'*/
 ];
@@ -13,7 +13,7 @@ MobidulService.$inject = [
 
 function MobidulService (
   $log, $rootScope, $stateParams,
-  $http, $q, $timeout,
+  $http, $q, $timeout, $translate,
   LocalStorageService
   /*RallyService*/
 )
@@ -25,7 +25,7 @@ function MobidulService (
     NEW_STATION     : 1,
     MOBIDUL_OPTIONS : 2,
 
-    NEW_MOBIDUL_TITLE : 'Neues Mobidul',
+    NEW_MOBIDUL_TITLE : $translate.instant('NEW_MOBIDUL_NAME'),
 
     MOBIDUL_MODE_RALLY : 'rally',
     MOBIDUL_MODE_DEFAULT : 'default',
@@ -39,13 +39,13 @@ function MobidulService (
       //   RallyService.STATUS_COMPLETED
       // ],
       states: [
-        'versteckt', 'aktiviert', 'geöffnet', 'abgeschlossen'
+        'HIDDEN', 'ACTIVATED', 'OPEN', 'COMPLETED'
       ],
 
       elements: ['html', 'ifNear', 'inputCode', 'button', 'photoUpload', 'setTimeout', 'freeText'],
 
       // defaultState: RallyService.STATUS_ACTIVATED,
-      defaultState: 'aktiviert',
+      defaultState: 'ACTIVATED',
 
       hiddenStations: true
     }, {
@@ -53,10 +53,10 @@ function MobidulService (
       elements: [ 'html' ],
 
       // states: [ RallyService.STATUS_OPEN ],
-      states: 'geöffnet',
+      states: 'OPEN',
 
       // defaultState: RallyService.STATUS_OPEN,
-      defaultState: 'geöffnet',
+      defaultState: 'OPEN',
       
       hiddenStations: false
     }],
@@ -287,9 +287,6 @@ function MobidulService (
    * @return {*} Accessing the cloning function on the Server
    */
   function cloneMobidul (mobidul) {
-    $log.debug("FLO 2: SERVICE was working." + "Mobidulcode: " + mobidul.code);
-    $log.debug(mobidul);
-
     var mobidulData = JSON.stringify(mobidul);
 
     return $http.post(cordovaUrl + '/' + mobidul.code + '/clone', mobidulData)

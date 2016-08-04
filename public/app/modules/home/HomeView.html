@@ -84,9 +84,9 @@
       md-swipe-content="true"
       md-selected="home.searchTypeIndex"
     >
-      <md-tab md-on-select="home.changeSearchType()">In der Nähe</md-tab>
-      <md-tab md-on-select="home.changeSearchType()">Alle</md-tab>
-      <md-tab md-on-select="home.changeSearchType()">Meine</md-tab>
+      <md-tab md-on-select="home.changeSearchType()">{{'NEAR' | translate}}</md-tab>
+      <md-tab md-on-select="home.changeSearchType()">{{'ALL' | translate}}</md-tab>
+      <md-tab md-on-select="home.changeSearchType()">{{'MINE' | translate}}</md-tab>
     </md-tabs>
 
     <md-input-container
@@ -147,7 +147,9 @@
           <div class="md-list-item-text">
             <h3>{{ mobidul.name }}</h3>
             <p>{{ mobidul.description }}</p>
-            <p ng-if="home.searchTypeIndex == 0">Distanz {{ mobidul.distance }}</p>
+            <p  ng-if="home.searchTypeIndex == 0"
+                translate="DISTANCE"
+                translate-values="{distance: mobidul.distance}"></p>
           </div>
         </md-list-item>
       </md-list>
@@ -206,7 +208,7 @@
         flex
       >
         <md-icon>add_circle_outline</md-icon>
-        <span>Erstellen</span>
+        <span translate="CREATE"></span>
       </md-button>
 
       <md-button
@@ -217,7 +219,7 @@
         flex
       >
         <md-icon>assignment_ind</md-icon>
-        <span>Mitmachen</span>
+        <span translate="JOIN"></span>
       </md-button>
     </div>
   </div>

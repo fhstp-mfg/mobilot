@@ -335,7 +335,7 @@ element-container {
   display: block;
   position: relative;
   margin-bottom: 1em;
-  padding: 0.5em 1em 2.5em 3em;
+  padding: 0.5em 1em 2.5em;
 }
 
 li.selected element-container {
@@ -366,7 +366,9 @@ li.selected .config-part {
 }
 
 .editor-element-info {
-  position: absolute;
+  display: block;
+  margin: 0;
+  padding: 0;
   top: 0;
   left: 0;
   min-width: 0;

@@ -7,13 +7,13 @@ angular
 
 
 InputCode.$inject = [
-  '$log', '$rootScope',
+  '$log', '$translate', '$rootScope',
   'ActivityService'
 ];
 
 
 function InputCode (
-  $log, $rootScope,
+  $log, $translate, $rootScope,
   ActivityService
 ) {
   return {
@@ -25,7 +25,7 @@ function InputCode (
       id: '@'
     },
     template: `
-      '<div>
+      <div>
         <form ng-submit="inputCode.submit()">
           <md-input-container>
             <input
@@ -38,7 +38,7 @@ function InputCode (
           <md-button
             type="submit"
             class="md-raised md-primary"
-          >Go</md-button>
+          >{{ \'GO\' | translate }}</md-button>
         </form>
       </div>
     `,

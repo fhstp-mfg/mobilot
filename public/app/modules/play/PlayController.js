@@ -3,14 +3,14 @@ angular
   .controller('PlayController', PlayController);
 
 PlayController.$inject = [
-  '$log', '$rootScope', '$scope',
+  '$log', '$rootScope', '$scope', '$translate',
   '$state', '$stateParams', 'StateManager',
   '$mdDialog',
   'PlayService'
 ];
 
 function PlayController (
-  $log, $rootScope, $scope,
+  $log, $rootScope, $scope, $translate,
   $state, $stateParams, StateManager,
   $mdDialog,
   PlayService
@@ -55,8 +55,7 @@ function PlayController (
 
   function join ()
   {
-    PlayService
-    .play(play.code)
+    PlayService.play(play.code)
     .success(function (response) {
       // console.warn('join mobidul play callback : ');
       // console.info(response);
@@ -66,15 +65,15 @@ function PlayController (
           $state.go('mobidul.map', { mobidulCode : response.code });
         }
         else {
-          var msg = 'Dieser Mitmach-Code ist ungültig. Bitte versuche es nochmal oder kontaktiere den Ersteller des Mobiduls.';
+          var msg = $translate.instant('JOIN_CODE_INVALID_EXPLANATION');
 
           var invalidPlayDialog =
             $mdDialog.alert()
             .parent( angular.element(document.body) )
-            .title('Mitmachen nicht möglich')
+            .title($translate.instant('JOIN_NOT_POSSIBLE'))
             .textContent(msg)
-            .ariaLabel('Anmeldung Fehler')
-            .ok('Daten überarbeiten');
+            .ariaLabel($translate.instant('LOGIN_ERROR'))
+            .ok($translate.instant('EDIT_CREDENTIALS'));
 
           $mdDialog.show(invalidPlayDialog);
         }

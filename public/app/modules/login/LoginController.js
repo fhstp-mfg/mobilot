@@ -3,14 +3,14 @@ angular
   .controller('LoginController', LoginController);
 
 LoginController.$inject = [
-  '$log', '$rootScope', '$timeout',
+  '$log', '$rootScope', '$timeout', '$translate',
   '$state', '$stateParams', 'StateManager',
   '$mdDialog',
   'UserService'
 ];
 
 function LoginController (
-  $log, $rootScope, $timeout,
+  $log, $rootScope, $timeout, $translate,
   $state, $stateParams, StateManager,
   $mdDialog,
   UserService
@@ -73,7 +73,7 @@ function LoginController (
   function _initDefaultValues ()
   {
     // login.activationMessage = 'Dieser Aktivierungscode ist ungültig!';
-    login.activationMessage = 'Danke für deine Registrierung. Du wirds in Kürze weitergeleitet und kannst loslegen. Viel Spaß!';
+    login.activationMessage = $translate.instant('ACTIVATION_MSG');
   }
 
 
@@ -115,13 +115,12 @@ function LoginController (
         if ( response.data === 'wrong' )
         {
           var loginCompletedDialog =
-            $mdDialog
-              .alert()
+            $mdDialog.alert()
               .parent( angular.element(document.body) )
-              .title('Anmeldung Fehler')
-              .textContent('Der Benutzername oder das Passwort ist falsch.')
-              .ariaLabel('Anmeldung Fehler')
-              .ok('Daten überarbeiten');
+              .title($translate.instant('LOGIN_ERROR'))
+              .textContent($translate.instant('CREDENTIALS_WRONG'))
+              .ariaLabel($translate.instant('LOGIN_ERROR'))
+              .ok($translate.instant('EDIT_CREDENTIALS'));
 
           $mdDialog.show( loginCompletedDialog );
         }
@@ -150,43 +149,41 @@ function LoginController (
         switch ( result )
         {
           case 'success' :
-            registrationDialogTitle   = 'Registrierung erfolgreich';
-            registrationDialogContent = 'Du solltest in Kürze eine Bestätigung per Mail bekommen. ' +
-                          'Kontrolliere bitte auch deinen Spam Ordner.';
-            registrationDialogOk      = 'Weiter';
+            registrationDialogTitle   = $translate.instant('REGISTRATION_SUCCESSFUL');
+            registrationDialogContent = $translate.instant('CONFIRM_MAIL_SENT_CHECK_SPAM');
+            registrationDialogOk      = $translate.instant('CONTINUE');
 
             break;
 
           case 'email-exists' :
-            registrationDialogTitle   = 'Ungültige Email Adresse';
-            registrationDialogContent = 'Ein Benutzer ist schon mit dieser Email Adresse registriert.';
-            registrationDialogOk      = 'Email ändern';
+            registrationDialogTitle   = $translate.instant('INVALID_EMAIL');
+            registrationDialogContent = $translate.instant('EMAIL_ALREADY_TAKEN');
+            registrationDialogOk      = $translate.instant('CHANGE_EMAIL');
 
             break;
 
           case 'username-exists' :
-            registrationDialogTitle   = 'Ungültiger Benutzername';
-            registrationDialogContent = 'Dieser Benutzername ist schon vergeben.';
-            registrationDialogOk      = 'Benutzername ändern';
+            registrationDialogTitle   = $translate.instant('INVALID_USERNAME');
+            registrationDialogContent = $translate.instant('USERNAME_ALREADY_TAKEN');
+            registrationDialogOk      = $translate.instant('CHANGE_USERNAME');
 
             break;
 
           case 'error'   :
-            registrationDialogTitle   = 'Registrierung Fehler';
-            registrationDialogContent = 'Das Registrieren hat leider nicht geklappt. Bitte probiere es nochmal.';
-            registrationDialogOk      = 'OK';
+            registrationDialogTitle   = $translate.instant('REGISTRATION_ERROR');
+            registrationDialogContent = $translate.instant('REGISTRATION_ERROR_TRY_AGAIN');
+            registrationDialogOk      = $translate.instant('OK');
 
             break;
         }
 
 
         var registrationCompletedDialog =
-          $mdDialog
-            .alert()
+          $mdDialog.alert()
             .parent(angular.element(document.body))
             .title(registrationDialogTitle)
             .textContent(registrationDialogContent)
-            .ariaLabel('Registrierung Informationen')
+            .ariaLabel($translate.instant('REGISTRATION_INFORMATION'))
             .ok(registrationDialogOk);
 
         $mdDialog.show( registrationCompletedDialog );
@@ -203,8 +200,7 @@ function LoginController (
 
   function requestRestore ()
   {
-    UserService
-      .requestRestore( login.credentials.email )
+    UserService.requestRestore( login.credentials.email )
       .then(function (response)
       {
         // $log.debug('request restore callback');
@@ -222,25 +218,23 @@ function LoginController (
           {
             var emailMessage = response.data.email[ 0 ];
 
-            requestRestoreDialogTitle     = 'Passwort zurücksetzten Fehler';
-            requestRestoreDialogAriaLabel = 'Passwort zurücksetzten Fehler';
-            requestRestoreDialogOk         = 'Email überarbeiten';
+            requestRestoreDialogTitle     = $translate.instant('RESET_PASSWORD_ERROR');
+            requestRestoreDialogAriaLabel = $translate.instant('RESET_PASSWORD_ERROR');
+            requestRestoreDialogOk         = $translate.instant('CHANGE_EMAIL');
           }
         }
         else
         {
-          emailMessage = 'Du solltest in Kürze einen Wiederherstellungslink per Mail bekommen. ' +
-                   'Kontrolliere bitte auch deinen Spam Ordner.';
+          emailMessage = $translate.instant('RESET_PASSWORD_EMAIL');
 
-          requestRestoreDialogTitle     = 'Passwort zurücksetzten';
-          requestRestoreDialogAriaLabel = 'Passwort zurücksetzten';
-          requestRestoreDialogOk      = 'Weiter';
+          requestRestoreDialogTitle     = $translate.instant('RESET_PASSWORD_EMAIL');
+          requestRestoreDialogAriaLabel = $translate.instant('RESET_PASSWORD_EMAIL');
+          requestRestoreDialogOk      = $translate.instant('CONTINUE');
         }
 
 
         var requestRestoreCompletedDialog =
-          $mdDialog
-            .alert()
+          $mdDialog.alert()
             .parent( angular.element(document.body) )
             .title(requestRestoreDialogTitle)
             .textContent(emailMessage)
@@ -264,8 +258,7 @@ function LoginController (
     };
 
 
-    UserService
-      .changePassword( postData )
+    UserService.changePassword( postData )
       .then(function (response)
       {
         // $log.debug('Reset, change password callback');
@@ -279,10 +272,10 @@ function LoginController (
 
         if ( response.data === 'success' )
         {
-          resetPasswordDialogTitle   = 'Passwort zurückgesetzt';
-          resetPasswordDialogAriaLabel = 'Passwort zurückgesetzt';
-          resetPasswordDialogContent   = 'Das Passwort wurde erfolgreich geändert und du wurdest automatisch eingeloggt.';
-          resetPasswordDialogOk      = 'Weiter';
+          resetPasswordDialogTitle   = $translate.instant('PASSWORD_RESET');
+          resetPasswordDialogAriaLabel = $translate.instant('PASSWORD_RESET');
+          resetPasswordDialogContent   = $translate.instant('RESET_PASSWORD_SUCCESS');
+          resetPasswordDialogOk      = $translate.instant('CONTINUE');
 
 
           var currentStateParams = StateManager.getParams();
@@ -297,8 +290,8 @@ function LoginController (
         }
         else
         {
-          resetPasswordDialogTitle     = 'Passwort zurücksetzten Fehler';
-          resetPasswordDialogAriaLabel = 'Passwort zurücksetzten Fehler';
+          resetPasswordDialogTitle     = $translate.instant('RESET_PASSWORD_ERROR');
+          resetPasswordDialogAriaLabel = $translate.instant('RESET_PASSWORD_ERROR');
 
           resetPasswordDialogContent = '';
           angular.forEach( response.data, function (field, id)
@@ -308,13 +301,12 @@ function LoginController (
             resetPasswordDialogContent += message + ' ';
           });
 
-          resetPasswordDialogOk = 'Daten überarbeiten';
+          resetPasswordDialogOk = $translate.instant('EDIT_CREDENTIALS');
         }
 
 
         var resetPasswordCompletedDialog =
-          $mdDialog
-            .alert()
+          $mdDialog.alert()
             .parent(angular.element(document.body))
             .title(resetPasswordDialogTitle)
             .textContent(resetPasswordDialogContent)

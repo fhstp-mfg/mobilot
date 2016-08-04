@@ -6,12 +6,12 @@ angular
 .factory('AttachmentService', AttachmentService);
 
 AttachmentService.$inject = [
-  '$log', '$http', '$q',
+  '$log', '$http', '$q', '$translate',
   '$mdDialog'
 ];
 
 function AttachmentService (
-  $log, $http, $q,
+  $log, $http, $q, $translate,
   $mdDialog
 ) {
   /// AttachmentService
@@ -106,10 +106,10 @@ function AttachmentService (
           $mdDialog.show(
             $mdDialog.alert()
             .parent(angular.element(document.body))
-            .title('Keine Fotos')
-            .textContent( 'Zu dieser Station wurden noch keine Fotos hochgeladen' )
-            .ariaLabel('OK')
-            .ok('OK')
+            .title($translate.instant('NO_PHOTOS'))
+            .textContent($translate.instant('NO_PHOTOS_FOR_STATION'))
+            .ariaLabel($translate.instant('OK'))
+            .ok($translate.instant('OK'))
           );
 
         }

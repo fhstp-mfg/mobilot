@@ -6,6 +6,7 @@ angular
 StationController.$inject = [
   '$log', '$rootScope', '$sce', '$scope', '$compile', '$interval', '$timeout',
   '$state', '$sanitize', '$stateParams', 'StateManager', '$mdDialog',
+  '$translate',
   'StationService', 'MobidulService', 'HeaderService', 'MapService', 'StationCreatorService',
   'UserService', 'RallyService', 'GeoLocationService', 'FontService'
 ];
@@ -14,6 +15,7 @@ StationController.$inject = [
 function StationController (
   $log, $rootScope, $sce, $scope, $compile, $interval, $timeout,
   $state, $sanitize, $stateParams, StateManager, $mdDialog,
+  $translate,
   StationService, MobidulService, HeaderService, MapService, StationCreatorService,
   UserService, RallyService, GeoLocationService, FontService
 ) {
@@ -28,7 +30,7 @@ function StationController (
   station.mediaList     = [];
   station.imageList     = [];
   station.content       = '';
-  station.text          = 'wird geladen';
+  station.text          = $translate.instant('LOADING');
   // station.loading       = 'visible';
   station.loading       = 'block';
   station.stationId     = 0;
@@ -122,7 +124,7 @@ function StationController (
         // $log.debug(response);
 
         if ( response === '' ) {
-          station.text = 'Zu diesem Code ist leider keine Station vorhanden ...';
+          station.text = $translate.instant('NO_STATION_FOR_CODE');
 
           UserService.Permit.EditStation = false;
         } else {
@@ -151,26 +153,12 @@ function StationController (
                 RallyService.refresh();
 
                 var statusContent = [];
-                statusContent[ RallyService.STATUS_HIDDEN ] = `
-                  <p style="background: #eee; font-weight: bold">
-                    Diese Station hat für den Status "` + RallyService.STATUS_HIDDEN + `" keinen Inhalt.
-                  </p>
-                `;
-                statusContent[ RallyService.STATUS_ACTIVATED] = `
-                  <p style="background: #eee; font-weight: bold">
-                    Diese Station hat für den Status "` + RallyService.STATUS_ACTIVATED + `" keinen Inhalt.
-                  </p>
-                `;
-                statusContent[ RallyService.STATUS_OPEN] = `
-                  <p style="background: #eee; font-weight: bold">
-                    Diese Station hat für den Status "` + RallyService.STATUS_OPEN + `" keinen Inhalt.
-                  </p>
-                `;
-                statusContent[ RallyService.STATUS_COMPLETED] = `
-                  <p style="background: #eee; font-weight: bold">
-                    Diese Station hat für den Status "` + RallyService.STATUS_COMPLETED + `" keinen Inhalt.
-                  </p>
-                `;
+                MobidulService.getMobidulConfig(StateManager.state.params.mobidulCode)
+                .then(function (config) {
+                  angular.forEach(config.states, function (state) {
+                    statusContent[ state ] = '<p style="background: #eee; font-weight: bold">' + $translate.instant('STATION_NO_CONTENT', {state: state}) + '</p>';
+                  });
+                });
 
                 // station.content = statusContent[ RallyService.getStatus( station.order ) ] + response.content;
                 // station.content = response.content;
@@ -479,8 +467,8 @@ function StationController (
   {
     RallyService.getStatus(station.order)
       .then(function (status) {
-        // $log.info('StationController - renderJSON - RallyService.getStatus - status:');
-        // $log.debug(status, station, StateManager.isStationCreator());
+         $log.info('StationController - renderJSON - RallyService.getStatus - status:');
+         $log.debug(status, station, StateManager.isStationCreator());
 
         station.currentState = status;
 
@@ -625,8 +613,8 @@ function StationController (
         .clickOutsideToClose(true)
         .title(station.stationName)
         .textContent(attr)
-        .ariaLabel('"Sagen" Aktion')
-        .ok('Schließen');
+        .ariaLabel($translate.instant('SAY_TITLE'))
+        .ok($translate.instant('CLOSE'));
 
         $mdDialog.show(sayActionDialog);
         break;

@@ -1,2 +1,284 @@
 {
+  "YES": "Ja",
+  "NO": "Nein",
+
+  "MOBILOT_LOADING": "Mobilot lädt",
+  "LOADING": "wird geladen",
+
+  "CANCEL": "Abbrechen",
+  "CLOSE": "Schließen",
+  "DELETE": "Löschen",
+  "CONFIRMATION": "Bestätigung",
+  "CONTINUE": "Weiter",
+  "RESET": "Zurücksetzen",
+  "CREATE": "Erstellen",
+  "OK": "OK",
+  "JOIN": "Mitmachen",
+  "SAVE": "Speichern",
+  "DISCARD": "Verwerfen",
+  "CLONE": "Kopieren",
+  "LOGIN": "Anmelden",
+  "SEARCH": "Suche",
+  "EDIT": "Bearbeiten",
+
+  "OPTIONS": "Optionen",
+
+  "STATE": "Status",
+  "HIDDEN": "versteckt",
+  "ACTIVATED": "aktiviert",
+  "OPEN": "offen",
+  "COMPLETED": "abgeschlossen",
+
+  "NAME": "Name",
+  "DESCRIPTION": "Beschreibung",
+  "LABEL": "Beschriftung",
+
+  "USER_PROFILE": "Benutzerprofil",
+  "USER_NAME": "Benutzername",
+  "PASSWORD": "Passwort",
+  "EMAIL": "Email",
+
+  "CURRENT_PASSWORD": "Aktuelles Passwort",
+  "NEW_PASSWORD": "Neues Passwort",
+  "CHANGE_PASSWORD": "Passwort ändern",
+  "CHANGE_PASSWORD_INFORMATION": "Passwort ändern Informationen",
+  "CONFIRM_PASSWORD": "Passwort bestätigen",
+  "PASSWORD_CHANGED": "Passwort geändert",
+  "PASSWORD_CHANGED_SUCCESS": "Passwort wurde erfolgreich geändert",
+  "PASSWORD_CHANGED_ERROR": "Passwort ändern Fehler",
+  "LOGOUT": "Abmelden",
+  "BACK_TO_LOGIN": "Zurück zum Anmelden",
+
+  "LANGUAGE_SELECTION": "Sprachauswahl",
+
+  "GERMAN": "Deutsch",
+  "ENGLISH": "Englisch",
+
+  "LOGIN_ERROR": "Anmeldung Fehler",
+  "CREDENTIALS_WRONG": "Der Benutzername oder das Passwort ist falsch.",
+  "EDIT_CREDENTIALS": "Daten überarbeiten",
+
+  "FORGET_PASSWORD": "Passwort vergessen",
+  "RESET_PASSWORD": "Passwort zurücksetzten",
+  "PASSWORD_RESET": "Passwort zurückgesetzt",
+  "ENTER_NEW_PASSWORD": "Gib hier dein neues Passwort ein.",
+  "RESET_PASSWORD_DESCRIPTION": "Bitte gib die Email Adresse deines Benutzers ein, um das Passwort zurückzusetzen.",
+  "RESET_PASSWORD_SUCCESS": "Das Passwort wurde erfolgreich geändert und du wurdest automatisch eingeloggt.",
+  "RESET_PASSWORD_ERROR": "Passwort zurücksetzten Fehler",
+  "RESET_PASSWORD_EMAIL": "Du solltest in Kürze einen Wiederherstellungslink per Mail bekommen. \n Kontrolliere bitte auch deinen Spam Ordner.",
+
+  "REGISTER": "Registrieren",
+  "REGISTER_USER": "Benutzer registrieren",
+
+  "REGISTRATION_INFORMATION": "Registrierung Informationen",
+
+  "REGISTRATION_SUCCESSFUL": "Registrierung erfolgreich",
+  "CONFIRM_MAIL_SENT_CHECK_SPAM": "Du solltest in Kürze eine Bestätigung per Mail bekommen. \n Kontrolliere bitte auch deinen Spam Ordner.",
+  "INVALID_EMAIL": "Ungültige Email Adresse",
+  "EMAIL_ALREADY_TAKEN": "Ein Benutzer ist schon mit dieser Email Adresse registriert.",
+  "CHANGE_EMAIL": "Email ändern",
+
+  "INVALID_USERNAME": "Ungültiger Benutzername",
+  "USERNAME_ALREADY_TAKEN": "Dieser Benutzername ist schon vergeben.",
+  "CHANGE_USERNAME": "Benutzername ändern",
+
+  "REGISTRATION_ERROR": "Registrierung Fehler",
+  "REGISTRATION_ERROR_TRY_AGAIN": "Das Registrieren hat leider nicht geklappt. Bitte probiere es nochmal.",
+
+  "ACTIVATION_MSG": "Danke für deine Registrierung. Du wirds in Kürze weitergeleitet und kannst loslegen. Viel Spaß!",
+
+  "NEAR": "In der Nähe",
+  "ALL": "Alle",
+  "MINE": "Meine",
+
+  "HOME_SEARCH_PLACEHOLDER_NEAR": "Mobidule in meiner Nähe durchsuchen",
+  "HOME_SEARCH_PLACEHOLDER_ALL": "Alle Mobidule durchsuchen",
+  "HOME_SEARCH_PLACEHOLDER_MINE": "Eigene Mobidule durchsuchen",
+
+  "DISTANCE": "Distanz {{distance}}",
+
+  "JOIN_CODE": "Mitmach-Code",
+  "JOIN_CODE_INPUT_DESCRIPTION": "Mitmach-Codes können vom Ersteller eines Mobidul bereitgestellt werden.\nUm bei einem Mobidul als \"Redakteur\" mitzumachen, gib dein Mitmach-Code hier ein.",
+  "JOIN_NOT_POSSIBLE": "Mitmachen nicht möglich",
+  "JOIN_CODE_INVALID_EXPLANATION": "Dieser Mitmach-Code ist ungültig. Bitte versuche es nochmal oder kontaktiere den Ersteller des Mobiduls.",
+
+  "HIDE_ON_HOME": "Auf der Startseite verberger",
+
+  "MOBIDUL": "Mobidul",
+  "MOBIDUL_SELECTION": "Mobidulauswahl",
+  "TO_MOBIDUL": "Zu Mobidul",
+
+  "INFORMATION": "Information",
+
+  "EXPLAIN_GENERIC_GEO_PERMIT": "Mobilot benötigt die Berechtigung deine Position zu ermitteln.",
+  "EXPLAIN_NEAR_GEO_PERMIT": "Um Mobidule in deiner Nähe zu finden, benötigt Mobilot die Berechtigung deine Position zu ermitteln.",
+  "UNKNOWN_ERROR_MSG": "Unbekannter Fehler. Bitte kontaktiere einen Administrator.",
+  "PERMISSION_DENIED_MSG": "Deine Position konnte nicht ermittelt werden. Bitte aktiviere in den Einstellungen die Berechtigung, um deine Position zu ermitteln.",
+  "POSITION_UNAVAILABLE_MSG": "Leider konnte deine Position nicht ermittelt werden. Möchtest du es nochmal probieren?",
+  "TIMEOUT_MSG": "Leider hat es zu lange gedauert deine Position zu ermitteln. Möchtest du es nochmal probieren?",
+
+  "POSITION_ERROR_TITLE": "Position Fehler",
+  "BACK_TO_MOBIDULS": "Zu alle Mobidule",
+  "TRY_AGAIN": "Nochmal versuchen",
+  "TO_MAP": "Zur Karte",
+
+  "UPLOAD_PHOTO": "Foto hochladen",
+  "DOWNLOAD_PHOTOS": "Fotos runterladen",
+  "EXPLAINATION": "Erklärungstext",
+  "NO_PHOTOS": "Keine Fotos",
+  "NO_PHOTOS_FOR_STATION": "Zu dieser Station wurden noch keine Fotos hochgeladen",
+
+  "MOBIDUL_MODE": "Mobidul Mode",
+
+  "CREATE_MOBIDUL": "Mobidul erstellen",
+  "MOBIDUL_IS_CREATED": "Mobidul wird erstellt",
+  "OPEN_MOBIDUL": "Mobidul öffnen",
+  "REFRESH_MOBIDUL": "Mobidul aktualisieren",
+  "MOBIDUL_SAVED": "Mobidul gespeichert",
+  "MOBIDUL_IS_SAVED": "Mobidul wird gespeichert",
+  "MOBIDUL_OPTIONS_SAVED": "Mobidul Optionen wurden gespeichert.",
+
+  "DELETE_MOBIDUL": "Mobidul löschen",
+  "DELETE_MOBIDUL_CONFIRMATION_TITLE": "Mobidul löschen bestätigen",
+  "DELETE_MOBIDUL_CONFIRMATION_BODY": "Bitte bestätige, dass dieses Mobidul gelöscht werden soll.",
+  "DELETE_MOBIDUL_ERROR_MSG": "Mobidul konnte nicht gelöscht werden! Bitte kontaktieren Sie einen Administrator",
+
+  "NOT_AUTHORIZED_TO_EDIT_MOBIDUL": "Sie haben keine Berechtigungen dieses Mobidul zu bearbeiten!",
+  "CODE_INVALID": "Dieser Code ist ungültig",
+
+  "CATEGORIES": "Kategorien",
+
+  "ADD_CATEGORY": "Kategorie hinzufügen",
+
+  "DELETE_CATEGORY_TITLE": "Wollen Sie diese Kategorie wirklich löschen?",
+  "DELETE_CATEGORY_WARNING": "Alle zugehörigen Stationen verlieren die Verbindung zu dieser Kategorie.",
+
+  "CATEGORY_DELETED": "Kategorie wurde gelöscht.",
+  "NOT_AUTHORIZED_TO_DELETE_CATEGORY": "Sie haben keine Berechtigung Kategorien löschen!",
+  "NOT_AUTHORIZED_TO_EDIT_CATEGORY": "Sie haben keine Berechtigung Kategorien zu bearbeiten!",
+  "CATEGORY_DOESNT_EXIST": "Diese Kategorie existiert nicht!",
+  "NO_CATEGORY_PASSED": "Es wurde keine Kategorie angegeben!",
+
+  "NEW_CATEGORY": "Neue Kategorie",
+  "CATEGORIES_SAVED": "Mobidul Kategorien wurden gespeichert.",
+
+  "MULTIPLE_CATEGORIES_PER_STATION": "Stationen können mehreren Kategorien zugeordnet sein.",
+
+  "MENU_SAVED": "Mobidul Menü wurde gespeichert.",
+
+  "GENERIC_NOT_ALLOWED": "Sie dürfen das nicht!",
+
+  "MAP": "Karte",
+  "ADD_MAP": "Karte hinzufügen",
+
+  "MENU_ENTRY": "Menü Eintrag",
+  "ADD_MENU_ENTRY": "Menü Eintrag hinzufügen",
+
+  "DIVIDER": "Trenner",
+  "ADD_DIVIDER": "Trenner hinzufügen",
+
+  "GENERAL": "Allgemein",
+
+  "CLONE_MOBIDUL": "Mobidul klonen",
+  "MOBIDUL_NAME": "Mobidul Name",
+  "NEW_MOBIDUL_NAME": "Neues Mobidul",
+  "ENTER_NEW_MOBIDUL_NAME": "Gib den Namen des neuen Mobiduls ein:",
+  "MOBIDUL_CODE": "Mobidul Code",
+
+  "CREATING": "wird generiert...",
+  "AUTOMATICALLY_CREATED": "automatisch generiert",
+  "MANUALLY_CREATED": "manuell geänder",
+
+  "MOBIDUL_LINK_WILL_BE": "Das Mobidul wird über folgendem Link aufrufbar sein:",
+  "STATION_LINK_WILL_BE": "Die Station wird über folgendem Link aufrufbar sein:",
+
+  "ACCURACY": "Genauigkeit: {{value}}m",
+
+  "RESET_RALLY": "Rally zurücksetzen",
+  "RESET_RALLY_CONFIRMATION": "Bitte bestätige, dass du deinen Rally Fortschritt zurücksetzen möchtest.",
+  "RALLY_RESET": "Rally zurückgesetzt",
+  "RALLY_RESET_SUCCESS": "Dein Rally Fortschitt wurde zurückgesetzt.",
+
+  "NO_STATION_FOR_CODE": "Zu diesem Code ist leider keine Station vorhanden ...",
+  "STATION_NO_CONTENT": "Diese Station hat für den Status {{state}} keinen Inhalt.",
+
+  "SAY_TITLE": "Mitteilung",
+
+  "IMMUTABLE": "Unveränderbar",
+  "IMMUTABLE_STAION_DESCRIPTION": "Die Station ist unveränderbar",
+
+  "HIDE_ON_MAP": "Auf Karte verstecken",
+  "HIDE_ON_MAP_DESCRIPTION": "Die Station wird nicht auf der Karte angezeigt.",
+
+  "STATIONS": "Stationen",
+  "ALL_STATIONS": "Alle Stationen",
+  "NEW_STATION": "Neue Station",
+  "STATIONS_LOADING": "Stationen werden geladen...",
+
+  "STATION_SAMPLE_TEXT": "Das ist ein Beispielstext",
+
+  "CREATE_STATION": "Station erstellen",
+  "CREATE_STATION_QUESTION": "Möchtest Du diese Station erstellen?",
+
+  "SAVE_CHANGES": "Änderungen speichern",
+  "STATION_SAVE_CONFIRMATION": "Die Station mit dem Code {{code}} wurde geändert. Möchtest du die Änderungen speichern?",
+
+  "STATION_DELETE_CONFIRMATION_TITLE": "Station löschen bestätigen",
+  "STATION_DELETE_CONFIRMATION": "Bitte bestätige, dass diese Station gelöscht werden soll.",
+
+  "STATION_CLONE": "Station kopieren",
+  "STATION_CLONE_CONFIRMATION": "Bitte bestätige, dass du diese Station klonen möchtest.",
+
+  "STATION_CLONE_SUCCESS": "Station erfolgreich kopiert",
+  "STATION_CHANGE_PLACE": "Bitte ändere den Ort der neuen Station.",
+
+  "CLONE_STATION": "Station duplizieren",
+
+  "DELETE_STATION": "Station löschen",
+  "STATION_GETS_DELETED": "Station wird unwiderruflich gelöscht.",
+
+  "PLACE": "Ort",
+  "BASE": "Basis",
+
+  "NOT_ALLOWED": "Nicht erlaubt",
+  "MOBIDUL_LOCKED": "Mobidul ist gesperrt",
+  "STATION_CODE": "Station Code",
+  "INVALID_STATION_CODE": "Der Stationscode ist ungültig",
+  "ERROR": "Fehler",
+  "UNKNOWN_ERROR": "Unbekannter Fehler",
+  "UNKNOWN": "Unbekannt",
+
+  "MOBIDUL_CREATOR_TEXT": "Hier kannst du ein neues Mobidul erstellen. \n Nachdem du den Namen eingegeben hast, wird ein Code generiert, welches dann manuell geändern werden kann.",
+
+  "CHOOSE_FONT": "Wähle eine Schriftart",
+
+  "QUESTION": "Frage",
+  "DOWNLOAD_ANSWERS": "Antworten herunterladen",
+
+  "VERIFIER": "Verifier",
+  "GO": "GO",
+
+  "MINUTES": "Minuten",
+  "SECONDS": "Sekunden",
+  "SHOW_COUNTDOWN": "Countdown anzeigen",
+
+  "RANGE_INPUT_PLACEHOLDER": "Entfernung (in Meter)",
+  "FALLBACK": "Absicherung",
+
+  "GPS_INACCURATE_FALLBACK": "Dein GPS ist zu ungenau. Gib den richtigen Code bei der Station ein:",
+  "DISTANCE_FEEDBACK": "Du bist noch zirka {{ distance }} Meter von der Station entfernt. \n (± {{ accuracy }}m)",
+
+  "CONTACT": "Kontakt",
+
+  "WELCOME_TO_MOBILOT": "Willkommen bei Mobilot",
+  "ABOUT_MOBILOT": "Über Mobilot",
+
+  "MOBILOT_DESCRIPTION": "Mobilot (der mobile Pilot) ist ein in mehreren Forschungsprojekten entstandenes System zum einfachen Erstellen kontextbasierter Informationssysteme.\n Mit Mobilot können sogenannte Mobidule kostenlos erstellt werden. \n Wir bitten unsere Anwender die gesetzliche Regeln und die der Ethik und des guten Geschmacks einzuhalten und behalten uns vor, Mobidule, die diese Regeln verletzten, zu löschen. Wir übernehmen keine Verantwortung für Inhalte unserer Nutzer.",
+  "MFG": "Mobile Forschungsgruppe",
+  "ICMT": "Institut für Creative\\Media/Technologies",
+  "FHSTP": "University of Applied Sciences St. Pölten",
+
+  "PRESENTED_BY": "Presented by"
+
+
 }

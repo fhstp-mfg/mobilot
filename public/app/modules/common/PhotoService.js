@@ -7,12 +7,12 @@ angular
 
 PhotoService.$inject = [
   '$log', '$http', '$stateParams', '$q',
-  '$mdDialog'
+  '$translate'
 ];
 
 function PhotoService(
   $log, $http, $stateParams, $q,
-  $mdDialog
+  $translate
 ) {
   /// PhotoService
   var service =
