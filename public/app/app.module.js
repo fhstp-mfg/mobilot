@@ -4,7 +4,7 @@
 angular.module('Mobilot',
 [
   'ngMaterial',
-  'ui.router', 'pascalprecht.translate',
+  'ui.router', 'pascalprecht.translate', 'ngCookies',
   'monospaced.qrcode',
   'angulartics', 'angulartics.google.analytics',
   'Home', 'Login', 'Profile', 'Play', 'Mobidul', 'Creator'

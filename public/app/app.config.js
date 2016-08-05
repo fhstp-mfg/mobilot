@@ -21,7 +21,8 @@ angular
       });
 
       $translateProvider.preferredLanguage('de_DE');
-      //$translateProvider.usePostCompiling(true);
+      $translateProvider.fallbackLanguage('de_DE');
+      $translateProvider.useLocalStorage();
 
       /// redirects
 

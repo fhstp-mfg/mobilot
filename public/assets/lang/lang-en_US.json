@@ -1,2 +1,17 @@
 {
+  "LOGOUT": "Logout",
+
+  "MOBIDUL_SELECTION": "Mobidul Selection",
+  "USER_PROFILE": "User Profile",
+
+  "USER_NAME": "User Name",
+
+  "CHANGE_PASSWORD": "Change Password",
+
+  "LANGUAGE_SELECTION": "Language Selection",
+
+  "GERMAN": "German",
+  "ENGLISH": "English"
+
+
 }
