@@ -4,7 +4,7 @@ angular
 
 
 MobidulController.$inject = [
-  '$log', '$scope', '$rootScope',
+  '$log', '$scope', '$rootScope', '$translate',
   '$state', '$stateParams', 'StateManager',
   '$geolocation', '$mdSidenav', '$mdComponentRegistry', '$mdDialog',
   'MobidulService', 'HeaderService', 'MapService',
@@ -13,7 +13,7 @@ MobidulController.$inject = [
 
 
 function MobidulController (
-  $log, $scope, $rootScope,
+  $log, $scope, $rootScope, $translate,
   $state, $stateParams, StateManager,
   $geolocation, $mdSidenav, $mdComponentRegistry, $mdDialog,
   MobidulService, HeaderService, MapService,
@@ -297,7 +297,7 @@ function MobidulController (
 
     var cloneDialogOptions = {
       parent       : angular.element(document.body),
-      title        : 'Mobidul klonen',
+      title        : $translate.instant('CLONE_MOBIDUL'),
       templateUrl  : 'app/modules/mobidul/menu/dialog/CloneMobidulDialog.html',
       controller   : CloneMobidulDialogController,
       controllerAs : 'cloneMobidulDialog',

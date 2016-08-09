@@ -7,13 +7,13 @@ angular
 
 
 InputCode.$inject = [
-  '$log', '$rootScope',
+  '$log', '$translate', '$rootScope',
   'ActivityService'
 ];
 
 
 function InputCode (
-  $log, $rootScope,
+  $log, $translate, $rootScope,
   ActivityService
 ) {
   return {
@@ -24,24 +24,21 @@ function InputCode (
       error: '@',
       id: '@'
     },
-    template: `
-      '<div>
-        <form ng-submit="inputCode.submit()">
-          <md-input-container>
-            <input
-              ng-model="inputCode.code"
-              data-success="success"
-              data-error="error">
-            </input>
-          </md-input-container>
+    template: '' +
+      '<div>' +
+        '<form ng-submit="inputCode.submit()">' +
+          '<md-input-container>' +
+            '<input ' +
+              'ng-model="inputCode.code"/>' +
+          '</md-input-container>' +
 
-          <md-button
-            type="submit"
-            class="md-raised md-primary"
-          >Go</md-button>
-        </form>
-      </div>
-    `,
+          '<md-button ' +
+            'type="submit" ' +
+            'class="md-raised md-primary" ' +
+          '>{{ \'GO\' | translate }}</md-button>' +
+        '</form>' +
+      '</div>'
+    ,
 
     link: function ($scope, $element, $attrs, InputCode) {
       // ...

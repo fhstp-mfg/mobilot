@@ -31,6 +31,9 @@ cordova/platforms/ios/www/
 composer.phar
 composer.lock
 
+# Node
+node_modules
+
 # IDE files
 .idea
 .vagrant

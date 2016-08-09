@@ -52,14 +52,6 @@ function MapService (
     PERMISSION_DENIED    : 1,
     POSITION_UNAVAILABLE : 2,
     TIMEOUT              : 3,
-    // geolocation messages
-    EXPLAIN_GENERIC_GEO_PERMIT       : 'Mobilot benötigt die Berechtigung deine Position zu ermitteln.',
-    EXPLAIN_NEAR_GEO_PERMIT  : 'Um Mobidule in deiner Nähe zu finden, benötigt Mobilot die Berechtigung deine Position zu ermitteln.',
-    // geolocation error message
-    UNKNOWN_ERROR_MSG        : 'Unbekannter Fehler. Bitte kontaktiere einen Administrator.',
-    PERMISSION_DENIED_MSG    : 'Deine Position konnte nicht ermittelt werden. Bitte aktiviere in den Einstellungen die Berechtigung, um deine Position zu ermitteln.',
-    POSITION_UNAVAILABLE_MSG : 'Leider konnte deine Position nicht ermittelt werden. Möchtest du es nochmal probieren?',
-    TIMEOUT_MSG              : 'Leider hat es zu lange gedauert deine Position zu ermitteln. Möchtest du es nochmal probieren?',
 
     // functions
     reset : reset,
@@ -92,7 +84,7 @@ function MapService (
 
   function getCurrentPosition ()
   {
-    $log.debug('getting current position in MapService :');
+    // $log.debug('getting current position in MapService :');
 
     var currentPositionPromise =
       $geolocation
@@ -161,8 +153,8 @@ function MapService (
 
   function clearWatch ()
   {
-    $log.debug('Clear watch with ID :');
-    $log.debug(service.watchPositionId);
+    // $log.debug('Clear watch with ID :');
+    // $log.debug(service.watchPositionId);
 
     if ( service.watchPositionId )
     {
@@ -203,7 +195,7 @@ function MapService (
         service.pollStationsIntervalPromise = null;
     }
     else
-      $log.debug('No poll station interval promise defined.');
+      // $log.debug('No poll station interval promise defined.');
 
     // TODO - check if this is the right time to resolve the defer
     defer.resolve();
@@ -253,8 +245,9 @@ function MapService (
       if ( canceled )
         service.gatheringPositionIntervalPromise = null;
     }
-    else
-      $log.debug('No gathering position interval promise defined.');
+    else {
+      $log.warn('No gathering position interval promise defined.');
+    }
   }
 
 

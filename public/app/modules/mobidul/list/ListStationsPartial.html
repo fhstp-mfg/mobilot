@@ -62,7 +62,7 @@
       class="search-field"
       ng-class="list.myFont"
     >
-      <label>Suche</label>
+      <label translate="SEARCH"></label>
       <input ng-model="list.searchQuery">
     </md-input-container>
   </div>
@@ -89,7 +89,8 @@
       <h1
         class="loading-title"
         style="display : {{ list.loading }}"
-      >Stationen werden geladen ...</h1>
+        translate="STATIONS_LOADING"
+      ></h1>
     </div>
 
     <md-list
@@ -122,7 +123,7 @@
               class="md-secondary secondary-icon"
               ng-show="station.canEdit"
               ng-click="list.editStation( station.code )"
-              aria-label="Bearbeiten"
+              aria-label="{{ 'EDIT' | translate }}"
             >
               <span>✎</span>
             </div>

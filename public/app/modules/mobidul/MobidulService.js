@@ -5,7 +5,7 @@ angular
 
 MobidulService.$inject = [
   '$log', '$rootScope', '$stateParams',
-  '$http', '$q', '$timeout',
+  '$http', '$q', '$timeout', '$translate',
   'LocalStorageService'
   /*'RallyService'*/
 ];
@@ -13,7 +13,7 @@ MobidulService.$inject = [
 
 function MobidulService (
   $log, $rootScope, $stateParams,
-  $http, $q, $timeout,
+  $http, $q, $timeout, $translate,
   LocalStorageService
   /*RallyService*/
 )
@@ -25,38 +25,33 @@ function MobidulService (
     NEW_STATION     : 1,
     MOBIDUL_OPTIONS : 2,
 
-    NEW_MOBIDUL_TITLE : 'Neues Mobidul',
-
     MOBIDUL_MODE_RALLY : 'rally',
     MOBIDUL_MODE_DEFAULT : 'default',
 
     MOBIDUL_MODES : [
     {
       name: 'rally',
-      // states: [
-      //   RallyService.STATUS_ACTIVATED,
-      //   RallyService.STATUS_OPEN,
-      //   RallyService.STATUS_COMPLETED
-      // ],
+
       states: [
-        'versteckt', 'aktiviert', 'geöffnet', 'abgeschlossen'
+        'ACTIVATED', 'OPEN', 'COMPLETED'
       ],
 
-      elements: ['html', 'ifNear', 'inputCode', 'button', 'photoUpload', 'setTimeout', 'freeText'],
+      elements: [
+        'html', 'ifNear', 'inputCode',
+        'button', 'photoUpload', 'setTimeout',
+        'freeText', 'confirmSocial'
+      ],
 
-      // defaultState: RallyService.STATUS_ACTIVATED,
-      defaultState: 'aktiviert',
+      defaultState: 'ACTIVATED',
 
       hiddenStations: true
     }, {
       name: 'default',
       elements: [ 'html' ],
 
-      // states: [ RallyService.STATUS_OPEN ],
-      states: 'geöffnet',
+      states: 'OPEN',
 
-      // defaultState: RallyService.STATUS_OPEN,
-      defaultState: 'geöffnet',
+      defaultState: 'OPEN',
       
       hiddenStations: false
     }],
@@ -235,14 +230,17 @@ function MobidulService (
   }
 
   function getMobidulMode (mobidulCode) {
-    return $http.get(cordovaUrl + '/' + mobidulCode + '/getConfig')
-    .success(function (response, status, headers, config) {
-      return response.mode;
-    })
-    .error(function (response, status, headers, config) {
-      $log.error(response);
-      $log.error(status);
-    })
+    return $q(function ( resolve, reject ) {
+      $http.get(cordovaUrl + '/' + mobidulCode + '/getConfig')
+      .success(function (response, status, headers, config) {
+        resolve(response.mode);
+      })
+      .error(function (response, status, headers, config) {
+        $log.error(response);
+        $log.error(status);
+        reject(response);
+      })
+    });
   }
 
   function getModes () {
@@ -251,8 +249,7 @@ function MobidulService (
 
   function getMobidulConfig (mobidulCode) {
     return service.getMobidulMode(mobidulCode)
-    .then(function (response) {
-      var mode = response.data.mode;
+    .then(function (mode) {
       var mobidulMode = service.MOBIDUL_MODES.filter(function (mobidulMode) {
         return mode == mobidulMode.name;
       })[0];
@@ -285,9 +282,6 @@ function MobidulService (
    * @return {*} Accessing the cloning function on the Server
    */
   function cloneMobidul (mobidul) {
-    $log.debug("FLO 2: SERVICE was working." + "Mobidulcode: " + mobidul.code);
-    $log.debug(mobidul);
-
     var mobidulData = JSON.stringify(mobidul);
 
     return $http.post(cordovaUrl + '/' + mobidul.code + '/clone', mobidulData)

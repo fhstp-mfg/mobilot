@@ -5,7 +5,7 @@ angular
 CreatorController.$inject = [
   '$log', '$rootScope', '$scope', '$timeout', '$q',
   '$state', '$stateParams', 'StateManager',
-  '$mdDialog', '$mdToast', '$animate',
+  '$mdDialog', '$mdToast', '$animate', '$translate',
   'UtilityService', 'HeaderService', 'CreatorService',
   'ListService', 'MobidulService'
 ];
@@ -14,7 +14,7 @@ CreatorController.$inject = [
 function CreatorController (
   $log, $rootScope, $scope, $timeout, $q,
   $state, $stateParams, StateManager,
-  $mdDialog, $mdToast, $animate,
+  $mdDialog, $mdToast, $animate, $translate,
   UtilityService, HeaderService, CreatorService,
   ListService, MobidulService
 ) {
@@ -24,16 +24,16 @@ function CreatorController (
 
   /// constants
   // NOTE: TODO: Code duplication w/ CloneMobidulDialogController
-  creator._codeHelperGenerating = 'wird generiert ...';
-  creator._codeHelperGenerated  = 'automatisch generiert';
-  creator._codeHelperManual     = 'manuell geändert';
+  creator._codeHelperGenerating = $translate.instant('CREATING');
+  creator._codeHelperGenerated  = $translate.instant('AUTOMATICALLY_CREATED');
+  creator._codeHelperManual     = $translate.instant('MANUALLY_CREATED');
 
 
   /// vars
   creator.isCordovaIos = isCordova && isIos;
 
   creator.categories = [
-    { name : 'Neue Kategorie', isNewCategory : true }
+    { name : $translate.instant('NEW_CATEGORY'), isNewCategory : true }
   ];
 
   creator.editMode = 0;
@@ -74,8 +74,7 @@ function CreatorController (
   var nameRegex = /^[A-Za-zÄÖÜäöüß0-9 ]{1,32}$/;
 
   /// for basic tab
-  creator.mobidul =
-  {
+  creator.mobidul = {
     name         : '',
     link         : 'www.mobilot.at',
     description  : '',
@@ -135,9 +134,8 @@ function CreatorController (
 
   /// private functions
 
-  function _init ()
-  {
-    $log.debug('CreatorController init');
+  function _init () {
+    //$log.debug('CreatorController init');
 
     _initDefaultValues();
 
@@ -146,10 +144,8 @@ function CreatorController (
 
     var mobidulCode = StateManager.state.params.mobidulCode;
 
-    if ( mobidulCode )
-    {
-      if ( ! creator.isNewMobidul )
-      {
+    if (mobidulCode) {
+      if ( ! creator.isNewMobidul ) {
         // enable save button for existing mobiduls
         creator.canNotSave = false;
         creator.showCreatorTabs = true;
@@ -159,64 +155,59 @@ function CreatorController (
 
 
         // get options for mobidul
-        CreatorService
-          .getOptions( mobidulCode )
-          .success(function (response, status, headers, config)
-          {
-            $log.debug('getOptions success in CreatorController');
+        CreatorService.getOptions( mobidulCode )
+        .success(function (response, status, headers, config) {
+          // $log.debug('getOptions success in CreatorController');
 
-            var mobidulPrivate = response.private;
-            var mobidulLocked  = response.locked;
+          var mobidulPrivate = response.private;
+          var mobidulLocked  = response.locked;
 
-            creator.mobidul.id             = response.id;
-            creator.mobidul.name           = response.name;
-            creator.mobidul.originalCode   = response.code;
-            creator.mobidul.isHiddenOnHome = ! isNaN(mobidulPrivate) ? mobidulPrivate : 0;
-            creator.mobidul.isLocked       = ! isNaN(mobidulLocked) ? mobidulLocked : 0;
-            creator.mobidul.font           = response.font;
-            creator.editMode               = response.editMode;
-          });
+          creator.mobidul.id             = response.id;
+          creator.mobidul.name           = response.name;
+          creator.mobidul.originalCode   = response.code;
+          creator.mobidul.isHiddenOnHome = ! isNaN(mobidulPrivate) ? mobidulPrivate : 0;
+          creator.mobidul.isLocked       = ! isNaN(mobidulLocked) ? mobidulLocked : 0;
+          creator.mobidul.font           = response.font;
+          creator.editMode               = response.editMode;
+        });
 
 
-          // get menu for mobidul TODO dafür gibts noch kein ws, aber man kanns über getConfig machen.
-          CreatorService
-            .getConfig( mobidulCode )
-            .success(function (response, status, headers, config)
-            {
-              $log.debug('getConfig success in CreatorController');
+        // get menu for mobidul TODO dafür gibts noch kein ws, aber man kanns über getConfig machen.
 
-              creator.mobidul.description = response.mobidulDescription;
-              creator.menu                = response.customNav.navigation;
-            });
+        CreatorService.getConfig( mobidulCode )
+        .success(function (response, status, headers, config) {
+          // $log.debug('getConfig success in CreatorController');
+
+          creator.mobidul.description = response.mobidulDescription;
+          creator.menu                = response.customNav.navigation;
+        });
 
 
-            // get stations
-            ListService.getStations( mobidulCode, 'all')
-              .then(function(response){
+        // get stations
+        ListService.getStations( mobidulCode, 'all')
+        .then(function(response){
 
-                var hasPermission = response.hasPermission,
-                    stations = response.stations;
+          var hasPermission = response.hasPermission,
+            stations = response.stations;
 
-                if(hasPermission){
-                  //console.info('creator - stations:');
-                  //console.log(stations);
+          if (hasPermission){
+            //console.info('creator - stations:');
+            //console.log(stations);
 
-                  creator.stations = stations;
-                }else{
-                  $log.warn('inside creator withour having permission to view all stations!');
-                }
-              });
+            creator.stations = stations;
+          } else {
+            $log.warn('inside creator withour having permission to view all stations!');
+          }
+        });
 
         //get Codes
         getPlayCodes();
-      }
-      else
-      {
-        $log.debug('NEW STATION in CreatorController _initDefaultValues');
+      } else {
+        //$log.debug('NEW MOBIDUL in CreatorController _initDefaultValues');
 
         creator.modes = MobidulService.getModes();
-        $log.info('creator.modes:');
-        $log.debug(creator.modes);
+        //$log.info('creator.modes:');
+        //$log.debug(creator.modes);
       }
 
       // NOTE hide the app loader
@@ -224,36 +215,31 @@ function CreatorController (
     }
   }
 
-  function getCategoriesFromServer ()
-  {
+
+  function getCategoriesFromServer () {
     var mobidulCode = StateManager.state.params.mobidulCode;
 
-         CreatorService
-            .getCategories( mobidulCode )
-                .success(function (categories, status, headers, config)
-                {
-                    $log.debug('getCategories success in CreatorController');
+    CreatorService.getCategories( mobidulCode )
+    .success(function (categories, status, headers, config) {
+      // $log.debug('getCategories success in CreatorController');
 
-          var newCategories = [];
-          angular.forEach( categories, function (category, cIx)
-          {
-            category.origName      = category.name;
-            category.isNewCategory = false;
+      var newCategories = [];
+      angular.forEach( categories, function (category, cIx) {
+        category.origName      = category.name;
+        category.isNewCategory = false;
 
-            newCategories.push(category);
-          });
+        newCategories.push(category);
+      });
 
-                    creator.categories = newCategories;
-                });
-    }
+      creator.categories = newCategories;
+    });
+  }
 
 
-  function _initDefaultValues ()
-  {
+  function _initDefaultValues () {
     var mobidulCode = StateManager.state.params.mobidulCode;
 
-    if ( mobidulCode )
-    {
+    if (mobidulCode) {
       var isNewMobidul = mobidulCode === StateManager.NEW_MOBIDUL_CODE;
 
       creator.isNewMobidul = isNewMobidul;
@@ -263,14 +249,13 @@ function CreatorController (
       creator.canNotSave      = isNewMobidul; // TODO - check if this is right
       creator.saveBasisText   =
         creator.isNewMobidul
-          ? CreatorService.CREATE_MOBIDUL
-          : CreatorService.UPDATE_MOBIDUL;
+          ? $translate.instant('CREATE_MOBIDUL')
+          : $translate.instant('SAVE');
     }
   }
 
 
-  function _listenToMobidulCode ()
-  {
+  function _listenToMobidulCode () {
     $scope.$watch('creator.mobidul.code', function (newCode, oldCode)
     {
       creator.mobidul.codePreview =
@@ -279,9 +264,8 @@ function CreatorController (
   }
 
 
-    function changeDetailTab ()
-  {
-    $log.debug('changeDetailTab in CreatorController : ');
+  function changeDetailTab () {
+    // $log.debug('changeDetailTab in CreatorController : ');
 
     var editRoute = 'mobidul.creator.';
 
@@ -297,7 +281,7 @@ function CreatorController (
 
       case CreatorService.MENU_TAB_INDEX :
         editRoute += 'menu';
-                getCategoriesFromServer();
+        getCategoriesFromServer();
         break;
 
       case CreatorService.SETTINGS_TAB_INDEX :
@@ -305,7 +289,7 @@ function CreatorController (
         break;
     }
 
-    $log.debug('goto route : ' + editRoute);
+    // $log.debug('goto route : ' + editRoute);
 
     var currentStateParams = StateManager.state.params || {};
 
@@ -375,7 +359,7 @@ function CreatorController (
       if (
         creator.isNewMobidul ||
         ( ! creator.isNewMobidul &&
-          ! _isOriginalCode( mobidulCode ) )
+        ! _isOriginalCode( mobidulCode ) )
       ) {
         CreatorService.existsMobidul(mobidulCode)
         .success(function (response, status, headers, config) {
@@ -407,8 +391,7 @@ function CreatorController (
   }
 
 
-  function changeCode ()
-  {
+  function changeCode () {
     // $log.debug('change code');
     // $log.debug(stationCreator.station.code + "<");
 
@@ -423,31 +406,29 @@ function CreatorController (
     if ( mobidulCode )
     {
       if ( creator.isNewMobidul ||
-         ( ! creator.isNewMobidul &&
-           ! _isOriginalCode( mobidulCode ) ) )
+        ( ! creator.isNewMobidul &&
+        ! _isOriginalCode( mobidulCode ) ) )
       {
-        CreatorService
-          .existsMobidul( mobidulCode )
-          .success(function (response, status, headers, config)
-          {
-            // $log.debug('request valid code callback from changeName : ');
-            // $log.debug(code);
+        CreatorService.existsMobidul( mobidulCode )
+        .success(function (response, status, headers, config)
+        {
+          // $log.debug('request valid code callback from changeName : ');
+          // $log.debug(code);
 
-            // TODO: add exists from the responseobject
-            creator.canNotSave = response.exists;
+          // TODO: add exists from the responseobject
+          creator.canNotSave = response.exists;
 
-            var code = response.mobidulCode
-            creator.mobidul.code = code;
+          var code = response.mobidulCode
+          creator.mobidul.code = code;
 
-            if ( mobidulCode !== code )
-              _refreshCodeHelper( code, creator._codeHelperGenerated );
+          if ( mobidulCode !== code )
+            _refreshCodeHelper( code, creator._codeHelperGenerated );
 
-            else
-              _refreshCodeHelper( code, creator._codeHelperManual );
-          });
+          else
+            _refreshCodeHelper( code, creator._codeHelperManual );
+        });
       }
-      else
-        _restoreOriginalStationCode();
+      else _restoreOriginalStationCode();
     }
     else
     {
@@ -458,8 +439,7 @@ function CreatorController (
   }
 
 
-  function saveBasis ()
-  {
+  function saveBasis () {
     // check if everything is correct.
     // TODO: Check if new mobidul
 
@@ -475,7 +455,7 @@ function CreatorController (
 
 
     if ( creator.isNewMobidul ) {
-      creator.saveBasisText = CreatorService.CREATING_MOBIDUL;
+      creator.saveBasisText = $translate.instant('MOBIDUL_IS_CREATED');
 
       CreatorService.createMobidul(params)
       .success(function (response, status, headers, config) {
@@ -484,11 +464,11 @@ function CreatorController (
 
         var saveMobidulOptionsDialog =
           $mdDialog.alert()
-            .parent( angular.element(document.body) )
-            .title('Mobidul erstellen')
-            .textContent( response.msg )
-            .ariaLabel('Mobidul erstellen')
-            .ok('Mobidul öffnen');
+          .parent( angular.element(document.body) )
+          .title($translate.instant('CREATE_MOBIDUL'))
+          .textContent( response.msg )
+          .ariaLabel($translate.instant('CREATE_MOBIDUL'))
+          .ok($translate.instant('OPEN_MOBIDUL'));
 
         $mdDialog.show(saveMobidulOptionsDialog)
         .then(function () {
@@ -502,7 +482,7 @@ function CreatorController (
         });
       });
     } else {
-      creator.saveBasisText = CreatorService.UPDATING_MOBIDUL;
+      creator.saveBasisText = $translate.instant('MOBIDUL_IS_SAVED');
 
       CreatorService.updateMobidul(creator.mobidul.originalCode, params)
       .success(function (response, status, headers, config) {
@@ -512,10 +492,10 @@ function CreatorController (
         var saveMobidulOptionsDialog =
           $mdDialog.alert()
           .parent( angular.element(document.body) )
-          .title('Mobidul aktualisieren')
+          .title($translate.instant('REFRESH_MOBIDUL'))
           .textContent( response.msg )
-          .ariaLabel('Mobidul aktualisieren')
-          .ok('Schließen');
+          .ariaLabel($translate.instant('REFRESH_MOBIDUL'))
+          .ok($translate.instant('CLOSE'));
 
         $mdDialog.show(saveMobidulOptionsDialog)
         .then(function () {
@@ -530,8 +510,7 @@ function CreatorController (
   }
 
 
-  function saveOptions ()
-  {
+  function saveOptions () {
     // TODO Statische Optionen!!
     var params =
     {
@@ -549,50 +528,97 @@ function CreatorController (
     var mobidulCode = creator.mobidul.code;
 
 
-    CreatorService
-      .saveOptions( mobidulCode, params )
-      .success(function (response, status, headers, config)
+    CreatorService.saveOptions( mobidulCode, params )
+    .success(function (response, status, headers, config)
+    {
+      switch ( response ) {
+        case 'success':
+          // $log.debug("saved everything, go to next state");
+          // TODO: Wenn stateparam mobidul gesetzt ist soll automatisch auf den mobidulcreator in den Optionen des mobiduls umgeleitet werden.
+          // WEIL: Das Mobidul existiert ab diesem Zeitpunkt
+          // UND:  man kann ?? TODO finish description
+
+          var saveMobidulOptionsDialog =
+            $mdDialog.alert()
+            .parent(angular.element(document.body))
+            .title($translate.instant('MOBIDUL_SAVED'))
+            .textContent($translate.instant('MOBIDUL_OPTIONS_SAVED'))
+            .ariaLabel($translate.instant('POSITION_ERROR_TITLE'))
+            .ok($translate.instant('CLOSE'));
+
+          $mdDialog.show( saveMobidulOptionsDialog )
+          .then(function ()
+          {
+            if ( creator.isNewMobidul )
+            {
+              var stateParams = {
+                mobidulCode : creator.mobidul.originalCode
+              };
+
+              $state.go('mobidul.creator.basis', stateParams);
+            }
+            else
+              MobidulService.menuReady();
+          });
+          break;
+
+        case 'not-allowed':
+          // creator.showToast('Es existiert bereits ein Mobidul mit diesem Code !');
+          creator.showToast($translate.instant('NOT_AUTHORIZED_TO_EDIT_MOBIDUL'));
+          break;
+
+        case 'code-not-allowed' :
+          creator.showToast($translate.instant('CODE_INVALID'));
+          break;
+
+        default :
+          creator.showToast( response );
+          break;
+      }
+    });
+  }
+
+
+  function deleteCategory (categoryId, $index, $event) {
+    // TODO - check when to remove category
+    // TODO - remove category animation
+
+    var confirm = $mdDialog.confirm()
+    .title($translate.instant('DELETE_CATEGORY_TITLE'))
+    .textContent($translate.instant('DELETE_CATEGORY_WARNING'))
+    .ariaLabel($translate.instant('CONFIRMATION'))
+    .targetEvent( $event )
+    .ok($translate.instant('YES'))
+    .cancel($translate.instant('NO'));
+
+    $mdDialog.show( confirm )
+    .then(function ()
+    {
+      // NOTE - remove category from categories array in order to "not resave at save"
+      creator.categories.splice($index, 1);
+
+      // TODO - check if it is the same as creator.mobidul.code
+      var mobidulCode = StateManager.state.params.mobidulCode;
+
+      CreatorService.removeCategory( mobidulCode, categoryId )
+      .success(function (response)
       {
-        switch ( response ) {
-          case 'success':
-            // $log.debug("saved everything, go to next state");
-            // TODO: Wenn stateparam mobidul gesetzt ist soll automatisch auf den mobidulcreator in den Optionen des mobiduls umgeleitet werden.
-            // WEIL: Das Mobidul existiert ab diesem Zeitpunkt
-            // UND:  man kann ?? TODO finish description
-
-            var saveMobidulOptionsDialog =
-              $mdDialog
-                .alert()
-                .parent(angular.element(document.body))
-                .title('Mobidul gespeichert')
-                .textContent('Mobidul Optionen wurden gespeichert.')
-                .ariaLabel('Mobidul gespeichert')
-                .ok('Schließen');
-
-            $mdDialog
-              .show( saveMobidulOptionsDialog )
-              .then(function ()
-              {
-                if ( creator.isNewMobidul )
-                {
-                  var stateParams = {
-                      mobidulCode : creator.mobidul.originalCode
-                  };
-
-                  $state.go('mobidul.creator.basis', stateParams);
-                }
-                else
-                  MobidulService.menuReady();
-              });
+        switch ( response )
+        {
+          case 'success' :
+            creator.showToast($translate.instant('CATEGORY_DELETED'));
             break;
 
-          case 'not-allowed':
-            // creator.showToast('Es existiert bereits ein Mobidul mit diesem Code !');
-            creator.showToast('Sie haben keine Berechtigungen dieses Mobidul zu bearbeiten!');
+          case 'not-allowed' :
+            creator.showToast($translate.instant('NOT_AUTHORIZED_TO_DELETE_CATEGORY'));
             break;
 
-          case 'code-not-allowed' :
-            creator.showToast('Dieser Code ist ungültig!');
+          case 'not-existing' :
+            creator.showToast($translate.instant('CATEGORY_DOESNT_EXIST'));
+            break;
+
+          case 'empty' :
+            creator.showToast($translate.instant('NO_CATEGORY_PASSED'));
             break;
 
           default :
@@ -600,85 +626,28 @@ function CreatorController (
             break;
         }
       });
+
+    }, function() {
+      //Abort
+    });
   }
 
 
-    function deleteCategory (categoryId, $index, $event)
-    {
-    // TODO - check when to remove category
-    // TODO - remove category animation
-
-        var confirm =
-      $mdDialog
-        .confirm()
-              .title('Wollen Sie diese Kategorie wirklich löschen?')
-              .textContent('Alle zugehörigen Stationen verlieren die Verbindung zu dieser Kategorie.')
-              .ariaLabel('Bestätigung')
-              .targetEvent( $event )
-              .ok('Ja')
-              .cancel('Nein');
-
-            $mdDialog
-        .show( confirm )
-        .then(function ()
-        {
-                // NOTE - remove category from categories array in order to "not resave at save"
-                creator.categories.splice($index, 1);
-
-                // TODO - check if it is the same as creator.mobidul.code
-                var mobidulCode = StateManager.state.params.mobidulCode;
-
-                CreatorService
-                    .removeCategory( mobidulCode, categoryId )
-                    .success(function (response)
-                    {
-                        switch ( response )
-                        {
-                            case 'success' :
-                                creator.showToast('Kategorie wurde gelöscht.')
-                                break;
-
-                            case 'not-allowed' :
-                                creator.showToast('Sie haben keine Berechtigung Kategorien löschen!');
-                                break;
-
-                            case 'not-existing' :
-                                creator.showToast('Diese Kategorie existiert nicht!')
-                                break;
-
-                            case 'empty' :
-                                creator.showToast('Es wurde keine Kategorie angegeben!');
-                                break;
-
-                            default :
-                                creator.showToast( response );
-                                break;
-                        }
-                    });
-
-            }, function() {
-                //Abort
-            });
-    }
+  function deleteMenuItem (menuItemId, $index) {
+    creator.menu.splice($index, 1);
+  }
 
 
-    function deleteMenuItem (menuItemId, $index)
-    {
-        creator.menu.splice($index, 1);
-    }
-
-
-    function addCategory ()
-    {
+  function addCategory () {
     var newCategory = {
-      origName      : 'Neue Kategorie',
-      name          : 'Neue Kategorie',
+      origName      : $translate.instant('NEW_CATEGORY'),
+      name          : $translate.instant('NEW_CATEGORY'),
       isNewCategory : true
-    }
+    };
 
     creator.categories.push(newCategory);
 
-        // var newLength = creator.categories.push({ name : 'Neue Kategorie' });
+    // var newLength = creator.categories.push({ name : 'Neue Kategorie' });
     // var lastIndex = newLength - 1;
     // var categoryFieldId   = 'category_field_' + lastIndex;
     // var lastCategoryField = document.getElementById(categoryFieldId);
@@ -701,326 +670,290 @@ function CreatorController (
     // $log.debug($('#creator_categories input.category-field'));
     // $log.debug( $('#creator_categories input.category-field').last() );
     // $('#creator_categories input.category-field').last().focus();
-    }
-
-
-  function focusCategory (category)
-  {
-    if ( category.isNewCategory )
-      category.name = '';
-  }
-
-  function blurCategory (category)
-  {
-    if ( category.name === '' )
-      category.name = category.origName;
-    else
-      category.isNewCategory = false;
   }
 
 
-  function saveCategories ()
-  {
-    $log.debug('Save categories in CreatorController');
+  function focusCategory (category) {
+    if ( category.isNewCategory ) category.name = '';
+  }
+
+
+  function blurCategory (category) {
+    if ( category.name === '' ) category.name = category.origName;
+    else category.isNewCategory = false;
+  }
+
+
+  function saveCategories () {
+    // $log.debug('Save categories in CreatorController');
 
     // only allow to save if the list is not empty and every category has a name
     var canSave = true;
 
-    if ( creator.categories.length == 0 )
-        canSave = false;
+    if ( creator.categories.length == 0 ) canSave = false;
 
 
-    angular.forEach( creator.categories,
-      function (value, key)
-      {
-        if ( value.name === '' )
-            canSave = false;
+    angular.forEach( creator.categories, function (value, key) {
+        if ( value.name === '' ) canSave = false;
       }, this);
 
 
-        if ( canSave )
-        {
-          // TODO Statische Optionen!!
-          var params = creator.categories;
+    if (canSave) {
+      // TODO Statische Optionen!!
+      var params = creator.categories;
 
-          // DEBUG
-          var mobidulCode =
-            creator.mobidul.code === undefined
-              ? '' : creator.mobidul.code;
+      // DEBUG
+      var mobidulCode =
+        creator.mobidul.code === undefined
+          ? '' : creator.mobidul.code;
 
-            CreatorService
-                .updateCategories( mobidulCode, params )
-                .success(function (response, status, headers, config)
-                {
-                    switch ( response )
-                    {
-                        case 'success' :
-                            // creator.showToast('Kategorien wurden erfolgreich gespeichert.');
-
-                          var savedMobidulCategoriesDialog =
-                            $mdDialog
-                              .alert()
-                              .parent(angular.element(document.body))
-                              .title('Mobidul gespeichert')
-                              .textContent('Mobidul Kategorien wurden gespeichert.')
-                              .ariaLabel('Mobidul gespeichert')
-                              .ok('Schließen');
-
-                          $mdDialog
-                            .show( savedMobidulCategoriesDialog )
-                            .then(function ()
-                            {
-                              MobidulService.menuReady();
-
-                              $state.go(
-                                $state.current,
-                                StateManager.state.params,
-                                { reload : true }
-                              );
-                            });
-                          break;
-
-                        case 'not-allowed' :
-                            creator.showToast('Sie haben keine Berechtigung Kategorien zu bearbeiten!');
-                            break;
-
-                        case 'Keine Kategorie angegeben' :
-                            creator.showToast('Es wurden keine Kategorien angegeben!');
-                            break;
-
-                        default :
-                            creator.showToast( response );
-                            break;
-                    }
-                });
-        }
-    }
-
-    function showAddMenuItem ()
-    {
-      $mdDialog.show({
-        locals : {
-          categories : creator.categories,
-          stations   : creator.stations
-        },
-        controller  : DialogController,
-        templateUrl : 'app/modules/creator/CreatorAddMenuItemDialogTemplate.html',
-        parent      : angular.element(document.body),
-        clickOutsideToClose : true
-      })
-      .then(function (param)
+      CreatorService.updateCategories( mobidulCode, params )
+      .success(function (response, status, headers, config)
       {
-        $log.debug('type ' + param.type + ' id ' + param.id);
+        switch ( response )
+        {
+          case 'success' :
+            // creator.showToast('Kategorien wurden erfolgreich gespeichert.');
+
+            var savedMobidulCategoriesDialog =
+              $mdDialog.alert()
+              .parent(angular.element(document.body))
+              .title($translate.instant('MOBIDUL_SAVED'))
+              .textContent($translate.instant('CATEGORIES_SAVED'))
+              .ariaLabel($translate.instant('MOBIDUL_SAVED'))
+              .ok($translate.instant('CLOSE'));
+
+            $mdDialog.show( savedMobidulCategoriesDialog )
+            .then(function ()
+            {
+              MobidulService.menuReady();
+
+              $state.go(
+                $state.current,
+                StateManager.state.params,
+                { reload : true }
+              );
+            });
+            break;
+
+          case 'not-allowed' :
+            creator.showToast($translate.instant('NOT_AUTHORIZED_TO_EDIT_CATEGORY'));
+            break;
+
+          case 'Keine Kategorie angegeben' :
+            creator.showToast($translate.instant('NO_CATEGORY_PASSED'));
+            break;
+
+          default :
+            creator.showToast( response );
+            break;
+        }
+      });
+    }
+  }
+
+
+  function showAddMenuItem () {
+    $mdDialog.show({
+      locals : {
+        categories : creator.categories,
+        stations   : creator.stations
+      },
+      controller  : DialogController,
+      templateUrl : 'app/modules/creator/CreatorAddMenuItemDialogTemplate.html',
+      parent      : angular.element(document.body),
+      clickOutsideToClose : true
+    })
+    .then(function (param)
+      {
+        // $log.debug('type ' + param.type + ' id ' + param.id);
         creator.addMenuItem( param.type, param.id );
       },
       function () {
         // canceled the dialog
       });
-    }
+  }
 
-    function saveMenu ()
-    {
-        var params = creator.menu;
+
+  function saveMenu () {
+    var params = creator.menu;
 
     // TODO - check if it is the same as creator.mobidul.code
     var mobidulCode = StateManager.state.params.mobidulCode;
 
-        CreatorService
-            .saveMenu( mobidulCode, params )
-            .success(function (response, status, headers, config)
-            {
-                switch ( response )
-                {
-                    case 'success' :
-            var savedMobidulMenuDialog =
-              $mdDialog
-                .alert()
-                .parent(angular.element(document.body))
-                .title('Mobidul gespeichert')
-                .textContent('Mobidul Menü wurde gespeichert.')
-                .ariaLabel('Mobidul gespeichert')
-                .ok('Schließen');
-
-            $mdDialog
-              .show( savedMobidulMenuDialog )
-              .then(function ()
-              {
-                if ( creator.isNewMobidul )
-                                $state.go('creator.settings', {});
-                            else
-                            {
-                                // creator.showToast('Menü wurde gespeichert');
-                                MobidulService.menuReady();
-                            }
-              });
-
-                        break;
-
-                    case 'not-allowed' :
-                        creator.showToast('Sie dürfend das nicht!');
-                        break;
-
-                    case 'Keine Kategorie angegeben' :
-                        creator.showToast('Keine Kategorien angegeben');
-                        break;
-
-                    default :
-                        creator.showToast(response);
-                        break;
-                }
-            });
-
-    }
-
-    function addMenuItem (type, id)
+    CreatorService.saveMenu( mobidulCode, params )
+    .success(function (response, status, headers, config)
     {
-        $log.debug(type);
-        $log.debug(id);
-        creator.closeDialog();
+      switch ( response )
+      {
+        case 'success' :
+          var savedMobidulMenuDialog =
+            $mdDialog.alert()
+            .parent(angular.element(document.body))
+            .title($translate.instant('MOBIDUL_SAVED'))
+            .textContent($translate.instant('MENU_SAVED'))
+            .ariaLabel($translate.instant('MOBIDUL_SAVED'))
+            .ok($translate.instant('CLOSE'));
 
-        switch ( type )
-        {
-            case 'category':
-                menuItem = {    id          : null,
-                                name        : creator.categories[id].name,
-                                text        : creator.categories[id].name,
-                                icon        : '',
-                                isDivider   : false,
-                                href        : creator.categories[id].id,
-                                func        : 'getForCategory'
-                           };
-                break;
-
-            case 'map':
-                menuItem = {    id          : null,
-                                name        : 'Map',
-                                text        : 'Karte',
-                                icon        : '',
-                                isDivider   : false,
-                                href        : 'map.html',
-                                func        : 'switchcontent'
-                           };
-                break;
-
-            case 'divider':
-                menuItem = {    id          : null,
-                                name     : 'Trenner',
-                                text        : '',
-                                icon        : '',
-                                isDivider   : true,
-                                href        : '',
-                                func        : ''
-                           };
-                break;
-
-            case 'station':
-               menuItem = {     id          : null,
-                                name        : creator.stations[id].name,
-                                text        : creator.stations[id].name,
-                                icon        : '',
-                                isDivider   : false,
-                                href        : creator.stations[id].id,
-                                func        : 'switchcontent'
-                           };
-                break;
-        }
-
-        creator.menu.push(menuItem);
-
-    }
-
-    function closeDialog()
-    {
-        $mdDialog.hide();
-    }
-
-    function deleteCode ($index, $event)
-    {
-        $event.stopPropagation();
-
-        CreatorService
-            .deleteCode( creator.codes[$index].code )
-                .success(function (response, status, headers, config)
-                {
-                    creator.codes.splice($index,1);
-                });
-
-    }
-
-    function toggleCode (code, $index)
-    {
-        if(code.locked)
-        {
-            CreatorService
-                .unlockCode(code.code)
-                .success(function (response, status, headers, config)
-                {
-                    //code.locked=
-                });
-        }
-        else
-        {
-            CreatorService
-                .lockCode( code.code )
-                    .success(function (response, status, headers, config)
-                    {
-                        //creator.codes.splice($index,1);
-                    });
-        }
-
-    }
-
-    function requestCode ()
-    {
-        var mobidulCode = StateManager.state.params.mobidulCode;
-
-        CreatorService
-                .requestCode( mobidulCode )
-                .success(function (response, status, headers, config)
-                {
-                    getPlayCodes();
-                });
-    }
-
-    function getPlayCodes ()
-    {
-        var mobidulCode = StateManager.state.params.mobidulCode;
-
-         CreatorService
-            .getCodes( mobidulCode )
-            .success(function (codes, status, headers, config)
-            {
-                // $log.debug('getCodes success in CreatorController');
-        // $log.debug(codes);
-
-        if ( codes )
-        {
-          angular.forEach( codes, function (code, cIx)
+          $mdDialog.show( savedMobidulMenuDialog )
+          .then(function ()
           {
-            // $log.debug(code.locked);
-            // $log.debug(typeof code.locked);
-
-            code.locked = code.locked == 1 ? 1 : 0;
+            if ( creator.isNewMobidul )
+              $state.go('creator.settings', {});
+            else
+            {
+              // creator.showToast('Menü wurde gespeichert');
+              MobidulService.menuReady();
+            }
           });
 
-                  creator.codes = codes;
-        }
-            });
+          break;
+
+        case 'not-allowed' :
+          creator.showToast($translate.instant('GENERIC_NOT_ALLOWED'));
+          break;
+
+        case 'Keine Kategorie angegeben' :
+          creator.showToast($translate.instant('NO_CATEGORY_PASSED'));
+          break;
+
+        default :
+          creator.showToast(response);
+          break;
+      }
+    });
+
+  }
+
+
+  function addMenuItem (type, id) {
+    // $log.debug(type);
+    // $log.debug(id);
+    creator.closeDialog();
+
+    switch ( type ) {
+      case 'category':
+        menuItem = {    id          : null,
+          name        : creator.categories[id].name,
+          text        : creator.categories[id].name,
+          icon        : '',
+          isDivider   : false,
+          href        : creator.categories[id].id,
+          func        : 'getForCategory'
+        };
+        break;
+
+      case 'map':
+        menuItem = {    id          : null,
+          name        : 'Map',
+          text        : $translate.instant('MAP'),
+          icon        : '',
+          isDivider   : false,
+          href        : 'map.html',
+          func        : 'switchcontent'
+        };
+        break;
+
+      case 'divider':
+        menuItem = {    id          : null,
+          name        : $translate.instant('TRENNER'),
+          text        : '',
+          icon        : '',
+          isDivider   : true,
+          href        : '',
+          func        : ''
+        };
+        break;
+
+      case 'station':
+        menuItem = {     id          : null,
+          name        : creator.stations[id].name,
+          text        : creator.stations[id].name,
+          icon        : '',
+          isDivider   : false,
+          href        : creator.stations[id].id,
+          func        : 'switchcontent'
+        };
+        break;
     }
 
+    creator.menu.push(menuItem);
 
-  function showQRCode ($index, $event)
-  {
-    // TODO
+  }
+
+
+  function closeDialog() {
+    $mdDialog.hide();
+  }
+
+
+  function deleteCode ($index, $event) {
     $event.stopPropagation();
-    //var protocol = 'http:'
-    var url = location.protocol + '//' + location.host + '/Play/' + creator.codes[ $index ].code;
+
+    CreatorService.deleteCode( creator.codes[$index].code )
+    .success(function (response, status, headers, config) {
+      creator.codes.splice($index,1);
+    });
+
+  }
+
+
+  function toggleCode (code, $index) {
+    if (code.locked) {
+      CreatorService.unlockCode(code.code)
+      .success(function (response, status, headers, config) {
+        //code.locked=
+      });
+    } else {
+      CreatorService.lockCode( code.code )
+      .success(function (response, status, headers, config) {
+        //creator.codes.splice($index,1);
+      });
+    }
+
+  }
+
+
+  function requestCode () {
+    var mobidulCode = StateManager.state.params.mobidulCode;
+
+    CreatorService.requestCode( mobidulCode )
+    .success(function (response, status, headers, config) {
+      getPlayCodes();
+    });
+  }
+
+
+  function getPlayCodes () {
+    var mobidulCode = StateManager.state.params.mobidulCode;
+
+    CreatorService.getCodes( mobidulCode )
+    .success(function (codes, status, headers, config) {
+      // $log.debug('getCodes success in CreatorController');
+      // $log.debug(codes);
+
+      if ( codes ) {
+        angular.forEach( codes, function (code, cIx) {
+          // $log.debug(code.locked);
+          // $log.debug(typeof code.locked);
+
+          code.locked = code.locked == 1 ? 1 : 0;
+        });
+
+        creator.codes = codes;
+      }
+    });
+  }
+
+
+  function showQRCode ($index, $event) {
+    $event.stopPropagation();
 
     $mdDialog.show({
-      locals : { code : creator.codes[ $index ].code },
+      locals      : { code : creator.codes[ $index ].code },
       controller  : QRDialogController,
       templateUrl : 'app/modules/creator/CreatorQRCodeTemplate.html',
-      parent     : angular.element(document.body),
+      parent      : angular.element(document.body),
       clickOutsideToClose : true
     })
     .then(function (param) {
@@ -1028,68 +961,59 @@ function CreatorController (
       // creator.addMenuItem( param.type, param.id );
     },
     function () {
-      // canceled the dialog ;
+      // canceled the dialog
     });
   }
 
 
-  function deleteMobidul ()
-  {
+  function deleteMobidul () {
     var confirmDeleteMobidulDialog =
-      $mdDialog
-        .confirm()
-        .parent( angular.element(document.body) )
-        .title('Mobidul löschen bestätigen')
-        .textContent('Bitte bestätige, dass dieses Mobidul gelöscht werden soll.')
-        .ariaLabel('Mobidul löschen bestätigen')
-        .ok('Löschen')
-        .cancel('Abbrechen');
+      $mdDialog.confirm()
+      .parent( angular.element(document.body) )
+      .title($translate.instant('DELETE_MOBIDUL_CONFIRMATION_TITLE'))
+      .textContent($translate.instant('DELETE_MOBIDUL_CONFIRMATION_BODY'))
+      .ariaLabel($translate.instant('DELETE_MOBIDUL_CONFIRMATION_TITLE'))
+      .ok($translate.instant('DELETE'))
+      .cancel($translate.instant('CANCEL'));
 
-    $mdDialog
-      .show( confirmDeleteMobidulDialog )
-      .then(function ()
-      {
-        $log.debug('Mobidul löschen triggered');
-        $log.debug('die 2 sollten gleich sein :');
-        $log.debug(StateManager.state.params.mobidulCode + ' === ' + creator.mobidul.code);
+    $mdDialog.show( confirmDeleteMobidulDialog )
+    .then(function () {
+      //$log.debug('Mobidul löschen triggered');
+      //$log.debug('die 2 sollten gleich sein :');
+      //$log.debug(StateManager.state.params.mobidulCode + ' === ' + creator.mobidul.code);
 
-        // TODO - check if it is the same as creator.mobidul.code
-        var mobidulCode = StateManager.state.params.mobidulCode;
+      // TODO - check if it is the same as creator.mobidul.code
+      var mobidulCode = StateManager.state.params.mobidulCode;
 
-        CreatorService
-          .deleteMobidul( mobidulCode )
-          .success(function (response)
-          {
-            $log.debug('delete Mobidul in CreatorController callback :');
-            $log.debug(response);
+      CreatorService.deleteMobidul( mobidulCode )
+      .success(function (response) {
+        // $log.debug('delete Mobidul in CreatorController callback :');
+        // $log.debug(response);
 
-            if ( response )
-            {
-              var responseMsg = response.msg || 'Mobidul konnte nicht gelöscht werden! Bitte kontaktieren Sie einen Administrator.';
+        if (response) {
+          var responseMsg = response.msg || $translate.instant('DELETE_MOBIDUL_ERROR_MSG');
 
-              var deleteMobidulOptionsDialog =
-                $mdDialog
-                  .alert()
-                  .parent( angular.element(document.body) )
-                  .title('Mobidul löschen')
-                  .textContent( responseMsg )
-                  .ariaLabel('Mobidul löschen')
-                  .ok('Schließen');
+          var deleteMobidulOptionsDialog =
+            $mdDialog.alert()
+            .parent( angular.element(document.body) )
+            .title($translate.instant('DELETE_MOBIDUL'))
+            .textContent( responseMsg )
+            .ariaLabel($translate.instant('DELETE_MOBIDUL'))
+            .ok($translate.instant('CLOSE'));
 
-              $mdDialog
-                .show( deleteMobidulOptionsDialog )
-                .then(function ()
-                {
-                  if ( response.success )
-                    $state.go('home');
-                });
-            }
+          $mdDialog.show( deleteMobidulOptionsDialog )
+          .then(function () {
+            if ( response.success )
+              $state.go('home');
           });
+        }
       });
+    });
   }
 
   /// events
   // ...
+
 }
 
 
@@ -1098,8 +1022,7 @@ function CreatorController (
  * DialogController
  */
 
-function DialogController ($scope, $mdDialog, categories, stations)
-{
+function DialogController ($scope, $mdDialog, categories, stations) {
   // Station noch eintragen.
   $scope.categories = categories;
   $scope.stations   = stations;
@@ -1128,8 +1051,7 @@ function DialogController ($scope, $mdDialog, categories, stations)
  * QRDialogController
  */
 
-function QRDialogController ($scope, $mdDialog, code)
-{
+function QRDialogController ($scope, $mdDialog, code) {
   $scope.url = location.protocol + '//' + location.host + '/Play/' + code;
 
   $scope.hide = function () {

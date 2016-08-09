@@ -7,13 +7,13 @@ angular
 
 
 TriggerNear.$inject = [
-  '$log', '$rootScope',
+  '$log', '$translate', '$rootScope',
   'GeoLocationService', 'ActivityService'
 ];
 
 
 function TriggerNear (
-  $log, $rootScope,
+  $log, $translate, $rootScope,
   GeoLocationService, ActivityService
 ) {
   return {
@@ -23,30 +23,27 @@ function TriggerNear (
       success: '@',
       range: '@'
     },
-    template: `
-      <div>
-        <div ng-if="triggerNear.inaccurate">
-          <span>Dein GPS ist zu ungenau. Gib den richtigen Code bei der Station ein:</span>
-          <mbl-input-code
-            data-verifier="{{ fallback }}"
-            data-success="verifyIfNear:{{ success }}"
-            data-error="say:Das war der falsche Code. Probiere es nochmal!"
-          ></mbl-input-code>
-        </div>
+    template: '' +
+      '<div>' +
+        '<div ng-if="triggerNear.inaccurate">' +
+          '<span translate="GPS_INACCURATE_FALLBACK"></span>' +
+          '<mbl-input-code ' +
+            'data-verifier="{{ fallback }}" ' +
+            'data-success="verifyIfNear:{{ success }}" ' +
+            'data-error="say:Das war der falsche Code. Probiere es nochmal!"' +
+          '></mbl-input-code>' +
+        '</div>' +
 
-        <div ng-if=" ! triggerNear.inaccurate">
-          <md-icon ng-if="triggerNear.trigger">room</md-icon>
-          <div ng-if=" ! triggerNear.trigger">
-            <span>{{ triggerNear.default }}</span>
-            <span ng-if="triggerNear.distance">
-              Du bist noch zirka {{ triggerNear.distance }} Meter von der Station entfernt.
-              (± {{ triggerNear.accuracy }}m)
-            </span>
-            <md-icon class="search-anim">track_changes</md-icon>
-          </div>
-        </div>
-      </div>
-    `,
+        '<div ng-if=" ! triggerNear.inaccurate">' +
+          '<md-icon ng-if="triggerNear.trigger">room</md-icon>' +
+          '<div ng-if=" ! triggerNear.trigger">' +
+            '<span>{{ triggerNear.default }}</span>' +
+            '<span ng-if="triggerNear.distance" translate="DISTANCE_FEEDBACK" translate-values="{distance: triggerNear.distance, accuracy: triggerNear.accuracy}"></span>' +
+            '<md-icon class="search-anim">track_changes</md-icon>' +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    ,
 
     link: function ($scope, $element, $attrs, TriggerNear) {
       $scope.$on('inaccurate', function (event, inaccurate) {
@@ -97,7 +94,7 @@ function TriggerNear (
   ) {
     var triggerNear = this;
 
-    triggerNear.default = 'GPS wird abgerufen...';
+    triggerNear.default = $translate.instant('GPS_FETCHING');
     triggerNear.inaccurate = false;
     triggerNear.trigger = false;
   }

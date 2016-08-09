@@ -63,7 +63,7 @@ function CoreController (
 		var toggleAppLoaderListener =
 			$rootScope.$on('rootScope:toggleAppLoader', function (event, data)
 			{
-				$log.debug('Listened to "rootScope:toggleAppLoader"');
+				// $log.debug('Listened to "rootScope:toggleAppLoader"');
 
 				var action = data.action ? data.action : null;
 

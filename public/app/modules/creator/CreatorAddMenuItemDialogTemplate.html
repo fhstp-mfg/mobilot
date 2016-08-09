@@ -5,7 +5,7 @@
     <form>
         <md-toolbar>
             <div class="md-toolbar-tools">
-                <h2>Menü Eintrag</h2>
+                <h2 translate="MENU_ENTRY"></h2>
                 <span flex></span>
                 <md-button class="md-icon-button" ng-click="cancel()">
                     <md-icon aria-label="Close dialog">close</md-icon>
@@ -22,7 +22,7 @@
                 md-border-bottom="true">
 
                 <md-tab id="tab1">
-                    <md-tab-label>Allgemein</md-tab-label>
+                    <md-tab-label>{{ 'GENERAL' | translate }}</md-tab-label>
                     <md-tab-body>
                         <div layout="column">
                             <br>
@@ -32,7 +32,7 @@
                                 aria-label="Divider"
                                 ng-click="addMenuItem('divider', 0)">
                                 <md-icon>vertical_align_center</md-icon>
-                                <span>Trenner hinzufügen</span>
+                                <span translate="ADD_DIVIDER"></span>
                             </md-button>
 
                             <md-button
@@ -41,14 +41,14 @@
                                 aria-label="Karte"
                                 ng-click="addMenuItem('map', 0)">
                                 <md-icon>map</md-icon>
-                                <span>Karte hinzufügen</span>
+                                <span translate="ADD_MAP"></span>
                             </md-button>
                         </div>
                     </md-tab-body>
                 </md-tab>
 
                 <md-tab id="tab2">
-                    <md-tab-label>Kategorien</md-tab-label>
+                    <md-tab-label>{{ 'CATEGORIES' | translate }}</md-tab-label>
                     <md-tab-body>
                         <md-list>
                             <md-list-item
@@ -64,7 +64,7 @@
                 </md-tab>
 
                 <md-tab id="tab3">
-                    <md-tab-label>Stationen</md-tab-label>
+                    <md-tab-label>{{ 'STATIONS' | translate }}</md-tab-label>
                     <md-tab-body>
                         <md-list>
                             <md-list-item

@@ -1,5 +1,5 @@
 (function () {
-  'use strict';
+'use strict';
 
 angular
   .module('StationCreator')
@@ -19,14 +19,14 @@ function HtmlEditor (
     scope: {
       content: '='
     },
-    template: `
-      <div>
-        <wysiwyg-edit
-          content="content"
-          api="htmlEditor.api">
-        </wysiwyg-edit>
-      </div>
-    `,
+    template: '' +
+      '<div>' +
+        '<wysiwyg-edit ' +
+          'content="content" ' +
+          'api="htmlEditor.api">' +
+        '</wysiwyg-edit>' +
+      '</div>'
+    ,
 
     link: function ($scope, $element, $attrs, HtmlEditor) {
       // ...

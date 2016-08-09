@@ -20,19 +20,19 @@ function ActionButton (
     scope: {
       success: '@'
     },
-    template: `
-      <div>
-        <md-button
-          class="md-raised md-primary"
-          ng-click="actionButton.clicked()"
-        >
-          <ng-transclude></ng-transclude>
-        </md-button>
-      </div>
-    `,
+    template: '' +
+      '<div>' +
+        '<md-button ' +
+          'class="md-raised md-primary" ' +
+          'ng-click="actionButton.clicked()"' +
+        '>' +
+          '<ng-transclude></ng-transclude>' +
+        '</md-button>' +
+      '</div>'
+    ,
     controller: ActionButtonController,
     controllerAs: 'actionButton'
-  }
+  };
 
 
 

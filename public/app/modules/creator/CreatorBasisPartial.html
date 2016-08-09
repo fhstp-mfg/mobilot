@@ -10,14 +10,10 @@
       'ios-top-margin' : creator.isCordovaIos
     }"
   >
-    <p class="helper" ng-show=" ! creator.showCreatorTabs">
-      Hier kannst du ein neues Mobidul erstellen.
-      <br>
-      Nachdem du den Namen eingegeben hast, wird ein Code generiert, welches dann manuell geändern werden kann.
-    </p>
+    <p class="helper" ng-show=" ! creator.showCreatorTabs" translate="MOBIDUL_CREATOR_TEXT"></p>
 
     <md-input-container class="creator-input-container">
-      <label>Name</label>
+      <label translate="NAME"></label>
       <input
         ng-model="creator.mobidul.name"
         ng-keyup="creator.changeName()"
@@ -28,7 +24,7 @@
     <div layout-sm="column">
       <md-input-container class="creator-input-container" flex>
         <label>
-          <span>Mobidul Code</span>
+          <span translate="MOBIDUL_CODE"></span>
           <span ng-show="creator.mobidul.codeHelper.show">
             - {{ creator.mobidul.codeHelper.text }}
           </span>
@@ -42,7 +38,7 @@
         >
       </md-input-container>
 
-      <p class="helper">Das Mobidul wird über folgendem Link aufrufbar sein:</p>
+      <p class="helper" translate="MOBIDUL_LINK_WILL_BE"></p>
       <p class="url-helper">
         <span>{{ creator.mobidul.link }}</span>
         <span>/#/</span>
@@ -52,7 +48,7 @@
 
     <div layout-sm="column">
       <md-input-container flex>
-        <label>Beschreibung</label>
+        <label translate="DESCRIPTION"></label>
         <textarea ng-model="creator.mobidul.description"></textarea>
       </md-input-container>
     </div>
@@ -60,7 +56,7 @@
     <md-input-container data-ng-if="creator.isNewMobidul">
       <md-select data-ng-model="creator.mobidul.mode">
         <md-select-header>
-          <span>Mobidul Mode</span>
+          <span translate="MOBIDUL_MODE"></span>
         </md-select-header>
         <md-option data-ng-repeat="mode in creator.modes"
                    data-ng-value="mode.name">{{mode.name}}</md-option>

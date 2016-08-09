@@ -4,14 +4,14 @@ angular
 
 
 StateManager.$inject = [
-  '$log', '$state', '$stateParams', 'StateModel',
+  '$log', '$state', '$stateParams', 'StateModel', '$translate',
   'UtilityService', 'HeaderService',
   'MobidulService', 'StationCreatorService', 'CreatorService'
 ];
 
 
 function StateManager (
-  $log, $state, $stateParams, State,
+  $log, $state, $stateParams, State, $translate,
   UtilityService, HeaderService,
   MobidulService, StationCreatorService, CreatorService
 ) {
@@ -502,24 +502,26 @@ function StateManager (
       // $log.debug( MobidulService.Mobidul.categoryName );
 
 
-      // TODO - fix here new mobidul flickering title !!! + play title
-      var mobidulName  = MobidulService.Mobidul.mobidulName ||
-                 MobidulService.NEW_MOBIDUL_TITLE;
-      $log.debug('Mobidul name : ' + mobidulName);
+      $translate.onReady(function () {
 
-      var categoryName = MobidulService.Mobidul.categoryName;
+        // TODO - fix here new mobidul flickering title !!! + play title
+        var mobidulName  = MobidulService.Mobidul.mobidulName ||
+          $translate.instant('NEW_MOBIDUL_NAME');
+
+        var categoryName = MobidulService.Mobidul.categoryName;
         categoryName = ( categoryName )
           ? ( ': ' + MobidulService.Mobidul.categoryName ) : '';
 
 
-      // TODO - add category to header (probably not best place here)
-      var mobidulTitle = mobidulName + categoryName;
+        // TODO - add category to header (probably not best place here)
+        var mobidulTitle = mobidulName + categoryName;
         mobidulTitle = mobidulName; // NOTE - not finished yet ...
 
-      service.setTitle( mobidulTitle );
+        service.setTitle( mobidulTitle );
 
 
-      MobidulService.Mobidul.categoryName = null;
+        MobidulService.Mobidul.categoryName = null;
+      });
     }
     else if ( isLogin()    ||
           isRegister() ||

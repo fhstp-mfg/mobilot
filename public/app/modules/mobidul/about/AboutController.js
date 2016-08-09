@@ -3,12 +3,12 @@ angular
   .controller('AboutController', AboutController);
 
 AboutController.$inject = [
-  '$log'
+  '$log', '$translate'
 ];
 
 
 function AboutController (
-  $log
+  $log, $translate
 ) {
   var about = this;
 

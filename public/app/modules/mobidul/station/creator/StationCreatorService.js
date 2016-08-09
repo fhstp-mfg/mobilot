@@ -75,7 +75,6 @@ function StationCreatorService (
    * @returns {*} Call of the Server
    */
   function cloneMyStation(mobidulCode, stationCode) {
-    $log.info("FLO 2: SERVICE was working." + "Mobidulcode: " + mobidulCode + " -- Stationcode: " + stationCode);
 
     return $http.get(cordovaUrl + '/' + mobidulCode + '/cloneStation/' + stationCode)
       .success(function (response, status, headers, config) {

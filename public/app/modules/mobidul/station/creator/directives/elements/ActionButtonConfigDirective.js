@@ -6,12 +6,12 @@ angular
   .directive('actionButtonConfig', EditorActionButton);
 
 EditorActionButton.$inject = [
-  '$log',
+  '$log', '$translate',
   'RallyService'
 ];
 
 function EditorActionButton(
-  $log,
+  $log, $translate,
   RallyService
 ){
 
@@ -22,7 +22,7 @@ function EditorActionButton(
       '<md-button class="md-raised md-primary">{{content}}</md-button><br/>' +
       '<div class="config-part">' +
         '<md-input-container>' +
-          '<input type="text" ng-model="content" placeholder="Beschriftung">' +
+          '<input type="text" ng-model="content" placeholder="{{ \'LABEL\' | translate }}">' +
         '</md-input-container>' +
         '<action-selector data-opts="ctrl.actionOpts" data-selection="success" data-name="Success"></action-selector>' +
       '</div>' +

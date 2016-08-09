@@ -9,34 +9,34 @@ use App\Models\User2Mobidul;
 class CodeController extends BaseController
 {
 
-	public function play ($code)
-	{
-		\Log::info('Play Request : ' . $code);
+  public function play ($code)
+  {
+    \Log::info('Play Request: ' . $code);
 
-		$response = $this->JoinMobidul($code);
+    $response = $this->JoinMobidul($code);
 
-		if ( $response['success'] )
-		{
-			$mobidulCode = $response['code'];
+    if ( $response['success'] ) {
+      $mobidulCode = $response['code'];
 
-			return Redirect::to('/#/' . $mobidulCode . '/map');
-		}
-		else
-			App::abort(404);
-	}
+      return Redirect::to('/#/' . $mobidulCode . '/map');
+    }
+    else {
+      App::abort(404);
+    }
+  }
 
 
-	public function JoinMobidul ($code)
-	{
-		\Log::info('JoinMobidul : ' . $code);
+  public function JoinMobidul ($code)
+  {
+    \Log::info('JoinMobidul : ' . $code);
 
-		if ( $this->isCodeValid($code) )
-		{
-			$mobidulId = DB::table('codes')
-							->select('mobidulId')
-							->where('code', $code)
-							->first()
-							->mobidulId;
+    if ( $this->isCodeValid($code) )
+    {
+      $mobidulId = DB::table('codes')
+              ->select('mobidulId')
+              ->where('code', $code)
+              ->first()
+              ->mobidulId;
 
             \Log::info("play with $mobidulId");
 
@@ -51,12 +51,12 @@ class CodeController extends BaseController
                 \Log::info("insert into $mobidulId");
                 DB::table('user2mobidul')
                     ->insert(
-					[
-						'userId'    => $userId,
-						'mobidulId' => $mobidulId,
-						'rights'    => 2,
-						'code'   	=> $code
-					]);
+          [
+            'userId'    => $userId,
+            'mobidulId' => $mobidulId,
+            'rights'    => 2,
+            'code'     => $code
+          ]);
 
                 \Log::info("created rights for play");
             }
@@ -65,32 +65,32 @@ class CodeController extends BaseController
 
 
             $mobidulCode = DB::table('mobidul')
-				                ->select('code')
-				                ->where('id', $mobidulId)
-				                ->first()
-				                ->code;
+                        ->select('code')
+                        ->where('id', $mobidulId)
+                        ->first()
+                        ->code;
 
-			return [
-				'success' => true,
-				'code'    => $mobidulCode
-			];
-		}
-		else
-			return [
-				'success' => false
-			];
-	}
+      return [
+        'success' => true,
+        'code'    => $mobidulCode
+      ];
+    }
+    else
+      return [
+        'success' => false
+      ];
+  }
 
 
-	public function mobilePlay ($code)
-	{
-		if ( $this->isCodeValid($code) )
-		{
-			$mobidulId = DB::table('codes')
-							->select('mobidulId')
-							->where('code', $code)
-							->first()
-							->mobidulId;
+  public function mobilePlay ($code)
+  {
+    if ( $this->isCodeValid($code) )
+    {
+      $mobidulId = DB::table('codes')
+              ->select('mobidulId')
+              ->where('code', $code)
+              ->first()
+              ->mobidulId;
 
             \Log::info("play $mobidulId");
 
@@ -105,12 +105,12 @@ class CodeController extends BaseController
                 \Log::info("insert into $mobidulId");
                 DB::table('user2mobidul')
                     ->insert(
-					[
-						'userId'    => $userId,
-						'mobidulId' => $mobidulId,
-						'rights'    => 2,
-						'code'   	=> $code
-					]);
+          [
+            'userId'    => $userId,
+            'mobidulId' => $mobidulId,
+            'rights'    => 2,
+            'code'     => $code
+          ]);
 
                 \Log::info("created rights");
             }
@@ -119,21 +119,21 @@ class CodeController extends BaseController
 
 
             $mobidulCode = DB::table('mobidul')
-				                ->select('code')
-				                ->where('id', $mobidulId)
-				                ->first()
-				                ->code;
+                        ->select('code')
+                        ->where('id', $mobidulId)
+                        ->first()
+                        ->code;
 
-			return $mobidulCode;
-		}
-		else
-			return 'invalid';
-	}
+      return $mobidulCode;
+    }
+    else
+      return 'invalid';
+  }
 
 
-	public function canIPlay ($mobidulCode)
-	{
-		$mobidulId    = Mobidul::GetId($mobidulCode);
+  public function canIPlay ($mobidulCode)
+  {
+    $mobidulId    = Mobidul::GetId($mobidulCode);
         $user         = User::getCurrentUser();
         $user2Mobidul = $user->user2Mobidul()->where('mobidulId', $mobidulId)->first();
 
@@ -146,11 +146,11 @@ class CodeController extends BaseController
         }
 
         return 'not-allowed';
-	}
+  }
 
 
-	public function getPlayCode ($mobidulCode)
-	{
+  public function getPlayCode ($mobidulCode)
+  {
         $mobidulId = Mobidul::GetId($mobidulCode);
 
         if ( ! $this->GetIsOwnerOfMobidul($mobidulId) )
@@ -159,44 +159,46 @@ class CodeController extends BaseController
 
         $request   = Request::instance();
         $content   = $request->getContent();
-		$params    = json_decode($content);
-		$mobidulId = Mobidul::GetId($mobidulCode);
-		$length    = 6;
+    $params    = json_decode($content);
+    $mobidulId = Mobidul::GetId($mobidulCode);
+    $length    = 6;
 
-		$pwgen    = new PWGen($length, false, true, false, true);
-    	$code     = $pwgen->generate();
+    // TODO: document PWGen parameters
+    $pwgen    = new PWGen($length, false, true, false, true);
+      $code     = $pwgen->generate();
 
-		$counter   = 0;
-		$maxTrys   = 1000;
+    $counter   = 0;
+    $maxTrys   = 1000;
 
-		while ( $this->HasCode($code) )
-		{
-			if ( $counter > $maxTrys )
-			{
-				$counter = 0;
-				$length++;
-			}
+    while ( $this->HasCode($code) )
+    {
+      if ( $counter > $maxTrys )
+      {
+        $counter = 0;
+        $length++;
+      }
 
-			$code = $pwgen->generate();
-			$counter++;
-		}
+      $code = $pwgen->generate();
+      $counter++;
+    }
+
+    // TODO: implement max trys exception and try again functionality
+
+    Codes::create(
+      array(
+        'code'       => $code,
+        'mobidulId' => $mobidulId
+      )
+    );
 
 
-		Codes::create(
-			array(
-				'code' 	    => $code,
-				'mobidulId' => $mobidulId
-			)
-		);
-
-
-		return $code;
-	}
+    return $code;
+  }
 
 
     public function getCodes ($mobidulCode)
     {
-		$mobidulId = Mobidul::GetId($mobidulCode);
+    $mobidulId = Mobidul::GetId($mobidulCode);
 
         if ( $this->GetIsOwnerOfMobidul($mobidulId) )
             return Codes::where('mobidulId', $mobidulId)->get();
@@ -228,7 +230,7 @@ class CodeController extends BaseController
 
     public function openCode ($co)
     {
-		$code = Codes::find($co);
+    $code = Codes::find($co);
 
         if ( $code )
         {
@@ -249,7 +251,7 @@ class CodeController extends BaseController
 
     public function deleteCode ($co)
     {
-		$code = Codes::find($co);
+    $code = Codes::find($co);
 
         if ( $code )
         {
@@ -270,8 +272,8 @@ class CodeController extends BaseController
     public function GetOwnerOfMobidul ($mobidulId)
     {
         $users = User2Mobidul::where('mobidulId', $mobidulId)
-					            ->where('rights', 1)
-					            ->get();
+                      ->where('rights', 1)
+                      ->get();
 
         if ( ! is_null($users->first()) && ! is_null($users->first()->userId) )
             return $users->first()->userId;
@@ -280,9 +282,9 @@ class CodeController extends BaseController
     }
 
 
-	public function GetIsOwnerOfMobidul ($mobidulId)
-	{
-		if ( Auth::check() && Auth::user()->username == 'admin' )
+  public function GetIsOwnerOfMobidul ($mobidulId)
+  {
+    if ( Auth::check() && Auth::user()->username == 'admin' )
             return true;
 
         // if ( $this->GetOwnerOfMobidul($mobidulId) == Auth::id() )
@@ -290,33 +292,33 @@ class CodeController extends BaseController
         // else
         //     return false;
 
-		$isOwnerOfMobidul = $this->GetOwnerOfMobidul($mobidulId) == Auth::id();
+    $isOwnerOfMobidul = $this->GetOwnerOfMobidul($mobidulId) == Auth::id();
 
-		return $isOwnerOfMobidul;
-	}
-
-
-	public function HasCode ($code)
-	{
-		\Log::info("code");
-		\Log::info($code);
-
-		return DB::table('codes')
-					->select('code')
-					->where('code', $code)
-					->first();
-	}
+    return $isOwnerOfMobidul;
+  }
 
 
-	public function isCodeValid ($code)
-	{
+  public function HasCode ($code)
+  {
+    \Log::info("code");
+    \Log::info($code);
+
+    return DB::table('codes')
+          ->select('code')
+          ->where('code', $code)
+          ->first();
+  }
+
+
+  public function isCodeValid ($code)
+  {
         $code = Codes::find($code);
 
-		$isCodeValid = false;
+    $isCodeValid = false;
 
         if ( $code )
-			$isCodeValid = ! $code->locked;
+      $isCodeValid = ! $code->locked;
 
-		return (int) $isCodeValid;
-	}
+    return (int) $isCodeValid;
+  }
 }

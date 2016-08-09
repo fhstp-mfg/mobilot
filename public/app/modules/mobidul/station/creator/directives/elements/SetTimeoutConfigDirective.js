@@ -6,12 +6,12 @@ angular
   .directive('setTimeoutConfig', SetTimeoutConfig);
 
 SetTimeoutConfig.$inject = [
-  '$log',
+  '$log', '$translate',
   'RallyService'
 ];
 
 function SetTimeoutConfig(
-  $log,
+  $log, $translate,
   RallyService
 ) {
   return {
@@ -21,13 +21,13 @@ function SetTimeoutConfig(
     '<div>' +
       '<md-input-container>' +
         '<input type="number" data-ng-model="ctrl.minutes" name="minutes">' +
-        '<label for="minutes">Minuten</label>' +
+        '<label for="minutes" translate="MINUTES"></label>' +
       '</md-input-container>' +
       '<md-input-container>' +
         '<input type="number" data-ng-model="ctrl.seconds" name="seconds">' +
-        '<label for="seconds">Sekunden</label>' +
+        '<label for="seconds" translate="SECONDS"></label>' +
       '</md-input-container>' +
-      '<md-checkbox data-ng-model="show" aria-label="Show Countdown">Countdown anzeigen?</md-checkbox>' +
+      '<md-checkbox data-ng-model="show" aria-label="Show Countdown">{{ \'SHOW_COUNTDOWN\' | translate }}</md-checkbox>' +
       '<action-selector data-opts="ctrl.actionOpts" data-selection="action" data-name="Aktion"></action-selector>' +
     '</div>',
     scope: {

@@ -17,22 +17,43 @@
     layout-padding
     ng-class="{ 'ios-top-margin': play.isCordovaIos }"
   >
-    <p class="helper">Mitmach-Codes können vom Ersteller eines Mobidul bereitgestellt werden.</p>
-    <p class="helper">Um bei einem Mobidul als "Redakteur" mitzumachen, gib dein Mitmach-Code hier ein.</p>
+    <!-- Mitmach-Code Input -->
 
-    <md-input-container>
-      <label>Mitmach-Code</label>
-      <input
-        placeholder="Mitmach-Code"
-        ng-model="play.code"
-        ng-required="true"
-        ng-maxlength="6"
-      >
-    </md-input-container>
+    <div class="section">
+      <div layout-sm="column">
+        <p class="helper" translate="JOIN_CODE_INPUT_DESCRIPTION"></p>
+        <br>
+      </div>
 
-    <md-button
-      class="md-raised md-primary md-mobilot"
-      ng-click="play.join()"
-    >Zum Mobidul</md-button>
+      <div layout="row" layout-sm="column">
+        <md-input-container>
+          <label translate="JOIN_CODE"></label>
+          <input
+            placeholder="Mitmach-Code"
+            ng-model="play.code"
+            ng-required="true"
+            ng-maxlength="6"
+          >
+        </md-input-container>
+
+        <md-button
+          class="md-raised md-primary md-mobilot"
+          ng-click="play.join()"
+        >
+          <span flex>{ 'JOIN' | translate }}</span>
+        </md-button>
+      </div>
+    </div>
+
+    <div class="section section-darker" ng-if="play.isCordova">
+      <div layout-sm="column">
+        <md-button
+          class="md-raised md-primary md-mobilot"
+          ng-click="play.scan()"
+        >
+          <span flex>{ 'SCAN_CODE' | translate }}</span>
+        </md-button>
+      </div>
+    </div>
   </md-content>
 </div>

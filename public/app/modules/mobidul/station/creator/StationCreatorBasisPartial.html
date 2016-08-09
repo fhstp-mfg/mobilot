@@ -8,7 +8,7 @@
     ng-class="{ 'ios-top-margin': stationCreator.isCordovaIos }"
   >
     <md-input-container class="less-pb-field">
-      <label>Name</label>
+      <label translate="NAME"></label>
       <input
         id="station_creator_name"
         ng-model="stationCreator.station.name"
@@ -27,7 +27,7 @@
 
       <md-input-container class="less-pb-field" flex>
         <label>
-          <span>Station Code</span>
+          <span translate="STATION_CODE"></span>
           <span ng-show="stationCreator.basis.codeHelper.show">
             - {{ stationCreator.basis.codeHelper.text }}
           </span>
@@ -41,7 +41,7 @@
           required>
         </md-input-container>
 
-      <p class="helper">Die Station wird über folgendem Link aufrufbar sein:</p>
+      <p class="helper" translate="STATION_LINK_WILL_BE"></p>
       <p class="url-helper">
         <!-- <span>{{ creator.mobidul.link }}</span> -->
         <span>{{ stationCreator._mobilotUrl }}</span>

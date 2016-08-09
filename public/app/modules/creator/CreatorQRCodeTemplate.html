@@ -1,16 +1,16 @@
 <md-dialog aria-label="QRCode">
-    <form>
-        <md-toolbar>
-            <div class="md-toolbar-tools">
-                <h2>Mitmach-Code</h2>
-                <span flex></span>
-                <md-button class="md-icon-button" ng-click="cancel()">
-                    <md-icon aria-label="Close dialog">close</md-icon>
-                </md-button>
-            </div>
-        </md-toolbar>
-        <md-dialog-content style="margin : 1em; padding : 0">
-            <qrcode href='{{ url }}' data='{{ url }}' size='240'></qrcode>
-        </md-dialog-content>
-    </form>
+  <form>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h2 translate="JOIN_CODE"></h2>
+          <span flex></span>
+          <md-button class="md-icon-button" ng-click="cancel()">
+            <md-icon aria-label="Close dialog">close</md-icon>
+          </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content style="margin : 1em; padding : 0">
+      <qrcode href="{{ url }}" data="{{ url }}" size="240"></qrcode>
+    </md-dialog-content>
+  </form>
 </md-dialog>

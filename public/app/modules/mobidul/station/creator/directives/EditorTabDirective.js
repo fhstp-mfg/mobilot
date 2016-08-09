@@ -6,11 +6,11 @@ angular
   .directive('editortab', EditorTab);
 
 EditorTab.$inject = [
-  '$log', '$rootScope'
+  '$log', '$translate', '$rootScope'
 ];
 
 function EditorTab(
-  $log, $rootScope
+  $log, $translate, $rootScope
 ){
 
   return {
@@ -18,7 +18,7 @@ function EditorTab(
     template: '' +
     '<div>' +
       '<md-tab>' +
-        '<md-tab-label>{{tabname}}</md-tab-label>' +
+        '<md-tab-label>{{ tabname | translate }}</md-tab-label>' +
         '<md-tab-body>' +
           '<editor-tools></editor-tools>' +
           '<ul dnd-list="tabconfig">' +

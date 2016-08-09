@@ -8,8 +8,8 @@
     layout-padding
     ng-class="{ 'ios-top-margin': login.isCordovaIos }"
   >
-    <h2>Passwort zurücksetzen</h2>
-    <p>Bitte gib die Email Adresse deines Benutzers ein, um das Passwort zurückzusetzen.</p>
+    <h2 translate="RESET_PASSWORD"></h2>
+    <p translate="RESET_PASSWORD_DESCRIPTION"></p>
 
     <form
       name="restoreForm"
@@ -18,7 +18,7 @@
     >
       <!-- Email -->
       <md-input-container class="md-icon-float">
-        <label>Email</label>
+        <label translate="EMAIL"></label>
         <md-icon>email</md-icon>
         <input
           type="email"
@@ -32,7 +32,7 @@
         class="md-raised md-primary"
         ng-disabled="login.disableLoginButton"
       >
-        <span>Zurücksetzen</span>
+        <span translate="RESET"></span>
       </md-button>
     </form>
   </md-content>

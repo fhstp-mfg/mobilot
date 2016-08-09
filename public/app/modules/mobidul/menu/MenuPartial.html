@@ -60,26 +60,26 @@
         ng-if="menu.isRallyMode"
         ng-click="menu.resetRally()"
     >
-      <span>Rally zurücksetzen</span>
+      <span translate="RESET_RALLY"></span>
     </md-list-item>
 
     <!-- Admin area -->
     <div ng-if="menu.currentUser.role > 0">
       <md-list-item class="menuDivider">
-        <span>Mobidul</span>
+        <span translate="MOBIDUL"></span>
       </md-list-item>
 
       <md-list-item ng-click="mobidul.switchAdminContent( 0 )">
-        <span>Alle Stationen</span>
+        <span translate="ALL_STATIONS"></span>
       </md-list-item>
       <md-list-item ng-click="mobidul.switchAdminContent( 1 )">
-        <span>Neue Station</span>
+        <span translate="NEW_STATION"></span>
       </md-list-item>
       <md-list-item
         ng-if="menu.currentUser.role == 1"
         ng-click="mobidul.switchAdminContent( 2 )"
       >
-        <span>Optionen</span>
+        <span translate="OPTIONS"></span>
       </md-list-item>
 
       <md-list-item
@@ -87,7 +87,7 @@
         ng-click="mobidul.cloneMyMobidul()"
         ng-show="menu.isCloneMobidulEnabled"
       >
-        <span>Klonen</span>
+        <span translate="CLONE"></span>
       </md-list-item>
     </div>
 
@@ -101,14 +101,14 @@
       ng-click="mobidul.switchState('home')"
       ng-show="menu.isGoToHomeEnabled"
     >
-      <span>Mobidulauswahl</span>
+      <span translate="MOBIDUL_SELECTION"></span>
     </md-list-item>
 
     <md-list-item
       ng-click="mobidul.switchState('mobidul.about')"
       ng-show="menu.isGoToAboutEnabled"
     >
-      <span>Über Mobilot</span>
+      <span translate="ABOUT_MOBILOT"></span>
     </md-list-item>
   </md-list>
 </md-sidenav>

@@ -1,0 +1,30 @@
+{
+  "name": "mobilot",
+  "version": "0.9.4",
+  "description": "Mobilot is a system for creating intuitive mobile information systems.",
+  "main": "public/angular.html",
+  "private": true,
+  "scripts": {
+    "test": "karma start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fhstp-mfg/mobilot.git"
+  },
+  "keywords": [
+    "mobile",
+    "location",
+    "context"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fhstp-mfg/mobilot/issues"
+  },
+  "homepage": "https://www.mobilot.at",
+  "devDependencies": {
+    "jasmine-core": "^2.4.1",
+    "karma": "^1.1.2",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-jasmine": "^1.0.2"
+  }
+}

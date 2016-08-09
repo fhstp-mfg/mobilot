@@ -50,7 +50,7 @@
         ng-click="creator.addCategory()"
       >
         <md-icon>add</md-icon>
-        <span>Kategorie hinzufügen</span>
+        <span translate="ADD_CATEGORY"></span>
       </md-button>
     </div>
 
@@ -60,7 +60,7 @@
       <md-button
         class="md-raised md-primary"
         ng-click="creator.saveCategories()"
-      >Speichern</md-button>
+      >{{ 'SAVE' | translate }}</md-button>
     </div>
   </md-content>
 </div>

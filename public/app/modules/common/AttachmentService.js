@@ -6,13 +6,13 @@ angular
 .factory('AttachmentService', AttachmentService);
 
 AttachmentService.$inject = [
-  '$log', '$http',
-  '$stateParams'
+  '$log', '$http', '$q', '$translate',
+  '$mdDialog'
 ];
 
 function AttachmentService (
-  $log, $http,
-  $stateParams
+  $log, $http, $q, $translate,
+  $mdDialog
 ) {
   /// AttachmentService
   var service =
@@ -28,75 +28,95 @@ function AttachmentService (
     /// functions
     saveTextInput: saveTextInput,
     exportTextsFromComponent: exportTextsFromComponent,
-    exportPicturesFromComponent: exportPicturesFromComponent
+    exportPicturesFromComponent: exportPicturesFromComponent,
+    startDownloadFromUrl: startDownloadFromUrl
 
   };
 
 
   /// private helpers
-  // ...
+  function _getPhotoExportUrl (stationCode, componentId) {
+
+    return $q(function (resolve, reject) {
+
+      $http.get( '/' + stationCode + '/exportImages/' + componentId )
+      .success(function (result) {
+        //$log.info('result from _getPhotoExportUrl:', result);
+        resolve(result);
+      })
+      .error(function(response){
+        reject(response);
+      });
+    });
+  }
+
+  // Todo: should be private - needs better test
+  function startDownloadFromUrl (url, name) {
+    var anchor = angular.element('<a/>');
+    anchor.attr({
+      href: url,
+      download: name
+    })[0].click();
+  }
 
 
   /// services
-  function saveTextInput (text, componentId) {
+  function saveTextInput (text, mobidulCode, stationCode, componentId) {
 
-    var stationCode = $stateParams.stationCode,
-        mobidulCode = $stateParams.mobidulCode,
-        url = '/' + mobidulCode + '/' + stationCode + '/saveText/' + componentId,
+    var url = '/' + mobidulCode + '/' + stationCode + '/saveText/' + componentId,
         data = {payload: {text: text}};
 
-    return $http.post(url, data);
+    return $q(function (resolve, reject) {
+      $http.post(url, data)
+      .success(function (response, status, headers, config) {
+        resolve(response);
+      })
+      .error(function (response, status, headers, config) {
+        reject(response);
+      })
+    });
   }
 
-  function exportTextsFromComponent (componentId) {
+  function exportTextsFromComponent (mobidulCode, stationCode, componentId) {
 
-    var stationCode = $stateParams.stationCode,
-        mobidulCode = $stateParams.mobidulCode,
-        url = '/' + mobidulCode + '/' + stationCode + '/exportTexts/' + componentId;
+    var url = '/' + mobidulCode + '/' + stationCode + '/exportTexts/' + componentId;
 
-    $http.get(url).success(function(response, status, headers, config){
-      $log.info('response from exportTextsFromComponent:', response);
-    })
-    .error(function(response, status, headers, config){
-      $log.error('error while exporting texts:', response);
-    })
-
+    return $q(function (resolve, reject) {
+      $http.get(url)
+      .success(function(response, status, headers, config){
+        resolve(response);
+      })
+      .error(function(response, status, headers, config){
+        reject(response);
+      })
+    });
   }
-
-
-  function exportPicturesFromComponent (id)
+  
+  function exportPicturesFromComponent (stationCode, componentId)
   {
-    //$log.info('PhotoService - exportPicturesFromComponent: ');
-    //$log.debug(id);
+    return $q(function (resolve, reject) {
+      _getPhotoExportUrl(stationCode, componentId)
+      .then(function (result) {
 
-    var stationCode = $stateParams.stationCode;
+        if( ! result.empty ){
 
-    $http.get( '/' + stationCode + '/exportImages/' + id )
-    .success(function(result){
-      //$log.info('result from export:');
-      //$log.debug(result);
+          startDownloadFromUrl(result.url, 'export.zip');
 
-      if( ! result.empty ){
-        var anchor = angular.element('<a/>');
-        anchor.attr({
-          href: result.url,
-          download: 'export.zip'
-        })[0].click();
-      } else {
-        $mdDialog.show(
-          $mdDialog.alert()
-          .parent(angular.element(document.body))
-          .title('Keine Fotos')
-          .textContent( 'Zu dieser Station wurden noch keine Fotos hochgeladen' )
-          .ariaLabel('OK')
-          .ok('OK')
-        );
-      }
+        } else {
+          $mdDialog.show(
+            $mdDialog.alert()
+            .parent(angular.element(document.body))
+            .title($translate.instant('NO_PHOTOS'))
+            .textContent($translate.instant('NO_PHOTOS_FOR_STATION'))
+            .ariaLabel($translate.instant('OK'))
+            .ok($translate.instant('OK'))
+          );
 
-    })
-    .error(function(error){
-      $log.error('error from component picture export:');
-      $log.debug(error);
+        }
+
+      }, function (error) {
+        reject(error);
+      });
     });
   }
 
