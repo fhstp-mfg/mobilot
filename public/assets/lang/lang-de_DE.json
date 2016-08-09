@@ -192,6 +192,7 @@
   "NEW_MOBIDUL_NAME": "Neues Mobidul",
   "ENTER_NEW_MOBIDUL_NAME": "Gib den Namen des neuen Mobiduls ein:",
   "MOBIDUL_CODE": "Mobidul Code",
+  "CLONE_INFO_SUCCESS": "Kopieren des aktuellen Mobiduls war erfolgreich!",
 
   "CREATING": "wird generiert...",
   "AUTOMATICALLY_CREATED": "automatisch generiert",
