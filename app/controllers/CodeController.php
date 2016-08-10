@@ -312,12 +312,14 @@ class CodeController extends BaseController
 
   public function isCodeValid ($code)
   {
-        $code = Codes::find($code);
+    $code = Codes::find($code);
 
     $isCodeValid = false;
 
-        if ( $code )
+    if ($code) {
+      // $isCodeValid = $code->locked == 0;
       $isCodeValid = ! $code->locked;
+    }
 
     return (int) $isCodeValid;
   }

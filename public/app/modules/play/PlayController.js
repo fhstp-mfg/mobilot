@@ -83,10 +83,25 @@ function PlayController (
   function scan () {
     if (isCordova) {
       cordova.plugins.barcodeScanner.scan(function (result) {
-        alert("We got a barcode\n" +
-              "Result: " + result.text + "\n" +
-              "Format: " + result.format + "\n" +
-              "Cancelled: " + result.cancelled);
+        // alert("We got a barcode\n" +
+        //       "Result: " + result.text + "\n" +
+        //       "Format: " + result.format + "\n" +
+        //       "Cancelled: " + result.cancelled);
+
+        if ( result.format === 'QR_CODE' ) {
+          var playRegexPattern = /.+\/Play\/([A-Za-z0-9]+)/;
+          var playRegexMatch = result.text.match(playRegexPattern);
+          var playCode = playRegexMatch[1];
+
+          if (playCode) {
+            play.code = playCode;
+            join();
+          } else {
+            alert('Dieser QR-Code enthält kein Mitmach-Code!');
+          }
+        } else {
+          alert('Dies ist kein QR-Code!');
+        }
       }, function (error) {
         alert("Scanning failed: " + error);
       },
