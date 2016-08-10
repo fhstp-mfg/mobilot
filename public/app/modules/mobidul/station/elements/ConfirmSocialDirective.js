@@ -6,12 +6,12 @@
   .directive('mblConfirmSocial', ConfirmSocial);
 
   ConfirmSocial.$inject = [
-    '$log', '$translate',
+    '$log', '$translate', '$rootScope', 'StateManager',
     '$mdDialog'
   ];
 
   function ConfirmSocial (
-    $log, $translate,
+    $log, $translate, $rootScope, StateManager,
     $mdDialog
   ) {
     return {
@@ -27,12 +27,19 @@
           'ng-click="ctrl.startScan()">' +
           '{{ \'SCAN_CODE\' | translate }}' +
         '</md-button>' +
+        '<md-button class="md-raised md-primary" ng-if="ctrl.isConfirmed" ng-click="ctrl.actionPerformed()">' +
+          '{{ \'PERFORM_ACTION\' | translate }}' +
+        '</md-button>' +
       '</div>',
       scope: {
         id: '@',
         success: '@'
       },
       link: function ( $scope, $element, $attr, ctrl ) {
+
+        if ( StateManager.state.params.verifier && StateManager.state.params.verifier === $scope.id ) {
+          ctrl.isConfirmed = true;
+        }
 
       },
       controller: ConfirmSocialController,
@@ -41,6 +48,8 @@
 
     function ConfirmSocialController ( $scope, $element, $attrs ) {
       var ctrl = this;
+
+      ctrl.isConfirmed = false;
 
       ctrl.openCode = function () {
         $log.debug('OPEN CODE');
@@ -57,6 +66,10 @@
 
       ctrl.startScan = function () {
         $log.debug('START SCAN');
+      };
+
+      ctrl.actionPerformed = function () {
+        $rootScope.$broadcast('action', $scope.success);
       };
 
     }
