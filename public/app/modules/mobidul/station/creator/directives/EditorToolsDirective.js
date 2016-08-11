@@ -49,7 +49,7 @@ function EditorPanel(
       IF_NEAR :       'my_location',
       INPUT_CODE :    'check_box',
       BUTTON :        'crop_square',
-      PHOTO_UPLOAD :  'add_a_photo',
+      PHOTO_UPLOAD :  'camera_alt',
       SET_TIMEOUT :   'alarm',
       FREE_TEXT :     'edit',
       CONFIRM_SOCIAL: 'people'

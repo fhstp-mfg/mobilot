@@ -17,14 +17,15 @@ function ElementContainer(
   return {
     restrict: 'E',
     template:
-      '<div class="editorelement">' +
-        '<md-button data-ng-click="ctrl.showInfo()" class="editor-element-info">' +
-          '<md-icon>info_outline</md-icon>' +
-        '</md-button>' +
-        '<md-button class="editor-element-delete" data-ng-click="ctrl.delete()">' +
-          '<md-icon>delete</md-icon>' +
-        '</md-button>' +
-      '</div>',
+      '<md-button class="editor-element-opt" data-ng-click="ctrl.delete()">' +
+        '<md-icon>delete</md-icon>' +
+      '</md-button>' +
+      '<md-button  class="editor-element-opt" data-ng-click="ctrl.showInfo()">' +
+        '<md-icon>info_outline</md-icon>' +
+      '</md-button>' +
+      '<md-button class="editor-element-opt" data-ng-click="ctrl.collapse()">' +
+        '<md-icon>build</md-icon>' +
+      '</md-button>',
     scope:{
       element: '='
     },
@@ -39,40 +40,46 @@ function ElementContainer(
       switch(type){
 
         case 'HTML':
-          $element.append($compile('<html-container-config data-content="ctrl.element.content"></html-container-config>')($scope));
+          $element.prepend($compile('<html-container-config data-content="ctrl.element.content"></html-container-config>')($scope));
           break;
 
         case 'BUTTON':
-          $element.append($compile('<action-button-config data-success="ctrl.element.success" data-content="ctrl.element.content"></action-button-config>')($scope));
+          $element.prepend($compile('<action-button-config data-success="ctrl.element.success" data-content="ctrl.element.content"></action-button-config>')($scope));
           break;
 
         case 'IF_NEAR':
-          $element.append($compile('<trigger-near-config data-range="ctrl.element.range" fallback="ctrl.element.fallback" data-success="ctrl.element.success"></trigger-near-config>')($scope));
+          $element.prepend($compile('<trigger-near-config data-range="ctrl.element.range" fallback="ctrl.element.fallback" data-success="ctrl.element.success"></trigger-near-config>')($scope));
           break;
 
         case 'INPUT_CODE':
-          $element.append($compile('<input-code-config data-id="ctrl.element.id" data-verifier="ctrl.element.verifier" data-success="ctrl.element.success" error="ctrl.element.error"></input-code-config>')($scope));
+          $element.prepend($compile('<input-code-config data-id="ctrl.element.id" data-verifier="ctrl.element.verifier" data-success="ctrl.element.success" error="ctrl.element.error"></input-code-config>')($scope));
           break;
 
         case 'PHOTO_UPLOAD':
-          $element.append($compile('<photo-upload-config data-success="ctrl.element.success" data-id="ctrl.element.id" data-content="ctrl.element.content"></photo-upload-config>')($scope));
+          $element.prepend($compile('<photo-upload-config data-success="ctrl.element.success" data-id="ctrl.element.id" data-content="ctrl.element.content"></photo-upload-config>')($scope));
           break;
 
         case 'SET_TIMEOUT':
-          $element.append($compile('<set-timeout-config data-action="ctrl.element.action" data-delay="ctrl.element.delay" data-show="ctrl.element.show"></set-timeout-config>')($scope));
+          $element.prepend($compile('<set-timeout-config data-action="ctrl.element.action" data-delay="ctrl.element.delay" data-show="ctrl.element.show"></set-timeout-config>')($scope));
           break;
 
         case 'FREE_TEXT':
-          $element.append($compile('<free-text-input-config data-success="ctrl.element.success" data-question="ctrl.element.question" data-id="ctrl.element.id"></free-text-input-config>')($scope));
+          $element.prepend($compile('<free-text-input-config data-success="ctrl.element.success" data-question="ctrl.element.question" data-id="ctrl.element.id"></free-text-input-config>')($scope));
           break;
 
         case 'CONFIRM_SOCIAL':
-          $element.append($compile('<confirm-social-config data-id="ctrl.element.id" data-success="ctrl.element.success"></confirm-social-config>')($scope));
+          $element.prepend($compile('<confirm-social-config data-id="ctrl.element.id" data-success="ctrl.element.success"></confirm-social-config>')($scope));
           break;
 
         default:
           $log.error('couldn\'t render element with type: ' + type);
       }
+
+      $rootScope.$on('selected:editorElement', function ( event, msg ) {
+        if ( msg != ctrl.element.$$hashKey ) {
+          $element.removeClass('selected');
+        }
+      })
 
     },
     controller: ElementContainerController,
@@ -83,11 +90,16 @@ function ElementContainer(
 
     var ctrl = this;
 
-    ctrl.delete = function(){
+    ctrl.delete = function () {
       $rootScope.$broadcast('delete:editorElement', ctrl.element.$$hashKey);
     };
 
-    ctrl.showInfo = function(){
+    ctrl.collapse = function () {
+      $element.toggleClass('selected');
+      $rootScope.$broadcast('selected:editorElement', ctrl.element.$$hashKey);
+    };
+
+    ctrl.showInfo = function () {
       //alert(ctrl.element.type);
 
       var saveMobidulOptionsDialog =
