@@ -476,8 +476,8 @@ function StationController (
   {
     RallyService.getStatus(station.order)
       .then(function (status) {
-        // $log.info('StationController - renderJSON - RallyService.getStatus - status:');
-        // $log.debug(status, station, StateManager.isStationCreator());
+         //$log.info('StationController - renderJSON - RallyService.getStatus - status:');
+         //$log.debug(status, station, StateManager.isStationCreator());
 
         station.currentState = status;
 
@@ -494,25 +494,25 @@ function StationController (
                 $log.error('JSON Object doesn\'t have a type ! (ignoring)');
               } else {
                 switch (type) {
-                  case 'html':
+                  case 'HTML':
                     angular
                     .element(container)
                     .append($compile('<mbl-html-container>' + obj.content + '</mbl-html-container>')($scope))
                     break;
 
-                  case 'inputCode':
+                  case 'INPUT_CODE':
                     angular
                     .element(container)
                     .append($compile("<mbl-input-code data-id='" + obj.id + "' verifier='" + obj.verifier + "' success='" + obj.success + "' error='" + obj.error + "'></mbl-input-code>")($scope));
                     break;
 
-                  case 'button':
+                  case 'BUTTON':
                     angular
                     .element(container)
                     .append($compile("<mbl-action-button success='" + obj.success + "'>" + obj.content + "</mbl-action-button>")($scope));
                     break;
 
-                  case 'ifNear':
+                  case 'IF_NEAR':
                     // HACK: force to startwatching after stopwatching event from headerservice
                     $timeout(function () {
                       GeoLocationService.startPositionWatching(station.coords);
@@ -524,25 +524,25 @@ function StationController (
 
                     break;
 
-                  case 'photoUpload':
+                  case 'PHOTO_UPLOAD':
                     angular
                     .element(container)
                     .append($compile('<mbl-photo-upload data-id="' + obj.id + '" data-success="' + obj.success + '" data-content="' + obj.content + '"></mbl-photo-upload>')($scope));
                     break;
 
-                  case 'setTimeout':
+                  case 'SET_TIMEOUT':
                     angular
                     .element(container)
                     .append($compile('<mbl-set-timeout data-show="' + obj.show + '" data-delay="' + obj.delay + '" data-action="' + obj.action + '"></mbl-set-timeout>')($scope));
                     break;
 
-                  case 'freeText':
+                  case 'FREE_TEXT':
                     angular
                     .element(container)
                     .append($compile('<mbl-free-text-input data-success="' + obj.success + '" data-question="' + obj.question + '" data-id="' + obj.id + '"></mbl-free-text-input>')($scope));
                     break;
 
-                  case 'confirmSocial':
+                  case 'CONFIRM_SOCIAL':
                     angular
                     .element(container)
                     .append($compile('<mbl-confirm-social data-success="' + obj.success + '" data-id="' + obj.id + '"></mbl-confirm-social>')($scope));

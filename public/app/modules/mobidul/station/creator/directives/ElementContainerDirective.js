@@ -38,35 +38,35 @@ function ElementContainer(
 
       switch(type){
 
-        case 'html':
+        case 'HTML':
           $element.append($compile('<html-container-config data-content="ctrl.element.content"></html-container-config>')($scope));
           break;
 
-        case 'button':
+        case 'BUTTON':
           $element.append($compile('<action-button-config data-success="ctrl.element.success" data-content="ctrl.element.content"></action-button-config>')($scope));
           break;
 
-        case 'ifNear':
+        case 'IF_NEAR':
           $element.append($compile('<trigger-near-config data-range="ctrl.element.range" fallback="ctrl.element.fallback" data-success="ctrl.element.success"></trigger-near-config>')($scope));
           break;
 
-        case 'inputCode':
+        case 'INPUT_CODE':
           $element.append($compile('<input-code-config data-id="ctrl.element.id" data-verifier="ctrl.element.verifier" data-success="ctrl.element.success" error="ctrl.element.error"></input-code-config>')($scope));
           break;
 
-        case 'photoUpload':
+        case 'PHOTO_UPLOAD':
           $element.append($compile('<photo-upload-config data-success="ctrl.element.success" data-id="ctrl.element.id" data-content="ctrl.element.content"></photo-upload-config>')($scope));
           break;
 
-        case 'setTimeout':
+        case 'SET_TIMEOUT':
           $element.append($compile('<set-timeout-config data-action="ctrl.element.action" data-delay="ctrl.element.delay" data-show="ctrl.element.show"></set-timeout-config>')($scope));
           break;
 
-        case 'freeText':
+        case 'FREE_TEXT':
           $element.append($compile('<free-text-input-config data-success="ctrl.element.success" data-question="ctrl.element.question" data-id="ctrl.element.id"></free-text-input-config>')($scope));
           break;
 
-        case 'confirmSocial':
+        case 'CONFIRM_SOCIAL':
           $element.append($compile('<confirm-social-config data-id="ctrl.element.id" data-success="ctrl.element.success"></confirm-social-config>')($scope));
           break;
 

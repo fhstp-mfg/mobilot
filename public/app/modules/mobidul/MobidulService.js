@@ -37,9 +37,9 @@ function MobidulService (
       ],
 
       elements: [
-        'html', 'ifNear', 'inputCode',
-        'button', 'photoUpload', 'setTimeout',
-        'freeText', 'confirmSocial'
+        'HTML', 'IF_NEAR', 'INPUT_CODE',
+        'BUTTON', 'PHOTO_UPLOAD', 'SET_TIMEOUT',
+        'FREE_TEXT', 'CONFIRM_SOCIAL'
       ],
 
       defaultState: 'ACTIVATED',
@@ -47,7 +47,7 @@ function MobidulService (
       hiddenStations: true
     }, {
       name: 'default',
-      elements: [ 'html' ],
+      elements: [ 'HTML' ],
 
       states: 'OPEN',
 

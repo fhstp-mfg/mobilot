@@ -4,14 +4,14 @@ angular
 
 
 MenuController.$inject = [
-  '$log', '$scope', '$rootScope', '$timeout',
+  '$log', '$scope', '$rootScope', '$timeout', '$translate',
   '$state', '$stateParams', '$mdSidenav', '$mdDialog',
   'MobidulService', 'UserService', 'RallyService', 'FontService', 'StateManager'
 ];
 
 
 function MenuController (
-  $log, $scope, $rootScope, $timeout,
+  $log, $scope, $rootScope, $timeout, $translate,
   $state, $stateParams, $mdSidenav, $mdDialog,
   MobidulService, UserService, RallyService, FontService, StateManager
 ) {

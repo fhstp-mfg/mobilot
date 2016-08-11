@@ -187,7 +187,7 @@ function StationCreatorController (
                 angular.forEach(response.states, function(state){
                   config[state] = [
                     {
-                      type: 'html',
+                      type: 'HTML',
                       content: $translate.instant('STATION_SAMPLE_TEXT')
                     }
                   ];
