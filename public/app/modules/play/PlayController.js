@@ -68,10 +68,10 @@ function PlayController (
           var invalidPlayDialog =
             $mdDialog.alert()
             .parent( angular.element(document.body) )
-            .title($translate.instant('JOIN_NOT_POSSIBLE'))
+            .title( $translate.instant('JOIN_NOT_POSSIBLE') )
             .textContent(msg)
-            .ariaLabel($translate.instant('LOGIN_ERROR'))
-            .ok($translate.instant('EDIT_CREDENTIALS'));
+            .ariaLabel( $translate.instant('LOGIN_ERROR') )
+            .ok( $translate.instant('EDIT_CREDENTIALS') );
 
           $mdDialog.show(invalidPlayDialog);
         }
@@ -83,11 +83,33 @@ function PlayController (
   function scan () {
     if (isCordova) {
       cordova.plugins.barcodeScanner.scan(function (result) {
-        alert("We got a barcode\n" +
-              "Result: " + result.text + "\n" +
-              "Format: " + result.format + "\n" +
-              "Cancelled: " + result.cancelled);
+        if (
+          result.text &&
+          ! result.cancelled &&
+          result.format === 'QR_CODE'
+        ) {
+          var playRegexPattern = /.+\/Play\/([A-Za-z0-9]+)/;
+          var playRegexMatch = result.text.match(playRegexPattern);
+          var playCode = playRegexMatch[1];
+
+          if (playCode) {
+            play.code = playCode;
+            join();
+          } else {
+            // TODO: Add $mdDialog alert w/ translation
+            alert('Dieser QR-Code enthält kein Mitmach-Code!');
+          }
+        } else {
+          if ( result.format !== 'QR_CODE' ) {
+            // TODO: Add $mdDialog alert w/ translation
+            alert('Dies ist kein QR-Code!');
+          } else {
+            // TODO: Add $mdDialog alert w/ translation
+            alert('Dies ist kein gültiger QR-Code!');
+          }
+        }
       }, function (error) {
+        // TODO: Add $mdDialog alert w/ translation
         alert("Scanning failed: " + error);
       },
       {

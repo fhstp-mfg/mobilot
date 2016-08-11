@@ -139,7 +139,7 @@ function HeaderController (
 
   function _refreshControls ()
   {
-    header.isStation     = isStation();
+    header.isStation     = isStation() || isStationVerify();
     header.isEditStation = isStationCreator();
 
     // $log.debug('>> Refreshed current state');
@@ -152,10 +152,10 @@ function HeaderController (
 
     header.isAccountEnabled = isHome();
 
-
     if(header.isStation){
       UserService.getEditStationPermit()
         .then(function(EditStationPermit){
+          //$log.info('EditStationPermit', EditStationPermit);
           header.isEditStationEnabled = EditStationPermit;
         });
     }else{
@@ -275,6 +275,10 @@ function HeaderController (
 
   function isStation () {
     return StateManager.isStation();
+  }
+
+  function isStationVerify () {
+    return StateManager.isStationVerify();
   }
 
   function isStationCreator () {

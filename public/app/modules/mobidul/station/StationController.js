@@ -108,8 +108,7 @@ function StationController (
   }
 
 
-  function _initStation ()
-  {
+  function _initStation () {
     if (
       StateManager.state.params.mobidulCode &&
       StateManager.state.params.stationCode &&
@@ -255,8 +254,8 @@ function StationController (
     }
   }
 
-  function _initActionListener ()
-  {
+  function _initActionListener () {
+
     $scope.$on('action', function (event, msg) {
       actionPerformed(msg);
     });
