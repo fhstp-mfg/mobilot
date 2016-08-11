@@ -23,24 +23,20 @@
 
 
 	<!-- Duplicate -->
-	<md-button
-		ng-show="true"
-		ng-click="stationCreator.cloneStation()"
-		flex>
-		<md-icon>content_copy</md-icon>
-		<span translate="CLONE_STATION"></span>
-	</md-button>
+	<div layout="column">
+		<md-button
+			class="md-raised md-primary"
+			ng-show="true"
+			ng-click="stationCreator.cloneStation()"
+			flex>
+			<md-icon>content_copy</md-icon>
+			<span translate="CLONE_STATION"></span>
+		</md-button>
+	</div>
 
 
 	<!-- Dangerous settings -->
-
-	<br>
-
 	<div layout="column">
-		<p class="helper center dangerous">
-			<span translate="STATION_GETS_DELETED"></span>
-		</p>
-
 		<md-button
 			class="md-raised md-warn"
 			ng-show="true"

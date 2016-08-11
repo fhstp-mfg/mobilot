@@ -837,6 +837,13 @@ class WebServicesController extends BaseController
           foreach ($stationOC as $station) {
             $clonedStation = $station->replicate();
             $clonedStation->mobidulId = $clonedMobidulID;
+            $clonedStationCode = $clonedStation->code;
+            if(strlen($clonedStationCode) > 19) {
+              $clonedStationCode = substr($clonedStationCode, 0, -1);
+              $clonedStation->code = $this->ChangeStationData($clonedStationCode, "code");
+            } else {
+              $clonedStation->code = $this->ChangeStationData($clonedStationCode, "code");
+            }
             $clonedStation->save();
 
             $stationId = $station->id;
@@ -932,7 +939,7 @@ class WebServicesController extends BaseController
           $clonedStation->code = $this->ChangeStationData($clonedStationCode, "code");
         }
 
-        if(strlen($clonedStationCode) > 19) {
+        if(strlen($clonedStationName) > 19) {
           $clonedStationName = substr($clonedStationName, 0, -1);
           $clonedStation->name = $this->ChangeStationData($clonedStationName, "name");
         } else {
