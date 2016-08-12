@@ -60,7 +60,7 @@ function HeaderController (
   header.isEditStationEnabled   = header._isEditStationEnabled;
   header.isCancelPanzoomEnabled = header._isCancelPanzoomEnabled;
 
-  header.isShowImpressumEnabled = isHome();
+  header.isShowImpressumEnabled = isHome() || isHomeLogin();
 
 
   /// functions
