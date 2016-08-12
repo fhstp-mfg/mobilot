@@ -100,14 +100,13 @@ function ElementContainer(
     };
 
     ctrl.showInfo = function () {
-      //alert(ctrl.element.type);
 
       var saveMobidulOptionsDialog =
         $mdDialog.alert()
           .parent(angular.element(document.body))
-          .title(ctrl.element.type)
+          .title( $translate.instant($scope.element.type) )
           // TODO: implement component description
-          .textContent( 'lorem ipsum' )
+          .textContent( $translate.instant($scope.element.type + '_DESCRIPTION') )
           .ariaLabel($translate.instant('CLOSE'))
           .ok($translate.instant('CLOSE'));
 
