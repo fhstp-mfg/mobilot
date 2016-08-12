@@ -564,78 +564,18 @@ function StationController (
   /**
    * Rally-Directives trigger these actions
    *
-   * @param action
+   * @param actionString
    */
   function actionPerformed (actionString)
   {
-    // allowing passing additional parameters with the action string
-    var action = actionString.split(':')[0];
-    var attr = actionString.replace(action + ':', '');
-
-    switch (action) {
-      case 'setStatus':
-        RallyService.setStatus(attr)
-          .then(function (state) {
-            renderJSON();
-          }, function (error) {
-            $log.error(error);
-          });
-        break;
-
-      case 'openThis':
-        RallyService.setStatusOpen()
-          .then(function () {
-            renderJSON();
-          });
-        $log.debug('openThis');
-        // $state.go($state.current, {}, {reload: true});
-        break;
-
-      case 'completeThisAndShowNext':
-        $log.debug('completeThisAndShowNext');
-        RallyService.setStatusCompleted()
-          .then(function () {
-            RallyService.activateNext()
-              .then(function () {
-                RallyService.progressToNext();
-              });
-          });
-        // $state.go($state.current, {}, {reload: true});
-        break;
-
-      case 'completeThis':
-        $log.debug('completeThis');
-        RallyService.setStatusCompleted()
-          .then(function () {
-            renderJSON()
-          });
-        break;
-
-      case 'say':
-        var sayActionDialog = $mdDialog.alert()
-        .parent( angular.element(document.body) )
-        .clickOutsideToClose(true)
-        .title(station.stationName)
-        .textContent(attr)
-        .ariaLabel($translate.instant('SAY_TITLE'))
-        .ok($translate.instant('CLOSE'));
-
-        $mdDialog.show(sayActionDialog);
-        break;
-
-      case 'verifyIfNear':
-        GeoLocationService.stopPositionWatching();
-        actionPerformed(attr);
-        break;
-
-      case 'goToCurrent':
-        RallyService.goToCurrent();
-        break;
-
-      default:
-        $log.debug("Action not available: " + action);
-        break;
-    }
+    RallyService.performAction(actionString)
+    .then(function (refresh) {
+      if (refresh) {
+        renderJSON();
+      }
+    }, function (error) {
+      $log.error(error);
+    });
   }
 
   function getPictureByHash (hash) {

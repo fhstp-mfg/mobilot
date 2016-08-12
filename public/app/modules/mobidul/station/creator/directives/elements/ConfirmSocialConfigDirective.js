@@ -19,7 +19,7 @@ function ConfirmSocialConfig (
     restrict: 'E',
     template: '' +
     '<div>' +
-      '<action-selector data-opts="ctrl.actionOpts" data-selection="success"></action-selector>' +
+      '<action-selector data-opts="ctrl.actionOpts" data-selection="SUCCESS_ACTION"></action-selector>' +
     '</div>',
     scope: {
       id: '=',

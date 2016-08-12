@@ -294,10 +294,22 @@
   "GPS_FETCHING": "GPS wird abgerufen...",
   "GPS_INACCURATE_FALLBACK": "Dein GPS ist zu ungenau. Gib den richtigen Code bei der Station ein:",
   "DISTANCE_FEEDBACK": "Du bist noch zirka {{ distance }} Meter von der Station entfernt. \n (± {{ accuracy }}m)",
+  "INPUT_CODE_DEFAULT_ERROR_MSG": "Das war der falsche Code. Probiere es nochmal!",
 
   "SCAN_CODE": "Code einscannen",
   "OPEN_CODE": "Code öffnen",
   "PERFORM_ACTION": "Aktion ausführen",
+
+  "OPEN_THIS": "Station öffnen",
+  "COMPLETE_THIS": "Station abschließen",
+  "COMPLETE_THIS_AND_SHOW_NEXT": "Station abschließen und nächste anzeigen",
+  "SAY:": "Nachricht anzeigen",
+  "GO_TO_CURRENT": "Aktuelle Station anzeigen",
+  "SET_STATE:": "Stationsstatus setzen",
+
+  "ACTION": "Aktion",
+  "SUCCESS_ACTION": "Erfolgsaktion",
+  "ERROR_ACTION": "Fehleraktion",
 
   "CONTACT": "Kontakt",
 

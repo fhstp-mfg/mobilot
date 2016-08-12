@@ -25,7 +25,7 @@ function PhotoUploadConfig(
       '<md-button class="md-raised md-primary" translate="UPLOAD_PHOTO">{{ \'UPLOAD_PHOTO\' | translate }}</md-button><br/>' +
       '<div class="config-part">' +
         '<md-input-container><input type="text" ng-model="content" placeholder="{{ \'EXPLAINATION\' | translate }}"></md-input-container>' +
-        '<action-selector data-opts="ctrl.actionOpts" data-selection="success" data-name="Erflogsaktion"></action-selector>' +
+        '<action-selector data-opts="ctrl.actionOpts" data-selection="success" data-name="SUCCESS_ACTION"></action-selector>' +
         '<md-button data-ng-click="ctrl.exportPictures()">{{ \'DOWNLOAD_PHOTOS\' | translate }}</md-button>' +
       '</div>' +
     '</div>',

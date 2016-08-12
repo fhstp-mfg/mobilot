@@ -24,7 +24,7 @@ function EditorActionButton(
         '<md-input-container>' +
           '<input type="text" ng-model="content" placeholder="{{ \'LABEL\' | translate }}">' +
         '</md-input-container>' +
-        '<action-selector data-opts="ctrl.actionOpts" data-selection="success" data-name="Success"></action-selector>' +
+        '<action-selector data-opts="ctrl.actionOpts" data-selection="success" data-name="SUCCESS_ACTION"></action-selector>' +
       '</div>' +
     '</div>',
     scope:{

@@ -24,8 +24,8 @@ function InputCodeEditor(
         '<md-input-container>' +
           '<input type="text" data-ng-model="verifier" placeholder="{{ \'VERIFIER\' | translate}}">' +
         '</md-input-container>' +
-        '<action-selector data-opts="ctrl.actionOpts" data-selection="success" data-name="Success"></action-selector>' +
-        '<action-selector data-opts="ctrl.actionOpts" data-selection="error" data-name="Error"></action-selector>' +
+        '<action-selector data-opts="ctrl.actionOpts" data-selection="success" data-name="SUCCESS_ACTION"></action-selector>' +
+        '<action-selector data-opts="ctrl.actionOpts" data-selection="error" data-name="ERROR_ACTION"></action-selector>' +
       '</div>' +
     '</div>',
     scope: {
