@@ -108,8 +108,7 @@ function StationController (
   }
 
 
-  function _initStation ()
-  {
+  function _initStation () {
     if (
       StateManager.state.params.mobidulCode &&
       StateManager.state.params.stationCode &&
@@ -255,8 +254,8 @@ function StationController (
     }
   }
 
-  function _initActionListener ()
-  {
+  function _initActionListener () {
+
     $scope.$on('action', function (event, msg) {
       actionPerformed(msg);
     });
@@ -477,8 +476,8 @@ function StationController (
   {
     RallyService.getStatus(station.order)
       .then(function (status) {
-        // $log.info('StationController - renderJSON - RallyService.getStatus - status:');
-        // $log.debug(status, station, StateManager.isStationCreator());
+         //$log.info('StationController - renderJSON - RallyService.getStatus - status:');
+         //$log.debug(status, station, StateManager.isStationCreator());
 
         station.currentState = status;
 
@@ -495,25 +494,25 @@ function StationController (
                 $log.error('JSON Object doesn\'t have a type ! (ignoring)');
               } else {
                 switch (type) {
-                  case 'html':
+                  case 'HTML':
                     angular
                     .element(container)
                     .append($compile('<mbl-html-container>' + obj.content + '</mbl-html-container>')($scope))
                     break;
 
-                  case 'inputCode':
+                  case 'INPUT_CODE':
                     angular
                     .element(container)
                     .append($compile("<mbl-input-code data-id='" + obj.id + "' verifier='" + obj.verifier + "' success='" + obj.success + "' error='" + obj.error + "'></mbl-input-code>")($scope));
                     break;
 
-                  case 'button':
+                  case 'BUTTON':
                     angular
                     .element(container)
                     .append($compile("<mbl-action-button success='" + obj.success + "'>" + obj.content + "</mbl-action-button>")($scope));
                     break;
 
-                  case 'ifNear':
+                  case 'IF_NEAR':
                     // HACK: force to startwatching after stopwatching event from headerservice
                     $timeout(function () {
                       GeoLocationService.startPositionWatching(station.coords);
@@ -525,25 +524,25 @@ function StationController (
 
                     break;
 
-                  case 'photoUpload':
+                  case 'PHOTO_UPLOAD':
                     angular
                     .element(container)
                     .append($compile('<mbl-photo-upload data-id="' + obj.id + '" data-success="' + obj.success + '" data-content="' + obj.content + '"></mbl-photo-upload>')($scope));
                     break;
 
-                  case 'setTimeout':
+                  case 'SET_TIMEOUT':
                     angular
                     .element(container)
                     .append($compile('<mbl-set-timeout data-show="' + obj.show + '" data-delay="' + obj.delay + '" data-action="' + obj.action + '"></mbl-set-timeout>')($scope));
                     break;
 
-                  case 'freeText':
+                  case 'FREE_TEXT':
                     angular
                     .element(container)
                     .append($compile('<mbl-free-text-input data-success="' + obj.success + '" data-question="' + obj.question + '" data-id="' + obj.id + '"></mbl-free-text-input>')($scope));
                     break;
 
-                  case 'confirmSocial':
+                  case 'CONFIRM_SOCIAL':
                     angular
                     .element(container)
                     .append($compile('<mbl-confirm-social data-success="' + obj.success + '" data-id="' + obj.id + '"></mbl-confirm-social>')($scope));
@@ -565,78 +564,18 @@ function StationController (
   /**
    * Rally-Directives trigger these actions
    *
-   * @param action
+   * @param actionString
    */
   function actionPerformed (actionString)
   {
-    // allowing passing additional parameters with the action string
-    var action = actionString.split(':')[0];
-    var attr = actionString.replace(action + ':', '');
-
-    switch (action) {
-      case 'setStatus':
-        RallyService.setStatus(attr)
-          .then(function (state) {
-            renderJSON();
-          }, function (error) {
-            $log.error(error);
-          });
-        break;
-
-      case 'openThis':
-        RallyService.setStatusOpen()
-          .then(function () {
-            renderJSON();
-          });
-        $log.debug('openThis');
-        // $state.go($state.current, {}, {reload: true});
-        break;
-
-      case 'completeThisAndShowNext':
-        $log.debug('completeThisAndShowNext');
-        RallyService.setStatusCompleted()
-          .then(function () {
-            RallyService.activateNext()
-              .then(function () {
-                RallyService.progressToNext();
-              });
-          });
-        // $state.go($state.current, {}, {reload: true});
-        break;
-
-      case 'completeThis':
-        $log.debug('completeThis');
-        RallyService.setStatusCompleted()
-          .then(function () {
-            renderJSON()
-          });
-        break;
-
-      case 'say':
-        var sayActionDialog = $mdDialog.alert()
-        .parent( angular.element(document.body) )
-        .clickOutsideToClose(true)
-        .title(station.stationName)
-        .textContent(attr)
-        .ariaLabel($translate.instant('SAY_TITLE'))
-        .ok($translate.instant('CLOSE'));
-
-        $mdDialog.show(sayActionDialog);
-        break;
-
-      case 'verifyIfNear':
-        GeoLocationService.stopPositionWatching();
-        actionPerformed(attr);
-        break;
-
-      case 'goToCurrent':
-        RallyService.goToCurrent();
-        break;
-
-      default:
-        $log.debug("Action not available: " + action);
-        break;
-    }
+    RallyService.performAction(actionString)
+    .then(function (refresh) {
+      if (refresh) {
+        renderJSON();
+      }
+    }, function (error) {
+      $log.error(error);
+    });
   }
 
   function getPictureByHash (hash) {

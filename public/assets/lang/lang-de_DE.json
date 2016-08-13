@@ -261,6 +261,23 @@
 
   "CHOOSE_FONT": "Wähle eine Schriftart",
 
+  "HTML": "Text",
+  "HTML_DESCRIPTION": "Dieses Element ermöglicht Dir normalen Text mit Bildern zu erstellen. Hierfür stehen dir gängige Formatierungshilfen zur Verfügung",
+  "IF_NEAR": "Abstandsmesser",
+  "IF_NEAR_DESCRIPTION": "Dieses Element löst eine Aktion aus wenn sich der oder die SpielerIn in einer gewissen Entfernung zur Station befindet. Falls das GPS Signal zu ungenau sein sollte wird stattdessen ein Eingabefeld angezeigt. Dieses löst bei der richtigen Eingabe der \"Absicherung\" dieselbe Aktion aus.",
+  "INPUT_CODE": "Eingabefeld",
+  "INPUT_CODE_DESCRIPTION": "Dieses Element verlangt von dem oder der SpielerIn eine Texteingabe. Es kann unterschieden werden welche Aktion bei richtiger und welche bei falscher Eingabe ausgeführt werden soll. ",
+  "BUTTON": "Button",
+  "BUTTON_DESCRIPTION": "Dieses Element erzeugt einen normalen Button. Es lässt sich die Beschriftung sowie die Klickaktion einstellen.",
+  "PHOTO_UPLOAD": "Foto Upload",
+  "PHOTO_UPLOAD_DESCRIPTION": "Dieses Element gibt dem oder der SpielerIn die Möglichkeit ein Foto hochzuladen. Zusätzlich kann danach eine Aktion ausgeführt werden.",
+  "SET_TIMEOUT": "Countdown",
+  "SET_TIMEOUT_DESCRIPTION": "Dieses Element führt eine Aktion nach einer gewissen Zeit durch. Es kann entschieden werden ob ein Countdown auf der Stationsseite sichtbar sein soll oder nicht.",
+  "FREE_TEXT": "Freie Texteingabe",
+  "FREE_TEXT_DESCRIPTION": "Dieses Element lässt den oder die SpielerIn einen beliebigen Text eingeben. Wenn dieser abgeschickt wurde kann eine Aktion durchgeführt werden.",
+  "CONFIRM_SOCIAL": "Soziale Interaktion",
+  "CONFIRM_SOCIAL_DESCRIPTION": "Dieses Element verlangt von den SpielerInnen miteinander zu interagieren. Um die Aktion durchzuführen ist es notwendig ein zweites Gerät zu besitzten.",
+
   "QUESTION": "Frage",
   "DOWNLOAD_ANSWERS": "Antworten herunterladen",
 
@@ -277,9 +294,22 @@
   "GPS_FETCHING": "GPS wird abgerufen...",
   "GPS_INACCURATE_FALLBACK": "Dein GPS ist zu ungenau. Gib den richtigen Code bei der Station ein:",
   "DISTANCE_FEEDBACK": "Du bist noch zirka {{ distance }} Meter von der Station entfernt. \n (± {{ accuracy }}m)",
+  "INPUT_CODE_DEFAULT_ERROR_MSG": "Das war der falsche Code. Probiere es nochmal!",
 
   "SCAN_CODE": "Code einscannen",
   "OPEN_CODE": "Code öffnen",
+  "PERFORM_ACTION": "Aktion ausführen",
+
+  "OPEN_THIS": "Station öffnen",
+  "COMPLETE_THIS": "Station abschließen",
+  "COMPLETE_THIS_AND_SHOW_NEXT": "Station abschließen und nächste anzeigen",
+  "SAY:": "Nachricht anzeigen",
+  "GO_TO_CURRENT": "Aktuelle Station anzeigen",
+  "SET_STATE:": "Stationsstatus setzen",
+
+  "ACTION": "Aktion",
+  "SUCCESS_ACTION": "Erfolgsaktion",
+  "ERROR_ACTION": "Fehleraktion",
 
   "CONTACT": "Kontakt",
 

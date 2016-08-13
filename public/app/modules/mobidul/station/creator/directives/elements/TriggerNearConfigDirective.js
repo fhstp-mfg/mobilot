@@ -22,7 +22,7 @@ function IfNear(
       '<md-input-container>' +
         '<input type="number" placeholder="{{ \'RANGE_INPUT_PLACEHOLDER\' | translate }}" ng-model="range">' +
       '</md-input-container>' +
-      '<action-selector data-opts="ctrl.actionOpts" data-selection="success" data-name="Success"></action-selector>' +
+      '<action-selector data-opts="ctrl.actionOpts" data-selection="success" data-name="SUCCESS_ACTION"></action-selector>' +
       '<md-input-container>' +
         '<input type="text" ng-model="fallback" placeholder="{{ \'FALLBACK\' | translate }}">' +
       '</md-input-container>' +
