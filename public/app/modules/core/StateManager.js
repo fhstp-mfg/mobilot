@@ -126,7 +126,7 @@ function StateManager (
     if ( ! service.reverseState )
     {
       var state = State.make();
-        state.name   = toState.name   || service.DEFAULT_NAME;
+        state.name   = toState.name || service.DEFAULT_NAME;
         state.params = toParams     || service.DEFAULT_PARAMS;
 
       if ( service.state.name )
