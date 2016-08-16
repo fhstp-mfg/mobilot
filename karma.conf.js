@@ -35,9 +35,6 @@ module.exports = function(config) {
       './public/lib/angular-translate/angular-translate.min.js',
       './public/lib/angular-cookies/angular-cookies.min.js',
 
-      './public/lib/jasmine-async-sugar/jasmine-async-sugar.js',
-
-
       './public/app/app.module.js',
       //'./public/app/app.config.js',
 

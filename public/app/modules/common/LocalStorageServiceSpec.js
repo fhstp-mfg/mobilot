@@ -42,32 +42,36 @@ describe('LocationService', function () {
       expect(LocalStorageService.setValue).toBeDefined();
     });
 
-    itAsync('should save the value with according key', function () {
+    it('should save the value with according key', function () {
 
       var testKey = Math.random().toString(36).substring(7),
         testValue = Math.random().toString(36).substring(7);
 
-      return LocalStorageService.setValue(testKey, testValue)
+      LocalStorageService.setValue(testKey, testValue)
       .then(function (value) {
         expect(value).toEqual(testValue);
       });
+
+      $timeout.flush();
     });
   });
 
   describe('.increaseScore()', function () {
 
-    itAsync(' Async should increase the score by 10', function () {
+    it('should increase the score by 10', function () {
 
       var mobidulCode = Math.random().toString(36).substring(7);
-      return LocalStorageService.getProgress(mobidulCode, ['open'])
+
+      LocalStorageService.getProgress(mobidulCode, ['open'])
       .then(function ( progress ) {
-        
-        return LocalStorageService.increaseScore(mobidulCode, 10)
-        .then(function (newScore) {
+
+        LocalStorageService.increaseScore(mobidulCode, 10)
+        .then(function ( newScore ) {
           expect(newScore).toEqual(10);
         });
       });
 
+      $timeout.flush();
     });
 
   });
