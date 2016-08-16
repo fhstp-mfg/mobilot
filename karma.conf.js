@@ -35,6 +35,8 @@ module.exports = function(config) {
       './public/lib/angular-translate/angular-translate.min.js',
       './public/lib/angular-cookies/angular-cookies.min.js',
 
+      './public/lib/jasmine-async-sugar/jasmine-async-sugar.js',
+
 
       './public/app/app.module.js',
       //'./public/app/app.config.js',
@@ -58,7 +60,13 @@ module.exports = function(config) {
       './public/app/modules/core/LanguageServiceSpec.js',
 
       './public/app/modules/common/AttachmentService.js',
-      './public/app/modules/common/AttachmentServiceSpec.js'
+      './public/app/modules/common/AttachmentServiceSpec.js',
+
+      './public/app/modules/common/ScoreService.js',
+      './public/app/modules/common/ScoreServiceSpec.js',
+
+      './public/app/modules/common/LocalStorageService.js',
+      './public/app/modules/common/LocalStorageServiceSpec.js',
     ],
 
 
@@ -76,7 +84,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['spec'],
 
 
     // web server port

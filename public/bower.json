@@ -49,5 +49,8 @@
     "angular-translate-loader-static-files": "^2.11.1",
     "angular-translate-storage-cookie": "^2.11.1",
     "angular-translate-storage-local": "^2.11.1"
+  },
+  "devDependencies": {
+    "jasmine-async-sugar": "^1.4.0"
   }
 }
