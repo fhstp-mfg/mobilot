@@ -33,6 +33,7 @@ module.exports = function(config) {
       './public/assets/js/angular-drag-and-drop-lists.js',
       './public/lib/angular-mousewheel/mousewheel.js',
       './public/lib/angular-translate/angular-translate.min.js',
+      './public/lib/angular-cookies/angular-cookies.min.js',
 
 
       './public/app/app.module.js',

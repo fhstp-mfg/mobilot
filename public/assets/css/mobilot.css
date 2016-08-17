@@ -236,8 +236,7 @@ map {
 }
 
 
-#station_creator_tabs
-{
+#station_creator_tabs {
   position   : fixed;
   width      : 100%;
   top        : 56px;
@@ -247,8 +246,23 @@ map {
   z-index    : 1;
 }
 
-.station-creator-content
-{
+#station_creator_tabs .md-tab,
+#editortabs .md-tab {
+  font-size: 12px;
+  padding-right: 12px;
+  padding-left: 12px;
+}
+
+@media screen and (min-width: 420px) {
+  #station_creator_tabs .md-tab,
+  #editortabs .md-tab {
+    font-size: 14px;
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+}
+
+.station-creator-content {
   position : fixed;
   /* 56px header height + 48px station_creator_tabs height */
   top      : 104px;
@@ -257,8 +271,7 @@ map {
   bottom   : 0;
 }
 
-#creator_tabs
-{
+#creator_tabs {
   position   : fixed;
   width      : 100%;
   top        : 56px;
@@ -268,8 +281,7 @@ map {
   z-index    : 1;
 }
 
-.creator-content
-{
+.creator-content {
   position : fixed;
   /* 56px header height + 48px station_creator_tabs height */
   top      : 104px;
@@ -319,15 +331,53 @@ map {
   height: 100%;
 }
 
+#editortabs,
+#editortabs md-tabs-content-wrapper,
+#editortabs md-tab-content {
+  overflow: visible;
+}
+
+#editortabs md-tab-content{
+  display: none;
+}
+
+#editortabs md-tab-content.md-active{
+  display: inline;
+}
+
 #editortabs ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
+md-tabs.md-default-theme md-ink-bar, md-tabs md-ink-bar {
+  color: #3797c4;
+  background: #3797c4;
+}
+
+editor-tools {
+  overflow: hidden;
+  overflow-x: scroll;
+  display: block;
+}
+
+@media screen and (min-width: 550px) {
+  editor-tools {
+    overflow: visible;
+  }
+}
+
+editor-tools div {
+  height:48px;
+  width:550px;
+}
+
 .editor-add-button {
-  min-width: 83px;
+  min-width: 0;
+  width: 50px;
   padding: 0;
+  display: inline-block;
 }
 
 element-container {
@@ -335,43 +385,42 @@ element-container {
   display: block;
   position: relative;
   margin-bottom: 1em;
-  padding: 0.5em 1em 2.5em;
+  padding: 0.5em 1em;
 }
 
-li.selected element-container {
+.selected element-container {
   border: none;
 }
 
-#tinyeditor_left_controls {
+.tinyeditor {
   display: none;
 }
 
-li.selected #tinyeditor_left_controls {
-  display: flex;
+.editor-preview {
+  display: block;
+}
+
+.selected .editor-preview {
+  display: none;
+}
+
+.selected .tinyeditor {
+  display: block;
 }
 
 .config-part {
   display: none;
 }
 
-li.selected .config-part {
+.selected .config-part {
   display: block;
 }
 
-.editor-element-delete {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  min-width:0;
-}
-
-.editor-element-info {
-  display: block;
-  margin: 0;
+.editor-element-opt {
+  display: inline-block;
+  width: 32%;
+  margin: 2em 0 0;
   padding: 0;
-  top: 0;
-  left: 0;
-  min-width: 0;
 }
 
 element-container md-input-container {
@@ -662,8 +711,8 @@ ul[dnd-list] li {
     margin-bottom: -1px;
 }
 
-#list_stations ul[dnd-list] li,
-#editortabs ul[dnd-list] li{
+#list_stations ul[dnd-list] > li,
+#editortabs ul[dnd-list] > li{
     padding: 0;
     margin: 0;
     border: none;
@@ -671,7 +720,7 @@ ul[dnd-list] li {
 
 /**
  * Show selected elements in green*/
-ul[dnd-list] li.selected {
+ul[dnd-list] .selected {
     background-color: #c3dae6;
     color: #808080;
 }

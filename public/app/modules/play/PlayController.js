@@ -68,10 +68,10 @@ function PlayController (
           var invalidPlayDialog =
             $mdDialog.alert()
             .parent( angular.element(document.body) )
-            .title($translate.instant('JOIN_NOT_POSSIBLE'))
+            .title( $translate.instant('JOIN_NOT_POSSIBLE') )
             .textContent(msg)
-            .ariaLabel($translate.instant('LOGIN_ERROR'))
-            .ok($translate.instant('EDIT_CREDENTIALS'));
+            .ariaLabel( $translate.instant('LOGIN_ERROR') )
+            .ok( $translate.instant('EDIT_CREDENTIALS') );
 
           $mdDialog.show(invalidPlayDialog);
         }
@@ -83,12 +83,58 @@ function PlayController (
   function scan () {
     if (isCordova) {
       cordova.plugins.barcodeScanner.scan(function (result) {
-        alert("We got a barcode\n" +
-              "Result: " + result.text + "\n" +
-              "Format: " + result.format + "\n" +
-              "Cancelled: " + result.cancelled);
+        if (
+          result.text &&
+          ! result.cancelled &&
+          result.format === 'QR_CODE'
+        ) {
+          var playRegexPattern = /.+\/Play\/([A-Za-z0-9]+)/;
+          var playRegexMatch = result.text.match(playRegexPattern);
+          var playCode = playRegexMatch[1];
+
+          if (playCode) {
+            play.code = playCode;
+            join();
+          } else {
+            $mdDialog.show(
+              $mdDialog.alert()
+              .parent(angular.element(document.body))
+              .title($translate.instant('QR_INFO'))
+              .textContent($translate.instant('QR_NO_CODE'))
+              .ariaLabel($translate.instant('OK'))
+              .ok($translate.instant('OK'))
+            );
+          }
+        } else {
+          if ( result.format !== 'QR_CODE' ) {
+            $mdDialog.show(
+              $mdDialog.alert()
+              .parent(angular.element(document.body))
+              .title($translate.instant('QR_INFO'))
+              .textContent($translate.instant('QR_NOT_A_CODE'))
+              .ariaLabel($translate.instant('OK'))
+              .ok($translate.instant('OK'))
+            );
+          } else {
+            $mdDialog.show(
+              $mdDialog.alert()
+              .parent(angular.element(document.body))
+              .title($translate.instant('QR_INFO'))
+              .textContent($translate.instant('QR_NOT_VALID'))
+              .ariaLabel($translate.instant('OK'))
+              .ok($translate.instant('OK'))
+            );
+          }
+        }
       }, function (error) {
-        alert("Scanning failed: " + error);
+          $mdDialog.show(
+            $mdDialog.alert()
+            .parent(angular.element(document.body))
+            .title($translate.instant('QR_INFO'))
+            .textContent($translate.instant('QR_SCAN_FAILED') + error)
+            .ariaLabel($translate.instant('OK'))
+            .ok($translate.instant('OK'))
+          );
       },
       {
         // NOTE: supported on iOS and Android

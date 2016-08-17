@@ -28,7 +28,7 @@ function SetTimeoutConfig(
         '<label for="seconds" translate="SECONDS"></label>' +
       '</md-input-container>' +
       '<md-checkbox data-ng-model="show" aria-label="Show Countdown">{{ \'SHOW_COUNTDOWN\' | translate }}</md-checkbox>' +
-      '<action-selector data-opts="ctrl.actionOpts" data-selection="action" data-name="Aktion"></action-selector>' +
+      '<action-selector data-opts="ctrl.actionOpts" data-selection="action" data-name="ACTION"></action-selector>' +
     '</div>',
     scope: {
       delay: '=',

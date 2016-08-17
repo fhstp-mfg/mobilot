@@ -25,10 +25,8 @@ function EditorTab(
             '<li ng-repeat="element in tabconfig"' +
               'dnd-draggable="element"' +
               'dnd-moved="tabconfig.splice($index, 1)"' +
-              'dnd-effect-allowed="move"' +
-              'dnd-selected="ctrl.selected = element"' +
-              'ng-class="{\'selected\': ctrl.selected === element}">' +
-              '<element-container element="element"></element-container>' +
+              'dnd-effect-allowed="move">' +
+            '<element-container element="element"></element-container>' +
             '</li>' +
           '</ul>' +
           '{{selected}}' +
@@ -46,23 +44,21 @@ function EditorTab(
 
       ctrl.selected = null;
 
-      $scope.$watch('ctrl.selected', function(selected){
-        if(selected){
+      $rootScope.$on('selected:editorElement', function ( event, msg ) {
+        //$log.debug(event, msg);
+        //$log.debug($scope.tabconfig);
 
-          $scope.tabconfig.map(function(elem){
-            return elem.selected = false;
-          });
+        $scope.tabconfig.map(function(elem){
+          return elem.selected = false;
+        });
 
-          var selectedElement = $scope.tabconfig.filter(function(elem){
-            return elem == selected;
-          })[0];
+        var selectedElement = $scope.tabconfig.filter(function(elem){
+          return elem['$$hashKey'] == msg;
+        })[0];
 
-          selectedElement.selected = true;
-
-        }
-
-
+        if ( selectedElement ) selectedElement.selected = true;
       });
+
 
     },
     controller: EditorTabController,

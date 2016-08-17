@@ -7,11 +7,11 @@ angular
 
 
 HtmlEditor.$inject = [
-  '$log'
+  '$log', '$sce'
 ];
 
 function HtmlEditor (
-  $log
+  $log, $sce
 ) {
 
   return {
@@ -21,6 +21,7 @@ function HtmlEditor (
     },
     template: '' +
       '<div>' +
+        '<div ng-bind-html="htmlEditor.trustAsHtml(content)" class="editor-preview"></div>' +
         '<wysiwyg-edit ' +
           'content="content" ' +
           'api="htmlEditor.api">' +
@@ -42,7 +43,10 @@ function HtmlEditor (
     $scope, $element, $attrs
   ) {
     var htmlEditor = this;
-    // ...
+
+    htmlEditor.trustAsHtml = function ( str ) {
+      return $sce.trustAsHtml(str);
+    }
   }
 
 }

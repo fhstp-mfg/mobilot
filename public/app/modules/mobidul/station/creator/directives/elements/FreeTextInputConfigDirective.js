@@ -22,7 +22,7 @@ function FreeTextInputConfig(
       '<md-input-container>' +
         '<input type="text" ng-model="question" placeholder="{{ \'QUESTION\' | translate }}">' +
       '</md-input-container>' +
-      '<action-selector data-opts="ctrl.actionOpts" data-selection="success"></action-selector>' +
+      '<action-selector data-opts="ctrl.actionOpts" data-selection="SUCCESS_ACTION"></action-selector>' +
       '<md-button data-ng-click="ctrl.exportAnswers()">{{ \'DOWNLOAD_ANSWERS\' | translate }}</md-button>' +
     '</div>',
     scope: {

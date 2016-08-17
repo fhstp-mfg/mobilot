@@ -372,6 +372,16 @@ angular
             }
           })
 
+            .state('mobidul.station.verify', {
+              url : '/{verifier}',
+              views : {
+                'mobidulContent': {
+                  templateUrl: 'app/modules/mobidul/station/StationView.html',
+                  controller: 'StationController as station'
+                }
+              }
+            })
+
             ///////////////////////////
             ///// station creator /////
             ///////////////////////////

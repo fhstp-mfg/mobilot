@@ -11,7 +11,7 @@ CloneMobidulDialogController.$inject = [
 
 
 function CloneMobidulDialogController (
-  $log, $scope, $mdDialog,
+  $log, $scope, $mdDialog, $translate,
   MobidulService, CreatorService,
   UtilityService
 ) {
@@ -156,7 +156,21 @@ function CloneMobidulDialogController (
 
     MobidulService.cloneMobidul(params)
     .then(function (response, status, headers, config, statusText) {
-      cloneMobidulDialog.close();
+      if (response.data.success) {
+        var successDialog = $mdDialog.alert()
+        .parent( angular.element(document.body) )
+        .clickOutsideToClose(true)
+        .title($translate.instant('SAY_TITLE'))
+        .textContent($translate.instant('CLONE_INFO_SUCCESS'))
+        .ariaLabel($translate.instant('SAY_TITLE'))
+        .ok($translate.instant('CLOSE'));
+
+        $mdDialog.show(successDialog);
+
+        cloneMobidulDialog.close();
+      } else {
+        $log.info($response.data.msg);
+      }
     });
   }
 

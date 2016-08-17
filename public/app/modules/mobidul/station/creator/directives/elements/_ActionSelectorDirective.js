@@ -6,11 +6,11 @@ angular
   .directive('actionSelector', ActionSelector);
 
 ActionSelector.$inject = [
-  '$log'
+  '$log', '$translate'
 ];
 
 function ActionSelector(
-  $log
+  $log, $translate
 ) {
   return {
 
@@ -21,10 +21,10 @@ function ActionSelector(
       '<md-input-container>' +
         '<md-select data-ng-model="ctrl.selectionTemp">' +
           '<md-select-header>' +
-        '<span>{{name}}</span>' +
+        '<span>{{ name | translate }}</span>' +
         '</md-select-header>' +
           '<md-option data-ng-value="opt" data-ng-repeat="opt in opts">' +
-            '{{opt}}' +
+            '{{ opt | translate }}' +
           '</md-option>' +
         '</md-select>' +
         '<md-input-container data-ng-if="ctrl.selectionAttrNeeded">' +

@@ -46,6 +46,7 @@ function StateManager (
     MOBIDUL_ABOUT      : 'mobidul.about',
     LIST              : 'mobidul.list',
     STATION              : 'mobidul.station',
+    STATION_VERIFY      : 'mobidul.station.verify',
     STATION_CREATOR         : 'mobidul.station.edit',
     STATION_CREATOR_BASIS       : 'mobidul.station.edit.basis',
     STATION_CREATOR_PLACE       : 'mobidul.station.edit.place',
@@ -94,6 +95,7 @@ function StateManager (
     isMobidulStation          : isMobidulStation,
     isList                  : isList,
     isStation                : isStation,
+    isStationVerify         : isStationVerify,
     isStationCreator           : isStationCreator,
     isStationCreatorBasis       : isStationCreatorBasis,
     isStationCreatorPlace       : isStationCreatorPlace,
@@ -126,7 +128,7 @@ function StateManager (
     if ( ! service.reverseState )
     {
       var state = State.make();
-        state.name   = toState.name   || service.DEFAULT_NAME;
+        state.name   = toState.name || service.DEFAULT_NAME;
         state.params = toParams     || service.DEFAULT_PARAMS;
 
       if ( service.state.name )
@@ -299,6 +301,10 @@ function StateManager (
 
   function isStation () {
     return service.state.name === service.STATION;
+  }
+
+  function isStationVerify () {
+    return service.state.name === service.STATION_VERIFY;
   }
 
   function isStationCreator () {

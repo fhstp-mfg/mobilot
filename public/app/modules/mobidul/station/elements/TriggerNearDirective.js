@@ -29,8 +29,8 @@ function TriggerNear (
           '<span translate="GPS_INACCURATE_FALLBACK"></span>' +
           '<mbl-input-code ' +
             'data-verifier="{{ fallback }}" ' +
-            'data-success="verifyIfNear:{{ success }}" ' +
-            'data-error="say:Das war der falsche Code. Probiere es nochmal!"' +
+            'data-success="VERIFY_IF_NEAR:{{ success }}" ' +
+            'data-error={{triggerNear.errorAction}}' +
           '></mbl-input-code>' +
         '</div>' +
 
@@ -85,7 +85,7 @@ function TriggerNear (
 
     controller: TriggerNearController,
     controllerAs: 'triggerNear'
-  }
+  };
 
 
 
@@ -94,6 +94,7 @@ function TriggerNear (
   ) {
     var triggerNear = this;
 
+    triggerNear.errorAction = 'SAY:' + $translate.instant('INPUT_CODE_DEFAULT_ERROR_MSG');
     triggerNear.default = $translate.instant('GPS_FETCHING');
     triggerNear.inaccurate = false;
     triggerNear.trigger = false;
