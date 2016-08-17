@@ -246,6 +246,12 @@
   "DELETE_STATION": "Station löschen",
   "STATION_GETS_DELETED": "Station wird unwiderruflich gelöscht.",
 
+  "QR_INFO": "QR Information",
+  "QR_NO_CODE": "Dieser QR-Code enthält kein Mitmach-Code!",
+  "QR_NOT_A_CODE": "Dies ist kein QR-Code!",
+  "QR_NOT_VALID": "Dies ist kein gültiger QR-Code!",
+  "QR_SCAN_FAILED": "Scannen fehlgeschlagen: ",
+
   "PLACE": "Ort",
   "BASE": "Basis",
 

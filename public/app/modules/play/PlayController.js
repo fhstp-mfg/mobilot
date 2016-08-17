@@ -96,21 +96,45 @@ function PlayController (
             play.code = playCode;
             join();
           } else {
-            // TODO: Add $mdDialog alert w/ translation
-            alert('Dieser QR-Code enthält kein Mitmach-Code!');
+            $mdDialog.show(
+              $mdDialog.alert()
+              .parent(angular.element(document.body))
+              .title($translate.instant('QR_INFO'))
+              .textContent($translate.instant('QR_NO_CODE'))
+              .ariaLabel($translate.instant('OK'))
+              .ok($translate.instant('OK'))
+            );
           }
         } else {
           if ( result.format !== 'QR_CODE' ) {
-            // TODO: Add $mdDialog alert w/ translation
-            alert('Dies ist kein QR-Code!');
+            $mdDialog.show(
+              $mdDialog.alert()
+              .parent(angular.element(document.body))
+              .title($translate.instant('QR_INFO'))
+              .textContent($translate.instant('QR_NOT_A_CODE'))
+              .ariaLabel($translate.instant('OK'))
+              .ok($translate.instant('OK'))
+            );
           } else {
-            // TODO: Add $mdDialog alert w/ translation
-            alert('Dies ist kein gültiger QR-Code!');
+            $mdDialog.show(
+              $mdDialog.alert()
+              .parent(angular.element(document.body))
+              .title($translate.instant('QR_INFO'))
+              .textContent($translate.instant('QR_NOT_VALID'))
+              .ariaLabel($translate.instant('OK'))
+              .ok($translate.instant('OK'))
+            );
           }
         }
       }, function (error) {
-        // TODO: Add $mdDialog alert w/ translation
-        alert("Scanning failed: " + error);
+          $mdDialog.show(
+            $mdDialog.alert()
+            .parent(angular.element(document.body))
+            .title($translate.instant('QR_INFO'))
+            .textContent($translate.instant('QR_SCAN_FAILED') + error)
+            .ariaLabel($translate.instant('OK'))
+            .ok($translate.instant('OK'))
+          );
       },
       {
         // NOTE: supported on iOS and Android
