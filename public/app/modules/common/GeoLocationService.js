@@ -36,14 +36,16 @@
     function startPositionWatching (station)
     {
       //$log.info('start position watching for:');
-      $log.debug(station);
+      //$log.debug(station);
+
+      ActivityService.startPushInterval();
 
       service.interval = $interval(function () {
         $log.debug('watch position');
         _checkPosition(station)
           .then(function (d) {
-            $log.info("GeoLocationService - startPositionWatching - service.interval - checkPosition:");
-            $log.debug(d);
+            //$log.info("GeoLocationService - startPositionWatching - service.interval - checkPosition:");
+            //$log.debug(d);
 
             var distance = d.d,
               accuracy = d.a;
@@ -53,10 +55,6 @@
             } else {
               $rootScope.$broadcast('distance', d);
             }
-
-            ActivityService.pushActivity().then(function (response) {
-              console.debug('ActivityService.pushActivity: ', response);
-            })
 
           }, function (err) {
             //$log.info("Error: Checking Position");
@@ -69,10 +67,12 @@
 
     function stopPositionWatching ()
     {
-      //$log.info('stop position watching');
+      //$log.info('stop position interval');
       if (service.interval) {
         $interval.cancel(service.interval);
         service.interval = null;
+
+        ActivityService.stopPushInterval();
       }
     }
 

@@ -3,12 +3,14 @@ angular
   .factory('ActivityService', ActivityService);
 
 ActivityService.$inject = [
-  '$log', '$http', 'StateManager'
+  '$log', '$http', '$interval',
+  'StateManager'
 ];
 
 
 function ActivityService (
-  $log, $http, StateManager
+  $log, $http, $interval,
+  StateManager
 ) {
   /// ActivityService
   var service =
@@ -32,17 +34,19 @@ function ActivityService (
       FREE_TEXT_INPUT: 'FREE_TEXT_INPUT'
     },
 
+    PUSH_INTERVAL: 15000, //ms
+
     /// vars
     // private
     _activityStore: [],
+    _interval: null,
 
     /// functions
-    // private
-    _clearActivityStore: _clearActivityStore,
-
     /// services
     commitActivity: commitActivity,
-    pushActivity: pushActivity
+    pushActivity: pushActivity,
+    startPushInterval: startPushInterval,
+    stopPushInterval: stopPushInterval
   };
 
 
@@ -81,12 +85,12 @@ function ActivityService (
       };
 
       service._activityStore.push(activityObj);
-      // console.debug(service._activityStore);
+      // $log.debug(service._activityStore);
 
       return true
     } else {
-      console.error('Passed an invalid activity object: ', activity);
-      console.info('Please provide an object with type, name and a payload activity.');
+      $log.error('Passed an invalid activity object:', activity);
+      $log.info('Please provide an object with type, name and a payload activity.');
 
       return false
     }
@@ -102,15 +106,34 @@ function ActivityService (
       service._activityStore
     )
     .success(function (response) {
-      console.debug('pushActivity response: ', response);
+      //$log.debug('pushActivity response:', response);
 
       // Clear activity store, ready for next chunk
       _clearActivityStore();
     })
     .error(function (error) {
-      console.error("Couldn't push activity to server.");
-      console.error(error);
+      $log.error("Couldn't push activity to server.");
+      $log.error(error);
     });
+  }
+
+  function startPushInterval () {
+
+    service._interval = $interval(function () {
+      $log.debug('interval', service._activityStore);
+      if (service._activityStore[0]) {
+        pushActivity();
+      }
+    }, service.PUSH_INTERVAL);
+
+  }
+
+  function stopPushInterval () {
+
+    if (service._interval) {
+      $interval.cancel(service._interval);
+      pushActivity();
+    }
   }
 
 

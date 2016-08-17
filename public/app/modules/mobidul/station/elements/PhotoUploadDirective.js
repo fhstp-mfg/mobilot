@@ -58,7 +58,7 @@ function PhotoUpload (
               }
             });
 
-            ActivityService.pushActivity();
+             ActivityService.pushActivity();
 
             $rootScope.$broadcast('action', $scope.success);
           }, function(error) {
