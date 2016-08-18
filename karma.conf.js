@@ -58,7 +58,10 @@ module.exports = function(config) {
       './public/app/modules/core/LanguageServiceSpec.js',
 
       './public/app/modules/common/AttachmentService.js',
-      './public/app/modules/common/AttachmentServiceSpec.js'
+      './public/app/modules/common/AttachmentServiceSpec.js',
+
+      './public/app/modules/common/ActivityService.js',
+      './public/app/modules/common/ActivityServiceSpec.js'
     ],
 
 

@@ -3,13 +3,13 @@ angular
   .factory('ActivityService', ActivityService);
 
 ActivityService.$inject = [
-  '$log', '$http', '$interval',
+  '$log', '$http', '$interval', '$q',
   'StateManager'
 ];
 
 
 function ActivityService (
-  $log, $http, $interval,
+  $log, $http, $interval, $q,
   StateManager
 ) {
   /// ActivityService
@@ -101,28 +101,37 @@ function ActivityService (
     var stateParams = StateManager.getParams();
     var mobidulCode = stateParams.mobidulCode;
 
-    return $http.post(
+    var defer = $q.defer();
+
+    $http.post(
       cordovaUrl + '/' + mobidulCode + '/PushActivity',
       service._activityStore
     )
     .success(function (response) {
-      //$log.debug('pushActivity response:', response);
 
+      //$log.debug('pushActivity response:', response);
+      defer.resolve(response);
       // Clear activity store, ready for next chunk
       _clearActivityStore();
     })
     .error(function (error) {
+      defer.reject(error);
       $log.error("Couldn't push activity to server.");
       $log.error(error);
     });
+
+    return defer.promise;
   }
 
   function startPushInterval () {
 
     service._interval = $interval(function () {
-      $log.debug('interval', service._activityStore);
+
+      //$log.debug('interval', service._activityStore);
+
       if (service._activityStore[0]) {
-        pushActivity();
+        service.pushActivity().then(function () {
+        });
       }
     }, service.PUSH_INTERVAL);
 
@@ -132,7 +141,7 @@ function ActivityService (
 
     if (service._interval) {
       $interval.cancel(service._interval);
-      pushActivity();
+      service.pushActivity();
     }
   }
 
@@ -140,7 +149,7 @@ function ActivityService (
   /// private
 
   function _clearActivityStore () {
-    service._activityStore = []
+    service._activityStore = [];
   }
 
 
