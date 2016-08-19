@@ -88,6 +88,15 @@
 
   "ACTIVATION_MSG": "Danke für deine Registrierung. Du wirds in Kürze weitergeleitet und kannst loslegen. Viel Spaß!",
 
+  "TAB_BASE": "Basis",
+  "TAB_CATEGORY": "Kategorien",
+  "TAB_MENU": "Menü",
+  "TAB_OPTION": "Optionen",
+
+  "EDIT_MODE_ALL": "Alle",
+  "EDIT_MODE_OWN": "Eigene",
+  "EDIT_MODE_GROUP": "Gruppen",
+
   "NEAR": "In der Nähe",
   "ALL": "Alle",
   "MINE": "Meine",
