@@ -47,7 +47,7 @@ function EditorPanel(
     ctrl.iconMap = {
       HTML    :       'text_format',
       IF_NEAR :       'my_location',
-      INPUT_CODE :    'check_box',
+      INPUT_CODE :    'spellcheck',
       BUTTON :        'crop_square',
       PHOTO_UPLOAD :  'camera_alt',
       SET_TIMEOUT :   'alarm',
