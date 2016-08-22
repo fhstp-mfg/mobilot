@@ -447,112 +447,124 @@ function StationCreatorController (
     var currentStateParams = StateManager.state.params;
     // $log.debug(currentStateParams);
 
+    if ( StationCreatorService.marker.coords == null ) {
+      $mdDialog.show(
+        $mdDialog.alert()
+        .parent(angular.element(document.body))
+        .title($translate.instant('INFORMATION'))
+        .textContent($translate.instant('STATION_CHANGE_PLACE_WARN'))
+        .ariaLabel($translate.instant('OK'))
+        .ok($translate.instant('OK'))
+      );
+      // TODO: Redirect to mobidul.station.edit.place with right params.
+    }
+    else {
+      $log.info("FLO-COORDS: ");
+      $log.info(StationCreatorService.marker.coords);
+      if ( currentStateParams ) {
+        // station categories
+        var selectedCategories = [];
 
-    if ( currentStateParams )
-    {
-      // station categories
-      var selectedCategories = [];
-
-      angular.forEach( stationCreator.categories, function (category, cIx)
-      {
-        if ( category.selected )
-          selectedCategories.push(category);
-      });
-
-
-      // station options
-      // var isLocked  = stationCreator.station.options[ 0 ].selected ? 1 : 0;
-      // var isEnabled = stationCreator.station.options[ 1 ].selected ? 1 : 0;
-      var isLocked  = stationCreator.stationOptions[ 0 ].selected ? 1 : 0;
-      var isEnabled = stationCreator.stationOptions[ 1 ].selected ? 1 : 0;
-
-
-      // station object
-      var stationData =
-      {
-        name     : stationCreator.station.name,
-        code     : stationCreator.station.code,
-        lat     : StationCreatorService.marker.coords.latitude,
-        lon     : StationCreatorService.marker.coords.longitude,
-        radius     : 1000,
-        content   : JSON.stringify(stationCreator.station.content),
-        contentType : 'html',
-        locked     : isLocked,
-        enabled   : isEnabled,
-
-        categories   : selectedCategories,
-        medialist    : []
-      };
+        angular.forEach(stationCreator.categories, function ( category, cIx ) {
+          if ( category.selected )
+            selectedCategories.push(category);
+        });
 
 
-      // $log.debug('station data : ');
-      // $log.debug(stationData);
+        // station options
+        // var isLocked  = stationCreator.station.options[ 0 ].selected ? 1 : 0;
+        // var isEnabled = stationCreator.station.options[ 1 ].selected ? 1 : 0;
+        var isLocked = stationCreator.stationOptions[0].selected ? 1 : 0;
+        var isEnabled = stationCreator.stationOptions[1].selected ? 1 : 0;
 
 
-      // NOTE - add station
-      if ( currentStateParams.stationCode === StateManager.NEW_STATION_CODE ) {
+        // station object
+        var stationData =
+        {
+          name: stationCreator.station.name,
+          code: stationCreator.station.code,
+          lat: StationCreatorService.marker.coords.latitude,
+          lon: StationCreatorService.marker.coords.longitude,
+          radius: 1000,
+          content: JSON.stringify(stationCreator.station.content),
+          contentType: 'html',
+          locked: isLocked,
+          enabled: isEnabled,
 
-        StationCreatorService.addStation(
+          categories: selectedCategories,
+          medialist: []
+        };
+
+
+        // $log.debug('station data : ');
+        // $log.debug(stationData);
+
+
+        // NOTE - add station
+        if ( currentStateParams.stationCode === StateManager.NEW_STATION_CODE ) {
+
+          StationCreatorService.addStation(
             currentStateParams.mobidulCode,
             stationData
           )
-        .then(function (response) {
-          //$log.info("_saveStation - response");
-          //$log.debug(response);
+          .then(function ( response ) {
+            //$log.info("_saveStation - response");
+            //$log.debug(response);
 
-          var responseMsg = response.data || null;
+            var responseMsg = response.data || null;
 
-          if (responseMsg){
-            switch (responseMsg) {
-              case 'not allowed':
-                alert($translate.instant('NOT_ALLOWED'));
-                break;
-              case 'mobidul locked':
-                alert($translate.instant('MOBIDUL_LOCKED'));
-                break;
-              case 'error':
-                alert($translate.instant('ERROR'));
-                break;
-              case 'invalid station code':
-                alert($translate.instant('INVALID_STATION_CODE'));
-                break;
-              default:
-                var stationCode = responseMsg;
-                $state.go('mobidul.station', {stationCode: stationCode});
+            if ( responseMsg ) {
+              switch (responseMsg) {
+                case 'not allowed':
+                  alert($translate.instant('NOT_ALLOWED'));
+                  break;
+                case 'mobidul locked':
+                  alert($translate.instant('MOBIDUL_LOCKED'));
+                  break;
+                case 'error':
+                  alert($translate.instant('ERROR'));
+                  break;
+                case 'invalid station code':
+                  alert($translate.instant('INVALID_STATION_CODE'));
+                  break;
+                default:
+                  var stationCode = responseMsg;
+                  $state.go('mobidul.station', { stationCode: stationCode });
+              }
             }
-          }
-        });
-      }
-      // NOTE - save existing station
-      else {
-        StationCreatorService.saveStation(
+          });
+        }
+        // NOTE - save existing station
+        else {
+          StationCreatorService.saveStation(
             currentStateParams.mobidulCode,
             currentStateParams.stationCode,
             stationData
           )
-        .then(function (response) {
-          // $log.debug('save station StationCreatorService callback :');
-          // $log.debug(response);
-          // $log.debug(currentStateParams.stationCode);
+          .then(function ( response ) {
+            // $log.debug('save station StationCreatorService callback :');
+            // $log.debug(response);
+            // $log.debug(currentStateParams.stationCode);
 
-          var saved = response.data.saved;
-          var msg = response.data.msg || $translate.instant('UNKNOWN_ERROR');
+            var saved = response.data.saved;
+            var msg = response.data.msg || $translate.instant('UNKNOWN_ERROR');
 
-          if (saved) {
-            var stationCode = response.data.code;
-            // $log.debug(stationCode);
+            if ( saved ) {
+              var stationCode = response.data.code;
+              // $log.debug(stationCode);
 
-            $state.go(
-              'mobidul.station',
-              {stationCode: stationCode},
-              {'reload': true}
-            );
-          }
-          else {
-            // $log.error(msg);
-            alert(msg);
-          }
-        });
+              $state.go(
+                'mobidul.station',
+                { stationCode: stationCode },
+                { 'reload': true }
+              );
+            }
+            else {
+              // $log.error(msg);
+              alert(msg);
+            }
+          });
+        }
       }
     }
   }

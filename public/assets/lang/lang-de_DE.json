@@ -249,6 +249,7 @@
 
   "STATION_CLONE_SUCCESS": "Station erfolgreich kopiert",
   "STATION_CHANGE_PLACE": "Bitte ändere den Ort der neuen Station.",
+  "STATION_CHANGE_PLACE_WARN": "Um die Station zu speichern, musst du noch den Ort auf der Karte setzten.",
 
   "CLONE_STATION": "Station duplizieren",
 
