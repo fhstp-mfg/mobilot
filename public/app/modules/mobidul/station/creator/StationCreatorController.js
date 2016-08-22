@@ -459,8 +459,6 @@ function StationCreatorController (
       // TODO: Redirect to mobidul.station.edit.place with right params.
     }
     else {
-      $log.info("FLO-COORDS: ");
-      $log.info(StationCreatorService.marker.coords);
       if ( currentStateParams ) {
         // station categories
         var selectedCategories = [];
@@ -529,7 +527,11 @@ function StationCreatorController (
                   break;
                 default:
                   var stationCode = responseMsg;
-                  $state.go('mobidul.station', { stationCode: stationCode });
+                  $state.go(
+                    'mobidul.station',
+                    { stationCode: stationCode },
+                    { reload: true }
+                  );
               }
             }
           });
@@ -552,11 +554,10 @@ function StationCreatorController (
             if ( saved ) {
               var stationCode = response.data.code;
               // $log.debug(stationCode);
-
               $state.go(
                 'mobidul.station',
                 { stationCode: stationCode },
-                { 'reload': true }
+                { reload: true }
               );
             }
             else {
