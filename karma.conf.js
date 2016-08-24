@@ -48,10 +48,9 @@ module.exports = function(config) {
       './public/app/modules/mobidul/station/creator/StationCreatorService.js',
       './public/app/modules/creator/CreatorService.js',
       './public/app/modules/common/UserService.js',
+      './public/app/modules/common/GeoLocationService.js',
+      './public/app/modules/common/ActivityService.js',
        './public/assets/js/mobile_imports.js',
-      // './public/app/modules/mobidul/station/creator/StationCreatorService.js',
-      // './public/app/modules/mobidul/station/creator/StationCreatorService.js',
-      // './public/app/modules/mobidul/station/creator/StationCreatorService.js',
 
       './public/app/modules/core/LanguageService.js',
       './public/app/modules/core/LanguageServiceSpec.js',
@@ -59,11 +58,11 @@ module.exports = function(config) {
       './public/app/modules/common/AttachmentService.js',
       './public/app/modules/common/AttachmentServiceSpec.js',
 
-      './public/app/modules/common/ScoreService.js',
-      './public/app/modules/common/ScoreServiceSpec.js',
-
       './public/app/modules/common/LocalStorageService.js',
       './public/app/modules/common/LocalStorageServiceSpec.js',
+
+      './public/app/modules/common/RallyService.js',
+      './public/app/modules/common/RallyServiceSpec.js',
     ],
 
 

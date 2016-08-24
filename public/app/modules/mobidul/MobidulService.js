@@ -100,33 +100,36 @@ function MobidulService (
 
   /// services
 
-  function menuReady ()
-  {
+  function menuReady () {
     // $log.debug('menuReady in MobidulService');
 
     $rootScope.$emit('Menu::ready');
   }
 
 
-  function getConfig (mobidulCode)
-  {
+  function getConfig (mobidulCode) {
     // $log.info('getConfig in MobidulService');
     // $log.debug(mobidulCode);
 
-    return $http.get(cordovaUrl + '/' + mobidulCode + '/getConfig')
+    var defer = $q.defer();
+
+    $http.get(cordovaUrl + '/' + mobidulCode + '/getConfig')
     .success(function (response, status, headers, config) {
-      // $log.debug('Loaded Config for "' + mobidulCode + '" :');
-      // $log.debug(response);
-
-      if ( response )
+      
+      if ( response ) {
         service.Mobidul = response;
+      }
 
-      return response;
+      defer.resolve(response);
     })
     .error(function (response, status, headers, config) {
       $log.error(response);
       $log.error(status);
+
+      defer.reject(response);
     });
+
+    return defer.promise;
   }
 
   function initProgress () {
@@ -161,6 +164,7 @@ function MobidulService (
 
     service.getConfig(mobidulCode)
     .then(function (config) {
+      
       LocalStorageService.getProgress(mobidulCode, config.states)
       .then(function (progress) {
         defer.resolve(progress);

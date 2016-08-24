@@ -89,12 +89,7 @@ function MobidulController (
     $log.debug(mobidulCode);
 
     MobidulService.getConfig(mobidulCode)
-    .then(function (response, status, headers, config, statusText) {
-      $log.debug('MobidulService getConfig callback : ');
-      $log.debug(response);
-
-      // TODO: check case where response.data is not defined
-      var mobidulConfig = response.data;
+    .then(function (mobidulConfig) {
 
       // TODO: save the whole configuration without overriding
       // MobidulService.Config.title = config.mobidulName;

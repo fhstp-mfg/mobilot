@@ -1,5 +1,5 @@
 angular
-  .module('Mobidul')
+  .module('Mobilot')
   .factory('RallyService', RallyService);
 
 
@@ -249,18 +249,19 @@ function RallyService (
   function filterStations (stations) {
     service.originStations = stations;
 
-    var defer = $q.defer();
-
-    MobidulService.getMobidulConfig($stateParams.mobidulCode)
+    var defer = $q.defer(),
+        mobidulCode = $stateParams.mobidulCode;
+    
+    MobidulService.getMobidulConfig(mobidulCode)
       .then(function (config) {
         if ( stations.length == 1 || ! config.hiddenStations ) {
           defer.resolve(service.originStations);
         } else {
-          var filteredStations = [],
-              mobidulCode = $stateParams.mobidulCode;
-
+          var filteredStations = [];
+          
           MobidulService.getProgress(mobidulCode)
           .then(function (progress) {
+            
             angular.forEach(service.originStations, function (station, key) {
               if ( station.order <= progress.progress ) {
                 filteredStations.push(station);

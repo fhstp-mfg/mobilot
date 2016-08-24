@@ -4,19 +4,17 @@ angular
 
 
 StationController.$inject = [
-  '$log', '$rootScope', '$sce', '$scope', '$compile', '$interval', '$timeout',
-  '$state', '$sanitize', '$stateParams', 'StateManager', '$mdDialog',
-  '$translate',
-  'StationService', 'MobidulService', 'HeaderService', 'MapService', 'StationCreatorService',
+  '$log', '$rootScope', '$sce', '$scope', '$compile', '$timeout',
+  '$state', 'StateManager', '$translate',
+  'StationService', 'MobidulService', 'HeaderService',
   'UserService', 'RallyService', 'GeoLocationService', 'FontService'
 ];
 
 
 function StationController (
-  $log, $rootScope, $sce, $scope, $compile, $interval, $timeout,
-  $state, $sanitize, $stateParams, StateManager, $mdDialog,
-  $translate,
-  StationService, MobidulService, HeaderService, MapService, StationCreatorService,
+  $log, $rootScope, $sce, $scope, $compile, $timeout,
+  $state, StateManager, $translate,
+  StationService, MobidulService, HeaderService,
   UserService, RallyService, GeoLocationService, FontService
 ) {
   var station = this;
