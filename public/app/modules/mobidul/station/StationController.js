@@ -544,7 +544,12 @@ function StationController (
                     angular
                     .element(container)
                     .append($compile('<mbl-confirm-social data-success="' + obj.success + '" data-id="' + obj.id + '"></mbl-confirm-social>')($scope));
+                    break;
 
+                  case 'SHOW_SCORE':
+                    angular
+                    .element(container)
+                    .append($compile('<mbl-show-score data-content="' + obj.content + '"></mbl-show-score>')($scope));
                     break;
 
                   default:

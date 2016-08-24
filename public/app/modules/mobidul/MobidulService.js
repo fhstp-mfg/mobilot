@@ -39,7 +39,7 @@ function MobidulService (
       elements: [
         'HTML', 'IF_NEAR', 'INPUT_CODE',
         'BUTTON', 'PHOTO_UPLOAD', 'SET_TIMEOUT',
-        'FREE_TEXT', 'CONFIRM_SOCIAL'
+        'FREE_TEXT', 'CONFIRM_SOCIAL', 'SHOW_SCORE'
       ],
 
       defaultState: 'ACTIVATED',

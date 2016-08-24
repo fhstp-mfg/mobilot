@@ -21,6 +21,7 @@ function EditorPanel(
     '<div>' +
       '<md-button data-ng-repeat="button in ctrl.editorConfig" data-ng-click="ctrl.addElement(button)" class="editor-add-button">' +
         '<md-icon>{{ctrl.iconMap[button]}}</md-icon>' +
+        '<span class="button-label">{{button | translate}}</span>' +
       '</md-button>' +
     '</div>',
     scope: {},
@@ -39,20 +40,21 @@ function EditorPanel(
 
     MobidulService.getMobidulConfig(currentMobidulCode)
     .then(function(config){
-      // $log.info('config in editorpanel:');
-      // $log.debug(config);
+       //$log.info('config in editorpanel:');
+       //$log.debug(config);
       ctrl.editorConfig = config.elements;
     });
 
     ctrl.iconMap = {
-      HTML    :       'text_format',
-      IF_NEAR :       'my_location',
-      INPUT_CODE :    'check_box',
-      BUTTON :        'crop_square',
-      PHOTO_UPLOAD :  'camera_alt',
-      SET_TIMEOUT :   'alarm',
-      FREE_TEXT :     'edit',
-      CONFIRM_SOCIAL: 'people'
+      HTML          : 'text_format',
+      IF_NEAR       : 'my_location',
+      INPUT_CODE    : 'check_box',
+      BUTTON        : 'crop_square',
+      PHOTO_UPLOAD  : 'camera_alt',
+      SET_TIMEOUT   : 'alarm',
+      FREE_TEXT     : 'edit',
+      CONFIRM_SOCIAL: 'people',
+      SHOW_SCORE    : 'plus_one'
     };
 
     ctrl.addElement = function(type){

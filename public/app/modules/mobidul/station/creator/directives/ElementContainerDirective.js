@@ -71,6 +71,10 @@ function ElementContainer(
           $element.prepend($compile('<confirm-social-config data-id="ctrl.element.id" data-success="ctrl.element.success"></confirm-social-config>')($scope));
           break;
 
+        case 'SHOW_SCORE':
+          $element.prepend($compile('<show-score-config data-content="ctrl.element.content"></show-score-config>')($scope));
+          break;
+
         default:
           $log.error('couldn\'t render element with type: ' + type);
       }

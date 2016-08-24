@@ -36,7 +36,8 @@ function LocalStorageService (
     setProgress   : setProgress,
     setState      : setState,
     resetProgress : resetProgress,
-    increaseScore : increaseScore
+    increaseScore : increaseScore,
+    getScore      : getScore
   };
 
   /// private helpers
@@ -182,20 +183,29 @@ function LocalStorageService (
   }
 
   function increaseScore (mobidulCode, score) {
-    var defer = $q.defer();
+    var deferred = $q.defer();
 
     if ( ! isNaN(service.localStorage.progressStorage[mobidulCode].score)) {
       var newScore = service.localStorage.progressStorage[mobidulCode].score += score;
       $timeout(function () {
-        defer.resolve(newScore);
+        deferred.resolve(newScore);
       });
     } else {
       $timeout(function () {
-        defer.reject({msg: 'No entry in progress storage'});
+        deferred.reject({msg: 'No entry in progress storage'});
       });
     }
+    return deferred.promise;
+  }
 
-    return defer.promise;
+  function getScore (mobidulCode) {
+    var deferred = $q.defer();
+
+    $timeout(function () {
+      deferred.resolve(service.localStorage.progressStorage[mobidulCode] && service.localStorage.progressStorage[mobidulCode].score);
+    });
+
+    return deferred.promise;
   }
 
   /// events

@@ -362,22 +362,31 @@ editor-tools {
   display: block;
 }
 
-@media screen and (min-width: 550px) {
+@media screen and (min-width: 675px) {
   editor-tools {
     overflow: visible;
+    margin-bottom: 0.5em;
   }
 }
 
 editor-tools div {
   height:48px;
-  width:550px;
+  width:675px;
 }
 
 .editor-add-button {
   min-width: 0;
-  width: 50px;
+/*  width: 50px;*/
   padding: 0;
   display: inline-block;
+}
+
+span.button-label{
+  font-size: 8px;
+  display: block;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: -4px;
 }
 
 element-container {
@@ -414,6 +423,14 @@ element-container {
 
 .selected .config-part {
   display: block;
+}
+
+.preview {
+  display: block;
+}
+
+.selected .preview {
+  display: none;
 }
 
 .editor-element-opt {
