@@ -36,10 +36,11 @@ function MobidulService (
         'ACTIVATED', 'OPEN', 'COMPLETED'
       ],
 
+      // TODO: add finished components
       elements: [
         'HTML', 'IF_NEAR', 'INPUT_CODE',
-        'BUTTON', 'PHOTO_UPLOAD', 'SET_TIMEOUT',
-        'FREE_TEXT', 'CONFIRM_SOCIAL'
+        'BUTTON', /*'PHOTO_UPLOAD',*/ 'SET_TIMEOUT',
+        /*'FREE_TEXT', 'CONFIRM_SOCIAL'*/
       ],
 
       defaultState: 'ACTIVATED',
