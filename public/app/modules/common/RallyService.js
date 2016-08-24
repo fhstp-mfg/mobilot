@@ -26,7 +26,12 @@ function RallyService (
     ACTIONS: {
       OPEN_THIS: {
         action: function () {
-          return service.setStatusOpen().then(function(){return true});
+          return LocalStorageService.increaseScore($stateParams.mobidulCode, 10)
+          .then(function (newScore) {
+            return service.setStatusOpen().then(function(){return true});
+          }, function (error) {
+            $log.error('RallyService.ACTIONS.OPEN_THIS.action', error);
+          });
         }
       },
       COMPLETE_THIS: {
@@ -37,14 +42,19 @@ function RallyService (
       COMPLETE_THIS_AND_SHOW_NEXT: {
         action: function () {
           return $q(function ( resolve, reject ) {
-            service.setStatusCompleted()
-            .then(function () {
+
+            // increase score...
+            LocalStorageService.increaseScore($stateParams.mobidulCode, 10)
+            .then(function (newScore) {
+
               service.activateNext()
               .then(function () {
                 service.progressToNext();
                 resolve(false);
-              })
-            })
+              });
+            }, function (error) {
+              $log.error('RallyService.ACTIONS.COMPLETE_THIS_AND_SHOW_NEXT.action', error);
+            });
           });
         }
       },
@@ -102,7 +112,6 @@ function RallyService (
 
     filterStations     : filterStations,
 
-    hasNext            : hasNext,
     activateNext       : activateNext,
     progressToNext     : progressToNext,
     getProgress        : getProgress,
@@ -111,7 +120,6 @@ function RallyService (
     getActions         : getActions,
     performAction      : performAction,
 
-    /// XXX: just for testing purposes, will be deprecated
     setProgress        : setProgress,
 
     isStatusActivated  : isStatusActivated,
@@ -145,10 +153,6 @@ function RallyService (
 
 
   /// private helpers
-
-  function _hasOriginStations () {
-    return service.originStations && service.originStations.length > 0;
-  }
 
   function _getNextStation (currentOrder) {
     return $q(function (resolve, reject) {
@@ -218,8 +222,6 @@ function RallyService (
   }
 
   function reset () {
-    //service.localStorage.RallyProgress = 0;
-    //service.localStorage.RallyStatus   = service.STATUS_ACTIVATED;
     MobidulService.resetProgress($stateParams.mobidulCode);
   }
 
@@ -247,28 +249,33 @@ function RallyService (
   function filterStations (stations) {
     service.originStations = stations;
 
-    return MobidulService.getMobidulConfig($stateParams.mobidulCode)
+    var defer = $q.defer();
+
+    MobidulService.getMobidulConfig($stateParams.mobidulCode)
       .then(function (config) {
         if ( stations.length == 1 || ! config.hiddenStations ) {
-          return service.originStations;
+          defer.resolve(service.originStations);
         } else {
-          var filteredStations = [];
+          var filteredStations = [],
+              mobidulCode = $stateParams.mobidulCode;
 
-          angular.forEach(service.originStations, function (station, key) {
-            // if ( station.order < service.localStorage.RallyProgress ||
-            //      ( station.order == service.localStorage.RallyProgress &&
-            //        service.localStorage.RallyStatus != service.STATUS_HIDDEN )
-            if ( station.order <= service.localStorage.RallyProgress ) {
-              filteredStations.push(station);
-            }
+          MobidulService.getProgress(mobidulCode)
+          .then(function (progress) {
+            angular.forEach(service.originStations, function (station, key) {
+              if ( station.order <= progress.progress ) {
+                filteredStations.push(station);
+              }
+            });
+
+            // NOTE XXX: currently obsolete and not used
+            service.filteredStations = filteredStations;
+
+            defer.resolve(filteredStations);
           });
-
-          // NOTE XXX: currently obsolete and not used
-          service.filteredStations = filteredStations;
-
-          return filteredStations;
         }
       });
+
+    return defer.promise;
   }
 
   function getRallyLength () {
@@ -283,9 +290,11 @@ function RallyService (
     var actions = [];
 
     for ( var k in service.ACTIONS ) {
-      var key = k;
-      if ( service.ACTIONS[k].attr ) key += ':';
-      if ( ! service.ACTIONS[k].hidden ) actions.push(key);
+      if(service.ACTIONS.hasOwnProperty(k)){
+        var key = k;
+        if ( service.ACTIONS[k].attr ) key += ':';
+        if ( ! service.ACTIONS[k].hidden ) actions.push(key);
+      }
     }
 
     return actions;
@@ -299,29 +308,13 @@ function RallyService (
 
   }
 
-  function hasNext () {
-    var nextStation = _getNextStation();
-
-    if ( nextStation === false ) {
-      alert('ERROR: You probably accessed the station directly ! Therefore there is no data about other stations and proceeding to the next station will not work! Please open a Station from StationList or MobidulMap ! (TODO can be fixed !)');
-      return false;
-    } else if ( nextStation === null ) {
-      alert('Das ist die letzte Station. Du hast das Rally erfolgreich abgeschlossen!');
-      return false;
-    } else {
-      return true;
-    }
-  }
-
   function activateNext () {
     return $q(function (resolve, reject) {
       MobidulService.getMobidulConfig($stateParams.mobidulCode)
         .then(function (config) {
           MobidulService.setProgress(config.states[0], true)
             .then(function (state) {
-              $timeout(function () {
-                resolve();
-              });
+              resolve();
             });
         });
     });
@@ -443,12 +436,7 @@ function RallyService (
   }
 
   /// events
-
-  function _onNotCompleted () {
-    alert('Die aktuelle "aktivierte" Station muss zuerst "abgeschlossen" werden, ' +
-          'bevor die nächste Station aktiviert werden kann!');
-  }
-
+  // ...
 
   return service;
 }

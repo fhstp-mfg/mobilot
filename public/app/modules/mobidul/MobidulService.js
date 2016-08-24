@@ -156,15 +156,18 @@ function MobidulService (
   }
 
   function getProgress () {
-    var mobidulCode = $stateParams.mobidulCode;
+    var mobidulCode = $stateParams.mobidulCode,
+        defer = $q.defer();
 
-    return $q(function (resolve, reject) {
-      LocalStorageService.getProgress(mobidulCode)
+    service.getConfig(mobidulCode)
+    .then(function (config) {
+      LocalStorageService.getProgress(mobidulCode, config.states)
       .then(function (progress) {
-        resolve(progress);
+        defer.resolve(progress);
       });
     });
 
+    return defer.promise;
   }
 
   /**
