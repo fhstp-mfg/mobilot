@@ -232,8 +232,7 @@ function MapController (
     _startSignalGatheringPosition();
 
     var watchPositionId =
-      navigator.geolocation.watchPosition(function (position)
-      {
+      navigator.geolocation.watchPosition(function (position) {
         // $log.debug('watchPosition in MapController callback :');
         // $log.debug(position);
 

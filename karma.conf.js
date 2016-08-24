@@ -27,7 +27,7 @@ module.exports = function(config) {
       './public/lib/ngGeolocation/ngGeolocation.min.js',
       './public/lib/angular-sanitize/angular-sanitize.min.js',
       './public/lib/ngmap/build/scripts/ng-map.min.js',
-      './public/lib/ngWYSIWYG/js/wysiwyg.js',
+      './public/temp/ngWYSIWYG/js/wysiwyg.js',
       './public/lib/ngstorage/ngStorage.min.js',
       './public/lib/angular-pan-zoom/release/panzoom.min.js',
       './public/assets/js/angular-drag-and-drop-lists.js',

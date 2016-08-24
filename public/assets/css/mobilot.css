@@ -35,9 +35,6 @@ p { margin: 0; }
   margin-bottom: 0;
 }
 
-.less-pb-field {
-  padding-bottom: 0.6em;
-}
 .md-mobilot-color,
 .url-field {
   color: #3797c4 !important
@@ -66,20 +63,28 @@ p { margin: 0; }
 {
   margin-bottom : 0;
 }
+
 .helper
 {
   color     : #808080;
-  font-size : 0.9em;
+  font-size : 0.8em;
 }
 .url-helper
 {
   color       : #3797c4;
-  font-size   : 0.9em;
+  font-size   : 0.8em;
   padding-top : 0;
   margin-top  : 0;
 }
-.center {
-  text-align : center
+
+@media screen and (min-width: 380px) {
+  .helper, .url-helper {
+    font-size: 0.9em;
+  }
+
+  .center {
+    text-align: center
+  }
 }
 .dangerous
 {
@@ -325,6 +330,10 @@ map {
 .tinyeditor .sizer {
   min-height: 0px;
   margin-bottom: 2.5em;
+}
+
+editor{
+  display: block;
 }
 
 #editortabs {
