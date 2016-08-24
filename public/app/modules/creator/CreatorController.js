@@ -43,16 +43,16 @@ function CreatorController (
   //   'Gruppen dürfen nur eigene Stationen editieren'
   // ];
   creator.editModes = [
-    'Alle',
-    'Eigene',
-    'Gruppen'
+    $translate.instant('EDIT_MODE_ALL'),
+    $translate.instant('EDIT_MODE_OWN'),
+    $translate.instant('EDIT_MODE_GROUP')
   ];
 
   creator.tabs = [
-    { name : 'Basis' },
-    { name : 'Kategorien' },
-    { name : 'Menü' },
-    { name : 'Optionen' }
+    { name : $translate.instant('TAB_BASE') },
+    { name : $translate.instant('TAB_CATEGORY') },
+    { name : $translate.instant('TAB_MENU') },
+    { name : $translate.instant('TAB_OPTION') }
   ];
 
   creator.mobidulTabIndex = (
