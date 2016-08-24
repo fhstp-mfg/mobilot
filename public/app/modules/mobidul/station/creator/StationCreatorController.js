@@ -457,8 +457,8 @@ function StationCreatorController (
         .ok($translate.instant('OK'))
       );
       // TODO: Redirect to mobidul.station.edit.place with right params.
-    }
-    else {
+    } else {
+      // TODO: is this necessary?
       if ( currentStateParams ) {
         // station categories
         var selectedCategories = [];

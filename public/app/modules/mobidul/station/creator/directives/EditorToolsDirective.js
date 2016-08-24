@@ -45,10 +45,10 @@ function EditorPanel(
     });
 
     ctrl.iconMap = {
-      HTML    :       'text_format',
+      HTML    :       'text_fields',
       IF_NEAR :       'my_location',
       INPUT_CODE :    'spellcheck',
-      BUTTON :        'crop_square',
+      BUTTON :        'crop_16_9',
       PHOTO_UPLOAD :  'camera_alt',
       SET_TIMEOUT :   'alarm',
       FREE_TEXT :     'edit',
