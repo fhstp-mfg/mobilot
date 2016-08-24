@@ -29,7 +29,7 @@ function HomeController (
   // home.hasPosition     = false;
   home.myPosition         = null;
   home.mobiduls           = [];
-  home.loading            = 'block';
+  home.isLoading          = true;
 
   home.searchTypeIndex    = ! StateManager.isHomeLogin()
                               ? ( $stateParams.type || HomeService.DEFAULT_SEARCH_TYPE )
@@ -235,8 +235,8 @@ function HomeController (
     //$log.debug('changeSearchType called at tab index :');
     //$log.debug(home.searchTypeIndex);
 
-    home.mobiduls = [];
-    home.loading  = 'block';
+    home.mobiduls  = [];
+    home.isLoading = true;
 
     if (
       home.searchTypeIndex == HomeService.NEAR_ME_MOBIDULE &&
@@ -252,29 +252,26 @@ function HomeController (
           .ok($translate.instant('OK'));
 
       $mdDialog.show( informAboutGeoPermitDialog )
-        .then(function ()
-        {
-          LocalStorageService.explainNearGeoPermit(false);
+      .then(function () {
+        LocalStorageService.explainNearGeoPermit(false);
 
-          home.getMyPosition()
-            .then(function (position)
-            {
-              _switchSearchType();
-            });
-        });
-    }
-    else
+        home.getMyPosition()
+          .then(function (position)
+          {
+            _switchSearchType();
+          });
+      });
+    } else {
       _switchSearchType();
+    }
   }
 
 
-  function checkRequiredLogin ()
-  {
+  function checkRequiredLogin () {
     // $log.debug('check required login');
     // $log.debug(home.searchTypeIndex);
 
-    if ( home.searchTypeIndex == HomeService.MY_MOBIDULE )
-    {
+    if ( home.searchTypeIndex == HomeService.MY_MOBIDULE ) {
       // $log.debug(UserService.Session);
 
       var  requiredLogin = ! UserService.Session.isLoggedIn;
@@ -283,9 +280,7 @@ function HomeController (
 
       if ( requiredLogin )
         $state.go('home.login');
-    }
-    else
-    {
+    } else {
       home.requiredLogin = false;
 
       // TODO - check if this is necessary
@@ -298,37 +293,29 @@ function HomeController (
   {
     // $log.debug('> HomeController loading : ' + path);
 
-    HomeService
-      .getMobiduls( cordovaUrl + path )
-      .success(function (data, status, headers, config)
-      {
-        // $log.debug('HomeController loadMobiduls callback :');
-        // $log.debug(data);
+    HomeService.getMobiduls( cordovaUrl + path )
+    .success(function (data, status, headers, config) {
+      // $log.debug('HomeController loadMobiduls callback :');
+      // $log.debug(data);
 
-        var mobidulsData = home.prepareMobidulsData( data );
-        
-        // NOTE - save mobiduls data to show
-        home.mobiduls = mobidulsData;
-      })
-      .error(function (data, status, headers, config)
-      {
-        $log.error(data);
-        $log.error(status);
-      })
-      .then(function ()
-      {
-        // $log.debug('Load Mobiduls callback :');
-        // $log.debug(home.loading);
+      var mobidulsData = home.prepareMobidulsData( data );
 
-        home.loading = 'none';
+      // NOTE - save mobiduls data to show
+      home.mobiduls = mobidulsData;
+    })
+    .error(function (data, status, headers, config) {
+      $log.error(data);
+      $log.error(status);
+    })
+    .then(function () {
+      home.isLoading = false;
 
-        $rootScope.$emit('rootScope:toggleAppLoader', { action : 'hide' });
-      });
+      $rootScope.$emit('rootScope:toggleAppLoader', { action : 'hide' });
+    });
   }
 
 
-  function prepareMobidulsData (data)
-  {
+  function prepareMobidulsData (data) {
     for ( var i = 0; i < data.length; i++ )
     {
       // $log.debug(data[ i ].name);

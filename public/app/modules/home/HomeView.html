@@ -125,7 +125,7 @@
     >
       <md-progress-circular
         id="homeProgressCircular"
-        style="display: {{ home.loading }}"
+        ng-if="home.isLoading"
         md-mode="indeterminate">
       </md-progress-circular>
 
