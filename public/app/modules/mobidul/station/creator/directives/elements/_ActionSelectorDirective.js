@@ -19,7 +19,7 @@ function ActionSelector(
     replace: true,
     template:
       '<md-input-container>' +
-        '<md-select data-ng-model="ctrl.selectionTemp">' +
+        '<md-select data-ng-model="ctrl.selectionTemp" placeholder="{{ name | translate }}">' +
           '<md-select-header>' +
         '<span>{{ name | translate }}</span>' +
         '</md-select-header>' +
