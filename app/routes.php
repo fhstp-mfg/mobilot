@@ -29,6 +29,9 @@ Route::get('{mobidulCode}/{stationCode}/exportTexts/{componentId}', 'AttachmentC
 Route::post('{mobidulCode}/{stationCode}/saveText/{componentId}', 'AttachmentController@saveTextFromComponent');
 
 /// Other
+// trigger the altering of existing db content to fit the new format
+Route::get('/db/update', 'WebServicesController@updateDB');
+
 // TODO: better structure and section routes !
 
 Route::get('GenerateMobidulCode/{mobidulName}', 'WebServicesController@GenerateMobidulCode');

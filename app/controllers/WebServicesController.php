@@ -2017,7 +2017,29 @@ class WebServicesController extends BaseController
     return !!$user2Mobidul;
   }
 
-  // ...
+  public function updateDB () {
+
+    $stations = Station::all();
+
+    foreach ($stations as $station) {
+
+      $json = json_decode($station->content);
+
+      // data from before rally mode
+      if (is_null($json)) {
+        $station->content = "{\"OPEN\":[{\"type\":\"HTML\",\"content\":\"". preg_replace("/\r|\n/", '<br>',$station->content) ."\"}]}";
+      } else {
+        // replace old keys with new uppercase version
+        $old = array("activated", "open", "completed", "html", "button", "ifNear", "inputCode");
+        $new = array("ACTIVATED", "OPEN", "COMPLETED", "HTML", "BUTTON", "IF_NEAR", "INPUT_CODE");
+        $station->content = str_replace($old, $new, $station->content);
+      }
+
+      $station->save();
+    }
+
+    return "finished";
+  }
 
 
 
