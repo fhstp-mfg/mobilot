@@ -4,19 +4,17 @@ angular
 
 
 StationController.$inject = [
-  '$log', '$rootScope', '$sce', '$scope', '$compile', '$interval', '$timeout',
-  '$state', '$sanitize', '$stateParams', 'StateManager', '$mdDialog',
-  '$translate',
-  'StationService', 'MobidulService', 'HeaderService', 'MapService', 'StationCreatorService',
+  '$log', '$rootScope', '$sce', '$scope', '$compile', '$timeout',
+  '$state', 'StateManager', '$translate',
+  'StationService', 'MobidulService', 'HeaderService',
   'UserService', 'RallyService', 'GeoLocationService', 'FontService'
 ];
 
 
 function StationController (
-  $log, $rootScope, $sce, $scope, $compile, $interval, $timeout,
-  $state, $sanitize, $stateParams, StateManager, $mdDialog,
-  $translate,
-  StationService, MobidulService, HeaderService, MapService, StationCreatorService,
+  $log, $rootScope, $sce, $scope, $compile, $timeout,
+  $state, StateManager, $translate,
+  StationService, MobidulService, HeaderService,
   UserService, RallyService, GeoLocationService, FontService
 ) {
   var station = this;
@@ -546,7 +544,12 @@ function StationController (
                     angular
                     .element(container)
                     .append($compile('<mbl-confirm-social data-success="' + obj.success + '" data-id="' + obj.id + '"></mbl-confirm-social>')($scope));
+                    break;
 
+                  case 'SHOW_SCORE':
+                    angular
+                    .element(container)
+                    .append($compile('<mbl-show-score data-content="' + obj.content + '"></mbl-show-score>')($scope));
                     break;
 
                   default:

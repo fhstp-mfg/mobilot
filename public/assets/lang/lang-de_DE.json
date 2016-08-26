@@ -294,6 +294,11 @@
   "CONFIRM_SOCIAL": "Soziale Interaktion",
   "CONFIRM_SOCIAL_DESCRIPTION": "Dieses Element verlangt von den SpielerInnen miteinander zu interagieren. Um die Aktion durchzuführen ist es notwendig ein zweites Gerät zu besitzten.",
 
+  "SHOW_SCORE": "Punkte anzeigen",
+  "SHOW_SCORE_DESCRIPTION": "Dieses Element zeigt die aktuelle Punktezahl der SpielerInnen an.",
+  "DEFAULT_SCORE_MESSAGE": "Dein aktueller Punktestand ist: SCORE",
+  "SCORE_PLACEHOLDER_EXPLANATION": "Schreibe 'SCORE' als Platzhalter für die Punkte.",
+
   "QUESTION": "Frage",
   "DOWNLOAD_ANSWERS": "Antworten herunterladen",
 

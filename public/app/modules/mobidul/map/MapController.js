@@ -89,8 +89,7 @@ function MapController (
 
   /// private functions
 
-  function _init ()
-  {
+  function _init () {
     // $log.debug('MapController init');
     // $log.debug('isNewStation : ' + map.isNewStation);
     // LocalStorageService.explainGenericGeoPermit(true);
@@ -101,8 +100,7 @@ function MapController (
     _watchMapCenter();
 
 
-    _waitForGoogleMap().then(function ()
-    {
+    _waitForGoogleMap().then(function () {
       MapService.clearWatch();
 
       _initWatchPosition();
@@ -113,8 +111,7 @@ function MapController (
   }
 
 
-  function _initDefaultValues ()
-  {
+  function _initDefaultValues () {
     // $log.debug('init default values in MapController');
 
     $scope.isMobidulMap          = StateManager.isMobidulMap();
@@ -134,10 +131,8 @@ function MapController (
   }
 
 
-  function _watchMapCenter ()
-  {
-    $scope.$watch('map.center', function (newCenter, oldCenter)
-    {
+  function _watchMapCenter () {
+    $scope.$watch('map.center', function (newCenter, oldCenter) {
       // $log.debug('watched "map.center" callback : ');
       // $log.debug($scope.map.center);
       // $log.debug(newCenter);
@@ -152,35 +147,23 @@ function MapController (
   }
 
 
-  function _waitForGoogleMap ()
-  {
+  function _waitForGoogleMap () {
     var defer = $q.defer();
 
-    $scope
-      .$on('mapInitialized', function (event, map)
-      {
-        // $log.debug('mapInitialized event');
-        // $log.debug('isMobidulMap : ' + $scope.isMobidulMap );
-        // $log.debug('isStationCreatorPlace : ' + $scope.isStationCreatorPlace );
+    $scope.$on('mapInitialized', function (event, map) {
 
-
-        if ( $scope.isMobidulMap )
-        {
+        if ( $scope.isMobidulMap ) {
           // $log.debug('StateManager checked if isMobidulMap :');
 
           $rootScope.$emit('rootScope:toggleAppLoader', { action : 'hide' });
 
-          MapService
-            .startPollStations()
-            .then(function ()
-            {
-              // $log.debug('startPollStations callback :');
+          MapService.startPollStations()
+          .then(function () {
+            // $log.debug('startPollStations callback :');
 
-              _startPollStations();
-            });
-        }
-        else if ( $scope.isStationCreatorPlace )
-        {
+            _startPollStations();
+          });
+        } else if ( $scope.isStationCreatorPlace ) {
           // $log.debug('GoogleMaps ready for StationCreatorPlace');
 
           MapService.stopPollStations();
@@ -213,21 +196,19 @@ function MapController (
           .ok($translate.instant('OK'));
 
       $mdDialog.show( informAboutGeoPermitDialog )
-        .then(function ()
-        {
-          LocalStorageService.explainGenericGeoPermit(false);
+      .then(function () {
+        LocalStorageService.explainGenericGeoPermit(false);
 
-          _watchPosition();
-        });
-    }
-    else {
+        _watchPosition();
+      });
+
+    } else {
       _watchPosition();
     }
   }
 
 
-  function _watchPosition ()
-  {
+  function _watchPosition () {
     // NOTE this is the javascript animation for the tracking control
     _startSignalGatheringPosition();
 
@@ -244,8 +225,7 @@ function MapController (
 
 
         /// StationCreatorPlace
-        if ( $scope.isStationCreatorPlace )
-        {
+        if ( $scope.isStationCreatorPlace ) {
           if (
             ( map.isNewStation && ! map.changedMarkerManually ) ||
             StationCreatorService.marker.coords === null
@@ -261,8 +241,7 @@ function MapController (
         // $log.debug('centering to my position :');
         // $log.debug($scope.centerToMyPosition);
 
-        if ( $scope.centerToMyPosition )
-        {
+        if ( $scope.centerToMyPosition ) {
           var gmap = $scope.map;
 
           var myPositionCoords =
@@ -285,8 +264,7 @@ function MapController (
           //     gmap.setZoom(14);
         }
       },
-      function (error) /// ERROR HANDLING
-      {
+      function (error) {
         $log.error('watchPosition error in MapController :');
         $log.error(error);
 
@@ -365,8 +343,7 @@ function MapController (
   }
 
 
-  function _startSignalGatheringPosition ()
-  {
+  function _startSignalGatheringPosition () {
     var promise = $interval(function () {
       $scope.locationBlink = ! $scope.locationBlink;
     }, 600);
@@ -375,16 +352,14 @@ function MapController (
   }
 
 
-  function _stopSignalGatheringPosition ()
-  {
+  function _stopSignalGatheringPosition () {
     MapService.cancelGatheringPositionInterval();
 
     $scope.locationBlink = false;
   }
 
 
-  function _showMyPositionMarker ()
-  {
+  function _showMyPositionMarker () {
     var myPositionAnimationInterval = $interval(function () {
       $scope.myPositionOpacity += 0.2;
 
@@ -396,8 +371,7 @@ function MapController (
     }, 40);
   }
 
-  function _hideMyPositionMarker ()
-  {
+  function _hideMyPositionMarker () {
     var myPositionAnimationInterval = $interval(function () {
       $scope.myPositionOpacity -= 0.2;
 
@@ -409,8 +383,7 @@ function MapController (
   }
 
 
-  function _showAccuracyRibbon ()
-  {
+  function _showAccuracyRibbon () {
     $scope.$apply(function () {
       $scope.accuracyRibbon.value =
         Math.round( $scope.myPosition.coords.accuracy );
@@ -420,8 +393,7 @@ function MapController (
   }
 
 
-  function _hideAccuracyRibbon ()
-  {
+  function _hideAccuracyRibbon () {
     $scope.$apply(function () {
       $scope.accuracyRibbon.value = null;
       $scope.accuracyRibbon.show  = false;
@@ -429,10 +401,8 @@ function MapController (
   }
 
 
-  function _listenToOnDestroy ()
-  {
-    $scope.$on('$destroy', function ()
-    {
+  function _listenToOnDestroy () {
+    $scope.$on('$destroy', function () {
       // $log.debug('MapController $destroy :');
 
       MapService.lastCenter = {};
@@ -450,11 +420,9 @@ function MapController (
   }
 
 
-  function _startPollStations ()
-  {
+  function _startPollStations () {
     var promise =
-      $interval(function ()
-      {
+      $interval(function () {
         // $log.debug('$interval for loadStations');
 
         _loadStations();
@@ -467,25 +435,22 @@ function MapController (
   }
 
 
-  function _initOriginMap ()
-  {
+  function _initOriginMap () {
     // $log.debug('init origin map');
     // $log.debug('Map is first load : ' + MapService.firstLoad);
 
     var gmap = $scope.map;
 
 
-    if ( MapService.firstLoad )
-    {
-      if ( $scope.stations.length )
+    if ( MapService.firstLoad ) {
+      if ( $scope.stations.length ) {
         fitToMarkers();
-      else
+      } else {
         toggleMyPosition();
+      }
 
       MapService.firstLoad = false;
-    }
-    else if ( ! $scope.setOriginMap )
-    {
+    } else if ( ! $scope.setOriginMap ) {
       // $log.debug('second map load, load last center coords and zoom');
       // $log.debug($scope.map);
       // $log.debug($scope.map.center);
@@ -510,8 +475,7 @@ function MapController (
   }
 
 
-  function _initStationCreatorMap ()
-  {
+  function _initStationCreatorMap () {
     // $log.debug('init station creator map');
     // $log.debug('(not doing anything)');
 
@@ -521,8 +485,7 @@ function MapController (
 
   /// public functions
 
-  function stationSelect (event, marker)
-  {
+  function stationSelect (event, marker) {
     // $log.debug('Station select on MapController :');
     // $log.debug(event);
     // $log.debug(marker);
@@ -542,8 +505,7 @@ function MapController (
     $scope.infoWindow.open( $scope.map );
 
     // NOTE really interesting thing happening here
-    $scope.$apply(function ()
-    {
+    $scope.$apply(function () {
       var infoWindowBody = document.getElementById('infoWindowBody');
 
       $compile( infoWindowBody )( $scope );
@@ -551,8 +513,7 @@ function MapController (
   }
 
 
-  function goToStation (stationCode)
-  {
+  function goToStation (stationCode) {
     // $log.debug('go to station');
 
     // var stationCode = marker.id;
@@ -561,8 +522,7 @@ function MapController (
     var mobidulCode = StateManager.state.params.mobidulCode;
     // $log.debug(mobidulCode);
 
-    var routeParams =
-    {
+    var routeParams = {
       mobidulCode : mobidulCode,
       stationCode : stationCode
     };
@@ -571,8 +531,7 @@ function MapController (
   }
 
 
-  function toggleMyPosition ()
-  {
+  function toggleMyPosition () {
     $scope.centerToMyPosition = ! $scope.centerToMyPosition;
 
     if ( $scope.myPosition         &&
@@ -589,19 +548,17 @@ function MapController (
       gmap.panTo( myPositionCoords );
 
 
-      if ( $scope.myPosition.coords.speed !== undefined )
-      {
-          if ( $scope.myPosition.coords.speed < 7 )
-              gmap.setZoom(17);
-
-          else if ( $scope.myPosition.coords.speed < 15 )
-              gmap.setZoom(15);
-
-          else
-              gmap.setZoom(14);
+      if ( $scope.myPosition.coords.speed !== undefined ) {
+          if ( $scope.myPosition.coords.speed < 7 ) {
+            gmap.setZoom(17);
+          } else if ( $scope.myPosition.coords.speed < 15 ) {
+            gmap.setZoom(15);
+          } else {
+            gmap.setZoom(14);
+          }
+      } else {
+        gmap.setZoom(14);
       }
-      else
-          gmap.setZoom(14);
     }
 
     // close the info window
@@ -619,34 +576,31 @@ function MapController (
 
 
     /// MobidulMap
-    if ( $scope.isMobidulMap )
-    {
+    if ( $scope.isMobidulMap ) {
       // $log.debug('isMobidulMap');
 
       var bounds = new google.maps.LatLngBounds();
 
-      for ( var i = 0; i < $scope.stations.length; i++ )
-      {
+      for ( var i = 0; i < $scope.stations.length; i++ ) {
         bounds.extend(
           new google.maps.LatLng( $scope.stations[ i ].latitude,
                                   $scope.stations[ i ].longitude ) );
       }
 
-      $timeout(function ()
-      {
+      $timeout(function () {
         gmap.fitBounds( bounds );
         gmap.panTo( bounds.getCenter() );
       }, 0);
 
       // set a minimum zoom
-      if ( gmap.getZoom() > 15 )
+      if ( gmap.getZoom() > 15 ) {
         gmap.setZoom(15);
+      }
     }
 
 
     /// StationCreatorPlace
-    if ( $scope.isStationCreatorPlace )
-    {
+    if ( $scope.isStationCreatorPlace ) {
       // $log.debug('isStationCreatorPlace');
 
       var newStationPosition =
@@ -672,8 +626,7 @@ function MapController (
   }
 
 
-  function dropMarker ()
-  {
+  function dropMarker () {
     // $log.debug('dropMarker');
 
     var markerCoords =
@@ -690,96 +643,87 @@ function MapController (
   }
 
 
-  function _loadStations ()
-  {
+  function _loadStations () {
     var mobidulCode = StateManager.state.params.mobidulCode;
 
     MobidulService.getMobidulConfig(mobidulCode)
-      .then(function(config){
+    .then(function(config){
 
-        MobidulService.getProgress(mobidulCode)
-          .then(function(progress){
+      MobidulService.getProgress(mobidulCode)
+      .then(function(progress){
 
-            StationService
-              .getMapStations( mobidulCode )
-              .success(function (stations, status, headers)
-              {
-                // $log.debug('Map Stations response success :');
-                // $log.debug(stations);
+        StationService.getMapStations( mobidulCode )
+        .success(function (stations, status, headers) {
+          // $log.debug('Map Stations response success :');
+          // $log.debug(stations);
 
-                RallyService.refresh();
+          RallyService.refresh();
 
-                // init map stations empty array
-                $scope.stations = [];
+          // init map stations empty array
+          $scope.stations = [];
 
-                angular.forEach( stations, function (station, key)
-                {
-                  // HACK show latest station by station order
-                  // TODO sort zIndex beforehand !
-                  $scope.markerLastZIndex++;
-                  if ( $scope.markerLastZIndex <= google.maps.Marker.MAX_ZINDEX )
-                    $scope.markerLastZIndex = google.maps.Marker.MAX_ZINDEX + 1;
+          angular.forEach( stations, function (station, key) {
+            // HACK show latest station by station order
+            // TODO sort zIndex beforehand !
+            $scope.markerLastZIndex++;
+            if ( $scope.markerLastZIndex <= google.maps.Marker.MAX_ZINDEX ) {
+              $scope.markerLastZIndex = google.maps.Marker.MAX_ZINDEX + 1;
+            }
 
-                  var stationData =
-                  {
-                    id         : station.code,
-                    latitude   : station.lat,
-                    longitude  : station.lon,
-                    name       : station.name,
+            var stationData =
+            {
+              id         : station.code,
+              latitude   : station.lat,
+              longitude  : station.lon,
+              name       : station.name,
 
-                    // NOTE not even using zIndex prop
-                    // zindex     : $scope.markerLastZIndex,
+              // NOTE not even using zIndex prop
+              // zindex     : $scope.markerLastZIndex,
 
-                    order      : station.order,
-                  };
+              order      : station.order,
+            };
 
-                  if(!config.hiddenStations){
-                    stationData.isEligible = true;
-                  }else{
-                    stationData.isEligible = stationData.order <= progress.progress;
-                  }
+            if ( ! config.hiddenStations ) {
+              stationData.isEligible = true;
+            } else {
+              stationData.isEligible = stationData.order <= progress.progress;
+            }
 
-                  // NOTE not eligible stations also get pushed
-                  $scope.stations.push(stationData);
+            // NOTE not eligible stations also get pushed
+            $scope.stations.push(stationData);
 
 
-                  // var stationMarkerData = {
-                  //   code     : station.code,
-                  //   title    : station.name,
-                  //   position : new google.maps.LatLng( station.lat, station.lng )
-                  // };
-                  //
-                  // var stationMarker = new google.maps.Marker( stationMarkerData );
-                  //
-                  // $scope.markers.push(stationMarker);
-                });
-              })
-              .error(function (response, status, headers, config, statusText)
-              {
-                $log.error(response);
-                $log.error(status);
-              })
-              .then(function (stations)
-              {
-                _initOriginMap();
-              });
-
-
+            // var stationMarkerData = {
+            //   code     : station.code,
+            //   title    : station.name,
+            //   position : new google.maps.LatLng( station.lat, station.lng )
+            // };
+            //
+            // var stationMarker = new google.maps.Marker( stationMarkerData );
+            //
+            // $scope.markers.push(stationMarker);
           });
+        })
+        .error(function (response, status, headers, config, statusText) {
+          $log.error(response);
+          $log.error(status);
+        })
+        .then(function (stations) {
+          _initOriginMap();
+        });
       });
+    });
   }
 
 
   /// events
 
-  function dragStart ()
-  {
+  function dragStart () {
     $scope.centerToMyPosition = false;
   }
 
 
-  function newStationDragend (event)
-  {
+  function newStationDragend (event) {
     // $log.debug('marker position has changed :');
     // $log.debug(event);
 
