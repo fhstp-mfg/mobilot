@@ -88,6 +88,15 @@
 
   "ACTIVATION_MSG": "Danke für deine Registrierung. Du wirds in Kürze weitergeleitet und kannst loslegen. Viel Spaß!",
 
+  "TAB_BASE": "Basis",
+  "TAB_CATEGORY": "Kategorien",
+  "TAB_MENU": "Menü",
+  "TAB_OPTION": "Optionen",
+
+  "EDIT_MODE_ALL": "Alle",
+  "EDIT_MODE_OWN": "Eigene",
+  "EDIT_MODE_GROUP": "Gruppen",
+
   "NEAR": "In der Nähe",
   "ALL": "Alle",
   "MINE": "Meine",
@@ -240,6 +249,7 @@
 
   "STATION_CLONE_SUCCESS": "Station erfolgreich kopiert",
   "STATION_CHANGE_PLACE": "Bitte ändere den Ort der neuen Station.",
+  "STATION_CHANGE_PLACE_WARN": "Um die Station zu speichern, musst du noch den Ort auf der Karte setzten.",
 
   "CLONE_STATION": "Station duplizieren",
 
@@ -263,7 +273,7 @@
   "UNKNOWN_ERROR": "Unbekannter Fehler",
   "UNKNOWN": "Unbekannt",
 
-  "MOBIDUL_CREATOR_TEXT": "Hier kannst du ein neues Mobidul erstellen. \n Nachdem du den Namen eingegeben hast, wird ein Code generiert, welches dann manuell geändern werden kann.",
+  "MOBIDUL_CREATOR_TEXT": "Hier kannst du ein neues Mobidul erstellen. \n Nachdem du den Namen eingegeben hast, wird ein Code generiert, welcher dann manuell geändert werden kann.",
 
   "CHOOSE_FONT": "Wähle eine Schriftart",
 
@@ -283,6 +293,11 @@
   "FREE_TEXT_DESCRIPTION": "Dieses Element lässt den oder die SpielerIn einen beliebigen Text eingeben. Wenn dieser abgeschickt wurde kann eine Aktion durchgeführt werden.",
   "CONFIRM_SOCIAL": "Soziale Interaktion",
   "CONFIRM_SOCIAL_DESCRIPTION": "Dieses Element verlangt von den SpielerInnen miteinander zu interagieren. Um die Aktion durchzuführen ist es notwendig ein zweites Gerät zu besitzten.",
+
+  "SHOW_SCORE": "Punkte anzeigen",
+  "SHOW_SCORE_DESCRIPTION": "Dieses Element zeigt die aktuelle Punktezahl der SpielerInnen an.",
+  "DEFAULT_SCORE_MESSAGE": "Dein aktueller Punktestand ist: SCORE",
+  "SCORE_PLACEHOLDER_EXPLANATION": "Schreibe 'SCORE' als Platzhalter für die Punkte.",
 
   "QUESTION": "Frage",
   "DOWNLOAD_ANSWERS": "Antworten herunterladen",

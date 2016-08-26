@@ -475,14 +475,23 @@ angular
             '500': '3797c4'
           });
 
+      var mobilotGreyMap =
+        $mdThemingProvider
+        .extendPalette('grey', {
+          '50': 'ffffff'
+        });
+
       $mdThemingProvider
         .definePalette('mobilotBlue', mobilotBlueMap);
 
+      $mdThemingProvider
+      .definePalette('mobilotGrey', mobilotGreyMap);
 
       $mdThemingProvider
         .theme('default')
         .primaryPalette('mobilotBlue')
-        .accentPalette('amber');
+        .accentPalette('amber')
+        .backgroundPalette('mobilotGrey');
     }
   ])
 

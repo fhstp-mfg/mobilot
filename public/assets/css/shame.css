@@ -1,0 +1,25 @@
+/*
+This file is purposed to keep track of all shameful css fixes that should be looked at later on.
+Please keep track why you made these changes
+*/
+
+/* Simon Reinsperger 18.08.2016:
+After update of angular material the md-backdrop (transparent layer if menu is open) had an opacity of 0. I couldn't find the issue so I hot fixed it.
+*/
+md-backdrop.md-opaque.ng-enter {
+  opacity: .48;
+}
+
+/* Simon Reinsperger 19.08.2016:
+Error spacer is always display block from the user agent stylesheet. Maybe we need reset the css ? Anyway this should be fixed...
+*/
+md-input-container .md-errors-spacer {
+  display: none;
+}
+
+/* Simon Reinsperger 19.08.2016:
+padding gets overriden by .layout-padding>*
+*/
+editor{
+  padding: 0 !important;
+}

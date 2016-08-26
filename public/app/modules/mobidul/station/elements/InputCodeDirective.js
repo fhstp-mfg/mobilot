@@ -86,9 +86,7 @@ function InputCode (
 
           $rootScope.$broadcast('action', $scope.error);
         }
-
-        // TODO: find a better place for pushing the activity
-        // maybe $on('action', ...) ?
+        
         ActivityService.pushActivity();
       }
     }

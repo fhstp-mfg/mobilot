@@ -36,18 +36,48 @@ function MobidulService (
         'ACTIVATED', 'OPEN', 'COMPLETED'
       ],
 
-      elements: [
-        'HTML', 'IF_NEAR', 'INPUT_CODE',
-        'BUTTON', 'PHOTO_UPLOAD', 'SET_TIMEOUT',
-        'FREE_TEXT', 'CONFIRM_SOCIAL'
-      ],
+      // TODO: extract this so it doesn't need duplication for each mode
+	  // TODO: add finished elements
+      elements: {
+        HTML: {
+          icon: 'text_format'
+        },
+        IF_NEAR: {
+          icon: 'my_location'
+        },
+        INPUT_CODE: {
+          icon: 'check_box'
+        },
+        BUTTON: {
+          icon: 'crop_16_9'
+        },
+        //PHOTO_UPLOAD: {
+        //  icon: 'camera_alt'
+        //},
+        SET_TIMEOUT: {
+          icon: 'alarm'
+        },
+        //FREE_TEXT: {
+        //  icon: 'edit'
+        //},
+        //CONFIRM_SOCIAL: {
+        //  icon: 'people'
+        //},
+        SHOW_SCORE: {
+          icon: 'plus_one'
+        }
+      },
 
       defaultState: 'ACTIVATED',
 
       hiddenStations: true
     }, {
       name: 'default',
-      elements: [ 'HTML' ],
+      elements: {
+        HTML: {
+          icon: 'text_format'
+        }
+      },
 
       states: 'OPEN',
 
@@ -100,33 +130,36 @@ function MobidulService (
 
   /// services
 
-  function menuReady ()
-  {
+  function menuReady () {
     // $log.debug('menuReady in MobidulService');
 
     $rootScope.$emit('Menu::ready');
   }
 
 
-  function getConfig (mobidulCode)
-  {
+  function getConfig (mobidulCode) {
     // $log.info('getConfig in MobidulService');
     // $log.debug(mobidulCode);
 
-    return $http.get(cordovaUrl + '/' + mobidulCode + '/getConfig')
+    var defer = $q.defer();
+
+    $http.get(cordovaUrl + '/' + mobidulCode + '/getConfig')
     .success(function (response, status, headers, config) {
-      // $log.debug('Loaded Config for "' + mobidulCode + '" :');
-      // $log.debug(response);
-
-      if ( response )
+      
+      if ( response ) {
         service.Mobidul = response;
+      }
 
-      return response;
+      defer.resolve(response);
     })
     .error(function (response, status, headers, config) {
       $log.error(response);
       $log.error(status);
+
+      defer.reject(response);
     });
+
+    return defer.promise;
   }
 
   function initProgress () {
@@ -156,15 +189,19 @@ function MobidulService (
   }
 
   function getProgress () {
-    var mobidulCode = $stateParams.mobidulCode;
+    var mobidulCode = $stateParams.mobidulCode,
+        defer = $q.defer();
 
-    return $q(function (resolve, reject) {
-      LocalStorageService.getProgress(mobidulCode)
+    service.getConfig(mobidulCode)
+    .then(function (config) {
+      
+      LocalStorageService.getProgress(mobidulCode, config.states)
       .then(function (progress) {
-        resolve(progress);
+        defer.resolve(progress);
       });
     });
 
+    return defer.promise;
   }
 
   /**

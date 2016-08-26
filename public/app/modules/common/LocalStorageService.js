@@ -21,17 +21,23 @@ function LocalStorageService (
     localStorage : $localStorage,
 
     /// functions
+    setValue: setValue,
+    getValue: getValue,
+
+    // GeoPermit functions
     init : init,
     explainGenericGeoPermit : explainGenericGeoPermit,
     shouldExplainGenericGeoPermit : shouldExplainGenericGeoPermit,
     explainNearGeoPermit : explainNearGeoPermit,
     shouldExplainNearGeoPermit : shouldExplainNearGeoPermit,
 
-    //rally progress functions
+    // Rally progress functions
     getProgress   : getProgress,
     setProgress   : setProgress,
     setState      : setState,
-    resetProgress : resetProgress
+    resetProgress : resetProgress,
+    increaseScore : increaseScore,
+    getScore      : getScore
   };
 
   /// private helpers
@@ -40,6 +46,29 @@ function LocalStorageService (
 
   /// services
 
+  function setValue (key, value) {
+    var defer = $q.defer();
+
+    $timeout(function () {
+      service.localStorage[key] = value;
+      defer.resolve(service.localStorage[key]);
+    });
+
+    return defer.promise;
+  }
+  
+  function getValue (key) {
+    var defer = $q.defer();
+
+    $timeout(function () {
+      defer.resolve(service.localStorage[key]);
+    });
+
+    return defer.promise;
+  }
+
+  // Generic Geo Permit
+
   function init ()
   {
     service.localStorage = $localStorage.$default({
@@ -47,10 +76,7 @@ function LocalStorageService (
       EXPLAIN_NEAR_GEO_PERMIT : true
     });
   }
-
-
-  // Generic Geo Permit
-
+  
   function explainGenericGeoPermit (explain) {
     // NOTE take care of digest cycles,
     //  just because a field is set here,
@@ -128,7 +154,8 @@ function LocalStorageService (
 
         service.localStorage.progressStorage[mobidulCode] = {
           progress: 0,
-          state: states[0]
+          state: states[0],
+          score: 0
         };
       }
       $timeout(function(){
@@ -145,14 +172,40 @@ function LocalStorageService (
 
       var progress = service.localStorage.progressStorage[mobidulCode] = {
         progress: 0,
-        state: states[0]
+        state: states[0],
+        score: 0
       };
 
       $timeout(function(){
         return resolve(progress);
       });
     });
+  }
 
+  function increaseScore (mobidulCode, score) {
+    var deferred = $q.defer();
+
+    if ( ! isNaN(service.localStorage.progressStorage[mobidulCode].score)) {
+      var newScore = service.localStorage.progressStorage[mobidulCode].score += score;
+      $timeout(function () {
+        deferred.resolve(newScore);
+      });
+    } else {
+      $timeout(function () {
+        deferred.reject({msg: 'No entry in progress storage'});
+      });
+    }
+    return deferred.promise;
+  }
+
+  function getScore (mobidulCode) {
+    var deferred = $q.defer();
+
+    $timeout(function () {
+      deferred.resolve(service.localStorage.progressStorage[mobidulCode] && service.localStorage.progressStorage[mobidulCode].score);
+    });
+
+    return deferred.promise;
   }
 
   /// events

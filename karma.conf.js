@@ -27,14 +27,13 @@ module.exports = function(config) {
       './public/lib/ngGeolocation/ngGeolocation.min.js',
       './public/lib/angular-sanitize/angular-sanitize.min.js',
       './public/lib/ngmap/build/scripts/ng-map.min.js',
-      './public/lib/ngWYSIWYG/js/wysiwyg.js',
+      './public/temp/ngWYSIWYG/js/wysiwyg.js',
       './public/lib/ngstorage/ngStorage.min.js',
       './public/lib/angular-pan-zoom/release/panzoom.min.js',
       './public/assets/js/angular-drag-and-drop-lists.js',
       './public/lib/angular-mousewheel/mousewheel.js',
       './public/lib/angular-translate/angular-translate.min.js',
       './public/lib/angular-cookies/angular-cookies.min.js',
-
 
       './public/app/app.module.js',
       //'./public/app/app.config.js',
@@ -49,16 +48,23 @@ module.exports = function(config) {
       './public/app/modules/mobidul/station/creator/StationCreatorService.js',
       './public/app/modules/creator/CreatorService.js',
       './public/app/modules/common/UserService.js',
+      './public/app/modules/common/GeoLocationService.js',
        './public/assets/js/mobile_imports.js',
-      // './public/app/modules/mobidul/station/creator/StationCreatorService.js',
-      // './public/app/modules/mobidul/station/creator/StationCreatorService.js',
-      // './public/app/modules/mobidul/station/creator/StationCreatorService.js',
 
       './public/app/modules/core/LanguageService.js',
       './public/app/modules/core/LanguageServiceSpec.js',
 
       './public/app/modules/common/AttachmentService.js',
-      './public/app/modules/common/AttachmentServiceSpec.js'
+      './public/app/modules/common/AttachmentServiceSpec.js',
+
+      './public/app/modules/common/LocalStorageService.js',
+      './public/app/modules/common/LocalStorageServiceSpec.js',
+
+      './public/app/modules/common/RallyService.js',
+      './public/app/modules/common/RallyServiceSpec.js',
+	  
+	  './public/app/modules/common/ActivityService.js',
+      './public/app/modules/common/ActivityServiceSpec.js'
     ],
 
 
@@ -76,7 +82,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['spec'],
 
 
     // web server port

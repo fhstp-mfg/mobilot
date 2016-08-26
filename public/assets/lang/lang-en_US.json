@@ -4,6 +4,7 @@
   "MOBIDUL_SELECTION": "Mobidul Selection",
   "USER_PROFILE": "User Profile",
 
+  "NAME": "Name",
   "USER_NAME": "User Name",
 
   "CHANGE_PASSWORD": "Change Password",
@@ -11,7 +12,28 @@
   "LANGUAGE_SELECTION": "Language Selection",
 
   "GERMAN": "German",
-  "ENGLISH": "English"
+  "ENGLISH": "English",
+
+  "STATE": "State",
+  "HIDDEN": "hidden",
+  "ACTIVATED": "activated",
+  "OPEN": "open",
+  "COMPLETED": "completed",
+
+  "PLACE": "Place",
+  "BASE": "Base",
+  "CATEGORIES": "Categories",
+  "OPTIONS": "Options",
+
+  "STATION_CODE": "Station Code",
+
+  "MOBIDUL_LINK_WILL_BE": "This Mobidul will be available via the following link:",
+  "STATION_LINK_WILL_BE": "This Station will be available via the following link:",
+
+  "GPS_FETCHING": "Searching for location...",
+  "GPS_INACCURATE_FALLBACK": "Your location signal is inaccurate. Enter the code at the station:",
+  "DISTANCE_FEEDBACK": "You are {{ distance }}m away from the station. \n (± {{ accuracy }}m)",
+  "INPUT_CODE_DEFAULT_ERROR_MSG": "That was the wrong code. Try again!"
 
 
 }

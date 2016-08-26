@@ -47,7 +47,7 @@ function Editor (
       editor.stateMapping = config.states;
     });
 
-    $rootScope.$on('add:editorElement', function (event, type) {
+    var editorEvent = $rootScope.$on('add:editorElement', function (event, type) {
       var stateConfig = editor.config[ editor.stateMapping[ editor.selectedIndex ] ];
       var selected = stateConfig.filter(function (elem) {
         return elem.selected == true
@@ -56,6 +56,8 @@ function Editor (
 
       stateConfig.splice(insertIndex, 0, { type: type });
     });
+
+    $scope.$on("$destroy", editorEvent);
   }
 
 } })();
