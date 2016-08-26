@@ -433,11 +433,16 @@ element-container {
   display: none;
 }
 
+.editor-element-opt-container {
+  border-bottom: 1px solid grey;
+  margin-bottom: 5px;
+}
+
 .editor-element-opt {
   display: inline-block;
-  width: 32%;
-  margin: 2em 0 0;
-  padding: 0;
+  width: 33%;
+  padding: 5px;
+  margin: 0;
 }
 
 element-container md-input-container {

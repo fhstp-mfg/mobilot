@@ -36,18 +36,47 @@ function MobidulService (
         'ACTIVATED', 'OPEN', 'COMPLETED'
       ],
 
-      elements: [
-        'HTML', 'IF_NEAR', 'INPUT_CODE',
-        'BUTTON', 'PHOTO_UPLOAD', 'SET_TIMEOUT',
-        'FREE_TEXT', 'CONFIRM_SOCIAL', 'SHOW_SCORE'
-      ],
+      // TODO: extract this so it doesn't need duplication for each mode
+      elements: {
+        HTML: {
+          icon: 'text_format'
+        },
+        IF_NEAR: {
+          icon: 'my_location'
+        },
+        INPUT_CODE: {
+          icon: 'check_box'
+        },
+        BUTTON: {
+          icon: 'crop_16_9'
+        },
+        PHOTO_UPLOAD: {
+          icon: 'camera_alt'
+        },
+        SET_TIMEOUT: {
+          icon: 'alarm'
+        },
+        FREE_TEXT: {
+          icon: 'edit'
+        },
+        CONFIRM_SOCIAL: {
+          icon: 'people'
+        },
+        SHOW_SCORE: {
+          icon: 'plus_one'
+        }
+      },
 
       defaultState: 'ACTIVATED',
 
       hiddenStations: true
     }, {
       name: 'default',
-      elements: [ 'HTML' ],
+      elements: {
+        HTML: {
+          icon: 'text_format'
+        }
+      },
 
       states: 'OPEN',
 

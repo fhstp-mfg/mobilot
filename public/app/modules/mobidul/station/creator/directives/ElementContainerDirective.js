@@ -7,25 +7,29 @@ angular
 
 ElementContainer.$inject = [
   '$log', '$compile', '$rootScope', '$translate',
-  '$mdDialog'
+  '$mdDialog', '$stateParams',
+  'MobidulService'
 ];
 
 function ElementContainer(
   $log, $compile, $rootScope, $translate,
-  $mdDialog
+  $mdDialog, $stateParams,
+  MobidulService
 ){
   return {
     restrict: 'E',
     template:
-      '<md-button class="editor-element-opt" data-ng-click="ctrl.delete()">' +
-        '<md-icon>delete</md-icon>' +
-      '</md-button>' +
-      '<md-button  class="editor-element-opt" data-ng-click="ctrl.showInfo()">' +
-        '<md-icon>info_outline</md-icon>' +
-      '</md-button>' +
-      '<md-button class="editor-element-opt" data-ng-click="ctrl.collapse()">' +
-        '<md-icon>build</md-icon>' +
-      '</md-button>',
+      '<div class="editor-element-opt-container">' +
+        '<md-button class="editor-element-opt" data-ng-click="ctrl.delete()">' +
+          '<md-icon>delete</md-icon>' +
+        '</md-button>' +
+        '<md-button  class="editor-element-opt" data-ng-click="ctrl.showInfo()">' +
+          '<md-icon>{{ctrl.icon}}</md-icon>' +
+        '</md-button>' +
+        '<md-button class="editor-element-opt" data-ng-click="ctrl.collapse()">' +
+          '<md-icon>build</md-icon>' +
+        '</md-button>' +
+      '</div>',
     scope:{
       element: '='
     },
@@ -40,39 +44,39 @@ function ElementContainer(
       switch(type){
 
         case 'HTML':
-          $element.prepend($compile('<html-container-config data-content="ctrl.element.content"></html-container-config>')($scope));
+          $element.append($compile('<html-container-config data-content="ctrl.element.content"></html-container-config>')($scope));
           break;
 
         case 'BUTTON':
-          $element.prepend($compile('<action-button-config data-success="ctrl.element.success" data-content="ctrl.element.content"></action-button-config>')($scope));
+          $element.append($compile('<action-button-config data-success="ctrl.element.success" data-content="ctrl.element.content"></action-button-config>')($scope));
           break;
 
         case 'IF_NEAR':
-          $element.prepend($compile('<trigger-near-config data-range="ctrl.element.range" fallback="ctrl.element.fallback" data-success="ctrl.element.success"></trigger-near-config>')($scope));
+          $element.append($compile('<trigger-near-config data-range="ctrl.element.range" fallback="ctrl.element.fallback" data-success="ctrl.element.success"></trigger-near-config>')($scope));
           break;
 
         case 'INPUT_CODE':
-          $element.prepend($compile('<input-code-config data-id="ctrl.element.id" data-verifier="ctrl.element.verifier" data-success="ctrl.element.success" error="ctrl.element.error"></input-code-config>')($scope));
+          $element.append($compile('<input-code-config data-id="ctrl.element.id" data-verifier="ctrl.element.verifier" data-success="ctrl.element.success" error="ctrl.element.error"></input-code-config>')($scope));
           break;
 
         case 'PHOTO_UPLOAD':
-          $element.prepend($compile('<photo-upload-config data-success="ctrl.element.success" data-id="ctrl.element.id" data-content="ctrl.element.content"></photo-upload-config>')($scope));
+          $element.append($compile('<photo-upload-config data-success="ctrl.element.success" data-id="ctrl.element.id" data-content="ctrl.element.content"></photo-upload-config>')($scope));
           break;
 
         case 'SET_TIMEOUT':
-          $element.prepend($compile('<set-timeout-config data-action="ctrl.element.action" data-delay="ctrl.element.delay" data-show="ctrl.element.show"></set-timeout-config>')($scope));
+          $element.append($compile('<set-timeout-config data-action="ctrl.element.action" data-delay="ctrl.element.delay" data-show="ctrl.element.show"></set-timeout-config>')($scope));
           break;
 
         case 'FREE_TEXT':
-          $element.prepend($compile('<free-text-input-config data-success="ctrl.element.success" data-question="ctrl.element.question" data-id="ctrl.element.id"></free-text-input-config>')($scope));
+          $element.append($compile('<free-text-input-config data-success="ctrl.element.success" data-question="ctrl.element.question" data-id="ctrl.element.id"></free-text-input-config>')($scope));
           break;
 
         case 'CONFIRM_SOCIAL':
-          $element.prepend($compile('<confirm-social-config data-id="ctrl.element.id" data-success="ctrl.element.success"></confirm-social-config>')($scope));
+          $element.append($compile('<confirm-social-config data-id="ctrl.element.id" data-success="ctrl.element.success"></confirm-social-config>')($scope));
           break;
 
         case 'SHOW_SCORE':
-          $element.prepend($compile('<show-score-config data-content="ctrl.element.content"></show-score-config>')($scope));
+          $element.append($compile('<show-score-config data-content="ctrl.element.content"></show-score-config>')($scope));
           break;
 
         default:
@@ -83,6 +87,23 @@ function ElementContainer(
         if ( msg != ctrl.element.$$hashKey ) {
           $element.removeClass('selected');
         }
+      });
+
+      // Retrieving Icon
+      // TODO: can be simplified if element config is not bound to mode but global
+      MobidulService.getMobidulConfig($stateParams.mobidulCode)
+      .then(function ( config ) {
+
+        for (var element in config.elements) {
+
+          if (config.elements.hasOwnProperty(element)){
+            if (element == ctrl.element.type) {
+              ctrl.icon = config.elements[element].icon;
+              break;
+            }
+          }
+        }
+        
       })
 
     },
@@ -115,8 +136,7 @@ function ElementContainer(
           .ok($translate.instant('CLOSE'));
 
       $mdDialog.show( saveMobidulOptionsDialog )
-        .then(function ()
-        {
+        .then(function () {
 
         });
 
