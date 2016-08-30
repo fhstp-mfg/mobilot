@@ -101,9 +101,9 @@
   "ALL": "All",
   "MINE": "Own",
 
-  "HOME_SEARCH_PLACEHOLDER_NEAR": "Search Mobidul's nearby",
-  "HOME_SEARCH_PLACEHOLDER_ALL": "Search all Mobidul's",
-  "HOME_SEARCH_PLACEHOLDER_MINE": "Search own Mobidul's",
+  "HOME_SEARCH_PLACEHOLDER_NEAR": "Search Mobiduls nearby",
+  "HOME_SEARCH_PLACEHOLDER_ALL": "Search all Mobiduls",
+  "HOME_SEARCH_PLACEHOLDER_MINE": "Search own Mobiduls",
 
   "DISTANCE": "Distance {{distance}}",
 
@@ -336,7 +336,7 @@
 
   "CONTACT": "Contact",
 
-  "WELCOME_TO_MOBILOT": "Welcome at Mobilot",
+  "WELCOME_TO_MOBILOT": "Welcome to Mobilot",
   "ABOUT_MOBILOT": "About Mobilot",
 
   "MOBILOT_DESCRIPTION": "Mobilot (the mobile pilot) was developed during various research projects and allows the simple creation of context based Informationsystems.\n With Mobilot so called Mobidul's can be created for free.\n We request our users to observe the legal rules and the ethics of nice taste and we reserve the right to delte Mobidul's the offend these rules. We take no responsibility for the contet our users create.",

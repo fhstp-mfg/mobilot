@@ -6,7 +6,7 @@ angular
 HeaderController.$inject = [
   '$log', '$scope', '$rootScope', '$timeout',
   '$state', '$stateParams', 'StateManager',
-  '$mdSidenav', '$mdMedia',
+  '$mdSidenav', '$mdMedia', '$translate',
   'UtilityService', 'UserService', 'GeoLocationService',
   'MobidulService', 'StationService', 'ListService', 'FontService'
 ];
@@ -15,7 +15,7 @@ HeaderController.$inject = [
 function HeaderController (
   $log, $scope, $rootScope, $timeout,
   $state, $stateParams, StateManager,
-  $mdSidenav, $mdMedia,
+  $mdSidenav, $mdMedia, $translate,
   UtilityService, UserService, GeoLocationService,
   MobidulService, StationService, ListService, FontService
 ) {

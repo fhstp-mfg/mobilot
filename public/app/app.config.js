@@ -20,8 +20,9 @@ angular
         suffix: '.json'
       });
 
-      $translateProvider.preferredLanguage('de_DE');
+      $translateProvider.determinePreferredLanguage();
       $translateProvider.fallbackLanguage('de_DE');
+      $translateProvider.useSanitizeValueStrategy('escapeParameters');
       $translateProvider.useLocalStorage();
 
       /// redirects

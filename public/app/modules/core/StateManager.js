@@ -536,7 +536,7 @@ function StateManager (
     {
       $log.debug('STATE : login or register or reset or profile ->');
 
-      service.setTitle('Mobidulauswahl');
+      service.setTitle('MOBIDUL_SELECTION');
     }
     else if ( isRestore() )
     {
