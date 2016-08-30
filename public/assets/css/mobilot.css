@@ -195,8 +195,150 @@ md-checkbox.md-checked .md-icon {
 }
 
 
+/*
+  HOME
+*/
+
+#home_mobidule_view {
+  position: fixed;
+  width: 100%;
+  top: 156px;
+  bottom: 0;
+}
+#home_list_mobidule {
+  padding-top: 0;
+  padding-bottom: 56px;
+}
+/*#home_list_mobidule md-list-item {
+  color: #3797c4
+}*/
+
+#home_login_view {
+  width: 100%
+}
+
+#homeProgressCircular {
+  margin: 7em auto
+}
+
+/*#home_speed_dial {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: transparent;
+}*/
+
+#home_controls {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 56px;
+}
+#home_create_button,
+#home_play_button {
+  color: white;
+  /*background: #3797c4;*/
+  background: rgba(55, 151, 196, 0.9) !important;
+}
+#home_create_button:hover,
+#home_play_button:hover {
+  background: #3797c4 !important
+}
+
+.mobidul-color-wrapper {
+  width: 26px;
+  height: 26px;
+  float: left;
+
+  border-radius: 13px;
+  margin-right : 1em;
+}
+.mobidulCard {
+  width: 100%;
+  height: 100px;
+  border-bottom: 1px solid lightgray;
+  padding: 0.8em 1.6em;
+  cursor: pointer;
+  text-decoration: none;
+  overflow: hidden;
+}
+.stdLink {
+  color: #3049D1;
+  cursor: pointer;
+  font-weight: 300;
+}
+
+/*
+  LIST
+*/
+
+#list_stations_view {
+  position: fixed;
+  width: 100%;
+  /* 56px header height + 52px search field height */
+  top: 108px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#list_stations {
+  width: 100%;
+  height: 100%;
+  padding-top: 0;
+}
+
+#list_progress_wrapper {
+  position: fixed;
+  width: 100%;
+  /* 56px header height + 52px search field height */
+  top: 108px;
+}
+#list_progress_wrapper .loading-title {
+  font-size: 1.2em
+}
+
+.header-list-tabs-content {
+  top: 56px
+}
+
+.station-item {
+  color: #3797c4
+}
+.station-odd {
+  color: #78B2CE;
+  background: #eee;
+}
+
+.stdLink {
+  color: black;
+  font-weight: 300;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.secondary-icon {
+  color: black;
+  font-size: 1.6em;
+}
+
+/*
+  PLAY
+*/
+
+#play_view {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/*******************/
+
 md-toolbar,
 .md-toolbar-tools {
+  height: 56px;
   min-height: 56px;
 }
 .header-content {
@@ -218,13 +360,20 @@ md-toolbar,
   z-index    : 1;
 }
 .search-field {
-  margin: 0.2em 0.8em;
-  margin-top: 20px;
-  margin-bottom: 0;
+  margin: 20px 0.8em 0;
   padding-bottom: 0;
   display: block;
 }
 
+@media screen and (min-width: 1000px) {
+  .search-field {
+    margin-top: 0;
+  }
+
+  #home_mobidule_view {
+    top: 136px;
+  }
+}
 
 /*** map ***/
 
