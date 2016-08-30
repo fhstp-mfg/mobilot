@@ -115,7 +115,7 @@
   "JOIN_CODE_INVALID_EXPLANATION": "Dieser Mitmach-Code ist ungültig. Bitte versuche es nochmal oder kontaktiere den Ersteller des Mobiduls.",
   "GROUP_EXPLANATION": "Mitmach-Codes geben die Möglichkeit beim einem Mobidul mitzumachen.\nBenutzer welche den gleichen Code verwenden, gehören der selben Gruppe an.",
 
-  "HIDE_ON_HOME": "Auf der Startseite verberger",
+  "HIDE_ON_HOME": "Auf der Startseite verbergern",
 
   "MOBIDUL": "Mobidul",
   "MOBIDUL_SELECTION": "Mobidulauswahl",
@@ -155,7 +155,7 @@
   "DELETE_MOBIDUL_WARNING": "Mobidul wird unwiderruflich gelöscht.",
   "DELETE_MOBIDUL_CONFIRMATION_TITLE": "Mobidul löschen bestätigen",
   "DELETE_MOBIDUL_CONFIRMATION_BODY": "Bitte bestätige, dass dieses Mobidul gelöscht werden soll.",
-  "DELETE_MOBIDUL_ERROR_MSG": "Mobidul konnte nicht gelöscht werden! Bitte kontaktieren Sie einen Administrator",
+  "DELETE_MOBIDUL_ERROR_MSG": "Mobidul konnte nicht gelöscht werden! Bitte kontaktieren Sie einen Administrator.",
 
   "NOT_AUTHORIZED_TO_EDIT_MOBIDUL": "Sie haben keine Berechtigungen dieses Mobidul zu bearbeiten!",
   "CODE_INVALID": "Dieser Code ist ungültig",
@@ -163,6 +163,7 @@
   "CATEGORIES": "Kategorien",
 
   "ADD_CATEGORY": "Kategorie hinzufügen",
+  "LABEL_CATEGORY": "Kategorie",
 
   "DELETE_CATEGORY_TITLE": "Wollen Sie diese Kategorie wirklich löschen?",
   "DELETE_CATEGORY_WARNING": "Alle zugehörigen Stationen verlieren die Verbindung zu dieser Kategorie.",
@@ -205,7 +206,7 @@
 
   "CREATING": "wird generiert...",
   "AUTOMATICALLY_CREATED": "automatisch generiert",
-  "MANUALLY_CREATED": "manuell geänder",
+  "MANUALLY_CREATED": "manuell geändert",
 
   "MOBIDUL_LINK_WILL_BE": "Das Mobidul wird über folgendem Link aufrufbar sein:",
   "STATION_LINK_WILL_BE": "Die Station wird über folgendem Link aufrufbar sein:",
@@ -217,7 +218,7 @@
   "RALLY_RESET": "Rally zurückgesetzt",
   "RALLY_RESET_SUCCESS": "Dein Rally Fortschitt wurde zurückgesetzt.",
 
-  "NO_STATION_FOR_CODE": "Zu diesem Code ist leider keine Station vorhanden ...",
+  "NO_STATION_FOR_CODE": "Zu diesem Code ist leider keine Station vorhanden...",
   "STATION_NO_CONTENT": "Diese Station hat für den Status {{state}} keinen Inhalt.",
 
   "SAY_TITLE": "Mitteilung",
@@ -275,14 +276,15 @@
 
   "MOBIDUL_CREATOR_TEXT": "Hier kannst du ein neues Mobidul erstellen. \n Nachdem du den Namen eingegeben hast, wird ein Code generiert, welcher dann manuell geändert werden kann.",
 
+  "FONT_TYPE": "Schriftart",
   "CHOOSE_FONT": "Wähle eine Schriftart",
 
   "HTML": "Text",
-  "HTML_DESCRIPTION": "Dieses Element ermöglicht Dir normalen Text mit Bildern zu erstellen. Hierfür stehen dir gängige Formatierungshilfen zur Verfügung",
+  "HTML_DESCRIPTION": "Dieses Element ermöglicht Dir normalen Text mit Bildern zu erstellen. Hierfür stehen dir gängige Formatierungshilfen zur Verfügung.",
   "IF_NEAR": "Abstandsmesser",
   "IF_NEAR_DESCRIPTION": "Dieses Element löst eine Aktion aus wenn sich der oder die SpielerIn in einer gewissen Entfernung zur Station befindet. Falls das GPS Signal zu ungenau sein sollte wird stattdessen ein Eingabefeld angezeigt. Dieses löst bei der richtigen Eingabe der \"Absicherung\" dieselbe Aktion aus.",
   "INPUT_CODE": "Eingabefeld",
-  "INPUT_CODE_DESCRIPTION": "Dieses Element verlangt von dem oder der SpielerIn eine Texteingabe. Es kann unterschieden werden welche Aktion bei richtiger und welche bei falscher Eingabe ausgeführt werden soll. ",
+  "INPUT_CODE_DESCRIPTION": "Dieses Element verlangt von dem oder der SpielerIn eine Texteingabe. Es kann unterschieden werden welche Aktion bei richtiger und welche bei falscher Eingabe ausgeführt werden soll.",
   "BUTTON": "Button",
   "BUTTON_DESCRIPTION": "Dieses Element erzeugt einen normalen Button. Es lässt sich die Beschriftung sowie die Klickaktion einstellen.",
   "PHOTO_UPLOAD": "Foto Upload",
@@ -340,9 +342,9 @@
   "MOBILOT_DESCRIPTION": "Mobilot (der mobile Pilot) ist ein in mehreren Forschungsprojekten entstandenes System zum einfachen Erstellen kontextbasierter Informationssysteme.\n Mit Mobilot können sogenannte Mobidule kostenlos erstellt werden. \n Wir bitten unsere Anwender die gesetzliche Regeln und die der Ethik und des guten Geschmacks einzuhalten und behalten uns vor, Mobidule, die diese Regeln verletzten, zu löschen. Wir übernehmen keine Verantwortung für Inhalte unserer Nutzer.",
   "MFG": "Mobile Forschungsgruppe",
   "ICMT": "Institut für Creative\\Media/Technologies",
-  "FHSTP": "University of Applied Sciences St. Pölten",
+  "FHSTP": "Hochschule der angewandten Wissenschaften St. Pölten",
 
-  "PRESENTED_BY": "Presented by"
+  "PRESENTED_BY": "Präsentiert von"
 
 
 }
