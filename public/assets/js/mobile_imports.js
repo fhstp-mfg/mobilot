@@ -39,6 +39,7 @@ if ( isMobile ) {
   // load cordova
 
   // possible protocols to test against => file:, ftp:, http:, https:, mailto:, etc.
+  //noinspection JSAnnotator
   protocolPattern = /^http/i;
   isCordova = ! protocolPattern.test(location.protocol);
   delete protocolPattern;

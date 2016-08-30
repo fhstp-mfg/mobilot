@@ -322,11 +322,12 @@ function MapController (
               .ariaLabel($translate.instant('POSITION_ERROR_TITLE'))
               .ok($translate.instant('TO_MAP'));
 
-          $mdDialog.show( positionErrorDialog )
-            .then(function ()
-            {
-              // ...
-            });
+          // TODO: Implement functionality if error happens.
+          // $mdDialog.show( positionErrorDialog )
+          //   .then(function ()
+          //   {
+          //     // ...
+          //   });
         }
 
         _stopSignalGatheringPosition();

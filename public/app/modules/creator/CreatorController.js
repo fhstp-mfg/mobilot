@@ -856,7 +856,7 @@ function CreatorController (
 
       case 'divider':
         menuItem = {    id          : null,
-          name        : $translate.instant('TRENNER'),
+          name        : $translate.instant('DIVIDER'),
           text        : '',
           icon        : '',
           isDivider   : true,
