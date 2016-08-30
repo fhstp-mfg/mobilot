@@ -1,4 +1,4 @@
-describe('LocationService', function () {
+describe('LocalStorageService', function () {
   var LocalStorageService, $rootScope, $timeout, $q, $localStorage;
 
   beforeEach(angular.mock.module('Mobidul'));

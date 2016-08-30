@@ -2027,11 +2027,11 @@ class WebServicesController extends BaseController
 
       // data from before rally mode
       if (is_null($json)) {
-        $station->content = "{\"OPEN\":[{\"type\":\"HTML\",\"content\":\"". preg_replace("/\r|\n/", '<br>',$station->content) ."\"}]}";
+        $station->content = "{\"OPEN\":[{\"type\":\"HTML\",\"content\":\"". preg_replace("/\r|\n/", '<br>', $station->content) ."\"}]}";
       } else {
         // replace old keys with new uppercase version
-        $old = array("activated", "open", "completed", "html", "button", "ifNear", "inputCode");
-        $new = array("ACTIVATED", "OPEN", "COMPLETED", "HTML", "BUTTON", "IF_NEAR", "INPUT_CODE");
+        $old = array("activated", "openThis", "open", "completed", "html", "button", "ifNear", "inputCode", "completeThisAndShowNext", "completeThis", "say", "goToCurrent", "setState", "verifyIfNear");
+        $new = array("ACTIVATED", "OPEN_THIS", "OPEN", "COMPLETED", "HTML", "BUTTON", "IF_NEAR", "INPUT_CODE", "COMPLETE_THIS_AND_SHOW_NEXT", "COMPLETE_THIS", "SAY", "GO_TO_CURRENT", "SET_STATE", "VERIFY_IF_NEAR");
         $station->content = str_replace($old, $new, $station->content);
       }
 

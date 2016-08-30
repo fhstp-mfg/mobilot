@@ -37,7 +37,7 @@ function MobidulService (
       ],
 
       // TODO: extract this so it doesn't need duplication for each mode
-	  // TODO: add finished elements
+      // TODO: add finished elements
       elements: {
         HTML: {
           icon: 'text_format'
