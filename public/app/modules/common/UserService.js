@@ -48,7 +48,6 @@ function UserService (
     getRequestAllStationsPermit    : getRequestAllStationsPermit,
     getRequestCategoryStationsPermit : getRequestCategoryStationsPermit,
 
-
     Role   : _Roles,
     Permit : _Permits,
 
@@ -61,7 +60,10 @@ function UserService (
       remember_token : null,
 
       role           : _Roles._isGuest
-    }
+    },
+
+    // save current mobidulCode to cache roles
+    currentMobidul: ''
   };
 
 
@@ -71,7 +73,7 @@ function UserService (
 
   /// private functions
 
-  function _checkPermits(role){
+  function _checkPermits (role) {
     return {
       // @description - TODO
       RequestAllStations : role == _Roles._isAdmin ||
@@ -88,6 +90,49 @@ function UserService (
     };
   }
 
+
+  function _getRoleForMobidul (mobidulCode) {
+
+    var deferred = $q.defer();
+
+    if (service.currentMobidul === mobidulCode ) {
+      deferred.resolve(service.Session.role);
+    } else {
+      $http.get( cordovaUrl + '/RoleForMobidul/' + mobidulCode )
+      .success(function (response, status, headers, config) {
+
+        var role = angular.isDefined( response.role ) ? response.role : null;
+
+        if ( role !== null ) {
+          deferred.resolve(response.role);
+        } else {
+          deferred.reject({msg: 'No User Role passed from Server'});
+        }
+
+      })
+      .error(function (response, status, headers, config) {
+        deferred.reject(response);
+      });
+    }
+
+    return deferred.promise;
+  }
+
+
+  function _getPermit (mobidulCode) {
+
+    var deferred = $q.defer();
+
+    // to make sure the permit was initialized
+    _getRoleForMobidul(mobidulCode)
+    .then(function (role) {
+      deferred.resolve(service.Permit);
+    }, function (error) {
+      deferred.reject(error);
+    });
+
+    return deferred.promise;
+  }
 
   /// services
 
@@ -220,38 +265,25 @@ function UserService (
 
 
   function restoreUserRole (mobidulCode) {
-    return $http.get( cordovaUrl + '/RoleForMobidul/' + mobidulCode )
-        .success(function (response, status, headers, config) {
-           //$log.info('> Restore user role :');
-           //$log.debug(response);
 
-          var role = angular.isDefined( response.role ) ? response.role : null;
+    var deferred = $q.defer();
 
-          if ( role !== null ) {
-             //$log.info('> Setting Session role');
-             //$log.debug(role);
+    _getRoleForMobidul(mobidulCode)
+    .then(function ( role ) {
+      service.Session.role = role;
 
-            service.Session.role = role;
+      service.Permit = _checkPermits(role);
 
-            service.Permit = _checkPermits(role);
+      service.currentMobidul = mobidulCode;
+    }, function (error) {
+      $log.info('Error: UserService - restoreUserRole:');
+      $log.error(error);
+    })
+    .then(function () {
+      HeaderService.refresh();
+    });
 
-            //$log.info('UserService - restoreUserRole - permit:');
-            //$log.debug(service.Permit);
-          }
-        })
-        .error(function (response, status, headers, config) {
-          $log.error(response);
-          $log.error(status);
-        })
-        .then(function () {
-          // $log.debug('UserService restoreUserRole data :');
-          // $log.debug(data);
-
-          // $rootScope.$emit('UserService::sessionUpdated');
-          // $rootScope.$emit('Header::refresh');
-
-          HeaderService.refresh();
-        });
+    return deferred.promise;
   }
 
 
@@ -308,75 +340,46 @@ function UserService (
   /// Permits
 
   function getEditStationPermit () {
-    //$log.info('UserService - getEditStationPermit - service.Permit.EditStation:');
-    //$log.debug(service.Permit);
-    //return service.Permit.EditStation;
 
-    return $q(function (resolve, reject) {
-      if (service.Permit.EditStation) {
-        $timeout(function () {
-          resolve(service.Permit.EditStation);
-        });
-      } else {
-        $http.get( cordovaUrl + '/RoleForMobidul/' + $stateParams.mobidulCode )
-        .success(function (response, status, headers, config) {
-          var role = angular.isDefined( response.role ) ? response.role : null;
+    var deferred = $q.defer();
 
-          if ( role !== null ) {
-            service.Session.role = role;
-            service.Permit = _checkPermits(role);
-
-            resolve(service.Permit.EditStation);
-          }
-        });
-      }
+    _getPermit($stateParams.mobidulCode)
+    .then(function (permit) {
+      deferred.resolve(permit.EditStation);
+    }, function (error) {
+      deferred.reject(error);
     });
+
+    return deferred.promise;
+
   }
 
   function getRequestAllStationsPermit () {
-    return $q(function (resolve, reject) {
-      if (service.Permit.RequestAllStations) {
-        $timeout(function () {
-          resolve(service.Permit.RequestAllStations);
-        });
-      } else {
-        $http.get( cordovaUrl + '/RoleForMobidul/' + $stateParams.mobidulCode )
-        .success(function (response, status, headers, config) {
-          var role = angular.isDefined( response.role ) ? response.role : null;
+    var deferred = $q.defer();
 
-          if ( role !== null )
-          {
-            service.Session.role = role;
-            service.Permit = _checkPermits(role);
-
-            resolve(service.Permit.RequestAllStations);
-          }
-        })
-      }
+    _getPermit($stateParams.mobidulCode)
+    .then(function (permit) {
+      deferred.resolve(permit.RequestAllStations);
+    }, function (error) {
+      deferred.reject(error);
     });
+
+    return deferred.promise;
   }
 
   function getRequestCategoryStationsPermit () {
-    return $q(function (resolve, reject) {
-      if (service.Permit.RequestCategoryStations) {
-        $timeout(function () {
-          resolve(service.Permit.RequestCategoryStations);
-        });
-      } else {
-        $http.get( cordovaUrl + '/RoleForMobidul/' + $stateParams.mobidulCode )
-        .success(function (response, status, headers, config) {
-          var role = angular.isDefined( response.role ) ? response.role : null;
 
-          if ( role !== null )
-          {
-            service.Session.role = role;
-            service.Permit = _checkPermits(role);
+    var deferred = $q.defer();
 
-            resolve(service.Permit.RequestCategoryStations);
-          }
-        });
-      }
+    _getPermit($stateParams.mobidulCode)
+    .then(function (permit) {
+      deferred.resolve(permit.RequestCategoryStations);
+    }, function (error) {
+      deferred.reject(error);
     });
+
+    return deferred.promise;
+
   }
 
 
