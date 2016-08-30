@@ -47,9 +47,11 @@ module.exports = function(config) {
       './public/app/modules/common/LocalStorageService.js',
       './public/app/modules/mobidul/station/creator/StationCreatorService.js',
       './public/app/modules/creator/CreatorService.js',
-      './public/app/modules/common/UserService.js',
       './public/app/modules/common/GeoLocationService.js',
        './public/assets/js/mobile_imports.js',
+
+      './public/app/modules/common/UserService.js',
+      './public/app/modules/common/UserServiceSpec.js',
 
       './public/app/modules/core/LanguageService.js',
       './public/app/modules/core/LanguageServiceSpec.js',

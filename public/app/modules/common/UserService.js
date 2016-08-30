@@ -275,12 +275,16 @@ function UserService (
       service.Permit = _checkPermits(role);
 
       service.currentMobidul = mobidulCode;
+
+      HeaderService.refresh();
+
+      deferred.resolve();
+
     }, function (error) {
       $log.info('Error: UserService - restoreUserRole:');
       $log.error(error);
-    })
-    .then(function () {
-      HeaderService.refresh();
+
+      deferred.reject(error);
     });
 
     return deferred.promise;
