@@ -365,16 +365,6 @@ md-toolbar,
   display: block;
 }
 
-@media screen and (min-width: 1000px) {
-  .search-field {
-    margin-top: 0;
-  }
-
-  #home_mobidule_view {
-    top: 136px;
-  }
-}
-
 /*** map ***/
 
 map {

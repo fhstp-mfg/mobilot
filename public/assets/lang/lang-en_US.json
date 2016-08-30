@@ -280,7 +280,7 @@
   "CHOOSE_FONT": "Choose a font",
 
   "HTML": "Text",
-  "HTML_DESCRIPTION": "This element allows you to create normal text with pictures. Therefor you have common formatting tools available.",
+  "HTML_DESCRIPTION": "This element allows you to create normal text with pictures. Therefore you have common formatting tools available.",
   "IF_NEAR": "Distance Meter",
   "IF_NEAR_DESCRIPTION": "This element triggers an action, when the player is in a specific range to the station. If the GPS signal would be to inaccurate, a input field is shown to the user. This triggers the \"Fallback\", if the input is right, which performs the action then.",
   "INPUT_CODE": "Input Field",
