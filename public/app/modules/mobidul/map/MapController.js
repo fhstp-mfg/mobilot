@@ -314,16 +314,16 @@ function MapController (
               home.searchTypeIndex = MapService.ALL_MOBIDULE;
             });
         } else {
-          var positionErrorDialog =
+          var positionErrorDialog2 =
             $mdDialog.alert()
               .parent(angular.element(document.body))
               .title($translate.instant('POSITION_ERROR_TITLE'))
-              .content(errorMessage)
+              .textContent(errorMessage)
               .ariaLabel($translate.instant('POSITION_ERROR_TITLE'))
               .ok($translate.instant('TO_MAP'));
 
           // TODO: Implement functionality if error happens.
-          // $mdDialog.show( positionErrorDialog )
+          // $mdDialog.show( positionErrorDialog2 )
           //   .then(function ()
           //   {
           //     // ...

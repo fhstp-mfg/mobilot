@@ -455,8 +455,12 @@ function StationCreatorController (
         .textContent($translate.instant('STATION_CHANGE_PLACE_WARN'))
         .ariaLabel($translate.instant('OK'))
         .ok($translate.instant('OK'))
-      );
-      // TODO: Redirect to mobidul.station.edit.place with right params.
+      ).then(function (  ) {
+        $state.go('mobidul.station.edit.place', {
+          stationCode: currentStateParams.stationCode
+        });
+        stationCreator.stationTabIndex = StationCreatorService.PLACE_TAB_INDEX;
+      });
     } else {
       // TODO: is this necessary?
       if ( currentStateParams ) {
