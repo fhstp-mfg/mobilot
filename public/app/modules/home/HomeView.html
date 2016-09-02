@@ -12,9 +12,9 @@
       md-swipe-content="true"
       md-selected="home.searchTypeIndex"
     >
-      <md-tab md-on-select="home.changeSearchType()">{{'NEAR' | translate}}</md-tab>
-      <md-tab md-on-select="home.changeSearchType()">{{'ALL' | translate}}</md-tab>
-      <md-tab md-on-select="home.changeSearchType()">{{'MINE' | translate}}</md-tab>
+      <md-tab md-on-select="home.changeSearchType()">{{ 'NEAR' | translate }}</md-tab>
+      <md-tab md-on-select="home.changeSearchType()">{{ 'ALL'  | translate }}</md-tab>
+      <md-tab md-on-select="home.changeSearchType()">{{ 'MINE' | translate }}</md-tab>
     </md-tabs>
 
     <md-input-container
@@ -77,7 +77,7 @@
             <p>{{ mobidul.description }}</p>
             <p  ng-if="home.searchTypeIndex == 0"
                 translate="DISTANCE"
-                translate-values="{distance: mobidul.distance}"></p>
+                translate-values="{ distance: mobidul.distance }"></p>
           </div>
         </md-list-item>
       </md-list>
