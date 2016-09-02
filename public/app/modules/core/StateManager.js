@@ -27,8 +27,8 @@ function StateManager (
     DEFAULT_PARAMS : _startParams,
     DEFAULT_TITLE  : 'Mobilot',
 
-    BACK_TO_LOGIN  : 'Anmelden',
-    PLAY_TITLE      : 'Mitmachen',
+    BACK_TO_LOGIN  :  $translate.instant('LOGIN'),
+    PLAY_TITLE      : $translate.instant('JOIN'),
 
     HOME               : 'home',
     HOME_LOGIN             : 'home.login',

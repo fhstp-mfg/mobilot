@@ -37,7 +37,7 @@
   "USER_PROFILE": "User Profile",
   "USER_NAME": "Username",
   "PASSWORD": "Password",
-  "EMAIL": "E-Mail",
+  "EMAIL": "EMail",
 
   "CURRENT_PASSWORD": "Current Password",
   "NEW_PASSWORD": "New Password",
@@ -50,34 +50,34 @@
   "LOGOUT": "Logout",
   "BACK_TO_LOGIN": "Back to Login",
 
-  "LANGUAGE_SELECTION": "Language Selection",
+  "LANGUAGE_SELECTION": "Language selection",
 
   "GERMAN": "German",
   "ENGLISH": "English",
 
   "LOGIN_ERROR": "Login Error",
-  "CREDENTIALS_WRONG": "The Username or Password is wrong.",
-  "EDIT_CREDENTIALS": "Change Credentials",
+  "CREDENTIALS_WRONG": "The username or password is wrong.",
+  "EDIT_CREDENTIALS": "Change data",
 
-  "FORGET_PASSWORD": "Forgot Password",
-  "RESET_PASSWORD": "Reset Password",
+  "FORGET_PASSWORD": "Forgot password",
+  "RESET_PASSWORD": "Reset password",
   "PASSWORD_RESET": "Password reset",
   "ENTER_NEW_PASSWORD": "Enter your new Password here.",
-  "RESET_PASSWORD_DESCRIPTION": "Please enter the E-Mail address of your User in order to reset your Password.",
-  "RESET_PASSWORD_SUCCESS": "The Password was changed successfully and you have been logged in automatically.",
+  "RESET_PASSWORD_DESCRIPTION": "Please enter the email address of your user in order to reset your password.",
+  "RESET_PASSWORD_SUCCESS": "The password was changed successfully and you have been logged in automatically.",
   "RESET_PASSWORD_ERROR": "Password Reset Error",
-  "RESET_PASSWORD_EMAIL": "You should receive a recovery link shortly via E-Mail. \n Please also check your junk folder.",
+  "RESET_PASSWORD_EMAIL": "You should receive a recovery link shortly via email. \n Please also check your junk folder.",
 
   "REGISTER": "Register",
-  "REGISTER_USER": "Registrate User",
+  "REGISTER_USER": "Register user",
 
   "REGISTRATION_INFORMATION": "Registration Information's",
 
   "REGISTRATION_SUCCESSFUL": "Registration successfully",
-  "CONFIRM_MAIL_SENT_CHECK_SPAM": "You should receive a recovery link shortly via E-Mail. \n Please also check your junk folder..",
-  "INVALID_EMAIL": "Invalid E-Mail address",
-  "EMAIL_ALREADY_TAKEN": "A User with this E-Mail address is already registered.",
-  "CHANGE_EMAIL": "Change E-Mail",
+  "CONFIRM_MAIL_SENT_CHECK_SPAM": "You should receive a recovery link shortly via email. \n Please also check your junk folder..",
+  "INVALID_EMAIL": "Invalid Email Address",
+  "EMAIL_ALREADY_TAKEN": "A user with this email address is already registered.",
+  "CHANGE_EMAIL": "Change email",
 
   "INVALID_USERNAME": "Invalid Username",
   "USERNAME_ALREADY_TAKEN": "This Username is already taken.",
@@ -110,15 +110,15 @@
   "JOIN_CODE": "Join Code",
   "JOIN_CODES": "Join Codes",
   "REQUEST_CODE": "Request Code",
-  "JOIN_CODE_INPUT_DESCRIPTION": "Join Codes can be provided by the creator of a Mobidul.\nIn order to join a Mobidul as \"Contributing Editor\", you can enter a Join Code or scan a QR-Code.",
+  "JOIN_CODE_INPUT_DESCRIPTION": "Join codes can be provided by the creator of a Mobidul.\nIn order to join a Mobidul as \"Contributing Editor\", you can enter a join code or scan a QR-Code.",
   "JOIN_NOT_POSSIBLE": "Join isn't possible",
-  "JOIN_CODE_INVALID_EXPLANATION": "This Join Code is invalid. Please try it again or contact the creator of the Mobidul.",
-  "GROUP_EXPLANATION": "Join Codes allow to participate in a Mobidul of another creator.\nUsers, who have the same code are in the same group.",
+  "JOIN_CODE_INVALID_EXPLANATION": "This join code is invalid. Please try it again or contact the creator of the Mobidul.",
+  "GROUP_EXPLANATION": "Join codes allow to participate in a Mobidul of another creator.\nUsers, who have the same code are in the same group.",
 
-  "HIDE_ON_HOME": "Hide on Home screen",
+  "HIDE_ON_HOME": "Hide on homescreen",
 
   "MOBIDUL": "Mobidul",
-  "MOBIDUL_SELECTION": "Mobidul Selection",
+  "MOBIDUL_SELECTION": "All Mobidul's",
   "TO_MOBIDUL": "To Mobidul",
 
   "INFORMATION": "Information",
@@ -175,11 +175,11 @@
   "NO_CATEGORY_PASSED": "No category was provided!",
 
   "NEW_CATEGORY": "New Category",
-  "CATEGORIES_SAVED": "Mobidul Categories have been saved.",
+  "CATEGORIES_SAVED": "Mobidul categories have been saved.",
 
   "MULTIPLE_CATEGORIES_PER_STATION": "Stations can be associated with multiple categories.",
 
-  "MENU_SAVED": "Mobidul Menu was saved.",
+  "MENU_SAVED": "Mobidul menu was saved.",
 
   "GENERIC_NOT_ALLOWED": "You are not allowed!",
 
@@ -249,7 +249,7 @@
   "STATION_CLONE_CONFIRMATION": "Please confirm, that you want to copy this station.",
 
   "STATION_CLONE_SUCCESS": "Station successfully copied.",
-  "STATION_CHANGE_PLACE": "Please change the location of the new station",
+  "STATION_CHANGE_PLACE": "Please change the location of the new station. You will be redirected to the new stations map.",
   "STATION_CHANGE_PLACE_WARN": "In order to save the station, you have to set a location on the map.",
 
   "CLONE_STATION": "Copy Station",
@@ -258,7 +258,7 @@
   "STATION_GETS_DELETED": "Station will be deleted irreversible.",
 
   "QR_INFO": "QR Information",
-  "QR_NO_CODE": "This QR-Code contains no Join Code!",
+  "QR_NO_CODE": "This QR-Code contains no join code!",
   "QR_NOT_A_CODE": "This is no QR-Code!",
   "QR_NOT_VALID": "This is not a valid QR-Code!",
   "QR_SCAN_FAILED": "Scanning failed: ",
