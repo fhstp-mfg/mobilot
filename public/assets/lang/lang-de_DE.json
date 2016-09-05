@@ -167,6 +167,8 @@
 
   "DELETE_CATEGORY_TITLE": "Wollen Sie diese Kategorie wirklich löschen?",
   "DELETE_CATEGORY_WARNING": "Alle zugehörigen Stationen verlieren die Verbindung zu dieser Kategorie.",
+  "DELETE_COMPONENT_TITLE": "Wollen Sie diese Komponente wirklich löschen?",
+  "DELETE_COMPONENT_WARNING": "Alle Information und Daten die zu dieser Komponente gehören, gehen beim Löschen verloren.",
 
   "CATEGORY_DELETED": "Kategorie wurde gelöscht.",
   "NOT_AUTHORIZED_TO_DELETE_CATEGORY": "Sie haben keine Berechtigung Kategorien löschen!",

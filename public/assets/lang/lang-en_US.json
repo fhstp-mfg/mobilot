@@ -167,6 +167,8 @@
 
   "DELETE_CATEGORY_TITLE": "Do you really want to delete this category?",
   "DELETE_CATEGORY_WARNING": "All associated stations will loose the connection to this category.",
+  "DELETE_COMPONENT_TITLE": "Do you really want to delete this component?",
+  "DELETE_COMPONENT_WARNING": "All information and data that is related to this component will be lost.",
 
   "CATEGORY_DELETED": "Category was deleted.",
   "NOT_AUTHORIZED_TO_DELETE_CATEGORY": "You have no authorization to delete this category!",
