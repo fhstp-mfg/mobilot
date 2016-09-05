@@ -3,7 +3,7 @@
 
 /// constants
 
-var _live  = true;
+var _live = false;
 
 // NOTE: https is an iOS 9 Safari requirement !
 var _https = !!_live;

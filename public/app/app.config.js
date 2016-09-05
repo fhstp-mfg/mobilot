@@ -14,13 +14,14 @@ angular
       $logProvider.debugEnabled( isDeveloperEnv );
 
 
-      //Language Settings
+      // Language Settings
       $translateProvider.useStaticFilesLoader({
         prefix: 'assets/lang/lang-',
         suffix: '.json'
       });
 
       $translateProvider.determinePreferredLanguage();
+      // TODO: for global usage, this should be en_EN defaultly
       $translateProvider.fallbackLanguage('de_DE');
       $translateProvider.useSanitizeValueStrategy('escapeParameters');
       $translateProvider.useLocalStorage();
@@ -33,7 +34,8 @@ angular
         .when('//map', '/')
         .when('//map/', '/')
 
-        .when('/:mobidulCode/list', '/:mobidulCode/list/all')  // TODO: this is somehow ignored
+        // TODO: this is somehow ignored
+        .when('/:mobidulCode/list', '/:mobidulCode/list/all')
         .when('/:mobidulCode/list/', '/:mobidulCode/list/all')
 
         // .when('/:mobidulCode/:stationCode/',          '/:mobidulCode/:stationCode')
@@ -165,13 +167,13 @@ angular
         ////////////////
 
         .state('play', {
-          url : '/play',
-          views : {
-            'header' : {
+          url: '/play/:triggerScan',
+          views: {
+            'header': {
               templateUrl : 'app/modules/core/Header.html',
               controller  : 'HeaderController as header'
             },
-            'content' : {
+            'content': {
               templateUrl : 'app/modules/play/PlayView.html',
               controller  : 'PlayController as play'
             }

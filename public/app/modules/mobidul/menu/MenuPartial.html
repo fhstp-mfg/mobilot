@@ -49,14 +49,18 @@
       ng-class="item.isDivider ? 'menuDivider menuDividerEmpty' : ''"
       class="md-list-item"
     >
-      <span ng-if="! item.isDivider">{{ item.text }}</span>
+      <md-icon ng-if="item.href === 'map'">map</md-icon>
+      <md-icon ng-if="item.func === 'getForCategory'">group_work</md-icon>
+      <md-icon ng-if="item.href !== 'map' && item.func === 'switchcontent'">location_on</md-icon>
+      <span flex ng-if="! item.isDivider">{{ item.text }}</span>
     </md-list-item>
 
     <md-list-item
         ng-if="menu.isRallyMode"
         ng-click="menu.resetRally()"
     >
-      <span translate="RESET_RALLY"></span>
+      <md-icon>layers_clear</md-icon>
+      <span flex translate="RESET_RALLY"></span>
     </md-list-item>
 
     <!-- Admin area -->
@@ -66,16 +70,19 @@
       </md-list-item>
 
       <md-list-item ng-click="mobidul.switchAdminContent( 0 )">
-        <span translate="ALL_STATIONS"></span>
+        <md-icon>view_headline</md-icon>
+        <span flex translate="ALL_STATIONS"></span>
       </md-list-item>
       <md-list-item ng-click="mobidul.switchAdminContent( 1 )">
-        <span translate="NEW_STATION"></span>
+        <md-icon>add_location</md-icon>
+        <span flex translate="NEW_STATION"></span>
       </md-list-item>
       <md-list-item
         ng-if="menu.currentUser.role == 1"
         ng-click="mobidul.switchAdminContent( 2 )"
       >
-        <span translate="OPTIONS"></span>
+        <md-icon>settings</md-icon>
+        <span flex translate="OPTIONS"></span>
       </md-list-item>
 
       <md-list-item
@@ -83,7 +90,14 @@
         ng-click="mobidul.cloneMyMobidul()"
         ng-show="menu.isCloneMobidulEnabled"
       >
-        <span translate="CLONE"></span>
+        <!-- <md-icon>control_point_duplicate</md-icon> -->
+        <md-icon>content_copy</md-icon>
+        <span flex translate="CLONE"></span>
+      </md-list-item>
+
+      <md-list-item ng-click="mobidul.scanJoinCode()">
+        <md-icon>assignment_ind</md-icon>
+        <span flex translate="JOIN"></span>
       </md-list-item>
     </div>
 
@@ -97,14 +111,16 @@
       ng-click="mobidul.switchState('home')"
       ng-show="menu.isGoToHomeEnabled"
     >
-      <span translate="MOBIDUL_SELECTION"></span>
+      <md-icon>format_list_bulleted</md-icon>
+      <span flex translate="MOBIDUL_SELECTION"></span>
     </md-list-item>
 
     <md-list-item
       ng-click="mobidul.switchState('mobidul.about')"
       ng-show="menu.isGoToAboutEnabled"
     >
-      <span translate="ABOUT_MOBILOT"></span>
+      <md-icon>info_outline</md-icon>
+      <span flex translate="ABOUT_MOBILOT"></span>
     </md-list-item>
   </md-list>
 </md-sidenav>

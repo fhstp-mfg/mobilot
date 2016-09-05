@@ -75,9 +75,10 @@
           <div class="md-list-item-text">
             <h3>{{ mobidul.name }}</h3>
             <p>{{ mobidul.description }}</p>
-            <p  ng-if="home.searchTypeIndex == 0"
-                translate="DISTANCE"
-                translate-values="{ distance: mobidul.distance }"></p>
+            <p ng-if="home.searchTypeIndex == 0"
+              translate="DISTANCE"
+              translate-values="{ distance: mobidul.distance }">
+            </p>
           </div>
         </md-list-item>
       </md-list>
@@ -135,7 +136,7 @@
         ng-click="home.switchToCreator()"
         flex
       >
-        <md-icon>add_circle_outline</md-icon>
+        <md-icon class="white-color">add_circle_outline</md-icon>
         <span translate="CREATE"></span>
       </md-button>
 
@@ -146,7 +147,7 @@
         ng-click="home.switchToPlay()"
         flex
       >
-        <md-icon>assignment_ind</md-icon>
+        <md-icon class="white-color">assignment_ind</md-icon>
         <span translate="JOIN"></span>
       </md-button>
     </div>

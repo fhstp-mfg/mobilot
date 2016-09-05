@@ -7,7 +7,7 @@ MobidulController.$inject = [
   '$log', '$scope', '$rootScope', '$translate',
   '$state', '$stateParams', 'StateManager',
   '$geolocation', '$mdSidenav', '$mdComponentRegistry', '$mdDialog',
-  'MobidulService', 'HeaderService', 'MapService',
+  'MobidulService', 'HeaderService', 'MapService', 'PlayService',
   'LocalStorageService', 'FontService'
 ];
 
@@ -16,7 +16,7 @@ function MobidulController (
   $log, $scope, $rootScope, $translate,
   $state, $stateParams, StateManager,
   $geolocation, $mdSidenav, $mdComponentRegistry, $mdDialog,
-  MobidulService, HeaderService, MapService,
+  MobidulService, HeaderService, MapService, PlayService,
   LocalStorageService, FontService
 ) {
   /// MobidulController
@@ -30,6 +30,7 @@ function MobidulController (
   mobidul.switchState        = switchState;
   mobidul.switchAdminContent = switchAdminContent;
   mobidul.cloneMyMobidul     = cloneMyMobidul;
+  mobidul.scanJoinCode       = scanJoinCode;
 
 
   /// construct
@@ -304,6 +305,11 @@ function MobidulController (
     .then(function () {
       $log.debug('opened dialog');
     });
+  }
+
+
+  function scanJoinCode () {
+    $state.go('play', { triggerScan: true });
   }
 
   // ...

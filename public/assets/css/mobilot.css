@@ -35,6 +35,9 @@ p { margin: 0; }
   margin-bottom: 0;
 }
 
+.white-color {
+  color: #fff !important
+}
 .md-mobilot-color,
 .url-field {
   color: #3797c4 !important
