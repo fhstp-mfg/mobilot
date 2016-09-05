@@ -466,7 +466,7 @@ function CreatorController (
           $mdDialog.alert()
           .parent( angular.element(document.body) )
           .title($translate.instant('CREATE_MOBIDUL'))
-          .textContent( response.msg )
+          .textContent($translate.instant(response.msg))
           .ariaLabel($translate.instant('CREATE_MOBIDUL'))
           .ok($translate.instant('OPEN_MOBIDUL'));
 
@@ -493,7 +493,7 @@ function CreatorController (
           $mdDialog.alert()
           .parent( angular.element(document.body) )
           .title($translate.instant('REFRESH_MOBIDUL'))
-          .textContent( response.msg )
+          .textContent($translate.instant(response.msg))
           .ariaLabel($translate.instant('REFRESH_MOBIDUL'))
           .ok($translate.instant('CLOSE'));
 
@@ -991,7 +991,7 @@ function CreatorController (
         // $log.debug(response);
 
         if (response) {
-          var responseMsg = response.msg || $translate.instant('DELETE_MOBIDUL_ERROR_MSG');
+          var responseMsg = $translate.instant(response.msg) || $translate.instant('DELETE_MOBIDUL_ERROR_MSG');
 
           var deleteMobidulOptionsDialog =
             $mdDialog.alert()

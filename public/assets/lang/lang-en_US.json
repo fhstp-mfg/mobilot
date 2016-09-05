@@ -167,6 +167,8 @@
 
   "DELETE_CATEGORY_TITLE": "Do you really want to delete this category?",
   "DELETE_CATEGORY_WARNING": "All associated stations will loose the connection to this category.",
+  "DELETE_COMPONENT_TITLE": "Do you really want to delete this component?",
+  "DELETE_COMPONENT_WARNING": "All information and data that is related to this component will be lost.",
 
   "CATEGORY_DELETED": "Category was deleted.",
   "NOT_AUTHORIZED_TO_DELETE_CATEGORY": "You have no authorization to delete this category!",
@@ -333,6 +335,16 @@
   "ACTION": "Action",
   "SUCCESS_ACTION": "Success Action",
   "ERROR_ACTION": "Error Action",
+
+  "WSC_MOBIDUL_PROTECTED": "This Mobidul code is protected and can't be changed!",
+  "WSC_MOBIDUL_SUCCESS": "Congratulations! Your Mobidul was created successfully.",
+  "WSC_MOBIDUL_IN_USE": "This Mobidul code is already in use! Please try another code.",
+  "WSC_MOBIDUL_NO_RIGHTS": "You don't have the required rights to update this Mobidul!",
+  "WSC_MOBIDUL_UPDATED": "Mobidul was updated.",
+  "WSC_MOBIDUL_NOT_UPDATED": "Mobidul couldn't be updated!",
+  "WSC_MOBIDUL_DELETE": "Mobidul was deleted successfully. We look forward to see you again!",
+  "WSC_MOBIDUL_NO_DELETE": "Mobidul couldn't be deleted. Please inform an admin about the unknown error: ",
+  "WSC_MOBIDUL_NO_DEL_RIGHTS": "Your are not allowed to delete this Mobidul.",
 
   "CONTACT": "Contact",
 

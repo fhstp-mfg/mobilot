@@ -474,7 +474,7 @@ class WebServicesController extends BaseController
     if ( $this->isMobidulCodeProtected($code) )
       return $response = [
         'success' => false,
-        'msg'     => 'Dieses Mobidul Code ist geschützt und kann nicht verändert werden!'
+        'msg'     => 'WSC_MOBIDUL_PROTECTED'
       ];
 
 
@@ -503,14 +503,14 @@ class WebServicesController extends BaseController
 
       return $response = [
         'success' => true,
-        'msg'   => 'Glückwunsch! Dein Mobidul wurde erfolgreich erstellt.',
+        'msg'   => 'WSC_MOBIDUL_SUCCESS',
         'code'  => $code
       ];
     }
     else
       return $response = [
         'success' => false,
-        'msg'   => 'Dieses Mobidul Code ist schon vergeben! Bitte versuche einen anderen Code.'
+        'msg'   => 'WSC_MOBIDUL_IN_USE'
       ];
   }
 
@@ -567,7 +567,7 @@ class WebServicesController extends BaseController
 
         return [
           'success' => true,
-          'msg'   => 'Mobidul wurde erfolgreich gelöscht. Wir würden uns freuen dich wieder zu sehen!'
+          'msg'   => 'WSC_MOBIDUL_DELETE'
         ];
       }
       catch (\Laravel\Database\Exception $e)
@@ -582,7 +582,7 @@ class WebServicesController extends BaseController
 
         return [
           'success' => false,
-          'msg'   => 'Mobidul konnte nicht gelöscht werden. Bitte informieren Sie einen Administrator über den unbekannten Fehler (' . $exMarker . ').'
+          'msg'   => 'WSC_MOBIDUL_NO_DELETE' . $exMarker
         ];
       }
     }
@@ -590,7 +590,7 @@ class WebServicesController extends BaseController
     {
       return [
       'success' => false,
-      'msg'   => 'Sie haben nicht die notwendigen Berechtigungen, um dieses Mobidul zu löschen.'
+      'msg'   => 'WSC_MOBIDUL_NO_DEL_RIGHTS'
       ];
     }
   }
@@ -694,7 +694,7 @@ class WebServicesController extends BaseController
 
     $response = [
       'success' => false,
-      'msg'   => 'Du hast nicht die notwendigen Berechtigungen dieses Mobidul zu aktualisieren!'
+      'msg'   => 'WSC_MOBIDUL_NO_RIGHTS'
     ];
 
     if ( $this->GetIsOwnerOfMobidul($mobidulCode) )
@@ -720,13 +720,13 @@ class WebServicesController extends BaseController
 
         $response = [
           'success' => true,
-          'msg'   => 'Mobidul wurde aktualisiert.'
+          'msg'   => 'WSC_MOBIDUL_UPDATED'
         ];
       }
       else
         $response = [
           'success' => false,
-          'msg'   => 'Mobidul konnte nicht aktualisiert werden!'
+          'msg'   => 'WSC_MOBIDUL_NOT_UPDATED'
         ];
     }
 
