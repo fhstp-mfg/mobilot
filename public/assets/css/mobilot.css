@@ -838,6 +838,9 @@ mbl-free-text-input textarea{
 .ios-no-top-margin {
   margin-top: 0
 }
+.ios-md-toolbar {
+  height: 76px;
+}
 
 
 

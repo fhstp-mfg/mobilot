@@ -2,9 +2,12 @@
   style=" background : {{ header.config.background }};
           color      : {{ header.config.foreground }};
           position   : fixed"
-  ng-class="{ 'ios-top-padding': header.isCordovaIos }"
+  ng-class="{ 'ios-top-padding ios-md-toolbar': header.isCordovaIos }"
 >
-  <div class="md-toolbar-tools">
+  <div
+    class="md-toolbar-tools"
+    ng-class="{ 'ios-md-tool' }"
+  >
     <md-button
       class="md-icon-button"
       aria-label="Menu"
