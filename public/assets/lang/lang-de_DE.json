@@ -334,6 +334,16 @@
   "SUCCESS_ACTION": "Erfolgsaktion",
   "ERROR_ACTION": "Fehleraktion",
 
+  "WSC_MOBIDUL_PROTECTED": "Dieser Mobidul Code ist geschützt und kann nicht verändert werden!",
+  "WSC_MOBIDUL_SUCCESS": "Glückwunsch! Dein Mobidul wurde erfolgreich erstellt.",
+  "WSC_MOBIDUL_IN_USE": "Dieser Mobidul Code ist schon vergeben! Bitte versuche einen anderen Code.",
+  "WSC_MOBIDUL_NO_RIGHTS": "Du hast nicht die notwendigen Berechtigungen dieses Mobidul zu aktualisieren!",
+  "WSC_MOBIDUL_UPDATED": "Mobidul wurde aktualisiert.",
+  "WSC_MOBIDUL_NOT_UPDATED": "Mobidul konnte nicht aktualisiert werden!",
+  "WSC_MOBIDUL_DELETE": "Mobidul wurde erfolgreich gelöscht. Wir würden uns freuen dich wieder zu sehen!",
+  "WSC_MOBIDUL_NO_DELETE": "Mobidul konnte nicht gelöscht werden. Bitte informieren Sie einen Administrator über den unbekannten Fehler: ",
+  "WSC_MOBIDUL_NO_DEL_RIGHTS": "Sie haben nicht die notwendigen Berechtigungen, um dieses Mobidul zu löschen.",
+
   "CONTACT": "Kontakt",
 
   "WELCOME_TO_MOBILOT": "Willkommen bei Mobilot",
