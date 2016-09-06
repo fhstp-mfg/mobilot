@@ -7,7 +7,14 @@
     layout-padding
     ng-class="{ 'ios-top-margin': creator.isCordovaIos }"
   >
-    <ul dnd-list="creator.menu">
+    <div
+      style="margin-top: 1em"
+      ng-show="creator.menu.length === 0"
+    >
+      <p class="helper center" translate="EMPTY_MENU_LIST"></p>
+    </div>
+
+    <ul dnd-list="creator.menu" ng-show="creator.menu.length">
       <!-- The dnd-draggable directive makes an element draggable and will
            transfer the object that was assigned to it. If an element was
            dragged away, you have to remove it from the original list
