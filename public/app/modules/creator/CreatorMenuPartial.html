@@ -43,7 +43,7 @@
 
     <div layout="row" layout-sm="column">
       <md-button
-        class="md-raised md-mobilot-color center"
+        class="md-mobilot-color center"
         aria-label="Hinzufügen"
         ng-click="creator.showAddMenuItem()"
       >
@@ -52,13 +52,14 @@
       </md-button>
     </div>
 
-    <br>
-
     <div layout="row" layout-sm="column">
       <md-button
         class="md-raised md-primary md-mobilot"
         ng-click="creator.saveMenu()"
-      >{{ 'SAVE' | translate }}</md-button>
+      >
+        <md-icon>check</md-icon>
+        <span translate="SAVE"></span>
+      </md-button>
     </div>
   </md-content>
 </div>

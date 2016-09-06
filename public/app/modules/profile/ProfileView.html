@@ -25,27 +25,33 @@
         </div>
 
         <div
-          layout="row"
+          layout="column"
           ng-if="profile.isChangePassword"
         >
-          <md-icon style="color: black; margin-top: 26px">lock</md-icon>
+          <div layout="row" class="password-input">
+            <md-input-container flex>
+              <md-icon>lock</md-icon>
 
-          <md-input-container style="margin-left: 0.8em; padding-bottom: 0">
-            <label translate="CURRENT_PASSWORD"></label>
-            <input
-              type="password"
-              id="currentPasswordInput"
-              ng-model="profile.changePasswordData.oldPassword"
-            >
-          </md-input-container>
+              <label translate="CURRENT_PASSWORD"></label>
+              <input
+                type="password"
+                id="currentPasswordInput"
+                ng-model="profile.changePasswordData.oldPassword"
+              >
+            </md-input-container>
+          </div>
 
-          <md-input-container style="padding-bottom: 0">
-            <label translate="NEW_PASSWORD"></label>
-            <input
-              type="password"
-              ng-model="profile.changePasswordData.newPassword"
-            >
-          </md-input-container>
+          <div layout="row" class="password-input">
+            <md-input-container flex>
+              <md-icon class="lightgray-color">lock</md-icon>
+
+              <label translate="NEW_PASSWORD"></label>
+              <input
+                type="password"
+                ng-model="profile.changePasswordData.newPassword"
+              >
+            </md-input-container>
+          </div>
         </div>
 
         <div layout="row">

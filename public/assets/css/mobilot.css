@@ -38,6 +38,9 @@ p { margin: 0; }
 .white-color {
   color: #fff !important
 }
+.lightgray-color {
+  color: #eee !important
+}
 .md-mobilot-color,
 .url-field {
   color: #3797c4 !important
@@ -61,7 +64,8 @@ p { margin: 0; }
 }
 
 .section-title {
-  margin-bottom : 0;
+  color: #3797c4;
+  margin-bottom: 0;
 }
 
 .helper {
@@ -339,6 +343,14 @@ md-checkbox.md-checked .md-icon {
 #profile_change_password {
   color: #fff;
 }
+
+/*.password-input md-icon {
+  margin-top: 26px;
+}
+.password-input md-input-container {
+  margin-left: 0.8em;
+  padding-bottom: 0;
+}*/
 
 
 /************
@@ -621,11 +633,11 @@ element-container mbl-input-code md-input-container {
 }
 
 
-.save-basis-progress {
+/*.save-basis-progress {
   position : absolute;
   top      : -7px;
   left     : -6px;
-}
+}*/
 
 .md-dialog-content-divider {
   border-top : 1px solid rgba(0, 0, 0, 0.12)

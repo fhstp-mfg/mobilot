@@ -907,12 +907,12 @@ function StationCreatorController (
     // First create a confirm Dialog in order to ask the user
     // if he really wants to duplicate the current station.
     var confirmCloneStation = $mdDialog.confirm()
-        .parent( angular.element(document.body) )
-        .title($translate.instant('STATION_CLONE'))
-        .textContent($translate.instant('STATION_CLONE_CONFIRMATION'))
-        .ariaLabel($translate.instant('STATION_CLONE'))
-        .ok($translate.instant('CLONE'))
-        .cancel($translate.instant('CANCEL'));
+      .parent( angular.element(document.body) )
+      .title($translate.instant('STATION_CLONE'))
+      .textContent($translate.instant('STATION_CLONE_CONFIRMATION'))
+      .ariaLabel($translate.instant('STATION_CLONE'))
+      .ok($translate.instant('CLONE'))
+      .cancel($translate.instant('CANCEL'));
 
     // Show the dialog and read the current station parameters.
     $mdDialog.show(confirmCloneStation)
@@ -933,12 +933,12 @@ function StationCreatorController (
           // Show a dialog to inform the user about
           // changing the position of the new station.
           var informAboutStationChange = $mdDialog.alert()
-              .parent( angular.element(document.body) )
-              .clickOutsideToClose(true)
-              .title($translate.instant('STATION_CLONE_SUCCESS'))
-              .textContent($translate.instant('STATION_CHANGE_PLACE'))
-              .ariaLabel($translate.instant('STATION_CLONE_SUCCESS'))
-              .ok($translate.instant('CLOSE'));
+            .parent( angular.element(document.body) )
+            .clickOutsideToClose(true)
+            .title($translate.instant('STATION_CLONE_SUCCESS'))
+            .textContent($translate.instant('STATION_CHANGE_PLACE'))
+            .ariaLabel($translate.instant('STATION_CLONE_SUCCESS'))
+            .ok($translate.instant('CLOSE'));
 
           $mdDialog.show(informAboutStationChange)
           .then(function () {

@@ -199,7 +199,7 @@
 
   "GENERAL": "General",
 
-  "CLONE_MOBIDUL": "Duplicate Mobidul",
+  "CLONE_MOBIDUL": "Clone Mobidul",
   "MOBIDUL_NAME": "Mobidul Name",
   "NEW_MOBIDUL_NAME": "New Mobidul",
   "ENTER_NEW_MOBIDUL_NAME": "Enter the name of the new Mobidul:",
@@ -225,8 +225,8 @@
 
   "SAY_TITLE": "Message",
 
-  "IMMUTABLE": "Immutable",
-  "IMMUTABLE_STAION_DESCRIPTION": "The station is immutable",
+  "IMMUTABLE": "Lock Mobidul settings",
+  "IMMUTABLE_STAION_DESCRIPTION": "The station is unchangeable",
 
   "HIDE_ON_MAP": "Hide on map",
   "HIDE_ON_MAP_DESCRIPTION": "The station isn't showing on the map.",

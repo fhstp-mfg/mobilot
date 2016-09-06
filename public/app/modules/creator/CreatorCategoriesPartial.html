@@ -45,7 +45,7 @@
 
     <div layout="row" layout-sm="column">
       <md-button
-        class="md-raised center"
+        class="md-primary md-mobilot-color center"
         aria-label="Hinzufüguen"
         ng-click="creator.addCategory()"
       >
@@ -54,13 +54,15 @@
       </md-button>
     </div>
 
-    <br>
-
+    <!-- TODO: Move this into the Header -->
     <div layout="row" layout-sm="column">
       <md-button
-        class="md-raised md-primary"
+        class="md-raised md-primary md-mobilot"
         ng-click="creator.saveCategories()"
-      >{{ 'SAVE' | translate }}</md-button>
+      >
+        <md-icon>check</md-icon>
+        <span translate="SAVE"></span>
+      </md-button>
     </div>
   </md-content>
 </div>
