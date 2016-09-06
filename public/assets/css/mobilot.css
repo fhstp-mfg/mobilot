@@ -30,11 +30,20 @@
 
 p { margin: 0; }
 
+.center {
+  text-align: center
+}
 .bottomless {
   padding-bottom: 0;
   margin-bottom: 0;
 }
 
+.white-color {
+  color: #fff !important
+}
+.lightgray-color {
+  color: #eee !important
+}
 .md-mobilot-color,
 .url-field {
   color: #3797c4 !important
@@ -58,7 +67,8 @@ p { margin: 0; }
 }
 
 .section-title {
-  margin-bottom : 0;
+  color: #3797c4;
+  margin-bottom: 0;
 }
 
 .helper {
@@ -76,21 +86,17 @@ p { margin: 0; }
   .helper, .url-helper {
     font-size: 0.9em;
   }
-
-  .center {
-    text-align: center
-  }
 }
 .dangerous {
-  color        : darkred;
-  font-weight    : bold;
-  margin-bottom  : 0.2em;
+  color         : darkred;
+  font-weight   : bold;
+  margin-bottom : 0.2em;
 }
 
 
-/*
-  LAYOUT
-*/
+/**************
+ *   LAYOUT   *
+ **************/
 
 @media (max-width: 599px){
   .layout-sm-column {
@@ -161,7 +167,7 @@ md-checkbox.md-checked .md-icon {
 .accuracy-ribbon-animate {
   opacity : 1;
 
-  transition        : opacity .2s ease-in-out;
+  transition         : opacity .2s ease-in-out;
   -moz-transition    : opacity .2s ease-in-out;
   -webkit-transition : opacity .2s ease-in-out;
 }
@@ -195,8 +201,176 @@ md-checkbox.md-checked .md-icon {
 }
 
 
+/************
+ *   HOME   *
+ ************/
+
+#home_mobidule_view {
+  position: fixed;
+  width: 100%;
+  top: 156px;
+  bottom: 0;
+}
+#home_list_mobidule {
+  padding-top: 0;
+  padding-bottom: 56px;
+}
+/*#home_list_mobidule md-list-item {
+  color: #3797c4
+}*/
+
+#home_login_view {
+  width: 100%
+}
+
+#homeProgressCircular {
+  margin: 7em auto
+}
+
+/*#home_speed_dial {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: transparent;
+}*/
+
+#home_controls {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 56px;
+}
+#home_create_button,
+#home_play_button {
+  color: white;
+  /*background: #3797c4;*/
+  background: rgba(55, 151, 196, 0.9) !important;
+}
+#home_create_button:hover,
+#home_play_button:hover {
+  background: #3797c4 !important
+}
+
+.mobidul-color-wrapper {
+  width: 26px;
+  height: 26px;
+  float: left;
+
+  border-radius: 13px;
+  margin-right : 1em;
+}
+.mobidulCard {
+  width: 100%;
+  height: 100px;
+  border-bottom: 1px solid lightgray;
+  padding: 0.8em 1.6em;
+  cursor: pointer;
+  text-decoration: none;
+  overflow: hidden;
+}
+.stdLink {
+  color: #3049D1;
+  cursor: pointer;
+  font-weight: 300;
+}
+
+
+/************
+ *   LIST   *
+ ************/
+
+#list_stations_view {
+  position: fixed;
+  width: 100%;
+  /* 56px header height + 52px search field height */
+  top: 108px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#list_stations {
+  width: 100%;
+  height: 100%;
+  padding-top: 0;
+}
+
+#list_progress_wrapper {
+  position: fixed;
+  width: 100%;
+  /* 56px header height + 52px search field height */
+  top: 108px;
+}
+#list_progress_wrapper .loading-title {
+  font-size: 1.2em
+}
+
+.header-list-tabs-content {
+  top: 56px
+}
+
+.station-item {
+  color: #3797c4
+}
+.station-odd {
+  color: #78B2CE;
+  background: #eee;
+}
+
+.stdLink {
+  color: black;
+  font-weight: 300;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.secondary-icon {
+  color: black;
+  font-size: 1.6em;
+}
+
+
+/***************
+ *   PROFILE   *
+ ***************/
+
+#profile_language_selection {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#profile_change_password {
+  color: #fff;
+}
+
+/*.password-input md-icon {
+  margin-top: 26px;
+}
+.password-input md-input-container {
+  margin-left: 0.8em;
+  padding-bottom: 0;
+}*/
+
+
+/************
+ *   PLAY   *
+ ************/
+
+#play_view {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+
+
+/*******************/
+
 md-toolbar,
 .md-toolbar-tools {
+  height: 56px;
   min-height: 56px;
 }
 .header-content {
@@ -218,13 +392,10 @@ md-toolbar,
   z-index    : 1;
 }
 .search-field {
-  margin: 0.2em 0.8em;
-  margin-top: 20px;
-  margin-bottom: 0;
+  margin: 20px 0.8em 0;
   padding-bottom: 0;
   display: block;
 }
-
 
 /*** map ***/
 
@@ -383,7 +554,7 @@ editor-tools div {
 
 .editor-add-button {
   min-width: 0;
-/*  width: 50px;*/
+  /*width: 50px;*/
   padding: 0;
   display: inline-block;
 }
@@ -461,44 +632,40 @@ element-container mbl-input-code md-input-container {
 }
 
 
-.save-basis-progress
-{
+/*.save-basis-progress {
   position : absolute;
   top      : -7px;
   left     : -6px;
-}
+}*/
 
-.md-dialog-content-divider
-{
+.md-dialog-content-divider {
   border-top : 1px solid rgba(0, 0, 0, 0.12)
 }
+
 
 /*** menu (sidenav) ***/
 
 md-backdrop.md-sidenav-backdrop {
-  position : fixed
+  position: fixed
 }
 
 .menu-login button {
-  padding : 0 !important
+  padding: 0 !important
 }
 
 .menu-login,
-.menuDivider
-{
-  background : #ccc;
+.menuDivider {
+  background: #ccc;
 }
 .menuDividerEmpty {
-  min-height : 1.2em;
+  min-height: 1.2em;
 }
-.menuDivider button.md-button:not([disabled]):hover
-{
-  background : #bbb;
+.menuDivider button.md-button:not([disabled]):hover {
+  background: #bbb;
 }
 
-.md-list-item span
-{
-  line-height : 1.4em;
+.md-list-item span {
+  line-height: 1.4em;
 }
 
 /*
@@ -507,109 +674,109 @@ md-backdrop.md-sidenav-backdrop {
 
 md-radio-button .md-off,
 md-radio-button.md-checked .md-off{
-    border-color: #3797c4;
+  border-color: #3797c4;
 }
 
 md-radio-button .md-on{
-    background-color: #3797c4;
+  background-color: #3797c4;
 }
 
 /*
     Progress Bar
 */
 .progressbar {
-    margin: 0 auto;
-    padding: 0;
-    counter-reset: step;
+  margin: 0 auto;
+  padding: 0;
+  counter-reset: step;
 }
 
 mbl-station-progress > div {
-    overflow-y:hidden;
-    overflow-x: scroll;
-    width:100%;
+  overflow-y:hidden;
+  overflow-x: scroll;
+  width:100%;
 }
 
 mbl-station-progress > div::-webkit-scrollbar{
-    display: none;
+  display: none;
 }
 
 .progressbar li{
-    width: 80px;
+  width: 80px;
 }
 
 .progressbar[data-progtrckr-steps="2"] li {
-    width: 49%;
+  width: 49%;
 }
 .progressbar[data-progtrckr-steps="3"] li {
-    width: 33%;
+  width: 33%;
 }
 .progressbar[data-progtrckr-steps="4"] li {
-    width: 24%;
+  width: 24%;
 }
 .progressbar[data-progtrckr-steps="5"] li {
-    width: 19%;
+  width: 19%;
 }
 .progressbar[data-progtrckr-steps="6"] li {
-    width: 16%;
+  width: 16%;
 }
 .progressbar[data-progtrckr-steps="7"] li {
-    width: 14%;
+  width: 14%;
 }
 .progressbar[data-progtrckr-steps="8"] li {
-    width: 12%;
+  width: 12%;
 }
 .progressbar[data-progtrckr-steps="9"] li {
-    width: 11%;
+  width: 11%;
 }
 .progressbar[data-progtrckr-steps="10"] li {
-    width: 10%;
+  width: 10%;
 }
 .progressbar li {
-    list-style-type: none;
-    float: left;
-    font-size: .8rem;
-    position: relative;
-    text-align: center;
-    text-transform: uppercase;
-    color: #7d7d7d;
+  list-style-type: none;
+  float: left;
+  font-size: .8rem;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+  color: #7d7d7d;
 }
 .progressbar li:before {
-    width: 30px;
-    height: 30px;
-    content: counter(step);
-    counter-increment: step;
-    line-height: 28px;
-    border: 2px solid #7d7d7d;
-    display: block;
-    text-align: center;
-    margin: 0 auto 10px auto;
-    border-radius: 50%;
-    background-color: white;
-    position: relative;
-    z-index: 1;
+  width: 30px;
+  height: 30px;
+  content: counter(step);
+  counter-increment: step;
+  line-height: 28px;
+  border: 2px solid #7d7d7d;
+  display: block;
+  text-align: center;
+  margin: 0 auto 10px auto;
+  border-radius: 50%;
+  background-color: white;
+  position: relative;
+  z-index: 1;
 }
 .progressbar li:after {
-    width: 100%;
-    height: 2px;
-    content: '';
-    position: absolute;
-    background-color: #7d7d7d;
-    top: 15px;
-    left: -50%;
-    z-index: 0;
+  width: 100%;
+  height: 2px;
+  content: '';
+  position: absolute;
+  background-color: #7d7d7d;
+  top: 15px;
+  left: -50%;
+  z-index: 0;
 }
 .progressbar li:first-child:after {
-    content: none;
+  content: none;
 }
 .progressbar li.current {
-    color: green;
+  color: green;
 }
 .progressbar li.current:before {
-    border-color: #55b776;
+  border-color: #55b776;
 }
 
 .progressbar li.active + li:after {
-    background-color: #55b776;
+  background-color: #55b776;
 }
 
 li:focus{
@@ -682,6 +849,9 @@ mbl-free-text-input textarea{
 .ios-no-top-margin {
   margin-top: 0
 }
+.ios-md-toolbar {
+  height: 76px;
+}
 
 
 
@@ -700,8 +870,8 @@ ul[dnd-list] > li {
  * otherwise you can't drop to it once it's empty
  */
 ul[dnd-list] {
-    min-height: 42px;
-    padding-left: 0px;
+  min-height: 42px;
+  padding-left: 0px;
 }
 
 /**
@@ -711,7 +881,7 @@ ul[dnd-list] {
  * that he's actually moving it.
  */
 ul[dnd-list] .dndDraggingSource {
-    display: none;
+  display: none;
 }
 
 /**
@@ -720,9 +890,9 @@ ul[dnd-list] .dndDraggingSource {
  * over it.
  */
 ul[dnd-list] .dndPlaceholder {
-    display: block;
-    background-color: #ddd;
-    min-height: 32px;
+  display: block;
+  background-color: #ddd;
+  min-height: 32px;
 }
 
 /**
@@ -733,23 +903,24 @@ ul[dnd-list] .dndPlaceholder {
  * browsers we can use event.offsetY for this.
  */
 ul[dnd-list] li {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    display: block;
-    padding: 5px 15px;
-    margin-bottom: -1px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  display: block;
+  padding: 5px 15px;
+  margin-bottom: -1px;
 }
 
 #list_stations ul[dnd-list] > li,
 #editortabs ul[dnd-list] > li{
-    padding: 0;
-    margin: 0;
-    border: none;
+  padding: 0;
+  margin: 0;
+  border: none;
 }
 
 /**
- * Show selected elements in green*/
+ * Show selected elements in green
+ */
 ul[dnd-list] .selected {
-    background-color: #c3dae6;
-    color: #808080;
+  background-color: #c3dae6;
+  color: #808080;
 }

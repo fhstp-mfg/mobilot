@@ -32,10 +32,12 @@
           <label translate="IMMUTABLE"></label>
         </md-checkbox>
 
-        <h3>Schriftart</h3>
+        <h3 class="section-title" translate="FONT_TYPE"></h3>
+        <br>
+        
         <md-select
           ng-model="creator.mobidul.font"
-          placeholder="{{ 'CHOOSE_FONT' | translate}}"
+          placeholder="{{ 'CHOOSE_FONT' | translate }}"
           style="margin-top:0"
           ng-class="{ 'font--druckschrift95' : creator.class.druckschrift95 }"
         >
@@ -46,8 +48,6 @@
           >Druckschrift95</md-option>
         </md-select>
       </div>
-
-
     </div>
 
 
@@ -81,11 +81,12 @@
     </div>
 
     <div class="section section-darker">
-      <div layout-sm="column">
+      <div layout="column">
         <md-button
-          class="md-raised md-primary"
+          class="md-raised md-primary md-mobilot"
           ng-click="creator.saveOptions()"
         >
+        <md-icon>check</md-icon>
           <span flex translate="SAVE_OPTIONS"></span>
         </md-button>
       </div>
@@ -138,11 +139,15 @@
         <p class="helper" translate="GROUP_EXPLANATION"></p>
       </div>
 
-      <div layout-sm="column" style="margin-top: 1em">
+      <div layout="column" style="margin-top: 1em">
         <md-button
-          class="md-raised"
+          class="md-raised md-mobilot-color"
           ng-click="creator.requestCode()"
         >
+          <md-icon
+            md-svg-src="assets/img/qrcode.svg"
+            class="md-mobilot-color">
+          </md-icon>
           <span flex translate="REQUEST_CODE"></span>
         </md-button>
       </div>

@@ -2,12 +2,14 @@ angular
   .module('Play')
   .controller('PlayController', PlayController);
 
+
 PlayController.$inject = [
   '$log', '$rootScope', '$scope', '$translate',
   '$state', '$stateParams', 'StateManager',
   '$mdDialog',
   'PlayService'
 ];
+
 
 function PlayController (
   $log, $rootScope, $scope, $translate,
@@ -43,6 +45,7 @@ function PlayController (
     $log.debug('PlayController init');
 
     _initDefaultValues();
+    _checkTriggerScan();
   }
 
 
@@ -51,10 +54,24 @@ function PlayController (
   }
 
 
+  /**
+   * Trigger scan when user comes from mobidul.* and
+   * triggerScan is requested (e.g. from Menu)
+   */
+  function _checkTriggerScan () {
+    if (
+      StateManager.comesFrom( StateManager.MOBIDUL ) &&
+      !!StateManager.getParams().triggerScan
+    ) {
+      scan();
+    }
+  }
+
+
   /// public functions
 
   function join () {
-    PlayService.play(play.code)
+    PlayService.play( play.code )
     .success(function (response) {
       // console.warn('join mobidul play callback : ');
       // console.info(response);
@@ -151,4 +168,6 @@ function PlayController (
       });
     }
   }
+
+  // ...
 }

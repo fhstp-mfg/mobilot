@@ -2,6 +2,7 @@ angular
   .module('Creator')
   .controller('CreatorController', CreatorController);
 
+
 CreatorController.$inject = [
   '$log', '$rootScope', '$scope', '$timeout', '$q',
   '$state', '$stateParams', 'StateManager',
@@ -103,6 +104,7 @@ function CreatorController (
   creator.changeName       = changeName;
   creator.changeCode       = changeCode;
   creator.saveBasis        = saveBasis;
+  creator.cloneMyMobidul   = cloneMyMobidul;
   creator.saveOptions      = saveOptions;
   creator.showToast        = showToast;
   creator.deleteCategory   = deleteCategory;
@@ -172,6 +174,7 @@ function CreatorController (
         });
 
 
+        // TODO: use english comments please :)
         // get menu for mobidul TODO dafür gibts noch kein ws, aber man kanns über getConfig machen.
 
         CreatorService.getConfig( mobidulCode )
@@ -185,12 +188,12 @@ function CreatorController (
 
         // get stations
         ListService.getStations( mobidulCode, 'all')
-        .then(function(response){
+        .then(function (response) {
 
           var hasPermission = response.hasPermission,
             stations = response.stations;
 
-          if (hasPermission){
+          if (hasPermission) {
             //console.info('creator - stations:');
             //console.log(stations);
 
@@ -251,6 +254,7 @@ function CreatorController (
         creator.isNewMobidul
           ? $translate.instant('CREATE_MOBIDUL')
           : $translate.instant('SAVE');
+      creator.cloneMyMobidulText = $translate.instant('CLONE_MOBIDUL');
     }
   }
 
@@ -466,7 +470,7 @@ function CreatorController (
           $mdDialog.alert()
           .parent( angular.element(document.body) )
           .title($translate.instant('CREATE_MOBIDUL'))
-          .textContent( response.msg )
+          .textContent($translate.instant(response.msg))
           .ariaLabel($translate.instant('CREATE_MOBIDUL'))
           .ok($translate.instant('OPEN_MOBIDUL'));
 
@@ -493,7 +497,7 @@ function CreatorController (
           $mdDialog.alert()
           .parent( angular.element(document.body) )
           .title($translate.instant('REFRESH_MOBIDUL'))
-          .textContent( response.msg )
+          .textContent($translate.instant(response.msg))
           .ariaLabel($translate.instant('REFRESH_MOBIDUL'))
           .ok($translate.instant('CLOSE'));
 
@@ -507,6 +511,30 @@ function CreatorController (
         });
       });
     }
+  }
+
+
+  /**
+   * Opens a dialog and initializes the Mobidul cloning process.
+   */
+  function cloneMyMobidul () {
+    var mobidulName = StateManager.getTitle();
+    var mobidulCode = StateManager.state.params.mobidulCode;
+
+    var cloneDialogOptions = {
+      parent       : angular.element(document.body),
+      title        : $translate.instant('CLONE_MOBIDUL'),
+      templateUrl  : 'app/modules/mobidul/menu/dialog/CloneMobidulDialog.html',
+      controller   : CloneMobidulDialogController,
+      controllerAs : 'cloneMobidulDialog',
+
+      clickOutsideToClose: true
+    };
+
+    $mdDialog.show(cloneDialogOptions);
+    // .then(function () {
+    //   $log.debug('opened dialog');
+    // });
   }
 
 
@@ -856,7 +884,7 @@ function CreatorController (
 
       case 'divider':
         menuItem = {    id          : null,
-          name        : $translate.instant('TRENNER'),
+          name        : $translate.instant('DIVIDER'),
           text        : '',
           icon        : '',
           isDivider   : true,
@@ -991,7 +1019,7 @@ function CreatorController (
         // $log.debug(response);
 
         if (response) {
-          var responseMsg = response.msg || $translate.instant('DELETE_MOBIDUL_ERROR_MSG');
+          var responseMsg = $translate.instant(response.msg) || $translate.instant('DELETE_MOBIDUL_ERROR_MSG');
 
           var deleteMobidulOptionsDialog =
             $mdDialog.alert()

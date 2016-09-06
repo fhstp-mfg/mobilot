@@ -2,16 +2,6 @@
 
   <!-- PlayController as play -->
 
-  <style>
-    #play_view {
-      position: fixed;
-      top: 56px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
-  </style>
-
   <md-content
     id="play_view"
     layout-padding
@@ -29,7 +19,6 @@
         <md-input-container>
           <label translate="JOIN_CODE"></label>
           <input
-            placeholder="Mitmach-Code"
             ng-model="play.code"
             ng-required="true"
             ng-maxlength="6"
@@ -40,7 +29,7 @@
           class="md-raised md-primary md-mobilot"
           ng-click="play.join()"
         >
-          <span flex>{ 'JOIN' | translate }}</span>
+          <span flex>{{ 'JOIN' | translate }}</span>
         </md-button>
       </div>
     </div>
@@ -51,7 +40,7 @@
           class="md-raised md-primary md-mobilot"
           ng-click="play.scan()"
         >
-          <span flex>{ 'SCAN_CODE' | translate }}</span>
+          <span flex>{{ 'SCAN_CODE' | translate }}</span>
         </md-button>
       </div>
     </div>

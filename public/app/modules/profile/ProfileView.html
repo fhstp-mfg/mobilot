@@ -25,33 +25,40 @@
         </div>
 
         <div
-          layout="row"
+          layout="column"
           ng-if="profile.isChangePassword"
         >
-          <md-icon style="color: black; margin-top: 26px">lock</md-icon>
+          <div layout="row" class="password-input">
+            <md-input-container flex>
+              <md-icon>lock</md-icon>
 
-          <md-input-container style="margin-left: 0.8em; padding-bottom: 0">
-            <label translate="CURRENT_PASSWORD"></label>
-            <input
-              type="password"
-              id="currentPasswordInput"
-              ng-model="profile.changePasswordData.oldPassword"
-            >
-          </md-input-container>
+              <label translate="CURRENT_PASSWORD"></label>
+              <input
+                type="password"
+                id="currentPasswordInput"
+                ng-model="profile.changePasswordData.oldPassword"
+              >
+            </md-input-container>
+          </div>
 
-          <md-input-container style="padding-bottom: 0">
-            <label translate="NEW_PASSWORD"></label>
-            <input
-              type="password"
-              ng-model="profile.changePasswordData.newPassword"
-            >
-          </md-input-container>
+          <div layout="row" class="password-input">
+            <md-input-container flex>
+              <md-icon class="lightgray-color">lock</md-icon>
+
+              <label translate="NEW_PASSWORD"></label>
+              <input
+                type="password"
+                ng-model="profile.changePasswordData.newPassword"
+              >
+            </md-input-container>
+          </div>
         </div>
 
         <div layout="row">
           <md-button
             md-no-ink
-            class="md-primary"
+            id="profile_change_password"
+            class="md-raised md-mobilot"
             ng-class="{ 'md-raised': profile.isChangePassword }"
             arial-label="Change password"
             ng-click="profile.changePassword()"
@@ -70,12 +77,22 @@
       </div>
     </div>
 
-    <md-input-container>
-      <label translate="LANGUAGE_SELECTION"></label>
-      <md-select ng-model="profile.language" md-on-close="profile.selectLanguage()">
-        <md-option ng-value="short" ng-repeat="(lang, short) in profile.availableLanguages " translate="{{lang}}"></md-option>
-      </md-select>
-    </md-input-container>
+    <div layout="row" class="section">
+      <md-input-container id="profile_language_selection">
+        <label translate="LANGUAGE_SELECTION"></label>
+        <md-select
+          ng-model="profile.language"
+          md-on-close="profile.selectLanguage()"
+          style="margin-bottom: 0"
+        >
+          <md-option
+            ng-value="short"
+            ng-repeat="(lang, short) in profile.availableLanguages"
+            translate="{{ lang }}"
+          ></md-option>
+        </md-select>
+      </md-input-container>
+    </div>
 
     <div layout="row" class="section section-darker">
       <md-button

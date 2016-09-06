@@ -16,8 +16,8 @@ function StateManager (
   MobidulService, StationCreatorService, CreatorService
 ) {
   // pre-constants
-  var _start      = 'home'; // home or mobidulCode
-  var _startParams = {};      // any start parameters you might want to pass on
+  var _start = 'home'; // home or mobidulCode
+  var _startParams = {}; // any start parameters you might want to pass on
 
 
   var service =
@@ -27,43 +27,43 @@ function StateManager (
     DEFAULT_PARAMS : _startParams,
     DEFAULT_TITLE  : 'Mobilot',
 
-    BACK_TO_LOGIN  : 'Anmelden',
-    PLAY_TITLE      : 'Mitmachen',
+    BACK_TO_LOGIN  :  $translate.instant('LOGIN'),
+    PLAY_TITLE     : $translate.instant('JOIN'),
 
-    HOME               : 'home',
-    HOME_LOGIN             : 'home.login',
-    LOGIN               : 'login',
-    REGISTER             : 'register',
-    ACTIVATE            : 'activate',
-    RESTORE             : 'restore',
-    RESET               : 'reset',
-    PROFILE             : 'profile',
-    PLAY                : 'play',
-    IMPRESSUM          : 'impressum',
-    MOBIDUL              : 'mobidul',
-    MOBIDUL_MAP            : 'mobidul.map',
-    MOBIDUL_STATION          : 'mobidul.station',
-    MOBIDUL_ABOUT      : 'mobidul.about',
-    LIST              : 'mobidul.list',
-    STATION              : 'mobidul.station',
-    STATION_VERIFY      : 'mobidul.station.verify',
-    STATION_CREATOR         : 'mobidul.station.edit',
-    STATION_CREATOR_BASIS       : 'mobidul.station.edit.basis',
-    STATION_CREATOR_PLACE       : 'mobidul.station.edit.place',
-    STATION_CREATOR_CATEGORIES   : 'mobidul.station.edit.categories',
-    STATION_CREATOR_SETTINGS    : 'mobidul.station.edit.settings',
-    MEDIA               : 'mobidul.media',
-    CREATOR            : 'mobidul.creator',
-    CREATOR_BASIS         : 'mobidul.creator.basis',
-    CREATOR_CATEGORIES        : 'mobidul.creator.categories',
-    CREATOR_MENU         : 'mobidul.creator.menu',
-    CREATOR_SETTINGS       : 'mobidul.creator.settings',
+    HOME : 'home',
+    HOME_LOGIN : 'home.login',
+    LOGIN : 'login',
+    REGISTER : 'register',
+    ACTIVATE : 'activate',
+    RESTORE : 'restore',
+    RESET : 'reset',
+    PROFILE : 'profile',
+    PLAY : 'play',
+    IMPRESSUM : 'impressum',
+    MOBIDUL : 'mobidul',
+    MOBIDUL_MAP : 'mobidul.map',
+    MOBIDUL_STATION : 'mobidul.station',
+    MOBIDUL_ABOUT : 'mobidul.about',
+    LIST : 'mobidul.list',
+    STATION : 'mobidul.station',
+    STATION_VERIFY : 'mobidul.station.verify',
+    STATION_CREATOR : 'mobidul.station.edit',
+    STATION_CREATOR_BASIS : 'mobidul.station.edit.basis',
+    STATION_CREATOR_PLACE : 'mobidul.station.edit.place',
+    STATION_CREATOR_CATEGORIES : 'mobidul.station.edit.categories',
+    STATION_CREATOR_SETTINGS : 'mobidul.station.edit.settings',
+    MEDIA : 'mobidul.media',
+    CREATOR : 'mobidul.creator',
+    CREATOR_BASIS : 'mobidul.creator.basis',
+    CREATOR_CATEGORIES : 'mobidul.creator.categories',
+    CREATOR_MENU : 'mobidul.creator.menu',
+    CREATOR_SETTINGS : 'mobidul.creator.settings',
 
-    NEW_MOBIDUL_CODE        : 'new-mobidul',
-    NEW_STATION_CODE        : 'new-station',
+    NEW_MOBIDUL_CODE : 'new-mobidul',
+    NEW_STATION_CODE : 'new-station',
 
     // vars
-    state    : {},
+    state : {},
     previous : null,
 
     reverseState : false,
@@ -79,38 +79,38 @@ function StateManager (
     setTitle  : setTitle,
 
     // is state services
-    is                   : is,
-    isHome                 : isHome,
-    isHomeLogin              : isHomeLogin,
-    isLogin                : isLogin,
-    isRegister               : isRegister,
-    isActivate           : isActivate,
-    isRestore               : isRestore,
-    isReset                : isReset,
-    isProfile                : isProfile,
-    isPlay             : isPlay,
-    isImpressum             : isImpressum,
-    isMobidul                : isMobidul,
-    isMobidulMap             : isMobidulMap,
-    isMobidulStation          : isMobidulStation,
-    isList                  : isList,
-    isStation                : isStation,
-    isStationVerify         : isStationVerify,
-    isStationCreator           : isStationCreator,
-    isStationCreatorBasis       : isStationCreatorBasis,
-    isStationCreatorPlace       : isStationCreatorPlace,
-    isStationCreatorCategories   : isStationCreatorCategories,
-    isStationCreatorSettings    : isStationCreatorSettings,
-    isMedia              : isMedia,
-    isCreator              : isCreator,
-    isCreatorBasis            : isCreatorBasis,
-    isCreatorCategories          : isCreatorCategories,
-    isCreatorMenu            : isCreatorMenu,
-    isCreatorSettings          : isCreatorSettings,
+    is : is,
+    isHome : isHome,
+    isHomeLogin : isHomeLogin,
+    isLogin : isLogin,
+    isRegister : isRegister,
+    isActivate : isActivate,
+    isRestore : isRestore,
+    isReset : isReset,
+    isProfile : isProfile,
+    isPlay : isPlay,
+    isImpressum : isImpressum,
+    isMobidul : isMobidul,
+    isMobidulMap : isMobidulMap,
+    isMobidulStation : isMobidulStation,
+    isList : isList,
+    isStation : isStation,
+    isStationVerify : isStationVerify,
+    isStationCreator : isStationCreator,
+    isStationCreatorBasis : isStationCreatorBasis,
+    isStationCreatorPlace : isStationCreatorPlace,
+    isStationCreatorCategories : isStationCreatorCategories,
+    isStationCreatorSettings : isStationCreatorSettings,
+    isMedia : isMedia,
+    isCreator : isCreator,
+    isCreatorBasis : isCreatorBasis,
+    isCreatorCategories : isCreatorCategories,
+    isCreatorMenu : isCreatorMenu,
+    isCreatorSettings : isCreatorSettings,
 
     // state params services
-    isNewMobidul          : isNewMobidul,
-    isNewStation          : isNewStation
+    isNewMobidul : isNewMobidul,
+    isNewStation : isNewStation
   };
 
 
@@ -125,24 +125,23 @@ function StateManager (
 
     var previousState = null;
 
-    if ( ! service.reverseState )
-    {
+    if ( ! service.reverseState ) {
       var state = State.make();
-        state.name   = toState.name || service.DEFAULT_NAME;
-        state.params = toParams     || service.DEFAULT_PARAMS;
 
-      if ( service.state.name )
+      state.name   = toState.name || service.DEFAULT_NAME;
+      state.params = toParams     || service.DEFAULT_PARAMS;
+
+      if (service.state.name) {
         // NOTE - make object copy without reference
         // state.previous = angular.copy( service.state );
         previousState = angular.copy( service.state );
+      }
 
       service.state = state;
 
       _initStateHelpers();
       _rememberPreviousState( previousState );
-    }
-    else
-    {
+    } else {
       service.state = angular.copy( service.state.previous );
       service.reverseState = false;
     }
@@ -161,23 +160,17 @@ function StateManager (
     var previous = _getPrevious();
     $log.debug(previous);
 
-    if ( previous )
-    {
-      if ( previous.name )
-      {
+    if (previous) {
+      if (previous.name) {
         service.reverseState = true;
 
         $state.go( previous.name, previous.params );
-      }
-      else
-      {
+      } else {
         $log.error('Previous state has no name.');
 
         return false;
       }
-    }
-    else
-    {
+    } else {
       $log.error('There is no previous state.')
 
       // NOTE - don't leave the user hanging,
@@ -190,25 +183,24 @@ function StateManager (
 
 
   /**
-   * NOTE - use only after previous state has been set,
-   *         or pass previous state object .
+   * NOTE: use only after previous state has been set, or pass previous state object
    */
   function comesFrom (stateName, previousState)
   {
     var previousState = previousState || service.state.previous;
 
-    if ( previousState )
-    {
+    if (previousState) {
       var prevStateName = previousState.name || null;
 
-      if ( stateName && prevStateName )
+      if ( stateName && prevStateName ) {
         return (
           stateName === prevStateName ||
           UtilityService.startsWithIn( stateName, prevStateName )
-        );
+        )
+      }
     }
 
-    return false;
+    return false
   }
 
 
@@ -218,8 +210,9 @@ function StateManager (
 
     var backSuccess = service.back();
 
-    if ( ! backSuccess )
+    if ( ! backSuccess ) {
       $state.reload();
+    }
   }
 
 
@@ -375,41 +368,36 @@ function StateManager (
 
     service.state.helpers = {};
 
-    if ( isStationCreator() )
-    {
-      if ( isStationCreatorBasis() )
+    if ( isStationCreator() ) {
+      if ( isStationCreatorBasis() ) {
         service.state.helpers.tabIndex =
           StationCreatorService.BASIS_TAB_INDEX;
-
-      else if ( isStationCreatorPlace() )
+      } else if ( isStationCreatorPlace() ) {
         service.state.helpers.tabIndex =
           StationCreatorService.PLACE_TAB_INDEX;
-
-      else if ( isStationCreatorCategories() )
+      } else if ( isStationCreatorCategories() ) {
         service.state.helpers.tabIndex =
           StationCreatorService.CATEGORIES_TAB_INDEX;
-
-      else if ( isStationCreatorSettings() )
+      } else if ( isStationCreatorSettings() ) {
         service.state.helpers.tabIndex =
           StationCreatorService.SETTINGS_TAB_INDEX;
+      }
     }
     else if ( isCreator() )
     {
-      if ( isCreatorBasis() )
+      if ( isCreatorBasis() ) {
         service.state.helpers.tabIndex =
           CreatorService.BASIS_TAB_INDEX;
-
-      else if ( isCreatorCategories() )
+      } else if ( isCreatorCategories() ) {
         service.state.helpers.tabIndex =
           CreatorService.CATEGORIES_TAB_INDEX;
-
-      else if ( isCreatorMenu() )
+      } else if ( isCreatorMenu() ) {
         service.state.helpers.tabIndex =
           CreatorService.MENU_TAB_INDEX;
-
-      else if ( isCreatorSettings() )
+      } else if ( isCreatorSettings() ) {
         service.state.helpers.tabIndex =
           CreatorService.SETTINGS_TAB_INDEX;
+      }
     }
   }
 
@@ -428,42 +416,43 @@ function StateManager (
     // $log.debug(comesFrom( service.HOME_LOGIN, previousState ));
 
 
-    // NOTE - these are "same-level" states which replace the previous state
-    // TODO - collection for "same-level" states
-    if ( // NOTE - LOGIN and REGISTER
-       ( isLogin()   && comesFrom( service.REGISTER,   previousState ) ) ||
-       ( isRegister()  && comesFrom( service.LOGIN,       previousState ) ) ||
-       // NOTE - LOGIN and PROFILE
-       ( isProfile()   && comesFrom( service.LOGIN,     previousState ) ) ||
-       ( isLogin()   && comesFrom( service.PROFILE,   previousState ) ) ||
-       // NOTE - PROFILE and REGISTER
-       // TODO - isProfile and comesFrom REGISTER
-       // ( isProfile()   && comesFrom( service.REGISTER,   previousState ) ) ||
-       // ( isRegister()   && comesFrom( service.PROFILE,    previousState ) ) ||
-       // HOME and HOME_LOGIN
-       ( isHomeLogin() && comesFrom( service.HOME,        previousState ) ) ||
-       ( isHome()     && comesFrom( service.HOME_LOGIN,   previousState ) ) ||
-       ( isHomeLogin() && comesFrom( service.HOME_LOGIN,   previousState ) ) ||
-       /*( isRestore()   && comesFrom( service.HOME_LOGIN, previousState ) ) ||*/
-       // NOTE - MOBIDUL (mobidul.*)
-       ( isMobidul()   &&   comesFrom( service.MOBIDUL,   previousState ) &&
-         ( isStationCreator() &&
-         ! comesFrom( service.STATION, previousState ) &&
-           ! comesFrom( service.LIST,    previousState )
-         )
-         )
-    )
-    {
+    // NOTE: these are "same-level" states which replace the previous state
+    // TODO: collection for "same-level" states
+    if (
+      // NOTE: LOGIN and REGISTER
+      ( isLogin() && comesFrom( service.REGISTER, previousState ) ) ||
+      ( isRegister() && comesFrom( service.LOGIN, previousState ) ) ||
+      // NOTE: LOGIN and PROFILE
+      ( isProfile() && comesFrom( service.LOGIN, previousState ) ) ||
+      ( isLogin() && comesFrom( service.PROFILE, previousState ) ) ||
+      // NOTE: PROFILE and REGISTER
+      // TODO: isProfile and comesFrom REGISTER
+      // ( isProfile()   && comesFrom( service.REGISTER, previousState ) ) ||
+      // ( isRegister()   && comesFrom( service.PROFILE, previousState ) ) ||
+      // HOME and HOME_LOGIN
+      ( isHomeLogin() && comesFrom( service.HOME, previousState ) ) ||
+      ( isHome() && comesFrom( service.HOME_LOGIN, previousState ) ) ||
+      ( isHomeLogin() && comesFrom( service.HOME_LOGIN, previousState ) ) ||
+      /*( isRestore()   && comesFrom( service.HOME_LOGIN, previousState ) ) ||*/
+      // NOTE: MOBIDUL (mobidul.*)
+      (
+        isMobidul() && comesFrom( service.MOBIDUL, previousState ) &&
+        (
+          isStationCreator() &&
+          ! comesFrom( service.STATION, previousState ) &&
+          ! comesFrom( service.LIST, previousState )
+        )
+      )
+    ) {
       $log.debug('SAME-LEVEL STATE');
-      // NOTE - this is the previous state of the previous state,
-      //       which we want to replace with the current previous state
+      // NOTE: this is the previous state of the previous state,
+      // which we want to replace with the current previous state
       var previousPreviousState = previousState.previous;
 
       service.state.previous = previousPreviousState;
-    }
-    else
-    {
+    } else {
       $log.debug('NON SAME-LEVEL STATE');
+
       service.state.previous = previousState;
     }
   }
@@ -471,7 +460,7 @@ function StateManager (
 
 
   /**
-   * NOTE - use only after state has been set
+   * NOTE: use only after state has been set
    */
   function _refreshTitle ()
   {
@@ -483,77 +472,61 @@ function StateManager (
     // $log.debug(comesFrom( service.HOME_LOGIN ));
     // $log.debug(comesFrom( service.MOBIDUL ));
 
-
-    if ( isHome() || isHomeLogin() )
-    {
+    if ( isHome() || isHomeLogin() ) {
       $log.debug('STATE : home or home.login ->');
 
       service.setTitle('Mobilot');
-    }
-    else if ( ( isRegister() || isLogin() ) &&
-          comesFrom( service.HOME_LOGIN ) )
-    {
+    } else if (
+      ( isRegister() || isLogin() ) &&
+      comesFrom( service.HOME_LOGIN )
+    ) {
       $log.debug('STATE : ( register or login ) and comes from home.login ->');
 
       service.setTitle( service.BACK_TO_LOGIN );
-    }
-    else if ( isMobidul()
-          ||
-          ( ( isLogin() || isProfile() ) &&
-            comesFrom( service.MOBIDUL ) ) )
-    {
+    } else if (
+      isMobidul() ||
+      (
+        ( isLogin() || isProfile() ) &&
+        comesFrom( service.MOBIDUL )
+      )
+    ) {
       $log.debug('STATE : comes from mobidul.* ->');
       $log.debug('WARN : in case of isMobidul don\'t set Header title after "rootScope:setConfig" anymore !');
       // $log.debug('MobidulService.Mobidul.categoryName: ')
       // $log.debug( MobidulService.Mobidul.categoryName );
 
-
       $translate.onReady(function () {
-
-        // TODO - fix here new mobidul flickering title !!! + play title
+        // TODO: fix here new mobidul flickering title !!! + play title
         var mobidulName  = MobidulService.Mobidul.mobidulName ||
-          $translate.instant('NEW_MOBIDUL_NAME');
+        $translate.instant('NEW_MOBIDUL_NAME');
 
         var categoryName = MobidulService.Mobidul.categoryName;
-        categoryName = ( categoryName )
-          ? ( ': ' + MobidulService.Mobidul.categoryName ) : '';
+        categoryName = (categoryName) ?
+          ( ': ' + MobidulService.Mobidul.categoryName ) : '';
 
-
-        // TODO - add category to header (probably not best place here)
+        // TODO: add category to header (probably not best place here)
         var mobidulTitle = mobidulName + categoryName;
-        mobidulTitle = mobidulName; // NOTE - not finished yet ...
+        mobidulTitle = mobidulName; // NOTE: not finished yet ...
 
-        service.setTitle( mobidulTitle );
-
+        service.setTitle(mobidulTitle);
 
         MobidulService.Mobidul.categoryName = null;
       });
-    }
-    else if ( isLogin()    ||
-          isRegister() ||
-          isReset()     ||
-          isProfile() )
-    {
+    } else if ( isLogin() || isRegister() || isReset() || isProfile() ) {
       $log.debug('STATE : login or register or reset or profile ->');
 
-      service.setTitle('Mobidulauswahl');
-    }
-    else if ( isRestore() )
-    {
-      // TODO - check if this can be moved up to escape code duplication
+      service.setTitle('MOBIDUL_SELECTION');
+    } else if ( isRestore() ) {
+      // TODO: check if this can be moved up to escape code duplication
 
       $log.debug('STATE : restore ->');
 
       service.setTitle( service.BACK_TO_LOGIN );
-    }
-    else if ( isPlay() )
-    {
+    } else if ( isPlay() ) {
       $log.debug('STATE : play ->');
 
       service.setTitle( service.PLAY_TITLE );
-    }
-    else
-    {
+    } else {
       $log.debug('STATE : another state ->');
     }
   }

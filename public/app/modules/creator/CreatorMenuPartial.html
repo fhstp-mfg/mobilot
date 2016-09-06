@@ -7,7 +7,14 @@
     layout-padding
     ng-class="{ 'ios-top-margin': creator.isCordovaIos }"
   >
-    <ul dnd-list="creator.menu">
+    <div
+      style="margin-top: 1em"
+      ng-show="creator.menu.length === 0"
+    >
+      <p class="helper center" translate="EMPTY_MENU_LIST"></p>
+    </div>
+
+    <ul dnd-list="creator.menu" ng-show="creator.menu.length">
       <!-- The dnd-draggable directive makes an element draggable and will
            transfer the object that was assigned to it. If an element was
            dragged away, you have to remove it from the original list
@@ -43,22 +50,23 @@
 
     <div layout="row" layout-sm="column">
       <md-button
-        class="md-raised md-mobilot-color center"
+        class="md-mobilot-color center"
         aria-label="Hinzufügen"
         ng-click="creator.showAddMenuItem()"
       >
-        <md-icon>add</md-icon>
+        <md-icon class="md-mobilot-color">add</md-icon>
         <span translate="ADD_MENU_ENTRY"></span>
       </md-button>
     </div>
 
-    <br>
-
     <div layout="row" layout-sm="column">
       <md-button
-        class="md-raised md-primary"
+        class="md-raised md-primary md-mobilot"
         ng-click="creator.saveMenu()"
-      >{{ 'SAVE' | translate }}</md-button>
+      >
+        <md-icon>check</md-icon>
+        <span translate="SAVE"></span>
+      </md-button>
     </div>
   </md-content>
 </div>

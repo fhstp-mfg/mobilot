@@ -27,6 +27,7 @@ function Editor (
     },
     controller: EditorController,
     controllerAs: 'editor',
+
     link: function ($scope, $element, $attrs, Editor) {
       $scope.$watch('config', function (config) {
         if (config) {

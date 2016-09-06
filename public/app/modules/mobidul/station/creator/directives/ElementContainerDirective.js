@@ -116,7 +116,17 @@ function ElementContainer(
     var ctrl = this;
 
     ctrl.delete = function () {
-      $rootScope.$broadcast('delete:editorElement', ctrl.element.$$hashKey);
+      var confirmDeleteElement = $mdDialog.confirm()
+      .title($translate.instant('DELETE_COMPONENT_TITLE'))
+      .textContent($translate.instant('DELETE_COMPONENT_WARNING'))
+      .ariaLabel($translate.instant('CONFIRMATION'))
+      .ok($translate.instant('YES'))
+      .cancel($translate.instant('NO'));
+
+      $mdDialog.show(confirmDeleteElement)
+      .then(function () {
+        $rootScope.$broadcast('delete:editorElement', ctrl.element.$$hashKey);
+      });
     };
 
     ctrl.collapse = function () {

@@ -1,59 +1,6 @@
 <div>
   <!-- ListController as list -->
 
-  <style>
-    #list_stations_view {
-      position: fixed;
-      width: 100%;
-      /* 56px header height + 52px search field height */
-      top: 108px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
-
-    #list_stations {
-      width: 100%;
-      height: 100%;
-      padding-top: 0;
-    }
-
-    #list_progress_wrapper {
-      position: fixed;
-      width: 100%;
-      /* 56px header height + 52px search field height */
-      top: 108px;
-    }
-    #list_progress_wrapper .loading-title {
-      font-size: 1.2em
-    }
-
-    .header-list-tabs-content {
-      top: 56px
-    }
-
-    .station-item {
-      color: #3797c4
-    }
-    .station-odd {
-      color: #78B2CE;
-      background: #eee;
-    }
-
-    .stdLink {
-      color: black;
-      font-weight: 300;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .secondary-icon {
-      color: black;
-      font-size: 1.6em;
-    }
-  </style>
-
-
   <div
     class="search-type-controls"
     ng-class="{ 'ios-top-margin': list.isCordovaIos }"

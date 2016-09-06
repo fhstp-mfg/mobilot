@@ -21,7 +21,7 @@
       >
     </md-input-container>
 
-    <div layout-sm="column">
+    <div layout="column">
       <md-input-container class="creator-input-container" flex>
         <label>
           <span translate="MOBIDUL_CODE"></span>
@@ -46,7 +46,7 @@
       </p>
     </div>
 
-    <div layout-sm="column">
+    <div layout="column">
       <md-input-container flex>
         <label translate="DESCRIPTION"></label>
         <textarea ng-model="creator.mobidul.description"></textarea>
@@ -63,22 +63,52 @@
       </md-select>
     </md-input-container>
 
-    <div layout-sm="column">
+
+    <!-- Save -->
+
+    <div layout="column">
       <md-button
-        class="md-raised md-primary"
+        class="md-raised md-primary md-mobilot"
         ng-click="creator.saveBasis()"
-        ng-disabled="creator.canNotSave">
+        ng-disabled="creator.canNotSave"
+      >
+        <!-- TODO: replace save icon with loading spinner, when saving -->
+        <!-- <md-icon ng-show="creator.savingBasisMode">
+          <md-progress-circular
+            ng-class="{ 'save-basis-progress': creator.savingBasisMode }"
+            md-mode="indeterminate"
+            md-diameter="20">
+          </md-progress-circular>
+        </md-icon> -->
 
-          <md-icon ng-show="creator.savingBasisMode">
-            <md-progress-circular
-              ng-class="{ 'save-basis-progress' : creator.savingBasisMode }"
-              md-mode="indeterminate"
-              md-diameter="20">
-            </md-progress-circular>
-          </md-icon>
+        <md-icon>done</md-icon>
 
-          <span flex>{{ creator.saveBasisText }}</span>
+        <span flex>{{ creator.saveBasisText }}</span>
       </md-button>
-        </div>
-    </md-content>
+    </div>
+
+
+    <!-- Duplicate Mobidul -->
+
+    <div layout="column" ng-if=" ! creator.isNewMobidul">
+      <md-button
+        class="md-raised md-primary md-mobilot"
+        ng-click="creator.cloneMyMobidul()"
+      >
+        <!-- TODO: replace copy icon with loading spinner, when duplicating -->
+        <!-- <md-icon ng-show="creator.cloningMyMobidulMode">
+          <md-progress-circular
+            ng-class="{ 'save-basis-progress': creator.savingBasisMode }"
+            md-mode="indeterminate"
+            md-diameter="20">
+          </md-progress-circular>
+        </md-icon> -->
+
+        <md-icon>content_copy</md-icon>
+
+        <span flex>{{ creator.cloneMyMobidulText }}</span>
+      </md-button>
+    </div>
+
+  </md-content>
 </div>

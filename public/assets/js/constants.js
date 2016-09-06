@@ -3,15 +3,17 @@
 
 /// constants
 
-var _live  = false;
-var _https = false; // NOTE https is an iOS 9 Safari requirement !
+var _live = false;
 
-// NOTE - don't add any trailing slashes (/) at the end or the URL !
-var _online_server = _live  ? 'mobilot.at' : 'mobilot.fhstp.ac.at';
+// NOTE: https is an iOS 9 Safari requirement !
+var _https = !!_live;
 
-// NOTE - adapted from: http://stackoverflow.com/a/6969486/2035807
+// NOTE: don't add any trailing slashes (/) at the end or the URL !
+var _online_server = _live ? 'mobilot.at' : 'mobilot.fhstp.ac.at';
+
+// NOTE: adapted from: http://stackoverflow.com/a/6969486/2035807
 // var _online_server_regex = _online_server.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
-// NOTE - adapted from: https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions
+// NOTE: adapted from: https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions
 var _online_server_regex = _online_server.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 var protocolPrefix = _https ? 'https://' : 'http://';
@@ -49,17 +51,16 @@ var _enable_aboutus         = true;        // default : true
 /// functions
 
 // adapted from: http://stackoverflow.com/a/827378/2035807
-function getUrlParameter (variable)
-{
+function getUrlParameter (variable) {
   var query = window.location.search.substring(1);
-  var vars  = query.split('&');
+  var vars = query.split('&');
 
-  for ( var i = 0; i < vars.length; i++ )
-  {
-    var pair = vars[ i ].split('=');
+  for (var i = 0; i < vars.length; i++) {
+    var pair = vars[i].split('=');
 
-    if ( pair[ 0 ] == variable )
+    if (pair[ 0 ] == variable) {
       return pair[ 1 ].replace('/', '');
+    }
   }
 
   return '';
@@ -67,8 +68,7 @@ function getUrlParameter (variable)
 
 
 // NOTE - adapted from: http://stackoverflow.com/a/3646923/2035807
-function urlExists (url)
-{
+function urlExists (url) {
   var http = new XMLHttpRequest();
 
   http.open('HEAD', url, false);

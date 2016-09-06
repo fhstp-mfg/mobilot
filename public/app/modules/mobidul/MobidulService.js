@@ -138,28 +138,35 @@ function MobidulService (
 
 
   function getConfig (mobidulCode) {
-    // $log.info('getConfig in MobidulService');
-    // $log.debug(mobidulCode);
+    //$log.info('getConfig in MobidulService');
+    //$log.debug(mobidulCode);
 
-    var defer = $q.defer();
+    var deferred = $q.defer();
 
-    $http.get(cordovaUrl + '/' + mobidulCode + '/getConfig')
-    .success(function (response, status, headers, config) {
-      
-      if ( response ) {
-        service.Mobidul = response;
-      }
+    // don't reload the config if mobidul isn't changed
+    if ( service.Mobidul.mobidulCode === mobidulCode ) {
+      deferred.resolve(service.Mobidul);
+    } else {
 
-      defer.resolve(response);
-    })
-    .error(function (response, status, headers, config) {
-      $log.error(response);
-      $log.error(status);
+      $http.get(cordovaUrl + '/' + mobidulCode + '/getConfig')
+      .success(function (response, status, headers, config) {
 
-      defer.reject(response);
-    });
+        if ( response ) {
+          service.Mobidul = response;
+        }
 
-    return defer.promise;
+        deferred.resolve(response);
+      })
+      .error(function (response, status, headers, config) {
+        $log.error(response);
+        $log.error(status);
+
+        deferred.reject(response);
+      });
+    }
+
+
+    return deferred.promise;
   }
 
   function initProgress () {
@@ -167,8 +174,10 @@ function MobidulService (
 
     service.getMobidulConfig(mobidulCode)
     .then(function (config) {
+
       $log.debug('initProgress - config');
       $log.debug(config);
+
       LocalStorageService.getProgress(mobidulCode, config.states)
       .then(function (progress) {
         service.progress = progress;
@@ -179,8 +188,10 @@ function MobidulService (
   function resetProgress (mobidulCode) {
     service.getMobidulConfig(mobidulCode)
     .then(function (config) {
+
       // $log.info('initProgress - config');
       // $log.debug(config);
+
       LocalStorageService.resetProgress(mobidulCode, config.states)
       .then(function (progress) {
         service.progress = progress;
@@ -268,15 +279,13 @@ function MobidulService (
 
   function getMobidulMode (mobidulCode) {
     return $q(function ( resolve, reject ) {
-      $http.get(cordovaUrl + '/' + mobidulCode + '/getConfig')
-      .success(function (response, status, headers, config) {
-        resolve(response.mode);
-      })
-      .error(function (response, status, headers, config) {
-        $log.error(response);
-        $log.error(status);
-        reject(response);
-      })
+
+      service.getConfig(mobidulCode)
+      .then(function (config) {
+        resolve(config.mode);
+      }, function (error) {
+        reject(error);
+      });
     });
   }
 
@@ -301,14 +310,13 @@ function MobidulService (
 
     $log.warn('MobidulService.isRally is deprecated - use MobidulService.getMobidulMode instead!');
 
-    // TODO: check if service.Mobidul exists to prevent redundant call
-    return $http.get(cordovaUrl + '/' + mobidulCode + '/getConfig')
-    .success(function (response, status, headers, config) {
-      return response.mode == service.MOBIDUL_MODE_RALLY;
-    })
-    .error(function (response, status, headers, config) {
-      $log.error(response);
-      $log.error(status);
+    return $q(function (resolve, reject) {
+      service.getConfig(mobidulCode)
+      .then(function (config) {
+        resolve(config.mode === service.MOBIDUL_MODE_RALLY);
+      }, function (error) {
+        reject(error);
+      });
     });
   }
 
