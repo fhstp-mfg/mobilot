@@ -11,6 +11,7 @@ use App\Models\RestoreToken;
 
 class UserController extends BaseController
 {
+
   public function showLogin ()
   {
     return View::make('login');
@@ -19,90 +20,82 @@ class UserController extends BaseController
 
   public function login ($credentials = null)
   {
-    if ( is_null($credentials) )
-    {
+    if ( is_null($credentials) ) {
       $request  = Request::instance();
-          $params   = $request->getContent();
+      $params   = $request->getContent();
       $params   = json_decode($params);
 
       $credentials = [
         'username' => $params->user,
         'password' => $params->password
       ];
-    }
-    else
-    {
+    } else {
       // "manual" login
       $username = $credentials['username'];
       $password = $credentials['password'];
     }
 
 
-        $sessionId = Session::getId();
-        $guest     = User::where('username', $sessionId)->first();
+    $sessionId = Session::getId();
+    $guest     = User::where('username', $sessionId)->first();
 
 
     $authAttempt = Auth::attempt($credentials, true);
 
-    if ( $authAttempt )
-    {
-            $user = User::getCurrentUser();
+    if ($authAttempt) {
+      $user = User::getCurrentUser();
 
-            if ( $guest )
-            {
+      if ($guest) {
         $mobidul = User2Mobidul::where('userId', $guest->id)->get();
 
 
-                foreach ( $mobidul as $right)
-                {
-                    $existingRight = User2Mobidul::where('mobidulId', $right->mobidulId)
-                                     ->where('userId',     $user->id)
-                         ->first();
+        foreach ($mobidul as $right) {
+          $existingRight = User2Mobidul::where('mobidulId', $right->mobidulId)
+            ->where('userId',     $user->id)
+            ->first();
 
-                    if ( $existingRight &&
-             $existingRight->rights >= $right->rights )
-
-                        User2Mobidul::where('mobidulId', $right->mobidulId)
-                                ->where('userId',    $user->id)
-                  ->delete();
-
-
-                    if ( $existingRight->rights >= $right->rights )
-
-                        User2Mobidul::where('mobidulId',      $right->mobidulId)
-                                ->where('userId',        $right->userId)
-                  ->update(array('userId' => $user->id));
-
-                    else
-                        User2Mobidul::where('mobidulId', $right->mobidulId)
-                                ->where('userId',    $right->userId)
-                  ->delete();
-                }
+          if (
+            $existingRight &&
+            $existingRight->rights >= $right->rights
+          ) {
+            User2Mobidul::where('mobidulId', $right->mobidulId)
+              ->where('userId', $user->id)
+              ->delete();
 
 
-                Station::where('creator',          $guest->id)
-             ->update(array('creator'   => $user->id));
-
-                Attachment::where('userId',      $guest->id)
-              ->update(array('userId' => $user->id));
-
-
-                $guest->delete();
+            if ( $existingRight->rights >= $right->rights ) {
+              User2Mobidul::where('mobidulId', $right->mobidulId)
+                ->where('userId', $right->userId)
+                ->update( array('userId' => $user->id) );
+            } else {
+              User2Mobidul::where('mobidulId', $right->mobidulId)
+                ->where('userId', $right->userId)
+                ->delete();
             }
+          }
 
-      return 'success';
+
+          Station::where('creator', $guest->id)
+            ->update( array('creator' => $user->id) );
+
+          Attachment::where('userId', $guest->id)
+            ->update(array('userId' => $user->id));
+
+          $guest->delete();
+        }
+
+        return 'success';
+      } else {
+        return 'wrong';
+      }
     }
-    else
-      return 'wrong';
   }
 
 
   public function logout ()
   {
     Auth::logout();
-
-        Session::flush();
-
+    Session::flush();
 
     return 'success';
   }
@@ -111,7 +104,7 @@ class UserController extends BaseController
   public function register ()
   {
     $request  = Request::instance();
-        $params   = $request->getContent();
+    $params   = $request->getContent();
     $params   = json_decode($params);
 
     $username = $params->user;
@@ -122,25 +115,24 @@ class UserController extends BaseController
     {
       if ( ! $this->emailExists($email) )
       {
-                $user = User::getCurrentUser();
+        $user = User::getCurrentUser();
 
         $token = $this->uuid(5, $email);
 
-                $user->username      = $username;
-                $user->email        = $email;
-                $user->password      = Hash::make($password);
+        $user->username      = $username;
+        $user->email        = $email;
+        $user->password      = Hash::make($password);
         $user->activation_code = $token;
-                $user->guest        = false;
-                $user->save();
+        $user->guest        = false;
+        $user->save();
 
 
-        // NOTE - sends email with link to activate user account
+        // NOTE: sends email with link to activate user account
         Mail::queue('emails.register',
           array('token' => $token),
 
-          function ($message) use ($email)
-          {
-              $message->to($email);
+          function ($message) use ($email) {
+            $message->to($email);
             $message->subject('Willkommen bei Mobilot :)');
           }
         );
@@ -154,13 +146,13 @@ class UserController extends BaseController
         $authAttempt = Auth::attempt($credentials, true);
 
 
-                return ( $authAttempt ) ? 'success' : 'error';
-      }
-      else
+        return ( $authAttempt ) ? 'success' : 'error';
+      } else {
         return 'email-exists';
-    }
-    else
+      }
+    } else {
       return 'username-exists';
+    }
   }
 
 
@@ -173,7 +165,7 @@ class UserController extends BaseController
   public function changePassword ()
   {
     $request = Request::instance();
-        $params  = $request->getContent();
+    $params  = $request->getContent();
     $params  = json_decode($params);
 
     $resetPassword = false;
@@ -185,18 +177,15 @@ class UserController extends BaseController
     );
 
     $rules = array(
-          'newPassword' => 'required|between:6,30'
-      );
+      'newPassword' => 'required|between:6,30'
+    );
 
 
     if ( $userData['route'] == 'changePassword' )
     {
       $userData['oldPassword'] = $params->oldPassword;
-
       $rules['oldPassword'] = 'required|between:6,30';
-    }
-    else
-    {
+    } else {
       // route : changePasswordNoAuth
 
       $resetPassword = true;
@@ -207,123 +196,113 @@ class UserController extends BaseController
       $rules['resetToken']      = 'required|size:32';
       $rules['confirmPassword'] = 'required|between:6,30';
 
-      // NOTE - in order to have the right order in the error message if validation fails
+      // NOTE: in order to have the right order in the error message if validation fails
       $rules['newPassword']     = $rules['newPassword'] . '|same:confirmPassword';
     }
 
 
       $validator = Validator::make($userData, $rules);
 
-      if ( $validator->fails() )
-      {
-      // TODO - use own (german) messages
-          return $validator->messages();
-      }
-      else
-      {
-      if ( ! $resetPassword )
-      {
-        $user  = Auth::user();
+      if ( $validator->fails() ) {
+        // TODO: use own (german) messages
+        return $validator->messages();
+      } else {
+        if ( ! $resetPassword )
+        {
+          $user  = Auth::user();
 
-            if ( ! Hash::check($params->oldPassword, $user->password) )
+          if ( ! Hash::check($params->oldPassword, $user->password) )
+          {
+            $errorObj = array(
+              'oldPassword' => array(
+                'Das eingegebene Passwort stimmt nicht mit dem alten Passwort überein.'
+              )
+            );
+
+            return json_encode($errorObj);
+          } else {
+            $currentUser = $this->getCurrentUser();
+            $currentUser->password = Hash::make($params->newPassword);
+            $currentUser->save();
+
+            return 'success';
+          }
+        } else {
+          // get email address for token
+          $restoreToken = RestoreToken::getByToken($params->resetToken);
+
+          // attempt to convert saved string to timestamp
+          try {
+            $tokenAddedOn = strtotime($restoreToken->added_on);
+          } catch (Exception $ex) {
+            $tokenAddedOn = false;
+          }
+
+
+          if ( $tokenAddedOn !== false )
+          {
+            // check if token is still valid
+            $now = time();
+            $tokenValidTime = 86400; // 24h -> 60*60*24 = 86400 // seconds
+            $validUntil = $tokenAddedOn + $tokenValidTime; // seconds
+
+            if ( $now < $validUntil )
             {
-                $errorObj = array(
-            'oldPassword' => array(
-              'Das eingegebene Passwort stimmt nicht mit dem alten Passwort überein.'
-            )
-          );
+              // get user by email
+              $user = User::getUserByEmail($restoreToken->email);
 
-          return json_encode($errorObj);
+
+              // NOTE: no email is sent in the first place,
+              // if a user with the given email address doesn't exist.
+
+              $user->password = Hash::make($params->newPassword);
+              $user->save();
+
+
+              $credentials = [
+                'username' => $user->username,
+                'password' => $params->newPassword
+              ];
+
+              $loginResponse = $this->login($credentials);
+
+              $retObj = $loginResponse;
             }
             else
-            {
-          $currentUser = $this->getCurrentUser();
-                $currentUser->password = Hash::make($params->newPassword);
-                $currentUser->save();
+              $retObj = [
+                'msg' => [
+                  0 => 'Dieses Wiederherstellungscode is nicht mehr gültig. Versuche ein neues anzufordern.'
+                ]
+              ];
 
-                return 'success';
+
+            // NOTE: finally remove this restore token
+            try {
+              $restoreToken->delete();
+            } catch (Exception $ex) {
+              // TODO: check which output to handle here
+              Log::info($ex);
+              Log::info($ex->getMessage());
             }
-      }
-      else
-      {
-        // get email address for token
-        $restoreToken = RestoreToken::getByToken($params->resetToken);
 
-
-        // attempt to convert saved string to timestamp
-        try {
-                    $tokenAddedOn = strtotime($restoreToken->added_on);
-                } catch (Exception $ex) {
-                    $tokenAddedOn = false;
-                }
-
-
-        if ( $tokenAddedOn !== false )
-        {
-          // check if token is still valid
-          $now = time();
-          $tokenValidTime = 86400; // 24h -> 60*60*24 = 86400 // seconds
-          $validUntil = $tokenAddedOn + $tokenValidTime; // seconds
-
-          if ( $now < $validUntil )
-          {
-            // get user by email
-            $user = User::getUserByEmail($restoreToken->email);
-
-
-            // NOTE - no email is sent in the first place,
-            //       if a user with the given email address doesn't exist.
-
-            $user->password = Hash::make($params->newPassword);
-            $user->save();
-
-
-            $credentials = [
-              'username' => $user->username,
-              'password' => $params->newPassword
-            ];
-
-            $loginResponse = $this->login($credentials);
-
-            $retObj = $loginResponse;
-          }
-          else
-            $retObj = [
+            return $retObj;
+          } else {
+            return [
               'msg' => [
-                0 => 'Dieses Wiederherstellungscode is nicht mehr gültig. Versuche ein neues anzufordern.'
+                0 => 'Dieses Wiederherstellungscode is ungültig. Versuche ein neues anzufordern.'
               ]
             ];
-
-
-          // NOTE - finally remove this restore token
-          try {
-            $restoreToken->delete();
           }
-          catch (Exception $ex)
-          {
-            // TODO - check which output to handle here
-            Log::info($ex);
-            Log::info($ex->getMessage());
-          }
-
-
-          return $retObj;
         }
-        else
-          return [
-            'msg' => [
-              0 => 'Dieses Wiederherstellungscode is ungültig. Versuche ein neues anzufordern.'
-            ]
-          ];
       }
-      }
+    }
   }
 
 
   public function requestRestore ()
   {
     $request = Request::instance();
-        $params  = $request->getContent();
+    $params  = $request->getContent();
     $params  = json_decode($params);
 
 
@@ -338,20 +317,17 @@ class UserController extends BaseController
 
     $validator = Validator::make($data, $rules);
 
-    if ( $validator->fails() )
-    {
-      // TODO - use own (german) messages
-          return $validator->messages();
-    }
-    else
-    {
-      // TODO - check if user already has generated code, delete it
+    if ( $validator->fails() ) {
+      // TODO: use own (german or better translated) messages
+      return $validator->messages();
+    } else {
+      // TODO: check if user already has generated code, delete it
 
 
       // select user with that email address (if it exists)
       $userWithEmail = DB::table('user')
-                ->where('email', $params->email)
-                ->first();
+        ->where('email', $params->email)
+        ->first();
 
       // only if it exists, generate restore code and send the email
       if ( $userWithEmail )
@@ -359,27 +335,25 @@ class UserController extends BaseController
         // $token = str_random(32);
         $token = $this->uuid(5, $params->email);
 
-
         $restoreToken = new RestoreToken;
-        $restoreToken->token   = $token;
-        $restoreToken->email   = $params->email;
+        $restoreToken->token    = $token;
+        $restoreToken->email    = $params->email;
         $restoreToken->added_on = date('Y-m-d H:i:s', time());
         $restoreToken->save();
 
 
-        // NOTE - sends email with link to restore password
+        // NOTE: sends email with link to restore password
         Mail::queue('emails.restore',
           array('token' => $token),
 
-          function ($message) use ($params)
-          {
-              $message->to($params->email);
+          function ($message) use ($params) {
+            $message->to($params->email);
             $message->subject('Passwort bei Mobilot zurücksetzen');
           }
         );
       }
 
-      // NOTE - even if there is no user assigned to the given email adress,
+      // NOTE: even if there is no user assigned to the given email adress,
       //       the user is told, that an Email is on the way, since the
       //       user should not be told whether an email exists or not,
       //       and the real user will receive either way an email,
@@ -393,26 +367,26 @@ class UserController extends BaseController
   public function userExists ($username)
   {
     return DB::table('user')
-         ->select('username')
-         ->where('username', $username)
-         ->first();
+      ->select('username')
+      ->where('username', $username)
+      ->first();
   }
 
 
   public function emailExists ($email)
   {
     return DB::table('user')
-         ->select('username')
-         ->where('email',$email)
-         ->first();
+      ->select('username')
+      ->where('email',$email)
+      ->first();
   }
 
 
+  
   /// Helpers
 
-
-  // TODO - move helper function to better location
-  // NOTE - adapted from http://codegolf.stackexchange.com/a/20371
+  // TODO: move helper function to better location
+  // NOTE: adapted from http://codegolf.stackexchange.com/a/20371
   private function uuid ($v, $d, $s = '')
   {
     $d .= time();
