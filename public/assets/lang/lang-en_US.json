@@ -176,6 +176,7 @@
   "CATEGORY_DOESNT_EXIST": "This category doesn't exist!",
   "NO_CATEGORY_PASSED": "No category was provided!",
 
+  "EMPTY_CATEGORIES_LIST": "No categories available",
   "NEW_CATEGORY": "New Category",
   "CATEGORIES_SAVED": "Mobidul categories have been saved.",
 

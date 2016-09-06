@@ -176,6 +176,7 @@
   "CATEGORY_DOESNT_EXIST": "Diese Kategorie existiert nicht!",
   "NO_CATEGORY_PASSED": "Es wurde keine Kategorie angegeben!",
 
+  "EMPTY_CATEGORIES_LIST": "Keine Kategories vorhanden",
   "NEW_CATEGORY": "Neue Kategorie",
   "CATEGORIES_SAVED": "Mobidul Kategorien wurden gespeichert.",
 

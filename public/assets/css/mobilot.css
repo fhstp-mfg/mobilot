@@ -30,6 +30,9 @@
 
 p { margin: 0; }
 
+.center {
+  text-align: center
+}
 .bottomless {
   padding-bottom: 0;
   margin-bottom: 0;
@@ -83,15 +86,11 @@ p { margin: 0; }
   .helper, .url-helper {
     font-size: 0.9em;
   }
-
-  .center {
-    text-align: center
-  }
 }
 .dangerous {
-  color        : darkred;
-  font-weight    : bold;
-  margin-bottom  : 0.2em;
+  color         : darkred;
+  font-weight   : bold;
+  margin-bottom : 0.2em;
 }
 
 
