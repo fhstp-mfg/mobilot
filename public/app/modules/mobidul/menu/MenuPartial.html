@@ -2,7 +2,7 @@
   md-component-id="menu"
   class="md-sidenav-left"
   layout="column"
-  style="position : fixed"
+  style="position: fixed"
 >
   <style>
     .menu-login, .menuDivider {
@@ -56,8 +56,8 @@
     </md-list-item>
 
     <md-list-item
-        ng-if="menu.isRallyMode"
-        ng-click="menu.resetRally()"
+      ng-if="menu.isRallyMode"
+      ng-click="menu.resetRally()"
     >
       <md-icon>layers_clear</md-icon>
       <span flex translate="RESET_RALLY"></span>
@@ -85,20 +85,19 @@
         <span flex translate="OPTIONS"></span>
       </md-list-item>
 
-      <md-list-item
+      <!-- <md-list-item
         ng-if="menu.currentUser.role == 1"
         ng-click="mobidul.cloneMyMobidul()"
         ng-show="menu.isCloneMobidulEnabled"
       >
-        <!-- <md-icon>control_point_duplicate</md-icon> -->
         <md-icon>content_copy</md-icon>
         <span flex translate="CLONE"></span>
-      </md-list-item>
+      </md-list-item> -->
     </div>
 
     <!-- Join -->
     <md-list-item ng-click="mobidul.scanJoinCode()">
-      <md-icon>assignment_ind</md-icon>
+      <md-icon md-svg-src="assets/img/qrcode-scan.svg"></md-icon>
       <span flex translate="JOIN"></span>
     </md-list-item>
 

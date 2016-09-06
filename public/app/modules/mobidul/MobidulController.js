@@ -29,7 +29,7 @@ function MobidulController (
   mobidul.switchContent      = switchContent;
   mobidul.switchState        = switchState;
   mobidul.switchAdminContent = switchAdminContent;
-  mobidul.cloneMyMobidul     = cloneMyMobidul;
+  // mobidul.cloneMyMobidul     = cloneMyMobidul;
   mobidul.scanJoinCode       = scanJoinCode;
 
 
@@ -287,25 +287,25 @@ function MobidulController (
   /**
    * Opens a dialog and initializes the Mobidul cloning process.
    */
-  function cloneMyMobidul () {
-    var mobidulName = StateManager.getTitle();
-    var mobidulCode = StateManager.state.params.mobidulCode;
-
-    var cloneDialogOptions = {
-      parent       : angular.element(document.body),
-      title        : $translate.instant('CLONE_MOBIDUL'),
-      templateUrl  : 'app/modules/mobidul/menu/dialog/CloneMobidulDialog.html',
-      controller   : CloneMobidulDialogController,
-      controllerAs : 'cloneMobidulDialog',
-
-      clickOutsideToClose: true
-    };
-
-    $mdDialog.show(cloneDialogOptions)
-    .then(function () {
-      $log.debug('opened dialog');
-    });
-  }
+  // function cloneMyMobidul () {
+  //   var mobidulName = StateManager.getTitle();
+  //   var mobidulCode = StateManager.state.params.mobidulCode;
+  //
+  //   var cloneDialogOptions = {
+  //     parent       : angular.element(document.body),
+  //     title        : $translate.instant('CLONE_MOBIDUL'),
+  //     templateUrl  : 'app/modules/mobidul/menu/dialog/CloneMobidulDialog.html',
+  //     controller   : CloneMobidulDialogController,
+  //     controllerAs : 'cloneMobidulDialog',
+  //
+  //     clickOutsideToClose: true
+  //   };
+  //
+  //   $mdDialog.show(cloneDialogOptions);
+  //   // .then(function () {
+  //   //   $log.debug('opened dialog');
+  //   // });
+  // }
 
 
   function scanJoinCode () {
