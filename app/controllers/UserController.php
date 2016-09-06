@@ -172,7 +172,7 @@ class UserController extends BaseController
 
     /// user data
     $userData = array(
-      'route'      => $params->route,
+      'route'       => $params->route,
       'newPassword' => $params->newPassword
     );
 
@@ -181,8 +181,7 @@ class UserController extends BaseController
     );
 
 
-    if ( $userData['route'] == 'changePassword' )
-    {
+    if ( $userData['route'] == 'changePassword' ) {
       $userData['oldPassword'] = $params->oldPassword;
       $rules['oldPassword'] = 'required|between:6,30';
     } else {
@@ -201,98 +200,97 @@ class UserController extends BaseController
     }
 
 
-      $validator = Validator::make($userData, $rules);
+    $validator = Validator::make($userData, $rules);
 
-      if ( $validator->fails() ) {
-        // TODO: use own (german) messages
-        return $validator->messages();
-      } else {
-        if ( ! $resetPassword )
+    if ( $validator->fails() ) {
+      // TODO: use own (german) messages
+      return $validator->messages();
+    } else {
+      if ( ! $resetPassword )
+      {
+        $user  = Auth::user();
+
+        if ( ! Hash::check($params->oldPassword, $user->password) )
         {
-          $user  = Auth::user();
+          $errorObj = array(
+            'oldPassword' => array(
+              'Das eingegebene Passwort stimmt nicht mit dem alten Passwort überein.'
+            )
+          );
 
-          if ( ! Hash::check($params->oldPassword, $user->password) )
-          {
-            $errorObj = array(
-              'oldPassword' => array(
-                'Das eingegebene Passwort stimmt nicht mit dem alten Passwort überein.'
-              )
-            );
-
-            return json_encode($errorObj);
-          } else {
-            $currentUser = $this->getCurrentUser();
-            $currentUser->password = Hash::make($params->newPassword);
-            $currentUser->save();
-
-            return 'success';
-          }
+          return json_encode($errorObj);
         } else {
-          // get email address for token
-          $restoreToken = RestoreToken::getByToken($params->resetToken);
+          $currentUser = $this->getCurrentUser();
+          $currentUser->password = Hash::make($params->newPassword);
+          $currentUser->save();
 
-          // attempt to convert saved string to timestamp
-          try {
-            $tokenAddedOn = strtotime($restoreToken->added_on);
-          } catch (Exception $ex) {
-            $tokenAddedOn = false;
-          }
+          return 'success';
+        }
+      } else {
+        // get email address for token
+        $restoreToken = RestoreToken::getByToken($params->resetToken);
+
+        // attempt to convert saved string to timestamp
+        try {
+          $tokenAddedOn = strtotime($restoreToken->added_on);
+        } catch (Exception $ex) {
+          $tokenAddedOn = false;
+        }
 
 
-          if ( $tokenAddedOn !== false )
+        if ( $tokenAddedOn !== false )
+        {
+          // check if token is still valid
+          $now = time();
+          $tokenValidTime = 86400; // 24h -> 60*60*24 = 86400 // seconds
+          $validUntil = $tokenAddedOn + $tokenValidTime; // seconds
+
+          if ( $now < $validUntil )
           {
-            // check if token is still valid
-            $now = time();
-            $tokenValidTime = 86400; // 24h -> 60*60*24 = 86400 // seconds
-            $validUntil = $tokenAddedOn + $tokenValidTime; // seconds
-
-            if ( $now < $validUntil )
-            {
-              // get user by email
-              $user = User::getUserByEmail($restoreToken->email);
+            // get user by email
+            $user = User::getUserByEmail($restoreToken->email);
 
 
-              // NOTE: no email is sent in the first place,
-              // if a user with the given email address doesn't exist.
+            // NOTE: no email is sent in the first place,
+            // if a user with the given email address doesn't exist.
 
-              $user->password = Hash::make($params->newPassword);
-              $user->save();
-
-
-              $credentials = [
-                'username' => $user->username,
-                'password' => $params->newPassword
-              ];
-
-              $loginResponse = $this->login($credentials);
-
-              $retObj = $loginResponse;
-            }
-            else
-              $retObj = [
-                'msg' => [
-                  0 => 'Dieses Wiederherstellungscode is nicht mehr gültig. Versuche ein neues anzufordern.'
-                ]
-              ];
+            $user->password = Hash::make($params->newPassword);
+            $user->save();
 
 
-            // NOTE: finally remove this restore token
-            try {
-              $restoreToken->delete();
-            } catch (Exception $ex) {
-              // TODO: check which output to handle here
-              Log::info($ex);
-              Log::info($ex->getMessage());
-            }
+            $credentials = [
+              'username' => $user->username,
+              'password' => $params->newPassword
+            ];
 
-            return $retObj;
-          } else {
-            return [
+            $loginResponse = $this->login($credentials);
+
+            $retObj = $loginResponse;
+          }
+          else
+            $retObj = [
               'msg' => [
-                0 => 'Dieses Wiederherstellungscode is ungültig. Versuche ein neues anzufordern.'
+                0 => 'Dieses Wiederherstellungscode is nicht mehr gültig. Versuche ein neues anzufordern.'
               ]
             ];
+
+
+          // NOTE: finally remove this restore token
+          try {
+            $restoreToken->delete();
+          } catch (Exception $ex) {
+            // TODO: check which output to handle here
+            Log::info($ex);
+            Log::info($ex->getMessage());
           }
+
+          return $retObj;
+        } else {
+          return [
+            'msg' => [
+              0 => 'Dieses Wiederherstellungscode is ungültig. Versuche ein neues anzufordern.'
+            ]
+          ];
         }
       }
     }
@@ -382,7 +380,7 @@ class UserController extends BaseController
   }
 
 
-  
+
   /// Helpers
 
   // TODO: move helper function to better location
