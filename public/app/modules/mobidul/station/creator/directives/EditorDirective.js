@@ -18,7 +18,7 @@ function Editor (
     restrict: 'E',
     template:
     '<div style="height: 100%">' +
-      '<md-tabs id="editortabs" data-md-selected="editor.selectedIndex">' +
+      '<md-tabs id="editortabs" data-md-selected="editor.selectedIndex" ng-class="{\'station-editor-tab-default-mobidul\': $scope.isDefaultMobidul}">' +
         '<editortab data-tabconfig="tabconfig" data-tabname="tabname" ng-repeat="(tabname, tabconfig) in editor.config"></editortab>' +
       '</md-tabs>' +
     '</div>',

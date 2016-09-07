@@ -176,7 +176,7 @@
   "CATEGORY_DOESNT_EXIST": "Diese Kategorie existiert nicht!",
   "NO_CATEGORY_PASSED": "Es wurde keine Kategorie angegeben!",
 
-  "EMPTY_CATEGORIES_LIST": "Keine Kategories vorhanden",
+  "EMPTY_CATEGORIES_LIST": "Keine Kategorien vorhanden",
   "NEW_CATEGORY": "Neue Kategorie",
   "CATEGORIES_SAVED": "Mobidul Kategorien wurden gespeichert.",
 
@@ -192,9 +192,9 @@
   "MAP": "Karte",
   "ADD_MAP": "Karte hinzufügen",
 
-  "EMPTY_MENU_LIST": "Keine Menü Einträge vorhanden",
+  "EMPTY_MENU_LIST": "Keine Menüeinträge vorhanden",
   "MENU_ENTRY": "Menü Eintrag",
-  "ADD_MENU_ENTRY": "Menü Eintrag hinzufügen",
+  "ADD_MENU_ENTRY": "Menüeintrag hinzufügen",
 
   "DIVIDER": "Trenner",
   "ADD_DIVIDER": "Trenner hinzufügen",

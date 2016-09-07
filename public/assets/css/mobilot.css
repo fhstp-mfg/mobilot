@@ -529,6 +529,14 @@ editor{
   padding: 0;
 }
 
+#editortabs.station-editor-tab-default-mobidul md-tabs-canvas {
+  display: none
+}
+
+#editortabs.station-editor-tab-default-mobidul md-tabs-content-wrapper {
+  top: 0
+}
+
 md-tabs.md-default-theme md-ink-bar, md-tabs md-ink-bar {
   color: #3797c4;
   background: #3797c4;

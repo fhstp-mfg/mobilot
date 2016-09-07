@@ -79,7 +79,7 @@ function MobidulService (
         }
       },
 
-      states: 'OPEN',
+      states: ['OPEN'],
 
       defaultState: 'OPEN',
       
