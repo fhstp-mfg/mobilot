@@ -82,7 +82,7 @@ function MobidulService (
       states: ['OPEN'],
 
       defaultState: 'OPEN',
-      
+
       hiddenStations: false
     }],
 
@@ -205,7 +205,7 @@ function MobidulService (
 
     service.getConfig(mobidulCode)
     .then(function (config) {
-      
+
       LocalStorageService.getProgress(mobidulCode, config.states)
       .then(function (progress) {
         defer.resolve(progress);

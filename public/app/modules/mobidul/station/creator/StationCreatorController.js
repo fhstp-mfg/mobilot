@@ -57,6 +57,9 @@ function StationCreatorController (
   stationCreator.centerToMyPosition = false;
   stationCreator.isRally            = false;
 
+  // TODO: Change this to use the actual Mobidul mode !!!
+  stationCreator.showStationStates  = true;
+
   // basic
   stationCreator.basis = {
     originalCode: '',
@@ -86,7 +89,7 @@ function StationCreatorController (
   stationCreator.changeName = changeName;
   stationCreator.changeCode = changeCode;
   // map
-  // NOTE - moved to MapController
+  // NOTE: moved to MapController
   // stationCreator.dropMarker = dropMarker;
   // categories
   // ...
@@ -128,7 +131,7 @@ function StationCreatorController (
   {
     var currentStateParams = StateManager.state.params;
 
-    // TODO - check if this statament is really necessary
+    // TODO: check if this statament is really necessary
     if ( currentStateParams )
     {
       var mobidulCode = currentStateParams.mobidulCode;
@@ -154,8 +157,8 @@ function StationCreatorController (
 
       //Check if mobidule is rallye
       MobidulService.getMobidulMode(currentStateParams.mobidulCode)
-        .then(function(mode){
-          stationCreator.isRally = (mode == MobidulService.MOBIDUL_MODE_RALLY);
+        .then(function (mobidulMode) {
+          stationCreator.isRally = mobidulMode == MobidulService.MOBIDUL_MODE_RALLY;
         });
 
       // setting corrent url for current mobidul
