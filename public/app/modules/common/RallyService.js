@@ -28,7 +28,7 @@ function RallyService (
         action: function () {
           return LocalStorageService.increaseScore($stateParams.mobidulCode, 10)
           .then(function (newScore) {
-            return service.setStatusOpen().then(function(){return true});
+            return service.setStatusOpen().then(function () { return true });
           }, function (error) {
             $log.error('RallyService.ACTIONS.OPEN_THIS.action', error);
           });
@@ -251,17 +251,17 @@ function RallyService (
 
     var defer = $q.defer(),
         mobidulCode = $stateParams.mobidulCode;
-    
+
     MobidulService.getMobidulConfig(mobidulCode)
       .then(function (config) {
         if ( stations.length == 1 || ! config.hiddenStations ) {
           defer.resolve(service.originStations);
         } else {
           var filteredStations = [];
-          
+
           MobidulService.getProgress(mobidulCode)
           .then(function (progress) {
-            
+
             angular.forEach(service.originStations, function (station, key) {
               if ( station.order <= progress.progress ) {
                 filteredStations.push(station);
