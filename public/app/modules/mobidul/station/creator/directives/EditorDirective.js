@@ -31,15 +31,15 @@ function Editor (
     controllerAs: 'editor',
 
     link: function ($scope, $element, $attrs, Editor) {
-      Editor.showStationStates = $scope.showStationStates;
-
       $scope.$watch('config', function (config) {
         if (config) {
           Editor.config = config;
-          $log.debug('MAHSHASUD: ', $attrs);
-          // $log.info('config editor:');
-          // $log.debug(Editor.config);
         }
+      });
+
+      $scope.$watch('showStationStates', function (showStationStates) {
+        Editor.showStationStates =
+          (typeof showStationStates !== 'undefined') ? showStationStates : true;
       });
     }
   };

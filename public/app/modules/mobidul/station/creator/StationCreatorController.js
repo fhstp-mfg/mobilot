@@ -56,9 +56,7 @@ function StationCreatorController (
   stationCreator.circleColor        = MapService.circleColor;
   stationCreator.centerToMyPosition = false;
   stationCreator.isRally            = false;
-
-  // TODO: Change this to use the actual Mobidul mode !!!
-  stationCreator.showStationStates  = true;
+  stationCreator.showStationStates  = false;
 
   // basic
   stationCreator.basis = {
@@ -117,13 +115,6 @@ function StationCreatorController (
 
     _listenToCancelEdit();
     _listenToSaveStation();
-
-    // if ( stationCreator.state === 'mobidul.station.edit.place' )
-    // {
-    //   _waitForGoogleMapApi();
-    //
-    //   _waitForGoogleMap();
-    // }
   }
 
 
@@ -131,9 +122,13 @@ function StationCreatorController (
   {
     var currentStateParams = StateManager.state.params;
 
+    // NOTE: This is only temporary for the TODO below! Should be removed asap!
+    if (currentStateParams) { /*_*/ } else {
+      alert('currentStateParams in StationCreatorController:_initDefaultValues undefined');
+    }
+
     // TODO: check if this statament is really necessary
-    if ( currentStateParams )
-    {
+    if (currentStateParams) {
       var mobidulCode = currentStateParams.mobidulCode;
       var stationCode = currentStateParams.stationCode;
 
@@ -141,8 +136,7 @@ function StationCreatorController (
 
       // var stationOptions = angular.copy( stationCreator.stationOptions );
 
-      stationCreator.station =
-      {
+      stationCreator.station = {
         name : '',
         link : '',
         code : '',
@@ -155,10 +149,13 @@ function StationCreatorController (
       _resetStationOptions();
 
 
-      //Check if mobidule is rallye
+      // Check if mobidule is rallye
       MobidulService.getMobidulMode(currentStateParams.mobidulCode)
         .then(function (mobidulMode) {
-          stationCreator.isRally = mobidulMode == MobidulService.MOBIDUL_MODE_RALLY;
+          var isRallyMode = mobidulMode == MobidulService.MOBIDUL_MODE_RALLY;
+
+          stationCreator.isRally = isRallyMode;
+          stationCreator.showStationStates = isRallyMode;
         });
 
       // setting corrent url for current mobidul
@@ -166,11 +163,10 @@ function StationCreatorController (
 
 
       // loading mobidul categories
-      _loadCategories( mobidulCode )
-        .then(function ()
-        {
-          // NOTE - after the mobidul categories are loaded,
-          //    station related data should be loaded .
+      _loadCategories(mobidulCode)
+        .then(function () {
+          // NOTE: after the mobidul categories are loaded,
+          // station related data should be loaded.
 
           var isNewStation = stationCode === StateManager.NEW_STATION_CODE;
 
@@ -178,43 +174,35 @@ function StationCreatorController (
 
 
           // different actions when there is new station or nah .
-          if ( isNewStation )
-          {
+          if (isNewStation) {
             stationCreator.basis.generateCode = true;
 
             //new station - fill with default station structure
             MobidulService.getMobidulConfig(StateManager.state.params.mobidulCode)
-              .then(function(response){
+              .then(function (response) {
 
                 var config = {};
-                angular.forEach(response.states, function(state){
-                  config[state] = [
-                    {
-                      type: 'HTML',
-                      content: $translate.instant('STATION_SAMPLE_TEXT')
-                    }
-                  ];
+                angular.forEach(response.states, function (state) {
+                  config[state] = [{
+                    type: 'HTML',
+                    content: $translate.instant('STATION_SAMPLE_TEXT')
+                  }];
                 });
 
                 stationCreator.station.content = config;
-
               });
+          } else {
+            _loadStation(mobidulCode, stationCode);
           }
-          else
-          {
-            _loadStation( mobidulCode, stationCode );
-          }
-          _loadAllStations(mobidulCode);
 
+          _loadAllStations(mobidulCode);
         });
 
 
       // getting current position
-      MapService
-        .getCurrentPosition()
-        .then(function (position)
-        {
-          // NOTE - check if this is even necessary
+      MapService.getCurrentPosition()
+        .then(function (position) {
+          // NOTE: check if this is even necessary
           stationCreator.myPosition = position;
         });
     }
@@ -223,8 +211,7 @@ function StationCreatorController (
 
   function _listenToStationCode ()
   {
-    $scope.$watch('stationCreator.station.code', function (newCode, oldCode)
-    {
+    $scope.$watch('stationCreator.station.code', function (newCode, oldCode) {
       stationCreator.codePreview =
         newCode ? newCode : StationCreatorService.STATION_CODE_EXAMPLE;
     });
@@ -236,8 +223,7 @@ function StationCreatorController (
     // $log.debug('(( Listening to "Header::cancelEdit"');
 
     var cancelEditListener =
-      $rootScope.$on('Header::cancelEdit', function (event, config)
-      {
+      $rootScope.$on('Header::cancelEdit', function (event, config) {
         // $log.debug('Listened to "Header::cancelEdit"');
 
         // _saveStation();
@@ -275,28 +261,27 @@ function StationCreatorController (
    */
   function _loadAllStations(mobidulCode)
   {
-
-    StationService
-      .getMapStations(mobidulCode)
-      .success(function(stations){
+    StationService.getMapStations(mobidulCode)
+      .success(function (stations) {
 
         //$log.info("loadAllStations:");
         //$log.debug(stations);
 
         //Check if marker exists (doesn't if new station is created)
-        if(StationCreatorService.marker.coords) {
+        if (StationCreatorService.marker.coords) {
           //Remove stations with the same coordinates as the current station
           stations = stations.filter(function (station) {
-            return station.lat != StationCreatorService.marker.coords.latitude && station.lon != StationCreatorService.marker.coords.longitude;
+            return (
+              station.lat != StationCreatorService.marker.coords.latitude &&
+              station.lon != StationCreatorService.marker.coords.longitude
+            );
           });
-        }else{
-          //$log.info("New Marker");
+        } else {
+          // $log.info("New Marker");
         }
 
-        angular.forEach(stations, function(station, key){
-
-          var stationData =
-          {
+        angular.forEach(stations, function (station, key) {
+          var stationData = {
             id         : station.code,
             latitude   : station.lat,
             longitude  : station.lon,
@@ -307,14 +292,9 @@ function StationCreatorController (
 
         });
       })
-      .error(function (response, status, headers, config, statusText)
-      {
+      .error(function (response, status, headers, config, statusText) {
         $log.error(response);
         $log.error(status);
-      })
-      .then(function(){
-        //$log.info("StationCreatorController - _loadAllStations - stationCreator.stations:");
-        //$log.debug(StationCreatorService.markersAll);
       });
   }
 
@@ -586,9 +566,11 @@ function StationCreatorController (
     var hasCategoriesChanges = ! angular.equals( stationCreator.categories, stationCreator.origCategories );
     var hasOptionChanges     = ! angular.equals( stationCreator.stationOptions, stationCreator.origStationOptions );
 
-    var hasChanges = hasStationChanges     ||
-             hasCategoriesChanges ||
-             hasOptionChanges;
+    var hasChanges = (
+      hasStationChanges ||
+      hasCategoriesChanges ||
+      hasOptionChanges
+    );
 
     // $log.debug('hasChanged : ' + hasChanges);
     // $log.debug('origStation vs station :');
