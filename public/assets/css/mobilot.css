@@ -556,8 +556,9 @@ editor-tools {
 }
 
 editor-tools div {
-  height:48px;
-  width:675px;
+  height: 48px;
+  white-space: nowrap;
+  padding-bottom: 10px;
 }
 
 .editor-add-button {
