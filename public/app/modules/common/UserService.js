@@ -24,9 +24,9 @@ function UserService (
 
   // NOTE: these are permissions for Guest users
   var _Permits = {
-    //RequestAllStations     : false,
-    //RequestCategoryStations : false,
-    //EditStation       : false
+    // RequestAllStations      : false,
+    // RequestCategoryStations : false,
+    // EditStation             : false
   };
 
 
