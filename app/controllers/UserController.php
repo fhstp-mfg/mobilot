@@ -11,7 +11,9 @@ use App\Models\RestoreToken;
 
 class UserController extends BaseController
 {
-
+  /**
+   * @deprecated
+   */
   public function showLogin ()
   {
     return View::make('login');
@@ -21,33 +23,33 @@ class UserController extends BaseController
   public function login ($credentials = null)
   {
     if ( is_null($credentials) ) {
-      $request  = Request::instance();
-      $params   = $request->getContent();
-      $params   = json_decode($params);
+      $request = Request::instance();
+      $params  = $request->getContent();
+      $params  = json_decode($params);
 
       $credentials = [
         'username' => $params->user,
         'password' => $params->password
       ];
     } else {
+      // NOTE: @deprecated !
       // "manual" login
       $username = $credentials['username'];
       $password = $credentials['password'];
     }
 
-
     $sessionId = Session::getId();
     $guest     = User::where('username', $sessionId)->first();
-
 
     $authAttempt = Auth::attempt($credentials, true);
 
     if ($authAttempt) {
       $user = User::getCurrentUser();
+      \Log::info('authAttempt $user:');
+      \Log::info($user);
 
       if ($guest) {
         $mobidul = User2Mobidul::where('userId', $guest->id)->get();
-
 
         foreach ($mobidul as $right) {
           $existingRight = User2Mobidul::where('mobidulId', $right->mobidulId)
@@ -74,12 +76,11 @@ class UserController extends BaseController
             }
           }
 
-
           Station::where('creator', $guest->id)
             ->update( array('creator' => $user->id) );
 
           Attachment::where('userId', $guest->id)
-            ->update(array('userId' => $user->id));
+            ->update( array('userId' => $user->id) );
 
           $guest->delete();
         }
@@ -88,6 +89,8 @@ class UserController extends BaseController
       } else {
         return 'wrong';
       }
+    } else {
+      return 'wrong';
     }
   }
 
@@ -171,6 +174,7 @@ class UserController extends BaseController
     $resetPassword = false;
 
     /// user data
+    \Log::info('Route: ' . $params->route);
     $userData = array(
       'route'       => $params->route,
       'newPassword' => $params->newPassword
@@ -206,12 +210,10 @@ class UserController extends BaseController
       // TODO: use own (german) messages
       return $validator->messages();
     } else {
-      if ( ! $resetPassword )
-      {
+      if ( ! $resetPassword ) {
         $user  = Auth::user();
 
-        if ( ! Hash::check($params->oldPassword, $user->password) )
-        {
+        if ( ! Hash::check($params->oldPassword, $user->password) ) {
           $errorObj = array(
             'oldPassword' => array(
               'Das eingegebene Passwort stimmt nicht mit dem alten Passwort überein.'
@@ -238,25 +240,21 @@ class UserController extends BaseController
         }
 
 
-        if ( $tokenAddedOn !== false )
-        {
+        if ($tokenAddedOn !== false) {
           // check if token is still valid
           $now = time();
           $tokenValidTime = 86400; // 24h -> 60*60*24 = 86400 // seconds
           $validUntil = $tokenAddedOn + $tokenValidTime; // seconds
 
-          if ( $now < $validUntil )
-          {
+          if ($now < $validUntil) {
             // get user by email
             $user = User::getUserByEmail($restoreToken->email);
-
 
             // NOTE: no email is sent in the first place,
             // if a user with the given email address doesn't exist.
 
             $user->password = Hash::make($params->newPassword);
             $user->save();
-
 
             $credentials = [
               'username' => $user->username,
@@ -266,13 +264,13 @@ class UserController extends BaseController
             $loginResponse = $this->login($credentials);
 
             $retObj = $loginResponse;
-          }
-          else
+          } else {
             $retObj = [
               'msg' => [
                 0 => 'Dieses Wiederherstellungscode is nicht mehr gültig. Versuche ein neues anzufordern.'
               ]
             ];
+          }
 
 
           // NOTE: finally remove this restore token
@@ -315,12 +313,11 @@ class UserController extends BaseController
 
     $validator = Validator::make($data, $rules);
 
-    if ( $validator->fails() ) {
+    if ($validator->fails()) {
       // TODO: use own (german or better translated) messages
       return $validator->messages();
     } else {
       // TODO: check if user already has generated code, delete it
-
 
       // select user with that email address (if it exists)
       $userWithEmail = DB::table('user')
@@ -328,8 +325,7 @@ class UserController extends BaseController
         ->first();
 
       // only if it exists, generate restore code and send the email
-      if ( $userWithEmail )
-      {
+      if ($userWithEmail) {
         // $token = str_random(32);
         $token = $this->uuid(5, $params->email);
 
