@@ -52,6 +52,7 @@
     "angular-aria": "1.4.8",
     "angular-messages": "1.4.8",
     "angular-cookies": "1.4.8",
-    "ngstorage": "^0.3.11"
+    "ngstorage": "^0.3.11",
+    "react": "^15.3.2"
   }
 }
