@@ -9,7 +9,10 @@ use App;
 use App\Models\User2Mobidul;
 use App\Models\Mobidul;
 
-class User extends \Eloquent {
+class User extends \Eloquent /*implements RemindableInterface*/ {
+
+  // use RemindableTrait;
+
 
   /**
    * The database table used by the model.
@@ -37,7 +40,7 @@ class User extends \Eloquent {
   public static function getOrCreateGuest ()
   {
     $sessionId = Session::getId();
-    $guest     = static::where('username', $sessionId)->first();
+    $guest = static::where('username', $sessionId)->first();
 
     if ( ! $guest ) {
       $guest = new static;
@@ -60,7 +63,7 @@ class User extends \Eloquent {
 
   public static function getCurrentUser ()
   {
-    if ( Auth::check() ) {
+    if (Auth::check()) {
       $user = static::find( Auth::id() );
 
       if ($user->guest) {
@@ -167,7 +170,7 @@ class User extends \Eloquent {
    */
   public function isAdminInMobidul ($mobidulId)
   {
-    if ( $this->username == 'admin' ) {
+    if ($this->username == 'admin') {
       return true;
     }
 
