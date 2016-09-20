@@ -79,21 +79,22 @@ function LoginController (
 
   function _checkIsLoggedIn ()
   {
-    if ( UserService.Session.isLoggedIn )
-    {
-      if ( StateManager.isActivate() )
+    if (UserService.Session.isLoggedIn) {
+      if (StateManager.isActivate())
+        // TODO: Find a better solution for this !!!
         $timeout(function () {
           $state.go('home');
         }, 4000);
-      else
+      else {
         StateManager.back();
-    }
-    else
-    {
-      if ( StateManager.isActivate() )
+      }
+    } else {
+      if (StateManager.isActivate()) {
+        // TODO: Find a better solution for this !!!
         $timeout(function () {
           $state.go('home.login');
         }, 4000);
+      }
     }
   }
 
@@ -105,144 +106,128 @@ function LoginController (
     $log.debug('loggin user in');
     $log.debug(login.credentials);
 
-    UserService
-      .login( login.credentials )
-      .then(function (response)
-      {
-        $log.debug('login callback');
-        $log.debug(response);
+    UserService.login(login.credentials)
+    .then(function (response) {
+      $log.debug('login callback');
+      $log.debug(response);
 
-        if ( response.data === 'wrong' )
-        {
-          var loginCompletedDialog =
-            $mdDialog.alert()
-              .parent( angular.element(document.body) )
-              .title($translate.instant('LOGIN_ERROR'))
-              .textContent($translate.instant('CREDENTIALS_WRONG'))
-              .ariaLabel($translate.instant('LOGIN_ERROR'))
-              .ok($translate.instant('EDIT_CREDENTIALS'));
+      if (response.data === 'wrong') {
+        var loginCompletedDialog =
+          $mdDialog.alert()
+            .parent(angular.element(document.body))
+            .title($translate.instant('LOGIN_ERROR'))
+            .textContent($translate.instant('CREDENTIALS_WRONG'))
+            .ariaLabel($translate.instant('LOGIN_ERROR'))
+            .ok($translate.instant('EDIT_CREDENTIALS'));
 
-          $mdDialog.show( loginCompletedDialog );
-        }
+        $mdDialog.show(loginCompletedDialog);
+      }
 
-        _checkIsLoggedInOnline( response );
-      });
+      _checkIsLoggedInOnline(response);
+    });
   }
 
   function registerUser ()
   {
     // $log.debug('register user');
 
-    UserService
-      .register(login.credentials)
-      .then(function (response)
-      {
-        // $log.debug('register callback');
-        // $log.debug(response);
+    UserService.register(login.credentials)
+    .then(function (response) {
+      // $log.debug('register callback');
+      // $log.debug(response);
 
-        var registrationDialogTitle,
+      var registrationDialogTitle,
           registrationDialogContent,
           registrationDialogOk;
 
-        var result = response.data ? response.data : {};
+      var result = response.data ? response.data : {};
 
-        switch ( result )
-        {
-          case 'success' :
-            registrationDialogTitle   = $translate.instant('REGISTRATION_SUCCESSFUL');
-            registrationDialogContent = $translate.instant('CONFIRM_MAIL_SENT_CHECK_SPAM');
-            registrationDialogOk      = $translate.instant('CONTINUE');
+      switch (result) {
+        case 'success' :
+          registrationDialogTitle   = $translate.instant('REGISTRATION_SUCCESSFUL');
+          registrationDialogContent = $translate.instant('CONFIRM_MAIL_SENT_CHECK_SPAM');
+          registrationDialogOk      = $translate.instant('CONTINUE');
+          break;
 
-            break;
+        case 'email-exists' :
+          registrationDialogTitle   = $translate.instant('INVALID_EMAIL');
+          registrationDialogContent = $translate.instant('EMAIL_ALREADY_TAKEN');
+          registrationDialogOk      = $translate.instant('CHANGE_EMAIL');
+          break;
 
-          case 'email-exists' :
-            registrationDialogTitle   = $translate.instant('INVALID_EMAIL');
-            registrationDialogContent = $translate.instant('EMAIL_ALREADY_TAKEN');
-            registrationDialogOk      = $translate.instant('CHANGE_EMAIL');
+        case 'username-exists' :
+          registrationDialogTitle   = $translate.instant('INVALID_USERNAME');
+          registrationDialogContent = $translate.instant('USERNAME_ALREADY_TAKEN');
+          registrationDialogOk      = $translate.instant('CHANGE_USERNAME');
+          break;
 
-            break;
-
-          case 'username-exists' :
-            registrationDialogTitle   = $translate.instant('INVALID_USERNAME');
-            registrationDialogContent = $translate.instant('USERNAME_ALREADY_TAKEN');
-            registrationDialogOk      = $translate.instant('CHANGE_USERNAME');
-
-            break;
-
-          case 'error'   :
-            registrationDialogTitle   = $translate.instant('REGISTRATION_ERROR');
-            registrationDialogContent = $translate.instant('REGISTRATION_ERROR_TRY_AGAIN');
-            registrationDialogOk      = $translate.instant('OK');
-
-            break;
-        }
+        case 'error'   :
+          registrationDialogTitle   = $translate.instant('REGISTRATION_ERROR');
+          registrationDialogContent = $translate.instant('REGISTRATION_ERROR_TRY_AGAIN');
+          registrationDialogOk      = $translate.instant('OK');
+          break;
+      }
 
 
-        var registrationCompletedDialog =
-          $mdDialog.alert()
-            .parent(angular.element(document.body))
-            .title(registrationDialogTitle)
-            .textContent(registrationDialogContent)
-            .ariaLabel($translate.instant('REGISTRATION_INFORMATION'))
-            .ok(registrationDialogOk);
+      var registrationCompletedDialog =
+        $mdDialog.alert()
+        .parent(angular.element(document.body))
+        .title(registrationDialogTitle)
+        .textContent(registrationDialogContent)
+        .ariaLabel($translate.instant('REGISTRATION_INFORMATION'))
+        .ok(registrationDialogOk);
 
-        $mdDialog.show( registrationCompletedDialog );
+      $mdDialog.show( registrationCompletedDialog );
 
 
 
-        if ( result === 'success' )
-
-          _checkIsLoggedInOnline( response );
-
-      });
+      if (result === 'success') {
+        _checkIsLoggedInOnline(response);
+      }
+    });
   }
 
 
   function requestRestore ()
   {
-    UserService.requestRestore( login.credentials.email )
-      .then(function (response)
-      {
-        // $log.debug('request restore callback');
-        // $log.debug(response);
+    UserService.requestRestore(login.credentials.email)
+    .then(function (response) {
+      // $log.debug('request restore callback');
+      // $log.debug(response);
 
-        var emailMessage,
+      var emailMessage,
           requestRestoreDialogTitle,
           requestRestoreDialogAriaLabel,
           requestRestoreDialogOk;
 
 
-        if ( response.data !== 'success' )
-        {
-          if ( response.data.email )
-          {
-            var emailMessage = response.data.email[ 0 ];
+      if (response.data !== 'success') {
+        if (response.data.email) {
+          var emailMessage = response.data.email[0];
 
-            requestRestoreDialogTitle     = $translate.instant('RESET_PASSWORD_ERROR');
-            requestRestoreDialogAriaLabel = $translate.instant('RESET_PASSWORD_ERROR');
-            requestRestoreDialogOk         = $translate.instant('CHANGE_EMAIL');
-          }
+          requestRestoreDialogTitle     = $translate.instant('RESET_PASSWORD_ERROR');
+          requestRestoreDialogAriaLabel = $translate.instant('RESET_PASSWORD_ERROR');
+          requestRestoreDialogOk        = $translate.instant('CHANGE_EMAIL');
         }
-        else
-        {
-          emailMessage = $translate.instant('RESET_PASSWORD_EMAIL');
+      } else {
+        emailMessage = $translate.instant('RESET_PASSWORD_EMAIL');
 
-          requestRestoreDialogTitle     = $translate.instant('RESET_PASSWORD_EMAIL');
-          requestRestoreDialogAriaLabel = $translate.instant('RESET_PASSWORD_EMAIL');
-          requestRestoreDialogOk      = $translate.instant('CONTINUE');
-        }
+        requestRestoreDialogTitle     = $translate.instant('RESET_PASSWORD_EMAIL');
+        requestRestoreDialogAriaLabel = $translate.instant('RESET_PASSWORD_EMAIL');
+        requestRestoreDialogOk        = $translate.instant('CONTINUE');
+      }
 
 
-        var requestRestoreCompletedDialog =
-          $mdDialog.alert()
-            .parent( angular.element(document.body) )
-            .title(requestRestoreDialogTitle)
-            .textContent(emailMessage)
-            .ariaLabel(requestRestoreDialogAriaLabel)
-            .ok(requestRestoreDialogOk);
+      var requestRestoreCompletedDialog =
+        $mdDialog.alert()
+        .parent( angular.element(document.body) )
+        .title(requestRestoreDialogTitle)
+        .textContent(emailMessage)
+        .ariaLabel(requestRestoreDialogAriaLabel)
+        .ok(requestRestoreDialogOk);
 
-        $mdDialog.show( requestRestoreCompletedDialog );
-      });
+      $mdDialog.show( requestRestoreCompletedDialog );
+    });
   }
 
 
@@ -250,112 +235,96 @@ function LoginController (
   {
     // $log.debug('resetting password');
 
-    var postData =
-    {
+    var postData = {
       resetToken      : login.resetData.resetToken,
       newPassword     : login.resetData.newPassword,
       confirmPassword : login.resetData.confirmPassword
     };
 
 
-    UserService.changePassword( postData )
-      .then(function (response)
-      {
-        // $log.debug('Reset, change password callback');
-        // $log.debug(response);
+    UserService.changePassword(postData)
+    .then(function (response) {
+      // $log.debug('Reset, change password callback');
+      // $log.debug(response);
 
-        var resetPasswordDialogTitle,
-          resetPasswordDialogAriaLabel,
-          resetPasswordDialogContent,
-          resetPasswordDialogOk;
+      var resetPasswordDialogTitle,
+        resetPasswordDialogAriaLabel,
+        resetPasswordDialogContent,
+        resetPasswordDialogOk;
 
-
-        if ( response.data === 'success' )
-        {
-          resetPasswordDialogTitle   = $translate.instant('PASSWORD_RESET');
-          resetPasswordDialogAriaLabel = $translate.instant('PASSWORD_RESET');
-          resetPasswordDialogContent   = $translate.instant('RESET_PASSWORD_SUCCESS');
-          resetPasswordDialogOk      = $translate.instant('CONTINUE');
+      if (response.data === 'success') {
+        resetPasswordDialogTitle     = $translate.instant('PASSWORD_RESET');
+        resetPasswordDialogAriaLabel = $translate.instant('PASSWORD_RESET');
+        resetPasswordDialogContent   = $translate.instant('RESET_PASSWORD_SUCCESS');
+        resetPasswordDialogOk        = $translate.instant('CONTINUE');
 
 
-          var currentStateParams = StateManager.getParams();
-          var mobidulCode = currentStateParams.mobidulCode;
+        var currentStateParams = StateManager.getParams();
+        var mobidulCode = currentStateParams.mobidulCode;
 
-          UserService
-            .restoreUser( mobidulCode )
-            .then(function (response)
-            {
-              $state.go('home');
-            });
-        }
-        else
-        {
-          resetPasswordDialogTitle     = $translate.instant('RESET_PASSWORD_ERROR');
-          resetPasswordDialogAriaLabel = $translate.instant('RESET_PASSWORD_ERROR');
+        UserService.restoreUser(mobidulCode)
+        .then(function (response) {
+          $state.go('home');
+        });
+      } else {
+        resetPasswordDialogTitle     = $translate.instant('RESET_PASSWORD_ERROR');
+        resetPasswordDialogAriaLabel = $translate.instant('RESET_PASSWORD_ERROR');
 
-          resetPasswordDialogContent = '';
-          angular.forEach( response.data, function (field, id)
-          {
-            var message = field[ 0 ];
+        resetPasswordDialogContent = '';
+        angular.forEach(response.data, function (field, id) {
+          var message = field[0];
+          resetPasswordDialogContent += message + ' ';
+        });
 
-            resetPasswordDialogContent += message + ' ';
-          });
-
-          resetPasswordDialogOk = $translate.instant('EDIT_CREDENTIALS');
-        }
+        resetPasswordDialogOk = $translate.instant('EDIT_CREDENTIALS');
+      }
 
 
-        var resetPasswordCompletedDialog =
-          $mdDialog.alert()
-            .parent(angular.element(document.body))
-            .title(resetPasswordDialogTitle)
-            .textContent(resetPasswordDialogContent)
-            .ariaLabel( resetPasswordDialogAriaLabel )
-            .ok( resetPasswordDialogOk );
+      var resetPasswordCompletedDialog =
+        $mdDialog.alert()
+        .parent(angular.element(document.body))
+        .title(resetPasswordDialogTitle)
+        .textContent(resetPasswordDialogContent)
+        .ariaLabel(resetPasswordDialogAriaLabel)
+        .ok(resetPasswordDialogOk);
 
-        $mdDialog.show( resetPasswordCompletedDialog );
-      })
+      $mdDialog.show(resetPasswordCompletedDialog);
+    });
   }
 
 
   function _checkIsLoggedInOnline (response)
   {
-    if ( response.data &&
-       response.data === 'success' )
+    if (response.data && response.data === 'success') {
+      UserService.isLoggedIn()
+      .then(function (response) {
+        $log.debug('is logged in callback');
+        $log.debug(response);
 
-      UserService
-        .isLoggedIn()
-        .then(function (response)
-        {
-          $log.debug('is logged in callback');
-          $log.debug(response);
-
-          if ( response.data &&
-             response.data === 'true' )
-
-            StateManager.redirectLogin();
-        });
+        if (response.data && response.data === 'true') {
+          StateManager.redirectLogin();
+        }
+      });
+    }
   }
 
 
   function goToLogin ()
   {
-    var state = StateManager.comesFrom( StateManager.HOME_LOGIN )
-                  ? StateManager.HOME_LOGIN
-                  : StateManager.LOGIN;
+    var state = StateManager.comesFrom(StateManager.HOME_LOGIN)
+      ? StateManager.HOME_LOGIN
+      : StateManager.LOGIN;
 
     $state.go(state);
   }
 
 
-  function goToRegister ()
-  {
+  function goToRegister () {
     $state.go('register');
   }
 
 
-  function goToForgotPassword ()
-  {
+  function goToForgotPassword () {
     $state.go('restore');
   }
 
@@ -363,5 +332,4 @@ function LoginController (
   /// events
 
   // ...
-
 }
