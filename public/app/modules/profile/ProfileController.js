@@ -75,7 +75,7 @@ function ProfileController (
     if ( ! UserService.Session.isLoggedIn ) {
       var stateParams = StateManager.state.params;
 
-      $state.go( StateManager.LOGIN, stateParams );
+      $state.go(StateManager.LOGIN, stateParams);
     }
   }
 

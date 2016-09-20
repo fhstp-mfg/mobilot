@@ -127,6 +127,7 @@ function LoginController (
     });
   }
 
+
   function registerUser ()
   {
     // $log.debug('register user');
@@ -240,7 +241,6 @@ function LoginController (
       newPassword     : login.resetData.newPassword,
       confirmPassword : login.resetData.confirmPassword
     };
-
 
     UserService.changePassword(postData)
     .then(function (response) {
