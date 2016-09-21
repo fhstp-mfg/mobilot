@@ -1046,29 +1046,30 @@ function CreatorController (
 
 }
 
-var Hello = React.createClass({
-  propTypes: {
-    fname: React.PropTypes.string.isRequired,
-    lname: React.PropTypes.string.isRequired
-  },
-
-  render: function() {
-    return React.DOM.div({
-      style: {
-        backgroundColor: '#9999ff',
-        height: '20px',
-        padding: '5px'
-      }
-    }, (
-      'Welcome to this React Component dear ' + this.props.fname + ' ' + this.props.lname + '.'
-    ));
-  }
-});
-
-angular.module('Creator').value('Hello', Hello)
-  .directive('hello', function(reactDirective) {
-    return reactDirective(Hello);
-  });
+/// NOTE: posponed for v1.1
+// var Hello = React.createClass({
+//   propTypes: {
+//     fname: React.PropTypes.string.isRequired,
+//     lname: React.PropTypes.string.isRequired
+//   },
+//
+//   render: function() {
+//     return React.DOM.div({
+//       style: {
+//         backgroundColor: '#9999ff',
+//         height: '20px',
+//         padding: '5px'
+//       }
+//     }, (
+//       'Welcome to this React Component dear ' + this.props.fname + ' ' + this.props.lname + '.'
+//     ));
+//   }
+// });
+//
+// angular.module('Creator').value('Hello', Hello)
+//   .directive('hello', function(reactDirective) {
+//     return reactDirective(Hello);
+//   });
 
 
 /**
