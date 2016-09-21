@@ -1,0 +1,78 @@
+iOS App Store
+
+Name: 
+Privacy Policy URL:
+
+Category
+Primary: 
+Secondary: 
+
+
+Version Information
+App Preview and Screenshots (zur App Preview: https://developer.apple.com/app-store/app-previews/)
+iPhone: 5.5-Inch Display, 4.7, 4, 3.5
+iPad: 12.9-Inch Display, 9.7
+
+Description:
+--> A description of your app, detailing features and functionality. It will also be used for your Apple Watch app. max. 4000 characters
+
+
+
+Keywords:
+--> One or more keywords that describe your app. Keywords make App Store search results more accurate. Separate keywords with a comma. max. 100 characters
+
+Support URL:
+--> A URL with support information for your app. This URL will be visible on the App Store.
+
+Marketing URL:
+--> A URL with marketing information about your app. This URL will be visible on the App Store.
+
+General App Information
+App Icon
+--> This icon will be used on the App Store and must be in the JPG or PNG format, with a minimum resolution of at least 72 DPI, and in the RGB color space. It must not contain layers or rounded corners.
+
+Copyright
+--> The name of the person or entity that owns the exclusive rights to your app, preceded by the year the rights were obtained (for example, "2008 Acme Inc."). Do not provide a URL.
+
+App Review Information
+Contact Information 
+First Name:
+Last Name:
+Phone Number:
+Email:
+
+Demo Account
+? A demo account is required to use all the features of the app.
+Username: 
+Password:
+
+Notes
+--> Additional information about your app that can help during the review process. Include information that may be needed to test your app, such as app-specific settings. max. 4000
+
+Version Release
+? Manually release this version
+? Automatically release this version
+? Automatically release this version after App Review, no earlier than
+
+
+
+Google PlayStore
+Titel (max. 30):
+Kurze Beschreibung (max. 80):
+Lange Beschreibung (max. 4000):
+
+KATEGORISIERUNG
+App-Typ: [Apps|Spiele]
+Kategorie: ...
+Einstufung des Inhalts: [Stufe 1 - Hoch | Stufe 2 - Mittel | Stufe 3 - Niedrig]
+Neue Einstufung des Inhalts: Fragebogen durchklicken
+
+KONTAKTINFORMATIONEN
+Website: 
+E-Mail-Adresse*:
+Telefon:
+
+DATENSCHUTZERKLÄRUNG
+Unten kannst du eine URL zu einer Datenschutzerklärung für diese App bereitstellen. Schau dir außerdem unsere Richtlinien zu Nutzerdaten an, um typische Verstöße zu vermeiden.
+Datenschutzerklärung: 
+
