@@ -22,6 +22,8 @@ function CreatorController (
   /// CreatorController
   var creator = this;
 
+  creator.person = { fname: 'Clark', lname: 'Kent' };
+
 
   /// constants
   // NOTE: TODO: Code duplication w/ CloneMobidulDialogController
@@ -1044,6 +1046,30 @@ function CreatorController (
 
 }
 
+
+var Hello = React.createClass({
+  propTypes: {
+    fname: React.PropTypes.string.isRequired,
+    lname: React.PropTypes.string.isRequired
+  },
+
+  render: function() {
+    return React.DOM.div({
+      style: {
+        backgroundColor: '#9999ff',
+        height: '20px',
+        padding: '5px'
+      }
+    },
+      'Welcome to this React Component dear ' + this.props.fname + ' ' + this.props.lname + '.'
+    );
+  }
+});
+
+angular.module('Creator').value('Hello', Hello)
+  .directive('hello', function(reactDirective) {
+    return reactDirective(Hello);
+  });
 
 
 /**
