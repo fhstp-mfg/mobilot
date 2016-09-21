@@ -1,11 +1,12 @@
 {
   "name": "mobilot",
   "version": "0.9.4",
-  "description": "Mobilot is a system for creating intuitive mobile information systems.",
+  "description": "Mobilot is a web and mobile app for easily creating context-oriented content.",
   "main": "public/angular.html",
   "private": true,
   "scripts": {
-    "test": "karma start"
+    "test": "karma start",
+    "watchify": "watchify public/app/app.react.js -o public/assets/js/react.bundle.js -v -t [ babelify --presets [ es2015 react stage-2 ] ]"
   },
   "repository": {
     "type": "git",
@@ -24,11 +25,17 @@
   "devDependencies": {
     "babel-cli": "^6.14.0",
     "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.11.1",
     "babel-preset-stage-2": "^6.13.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
     "jasmine-core": "^2.4.1",
     "karma": "^1.1.2",
     "karma-chrome-launcher": "^1.0.1",
     "karma-jasmine": "^1.0.2",
-    "karma-spec-reporter": "0.0.26"
+    "karma-spec-reporter": "0.0.26",
+    "react": "^15.3.2",
+    "react-motion": "^0.4.4",
+    "watchify": "^3.7.0"
   }
 }
