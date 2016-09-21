@@ -50,13 +50,20 @@
       html, body {
         margin: 0;
         height: 100%;
+
+        background-color: #3797c4;
+        background-image: url('/assets/img/splash-bg.png');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        background-size: 61.83%;
       }
     </style>
   </head>
 
   <body id="body">
 
-    <div ui-view="loader"></div>
+    <!-- <div ui-view="loader"></div> -->
     <div ui-view="header"></div>
     <div ui-view="content"></div>
     <div ui-view="login"></div>
