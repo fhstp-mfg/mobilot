@@ -1046,7 +1046,6 @@ function CreatorController (
 
 }
 
-
 var Hello = React.createClass({
   propTypes: {
     fname: React.PropTypes.string.isRequired,
@@ -1060,9 +1059,9 @@ var Hello = React.createClass({
         height: '20px',
         padding: '5px'
       }
-    },
+    }, (
       'Welcome to this React Component dear ' + this.props.fname + ' ' + this.props.lname + '.'
-    );
+    ));
   }
 });
 
