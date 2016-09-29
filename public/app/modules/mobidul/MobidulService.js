@@ -178,10 +178,12 @@ function MobidulService (
       $log.debug('initProgress - config');
       $log.debug(config);
 
-      LocalStorageService.getProgress(mobidulCode, config.states)
-      .then(function (progress) {
-        service.progress = progress;
-      });
+      if (config) {
+        LocalStorageService.getProgress(mobidulCode, config.states)
+        .then(function (progress) {
+          service.progress = progress;
+        });
+      }
     });
   }
 
