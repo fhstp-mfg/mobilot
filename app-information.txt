@@ -16,10 +16,35 @@ iPad: 12.9-Inch Display, 9.7
 Description:
 --> A description of your app, detailing features and functionality. It will also be used for your Apple Watch app. max. 4000 characters
 
+Mobilot (der mobile Pilot) ist ein System zum einfachen Erstellen von kontext-orientierten Informationen. Eine kontext-orientierte Information wird angezeigt, wenn sich die User in einer bestimmten Situation befinden z.B. an einem bestimmten Ort.
+Mit Mobilot können so einfache Naturlehrpfade oder auch komplexere Rätselrallyes von Jedermann ohne Programmierkenntnisse erstellt werden.
 
+Funktionen:
+* Mobidule (mit Mobilot erstellte eigenständige Anwendungen) vom Typ "default" und "rallye" administrieren und konsumieren
+* Stationen innerhalb von Mobidulen erstellen, die an eine Geo-Position (GPS) gebunden sind
+* Station mit Hilfe von Kategorien gliedern
+* Editierrechte für ein Mobidul über Mitmach-Codes vergeben
+* Regeln für Stationen erstellen
+  ** Station frei schalten, wenn Geo-Position erreicht
+  ** Station frei schalten, wenn Code richtig eingegeben
+  ** Station innerhalb einer vorgegebenen Zeit absolvieren
+  ** Punktesystem
+
+
+
+Das an der FH St. Pölten entwickelte, frei verfügbare LBS-Tool Mobilot ermöglicht die kollaborative Erstellung eigener Naturlehrpfade und Rätselrallys, die Verortung interessanter Sehenswürdigkeiten und Bauwerke sowie die Durchführung von „location based games“. Gestartet werden kann mit den TeilnehmerInnen innerhalb von wenigen Minuten, ohne jeglicher technischen Vorbereitung, einfach jeder mit seinem eigenen Smartphone, eine funktionierende Internetverbindung vorausgesetzt.
+Mobilot wurde bereits in mehreren Versuchen mit SchülerInnen des sekundären Bildungssektors erfolgreich eingesetzt. 
+In diesem Beitrag werden die Erfahrungen aus diesen Versuchen präsentiert, pädagogisch sinnvolle Einsatzmöglichkeiten für location based services besprochen und das Tool Mobilot vorgestellt.
+
+
+
+
+Mobilot wird im Projekt seekoi von Januar bis Dezember 2016 weiterentwickelt und wird über den 10. Call von Netidee durch die Internet Foundation Austria (IPA) gefördert.
 
 Keywords:
 --> One or more keywords that describe your app. Keywords make App Store search results more accurate. Separate keywords with a comma. max. 100 characters
+Mobile, Kontext, GPS, 
+
 
 Support URL:
 --> A URL with support information for your app. This URL will be visible on the App Store.
