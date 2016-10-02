@@ -37,7 +37,7 @@ function MobidulService (
       ],
 
       // TODO: extract this so it doesn't need duplication for each mode
-	  // TODO: add finished elements
+	    // TODO: add finished elements
       elements: {
         HTML: {
           icon: 'text_format'
@@ -174,16 +174,12 @@ function MobidulService (
 
     service.getMobidulConfig(mobidulCode)
     .then(function (config) {
-
-      $log.debug('initProgress - config');
-      $log.debug(config);
-
-      if (config) {
-        LocalStorageService.getProgress(mobidulCode, config.states)
-        .then(function (progress) {
-          service.progress = progress;
-        });
-      }
+      // $log.debug('initProgress - config');
+      // $log.debug(config);
+      LocalStorageService.getProgress(mobidulCode, config.states)
+      .then(function (progress) {
+        service.progress = progress;
+      });
     });
   }
 
@@ -284,6 +280,10 @@ function MobidulService (
 
       service.getConfig(mobidulCode)
       .then(function (config) {
+        if ( ! config.mode) {
+          //fallback for old mobiduls
+          config.mode = service.MOBIDUL_MODE_DEFAULT;
+        }
         resolve(config.mode);
       }, function (error) {
         reject(error);
