@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ### constants
 USER=`ls -l setup.sh | awk '{print $3}'`
@@ -25,20 +25,23 @@ fi
 
 
 echo "> Creating storage folders under \"app/storage\""
-sudo -u $USER mkdir app/storage
-sudo -u $USER mkdir app/storage/cache
-sudo -u $USER mkdir app/storage/logs
-sudo -u $USER mkdir app/storage/meta
-sudo -u $USER mkdir app/storage/sessions
-sudo -u $USER mkdir app/storage/views
+if [ ! -d app/storage ]; then
+  sudo -u $USER mkdir app/storage
+  sudo -u $USER mkdir app/storage/cache
+  sudo -u $USER mkdir app/storage/logs
+  sudo -u $USER mkdir app/storage/meta
+  sudo -u $USER mkdir app/storage/sessions
+  sudo -u $USER mkdir app/storage/views
+fi
 
 # echo "> "Setting permissions for app/storage"
 # sudo chown -R $USER app/storage/
 
 echo ""
 echo "> Creating \"public/upload\" folder"
-sudo -u $USER mkdir public/upload
-
+if [ ! -d public/upload ]; then
+  sudo -u $USER mkdir public/upload
+fi
 
 echo ""
 echo "> composer install"
@@ -78,6 +81,12 @@ echo ""
 echo "> php artisan migrate"
 php artisan migrate
 
+echo "> npm install"
+npm install
+
+echo ">bower install"
+cd public
+bower install
 
 echo ""
 echo "> Mobilot setup completed!"
