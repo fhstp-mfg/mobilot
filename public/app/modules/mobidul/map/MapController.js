@@ -493,14 +493,14 @@ function MapController (
 
     // show info window for this marker
     var center = new google.maps.LatLng(marker.latitude, marker.longitude);
-    var html = [
-      '<div id="infoWindowBody">',
-        '<button class="md-button"',
-          ' ng-click="goToStation(\'' + marker.id + '\')">',
-          '<span>' + marker.name + '</span>',
-        '</button>',
+    var html = (
+      '<div id="infoWindowBody">' +
+        '<button class="md-button"' +
+          ' ng-click="goToStation(\'' + marker.id + '\')">' +
+          '<span>' + marker.name + '</span>' +
+        '</button>' +
       '</div>'
-    ].join('')
+    );
 
     $scope.infoWindow.setContent(html);
     $scope.infoWindow.setPosition(center);
