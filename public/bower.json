@@ -4,10 +4,11 @@
   "private": true,
   "authors": [
     "Iosif Miclaus <iosif.miclaus@gmail.com>",
-    "Simon Reinsperger <reinsperger.smn@gmail.com>"
+    "Simon Reinsperger <reinsperger.smn@gmail.com>",
+    "Florian Grassinger <fgrass91@gmail.com>"
   ],
   "description": "Mobilot",
-  "main": "index.php",
+  "main": "angular.html",
   "keywords": [
     "mobilot"
   ],
