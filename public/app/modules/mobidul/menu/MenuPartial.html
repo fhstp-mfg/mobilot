@@ -4,13 +4,6 @@
   layout="column"
   style="position: fixed"
 >
-  <style>
-    .menu-login, .menuDivider {
-      background : {{ menu.config.background }};
-      color      : {{ menu.config.foreground }};
-    }
-  </style>
-
   <div
     class="menu-login"
     layout="row"
@@ -44,10 +37,10 @@
   <md-list ng-class="menu.myFont">
     <!-- Mobidul Menu -->
     <md-list-item
+      class="md-list-item"
       ng-repeat="item in mobidul.menu"
       ng-click=" ! item.isDivider ? mobidul.switchContent( item ) : null"
       ng-class="item.isDivider ? 'menuDivider menuDividerEmpty' : ''"
-      class="md-list-item"
     >
       <md-icon ng-if="item.href === 'map'">map</md-icon>
       <md-icon ng-if="item.func === 'getForCategory'">group_work</md-icon>
