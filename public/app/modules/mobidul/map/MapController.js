@@ -487,29 +487,29 @@ function MapController (
   /// public functions
 
   function stationSelect (event, marker) {
-    // $log.debug('Station select on MapController :');
+    // $log.debug('Station select on MapController:');
     // $log.debug(event);
     // $log.debug(marker);
 
     // show info window for this marker
-    var center = new google.maps.LatLng( marker.latitude, marker.longitude );
-    var html =
-      '<div id="infoWindowBody">' +
-        '<button class="md-button"' +
-          '  ng-click="goToStation(\'' + marker.id + '\')">' +
-          '<span>' + marker.name + '</span>' +
-        '</button>' +
-      '</div>';
+    var center = new google.maps.LatLng(marker.latitude, marker.longitude);
+    var html = [
+      '<div id="infoWindowBody">',
+        '<button class="md-button"',
+          ' ng-click="goToStation(\'' + marker.id + '\')">',
+          '<span>' + marker.name + '</span>',
+        '</button>',
+      '</div>'
+    ].join('')
 
-    $scope.infoWindow.setContent( html );
-    $scope.infoWindow.setPosition( center );
-    $scope.infoWindow.open( $scope.map );
+    $scope.infoWindow.setContent(html);
+    $scope.infoWindow.setPosition(center);
+    $scope.infoWindow.open($scope.map);
 
-    // NOTE really interesting thing happening here
-    $scope.$apply(function () {
+    // NOTE: really interesting thing happening here
+    $scope.$apply(function() {
       var infoWindowBody = document.getElementById('infoWindowBody');
-
-      $compile( infoWindowBody )( $scope );
+      $compile(infoWindowBody)($scope);
     });
   }
 
