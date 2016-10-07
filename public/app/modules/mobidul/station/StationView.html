@@ -26,7 +26,7 @@
         <md-tabs>
           <md-tab
             ng-repeat="state in station.mobidulConfig.states"
-            ng-click="station.setRallyState( state )"
+            md-on-select="station.setRallyState( state )"
             md-active="state == station.currentState"
           >{{ 'STATE' | translate }} : {{ state | translate }}</md-tab>
         </md-tabs>

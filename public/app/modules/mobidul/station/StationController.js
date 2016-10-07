@@ -65,15 +65,15 @@ function StationController (
 
   function setRallyState(state){
     RallyService.setStatus(state)
-      .then(function(newState){
-        renderJSON();
-        //Stop position watching and timeout on state change
-        GeoLocationService.stopPositionWatching();
-        $timeout.cancel($rootScope.timeout);
-        // Todo: is this necessary?
-        //$rootScope.timeout = undefined;
-        //$state.go($state.current, {}, {reload: true});
-      });
+    .then(function(newState){
+      renderJSON();
+      //Stop position watching and timeout on state change
+      GeoLocationService.stopPositionWatching();
+      $timeout.cancel($rootScope.timeout);
+      // Todo: is this necessary?
+      //$rootScope.timeout = undefined;
+      //$state.go($state.current, {}, {reload: true});
+    });
   }
 
   function __progressToNext () {
@@ -163,7 +163,7 @@ function StationController (
                     'Diese Station hat für den Status "' + RallyService.STATUS_OPEN + '" keinen Inhalt.' +
                   '</p>';
                 statusContent[ RallyService.STATUS_COMPLETED] = '' +
-                  '<p style="background: #eee; font-weight: bold">'
+                  '<p style="background: #eee; font-weight: bold">' +
                     'Diese Station hat für den Status "' + RallyService.STATUS_COMPLETED + '" keinen Inhalt.' +
                   '</p>';
 
@@ -470,8 +470,7 @@ function StationController (
   /**
    * Appends Rally Directives to their container
    */
-  function renderJSON ()
-  {
+  function renderJSON () {
     RallyService.getStatus(station.order)
       .then(function (status) {
          //$log.info('StationController - renderJSON - RallyService.getStatus - status:');
@@ -569,8 +568,7 @@ function StationController (
    *
    * @param actionString
    */
-  function actionPerformed (actionString)
-  {
+  function actionPerformed (actionString) {
     RallyService.performAction(actionString)
     .then(function (refresh) {
       if (refresh) {

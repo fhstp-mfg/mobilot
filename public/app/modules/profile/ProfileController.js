@@ -75,7 +75,7 @@ function ProfileController (
     if ( ! UserService.Session.isLoggedIn ) {
       var stateParams = StateManager.state.params;
 
-      $state.go( StateManager.LOGIN, stateParams );
+      $state.go(StateManager.LOGIN, stateParams);
     }
   }
 
@@ -93,7 +93,7 @@ function ProfileController (
   {
     UserService.logout()
     .then(function () {
-      $state.go( StateManager.DEFAULT_NAME, StateManager.DEFAULT_PARAMS );
+      $state.go(StateManager.DEFAULT_NAME, StateManager.DEFAULT_PARAMS);
     });
   }
 
@@ -101,7 +101,7 @@ function ProfileController (
   function changePassword ()
   {
     if (profile.isChangePassword) {
-      UserService.changePassword( profile.changePasswordData )
+      UserService.changePassword(profile.changePasswordData)
       .then(function (response) {
         // $log.debug('change password callback :');
         // $log.debug(response);
@@ -134,7 +134,7 @@ function ProfileController (
 
         var changePasswordCompletedDialog =
           $mdDialog.alert()
-          .parent( angular.element(document.body) )
+          .parent(angular.element(document.body))
           .title(changePasswordDialogTitle)
           .textContent(changePasswordDialogContent)
           .ariaLabel($translate.instant('CHANGE_PASSWORD_INFORMATION'))
@@ -163,7 +163,7 @@ function ProfileController (
 
     var resetRallyCompletedDialog =
       $mdDialog.alert()
-      .parent( angular.element(document.body) )
+      .parent(angular.element(document.body))
       .title($translate.instant('RALLY_RESET'))
       .textContent($translate.instant('RALLY_RESET_SUCCESS'))
       .ariaLabel($translate.instant('RALLY_RESET'))

@@ -18,12 +18,14 @@ function Editor (
     restrict: 'E',
     template:
     '<div style="height: 100%">' +
-      '<md-tabs id="editortabs" data-md-selected="editor.selectedIndex">' +
-        '<editortab data-tabconfig="tabconfig" data-tabname="tabname" ng-repeat="(tabname, tabconfig) in editor.config"></editortab>' +
+      '<md-tabs id="editortabs" md-selected="editor.selectedIndex" ng-class="{ \'station-editor-tab-default-mobidul\': ! editor.showStationStates }">' +
+        '<editortab tabconfig="tabconfig" tabname="tabname" ng-repeat="(tabname, tabconfig) in editor.config"></editortab>' +
       '</md-tabs>' +
     '</div>',
+
     scope: {
-      config: '='
+      config: '=',
+      showStationStates: '='
     },
     controller: EditorController,
     controllerAs: 'editor',
@@ -32,9 +34,12 @@ function Editor (
       $scope.$watch('config', function (config) {
         if (config) {
           Editor.config = config;
-          // $log.info('config editor:');
-          // $log.debug(Editor.config);
         }
+      });
+
+      $scope.$watch('showStationStates', function (showStationStates) {
+        Editor.showStationStates =
+          (typeof showStationStates !== 'undefined') ? showStationStates : true;
       });
     }
   };

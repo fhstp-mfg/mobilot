@@ -1,0 +1,11 @@
+/*
+	build-extras.gradle
+	This file is used to overwrite the build.gradle file with additional statments or force android to do specific things.
+	Enter here statments in order to forcefully overwrite the normal build.gradle file.
+*/
+
+//This forces android to use minSDK 16 which is required for Crosswalk
+ext.cdvMinSdkVersion = 16
+
+//This forces Crosswalk to produce only one .apk and not several .apks
+ext.cdvBuildMultipleApks=false

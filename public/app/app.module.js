@@ -1,9 +1,8 @@
 
 /// Mobilot module
 
-angular.module('Mobilot',
-[
-  'ngMaterial',
+angular.module('Mobilot', [
+  'ngMaterial', 'react',
   'ui.router', 'pascalprecht.translate', 'ngCookies',
   'monospaced.qrcode',
   'angulartics', 'angulartics.google.analytics',
@@ -33,8 +32,7 @@ angular.module('Creator', [
   'monospaced.qrcode'
 ]);
 
-angular.module('Mobidul',
-[
+angular.module('Mobidul', [
   'ngGeolocation', 'ngSanitize',
   // 'uiGmapgoogle-maps',
   'ngMap', 'ngWYSIWYG', 'ngStorage',

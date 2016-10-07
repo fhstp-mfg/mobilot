@@ -79,10 +79,10 @@ function MobidulService (
         }
       },
 
-      states: 'OPEN',
+      states: ['OPEN'],
 
       defaultState: 'OPEN',
-      
+
       hiddenStations: false
     }],
 
@@ -174,10 +174,8 @@ function MobidulService (
 
     service.getMobidulConfig(mobidulCode)
     .then(function (config) {
-
-      $log.debug('initProgress - config');
-      $log.debug(config);
-
+      // $log.debug('initProgress - config');
+      // $log.debug(config);
       LocalStorageService.getProgress(mobidulCode, config.states)
       .then(function (progress) {
         service.progress = progress;
@@ -205,7 +203,7 @@ function MobidulService (
 
     service.getConfig(mobidulCode)
     .then(function (config) {
-      
+
       LocalStorageService.getProgress(mobidulCode, config.states)
       .then(function (progress) {
         defer.resolve(progress);
@@ -282,6 +280,10 @@ function MobidulService (
 
       service.getConfig(mobidulCode)
       .then(function (config) {
+        if ( ! config.mode) {
+          //fallback for old mobiduls
+          config.mode = service.MOBIDUL_MODE_DEFAULT;
+        }
         resolve(config.mode);
       }, function (error) {
         reject(error);

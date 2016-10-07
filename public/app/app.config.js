@@ -61,10 +61,10 @@ angular
         .state('home', {
           url : '/',
           views : {
-            'loader' : {
-              templateUrl : 'app/modules/common/LoaderPartial.html',
-              controller  : 'CoreController as core'
-            },
+            // 'loader' : {
+            //   templateUrl : 'app/modules/common/LoaderPartial.html',
+            //   controller  : 'CoreController as core'
+            // },
             'header' : {
               templateUrl : 'app/modules/core/Header.html',
               controller  : 'HeaderController as header'
@@ -246,10 +246,10 @@ angular
         .state('mobidul', {
           url : '/:mobidulCode',
           views : {
-            'loader' : {
-              templateUrl : 'app/modules/common/LoaderPartial.html',
-              controller  : 'CoreController as core'
-            },
+            // 'loader' : {
+            //   templateUrl : 'app/modules/common/LoaderPartial.html',
+            //   controller  : 'CoreController as core'
+            // },
             'header' : {
               templateUrl : 'app/modules/core/Header.html',
               controller  : 'HeaderController as header'

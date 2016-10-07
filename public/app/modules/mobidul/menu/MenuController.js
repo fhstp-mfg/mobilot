@@ -80,8 +80,8 @@ function MenuController (
       menu.isLastDividerEnabled = false;
 
     MobidulService.getMobidulMode(StateManager.state.params.mobidulCode)
-    .then(function(mode){
-      menu.isRallyMode = (mode == MobidulService.MOBIDUL_MODE_RALLY);
+    .then(function (mode) {
+      menu.isRallyMode = mode == MobidulService.MOBIDUL_MODE_RALLY;
     });
 
     //$log.info('MenuController - _initDefaultValues - menu.isRallyMode');
@@ -109,18 +109,20 @@ function MenuController (
   function _listenToConfig ()
   {
     var configListener =
-      $rootScope.$on('rootScope:setConfig', function (event, config)
-      {
+      $rootScope.$on('rootScope:setConfig', function (event, config) {
         $log.debug('Heard "rootScope:setConfig" in MenuController');
         $log.debug(config);
 
-        menu.config.background = MobidulService.Mobidul.background + ' !important';
-        menu.config.foreground = MobidulService.Mobidul.foreground + ' !important';
+        var colorElements = document.querySelectorAll('.menu-login, .menuDivider');
+        for (var c = 0; c < colorElements.length; c++) {
+          colorElements[c].style.background = config.background;
+          colorElements[c].style.color = config.foreground;
+        }
 
-        menu.myFont = FontService.getFontClass( MobidulService.Mobidul.font );
+        menu.myFont = FontService.getFontClass( config.font );
       });
 
-    $scope.$on('$destroy', configListener);
+    // $rootScope.$on('$destroy', configListener);
   }
 
 

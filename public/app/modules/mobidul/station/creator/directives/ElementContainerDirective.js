@@ -30,7 +30,7 @@ function ElementContainer(
           '<md-icon>build</md-icon>' +
         '</md-button>' +
       '</div>',
-    scope:{
+    scope: {
       element: '='
     },
     link: function($scope, $element, $attrs, ctrl){
@@ -103,7 +103,7 @@ function ElementContainer(
             }
           }
         }
-        
+
       })
 
     },
