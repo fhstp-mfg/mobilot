@@ -29,6 +29,7 @@ public/assets/js/react.bundle.js
 .excluded/
 *.sh
 !setup.sh
+*.psd
 
 # Composer
 composer.phar
