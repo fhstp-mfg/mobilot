@@ -55,6 +55,6 @@
     "ngstorage": "^0.3.11",
     "ngReact": "^0.3.0",
     "react": "^15.3.2",
-    "react-motion": "https://unpkg.com/react-motion/bower.zip#^0.4.4"
+    "react-motion": "https://unpkg.com/react-motion/bower.zip"
   }
 }
