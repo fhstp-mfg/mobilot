@@ -38,8 +38,7 @@ Project _seekoi_ runs from January to December 2016 and is funded through the [1
 [netideelogo]: http://seekoi.fhstp.ac.at/img/netidee-logo_RGB.png "Netidee"
 
 ### [St. Pölten University of Applied Sciences](https://www.fhstp.ac.at)
-![St. Pölten University of Applied Sciences Logo][fhstplogo]
-[fhstplogo]: http://seekoi.fhstp.ac.at/img/fh-logo.jpg "St. Pölten University of Applied Sciences Logo" | width=250
+<img src="http://seekoi.fhstp.ac.at/img/fh-logo.jpg" alt="St. Pölten University of Applied Sciences Logo" width="250">
 
 ## License
 
