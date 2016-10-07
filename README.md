@@ -34,8 +34,7 @@ For contributing to the project, please check the ```CONTRIBUTING.md``` file or 
 Project _seekoi_ runs from January to December 2016 and is funded through the [10th Call of Netidee](https://www.netidee.at/die-netidee-2015/) by the [Internet Foundation Austria (IPA)](https://www.netidee.at/die-internet-foundation-austria-ipa/).
 
 ### [Netidee](https://www.netidee.at)
-![Netidee Logo][netideelogo]
-[netideelogo]: http://seekoi.fhstp.ac.at/img/netidee-logo_RGB.png "Netidee"
+<img src="http://seekoi.fhstp.ac.at/img/netidee-logo_RGB.png" alt="Netidee" width="310">
 
 ### [St. Pölten University of Applied Sciences](https://www.fhstp.ac.at)
 <img src="http://seekoi.fhstp.ac.at/img/fh-logo.jpg" alt="St. Pölten University of Applied Sciences Logo" width="250">
