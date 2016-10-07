@@ -185,11 +185,8 @@ class UserController extends BaseController
     );
 
 
-    if ( $userData['route'] == 'changePassword' ) {
-      $userData['oldPassword'] = $params->oldPassword;
-      $rules['oldPassword'] = 'required|between:6,30';
-    } else {
-      // route : changePasswordNoAuth
+    if ( strpos($userData['route'], 'changePasswordNoAuth') !== false ) {
+      // route: changePasswordNoAuth
 
       $resetPassword = true;
 
@@ -201,6 +198,11 @@ class UserController extends BaseController
 
       // NOTE: in order to have the right order in the error message if validation fails
       $rules['newPassword']     = $rules['newPassword'] . '|same:confirmPassword';
+    } else {
+      // route: changePassword
+
+      $userData['oldPassword'] = $params->oldPassword;
+      $rules['oldPassword'] = 'required|between:6,30';
     }
 
 
