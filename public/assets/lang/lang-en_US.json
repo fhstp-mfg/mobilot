@@ -107,10 +107,10 @@
 
   "DISTANCE": "Distance {{distance}}",
 
-  "JOIN_CODE": "Join Code",
-  "JOIN_CODES": "Join Codes",
-  "REQUEST_CODE": "Request Code",
-  "JOIN_CODE_INPUT_DESCRIPTION": "Join codes can be provided by the creator of a Mobidul.\nIn order to join a Mobidul as \"Contributing Editor\", you can enter a join code or scan a QR-Code.",
+  "JOIN_CODE": "Join code",
+  "JOIN_CODES": "Join codes",
+  "REQUEST_CODE": "Request code",
+  "JOIN_CODE_INPUT_DESCRIPTION": "Join codes can be provided by the creator of a Mobidul.\nIn order to join a Mobidul as \"Contributing Editor\", you can enter a join code or scan a QR code.",
   "JOIN_NOT_POSSIBLE": "Join isn't possible",
   "JOIN_CODE_INVALID_EXPLANATION": "This join code is invalid. Please try it again or contact the creator of the Mobidul.",
   "GROUP_EXPLANATION": "Join codes allow to participate in a Mobidul of another creator.\nUsers, who have the same code are in the same group.",
@@ -204,16 +204,16 @@
   "CLONE_MOBIDUL": "Clone Mobidul",
   "MOBIDUL_NAME": "Mobidul Name",
   "NEW_MOBIDUL_NAME": "New Mobidul",
-  "ENTER_NEW_MOBIDUL_NAME": "Enter the name of the new Mobidul:",
-  "MOBIDUL_CODE": "Mobidul Code",
+  "ENTER_NEW_MOBIDUL_NAME": "Input new Mobidul name:",
+  "MOBIDUL_CODE": "Mobidul code",
   "CLONE_INFO_SUCCESS": "Duplication of the current Mobidul was successful!",
 
-  "CREATING": "is generated...",
+  "CREATING": "is generating...",
   "AUTOMATICALLY_CREATED": "automatically generated",
   "MANUALLY_CREATED": "manually changed",
 
-  "MOBIDUL_LINK_WILL_BE": "This Mobidul will be available under the following link:",
-  "STATION_LINK_WILL_BE": "This Mobidul will be available under the following link:",
+  "MOBIDUL_LINK_WILL_BE": "Mobidul address:",
+  "STATION_LINK_WILL_BE": "Station address:",
 
   "ACCURACY": "Accuracy: {{value}}m",
 
@@ -262,9 +262,9 @@
   "STATION_GETS_DELETED": "Station will be deleted irreversible.",
 
   "QR_INFO": "QR Information",
-  "QR_NO_CODE": "This QR-Code contains no join code!",
-  "QR_NOT_A_CODE": "This is no QR-Code!",
-  "QR_NOT_VALID": "This is not a valid QR-Code!",
+  "QR_NO_CODE": "This QR code contains no join code!",
+  "QR_NOT_A_CODE": "This is no QR code!",
+  "QR_NOT_VALID": "This is not a valid QR code!",
   "QR_SCAN_FAILED": "Scanning failed: ",
 
   "PLACE": "Location",
@@ -272,8 +272,8 @@
 
   "NOT_ALLOWED": "Not allowed",
   "MOBIDUL_LOCKED": "Mobidul is locked",
-  "STATION_CODE": "Station Code",
-  "INVALID_STATION_CODE": "The Station Code is invalid.",
+  "STATION_CODE": "Station code",
+  "INVALID_STATION_CODE": "The Station code is invalid.",
   "ERROR": "Error",
   "UNKNOWN_ERROR": "Unknown Error",
   "UNKNOWN": "Unknown",
@@ -323,8 +323,8 @@
   "DISTANCE_FEEDBACK": "You are {{ distance }}m away from the station. \n (± {{ accuracy }}m)",
   "INPUT_CODE_DEFAULT_ERROR_MSG": "DThat was the wrong code. Try again!",
 
-  "SCAN_CODE": "Scan Code",
-  "OPEN_CODE": "Open Code",
+  "SCAN_CODE": "Scan code",
+  "OPEN_CODE": "Open code",
   "PERFORM_ACTION": "Perform Action",
 
   "OPEN_THIS": "Open Station",

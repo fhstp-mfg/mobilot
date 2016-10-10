@@ -204,7 +204,7 @@
   "CLONE_MOBIDUL": "Mobidul klonen",
   "MOBIDUL_NAME": "Mobidul Name",
   "NEW_MOBIDUL_NAME": "Neues Mobidul",
-  "ENTER_NEW_MOBIDUL_NAME": "Gib den Namen des neuen Mobiduls ein:",
+  "ENTER_NEW_MOBIDUL_NAME": "Gib einen neuen Mobidul Name ein:",
   "MOBIDUL_CODE": "Mobidul Code",
   "CLONE_INFO_SUCCESS": "Kopieren des aktuellen Mobiduls war erfolgreich!",
 
@@ -212,8 +212,8 @@
   "AUTOMATICALLY_CREATED": "automatisch generiert",
   "MANUALLY_CREATED": "manuell geändert",
 
-  "MOBIDUL_LINK_WILL_BE": "Das Mobidul wird über folgendem Link aufrufbar sein:",
-  "STATION_LINK_WILL_BE": "Die Station wird über folgendem Link aufrufbar sein:",
+  "MOBIDUL_LINK_WILL_BE": "Mobidul Adresse:",
+  "STATION_LINK_WILL_BE": "Station Adresse:",
 
   "ACCURACY": "Genauigkeit: {{value}}m",
 
