@@ -75,7 +75,7 @@ function StationCreatorController (
 
   // edit modes
   stationCreator.isNameEditMode = false;
-
+  stationCreator.editStationCode = false;
 
 
   /// functions
@@ -86,6 +86,7 @@ function StationCreatorController (
   // basis
   stationCreator.changeName = changeName;
   stationCreator.changeCode = changeCode;
+  stationCreator.invokeChangeCode = invokeChangeCode;
   // map
   // NOTE: moved to MapController
   // stationCreator.dropMarker = dropMarker;
@@ -376,31 +377,30 @@ function StationCreatorController (
           stationCreator.stationOptions[ 1 ].selected   = isEnabled;
 
 
-          stationCreator.station =
-          {
-            name     : stationData.name,
-            link    : mobidulUrl,
-            code     : stationData.code,
-            lat     : stationData.lat,
-            lon     : stationData.lon,
-            radius     : stationData.radius,
+          stationCreator.station = {
+            name        : stationData.name,
+            link        : mobidulUrl,
+            code        : stationData.code,
+            lat         : stationData.lat,
+            lon         : stationData.lon,
+            radius      : stationData.radius,
             contentType : stationData.contentType,
-            locked     : isLocked,
-            enabled   : isEnabled
+            locked      : isLocked,
+            enabled     : isEnabled
 
             // categories   : stationCreator.station.categories,
             // medialist    : []
           };
 
-          try{
+          try {
             stationCreator.station.content =  JSON.parse(stationData.content);
-          }catch(e){
+          } catch(e) {
             $log.error('Error while parsing station.content');
           }
 
           // make reference-less copyies of the loaded station data
           //  for checking changes later on
-          stationCreator.origStation = angular.copy( stationCreator.station );
+          stationCreator.origStation = angular.copy(stationCreator.station);
 
 
           stationCreator.basis.originalCode = stationData.code;
@@ -415,8 +415,7 @@ function StationCreatorController (
           };
         }
       })
-      .error(function (response, status, headers, config)
-      {
+      .error(function (response, status, headers, config) {
         $log.error(response);
         $log.error(status);
       });
@@ -741,15 +740,14 @@ function StationCreatorController (
 
   function changeName ()
   {
-    if ( stationCreator.isNewStation || stationCreator.basis.generateCode )
-    {
-      // TODO – change default station name handling
+    if ( stationCreator.isNewStation || stationCreator.basis.generateCode ) {
+      // TODO: change default station name handling
       var stationName = stationCreator.station.name.trim() || '(' + $translate.instant('UNKNOWN') + ')';
       var stationCode = UtilityService.getCodeFromName( stationName );
 
-
-      if ( stationCode )
+      if ( stationCode ) {
         stationCreator.basis.codeHelper.text = stationCreator._codeHelperGenerating;
+      }
 
 
       if ( stationCreator.isNewStation ||
@@ -791,15 +789,13 @@ function StationCreatorController (
   }
 
 
-  function changeCode ()
-  {
-    // $log.debug('change code');
-    // $log.debug(stationCreator.station.code + "<");
+  function changeCode () {
+    // $log.debug('change code', stationCreator.station.code);
 
     stationCreator.station.code =
       UtilityService.formatCode( stationCreator.station.code );
 
-    // $log.debug(stationCreator.station.code + "<");
+    // $log.debug('formatted code', stationCreator.station.code);
 
     var stationCode = stationCreator.station.code;
 
@@ -807,38 +803,40 @@ function StationCreatorController (
     if ( stationCode )
     {
       if ( stationCreator.isNewStation ||
-         ( ! stationCreator.isNewStation &&
-           ! _isOriginalCode( stationCode ) ) )
-      {
-        StationService.requestValidCode( stationCode )
-          .success(function (code, status, headers, config)
-          {
+        ( ! stationCreator.isNewStation && ! _isOriginalCode(stationCode))
+      ) {
+        StationService.requestValidCode(stationCode)
+          .success(function (code, status, headers, config) {
             // $log.debug('request valid code callback from changeCode : ');
             // $log.debug(code);
             // $log.debug('stationCode (' + stationCode + ')');
 
             stationCreator.station.code = code;
 
-            if ( stationCode !== code )
-
-              _refreshCodeHelper( code, stationCreator._codeHelperGenerated );
-
-            else
-              _refreshCodeHelper( code, stationCreator._codeHelperManual );
+            if ( stationCode !== code ) {
+              _refreshCodeHelper(code, stationCreator._codeHelperGenerated);
+            } else {
+              _refreshCodeHelper(code, stationCreator._codeHelperManual);
+            }
           });
-      }
-      else
+      } else {
         _restoreOriginalStationCode();
-    }
-    else
-    {
+      }
+    } else {
       stationCreator.basis.generateCode = true;
 
       changeName();
     }
   }
 
-  /// event
+
+
+  /// events
+
+  function invokeChangeCode () {
+    stationCreator.editStationCode = ! stationCreator.editStationCode;
+  }
+
   function deleteStation ()
   {
     var confirmDeleteStationDialog =
@@ -890,7 +888,7 @@ function StationCreatorController (
    */
   function cloneStation () {
     // First create a confirm Dialog in order to ask the user
-    // if he really wants to duplicate the current station.
+    // if the user really wants to duplicate the current station.
     var confirmCloneStation = $mdDialog.confirm()
       .parent( angular.element(document.body) )
       .title($translate.instant('STATION_CLONE'))
@@ -905,8 +903,8 @@ function StationCreatorController (
       var mobidulCode = StateManager.state.params.mobidulCode || null;
       var stationCode = StateManager.state.params.stationCode || null;
 
+      // Save the changes to the current station.
       if ( mobidulCode && stationCode ) {
-        // Save the changes to the current station.
         stationCreator.saveChanges();
       }
 
@@ -918,7 +916,7 @@ function StationCreatorController (
           // Show a dialog to inform the user about
           // changing the position of the new station.
           var informAboutStationChange = $mdDialog.alert()
-            .parent( angular.element(document.body) )
+            .parent(angular.element(document.body))
             .clickOutsideToClose(true)
             .title($translate.instant('STATION_CLONE_SUCCESS'))
             .textContent($translate.instant('STATION_CHANGE_PLACE'))
@@ -926,20 +924,19 @@ function StationCreatorController (
             .ok($translate.instant('CLOSE'));
 
           $mdDialog.show(informAboutStationChange)
-          .then(function () {
-            // Change the view to the new station,
-            // if the station has been cloned successfully.
-            if (response.success) {
-              $state.go(
-                'mobidul.station.edit.place',
-                {stationCode: cloneStationCode},
-                {'reload': true}
-              );
-            }
-          });
+            .then(function () {
+              // Change the view to the new station,
+              // if the station has been cloned successfully.
+              if (response.success) {
+                $state.go(
+                  'mobidul.station.edit.place',
+                  { stationCode: cloneStationCode },
+                  { 'reload': true }
+                );
+              }
+            });
         })
-        .error(function (response, status, headers, config)
-        {
+        .error(function (response, status, headers, config) {
           $log.error(response);
           $log.error(status);
         });
