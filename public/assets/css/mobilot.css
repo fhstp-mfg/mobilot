@@ -646,7 +646,8 @@ element-container {
 
 .editor-element-opt-container {
   border-bottom: 1px solid grey;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
 }
 
 .editor-element-opt {
