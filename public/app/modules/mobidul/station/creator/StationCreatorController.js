@@ -42,7 +42,7 @@ function StationCreatorController (
   stationCreator.origCategories = [];
 
   stationCreator.stationOptions = [{
-    name        : $translate.instant('IMMUTABLE'),
+    name        : $translate.instant('IMMUTABLE_STATION'),
     description : $translate.instant('IMMUTABLE_STATION_DESCRIPTION'),
     selected    : false
   }, {

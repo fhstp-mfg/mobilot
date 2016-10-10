@@ -228,7 +228,8 @@
   "SAY_TITLE": "Message",
 
   "IMMUTABLE": "Lock Mobidul settings",
-  "IMMUTABLE_STAION_DESCRIPTION": "The station is unchangeable",
+  "IMMUTABLE_STATION": "Lock station settings",
+  "IMMUTABLE_STATION_DESCRIPTION": "The station is unchangeable",
 
   "HIDE_ON_MAP": "Hide on map",
   "HIDE_ON_MAP_DESCRIPTION": "The station isn't showing on the map.",

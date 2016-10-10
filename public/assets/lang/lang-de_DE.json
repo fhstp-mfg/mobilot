@@ -228,7 +228,8 @@
   "SAY_TITLE": "Mitteilung",
 
   "IMMUTABLE": "Mobidul Einstellungen sperren",
-  "IMMUTABLE_STAION_DESCRIPTION": "Die Station ist unveränderbar",
+  "IMMUTABLE_STATION": "Station Einstellungen sperren"
+  "IMMUTABLE_STATION_DESCRIPTION": "Die Station ist unveränderbar",
 
   "HIDE_ON_MAP": "Auf Karte verstecken",
   "HIDE_ON_MAP_DESCRIPTION": "Die Station wird nicht auf der Karte angezeigt.",
