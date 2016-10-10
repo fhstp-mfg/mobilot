@@ -525,7 +525,7 @@ map {
   margin-bottom: 2.5em;
 }
 
-editor{
+editor {
   display: block;
 }
 
@@ -707,11 +707,11 @@ md-backdrop.md-sidenav-backdrop {
 */
 
 md-radio-button .md-off,
-md-radio-button.md-checked .md-off{
+md-radio-button.md-checked .md-off {
   border-color: #3797c4;
 }
 
-md-radio-button .md-on{
+md-radio-button .md-on {
   background-color: #3797c4;
 }
 
@@ -730,11 +730,11 @@ mbl-station-progress > div {
   width:100%;
 }
 
-mbl-station-progress > div::-webkit-scrollbar{
+mbl-station-progress > div::-webkit-scrollbar {
   display: none;
 }
 
-.progressbar li{
+.progressbar li {
   width: 80px;
 }
 
@@ -808,12 +808,11 @@ mbl-station-progress > div::-webkit-scrollbar{
 .progressbar li.current:before {
   border-color: #55b776;
 }
-
 .progressbar li.active + li:after {
   background-color: #55b776;
 }
 
-li:focus{
+li:focus {
     outline:none;
 }
 
@@ -831,8 +830,8 @@ html-container {
   display: block;
 }
 
-html-container img {
-  max-width:100%;
+html-container .picture {
+  max-width: 100%
 }
 
 positionicon {
@@ -865,7 +864,7 @@ positionicon .material-icons {
   }
 }
 
-mbl-free-text-input textarea{
+mbl-free-text-input textarea {
     padding: 1em;
     width: 100%;
     box-sizing: border-box;
@@ -945,7 +944,7 @@ ul[dnd-list] li {
 }
 
 #list_stations ul[dnd-list] > li,
-#editortabs ul[dnd-list] > li{
+#editortabs ul[dnd-list] > li {
   padding: 0;
   margin: 0;
   border: none;
