@@ -103,12 +103,10 @@ function ActivityService (
 
     var defer = $q.defer();
 
-    $http.post(
-      cordovaUrl + '/' + mobidulCode + '/PushActivity',
+    $http.post(cordovaUrl + '/' + mobidulCode + '/PushActivity',
       service._activityStore
     )
     .success(function (response) {
-
       //$log.debug('pushActivity response:', response);
       defer.resolve(response);
       // Clear activity store, ready for next chunk

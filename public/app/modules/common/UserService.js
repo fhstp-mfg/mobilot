@@ -303,7 +303,7 @@ function UserService (
 
     postData.route = cordovaUrl + '/' + postData.route;
 
-    return $http.post( postData.route, postData )
+    return $http.post(postData.route, postData)
       .success(function (response, status, headers, config) {
         // $log.debug(response);
       })
