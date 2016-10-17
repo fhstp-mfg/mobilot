@@ -104,10 +104,9 @@ function MobidulController (
       // TODO: adapt services to return necessary data
       var menuData = mobidulConfig.customNav.navigation;
 
-      // Reset menu before receiving it
-      mobidul.menu = [];
+      var menuItems = [];
 
-      angular.forEach( menuData, function (item, key) {
+      angular.forEach( menuData, function (item) {
         var menuItem = {};
         menuItem.code = item.id;
         menuItem.func = item.func;
@@ -119,10 +118,29 @@ function MobidulController (
           menuItem.href = ( item.href != 'map.html' ) ? item.href : 'map';
         }
 
-        mobidul.menu.push(menuItem);
+        menuItems.push(menuItem)
       });
 
 
+      // NOTE: Divide all menuItems into dividerBlocks
+      // Reset menu before receiving it
+      mobidul.menu = [];
+      var currentBlock = [];
+
+      angular.forEach(menuItems, function (item, key) {
+        currentBlock.push(item);
+
+        var nextItem = menuItems[key+1];
+        if (
+          typeof nextItem === 'undefined' ||
+          nextItem.isDivider !== item.isDivider
+        ) {
+          mobidul.menu.push(currentBlock);
+          currentBlock = [];
+        }
+      });
+
+      console.debug('JHERE: ', mobidul.menu);
 
 
       if ( StateManager.isMobidul() )

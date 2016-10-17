@@ -36,17 +36,30 @@
 
   <md-list ng-class="menu.myFont">
     <!-- Mobidul Menu -->
-    <md-list-item
-      class="md-list-item"
-      ng-repeat="item in mobidul.menu"
-      ng-click=" ! item.isDivider ? mobidul.switchContent( item ) : null"
-      ng-class="item.isDivider ? 'menuDivider menuDividerEmpty' : ''"
-    >
-      <md-icon ng-if="item.href === 'map'">map</md-icon>
-      <md-icon ng-if="item.func === 'getForCategory'">group_work</md-icon>
-      <md-icon ng-if="item.href !== 'map' && item.func === 'switchcontent'">location_on</md-icon>
-      <span flex ng-if="! item.isDivider">{{ item.text }}</span>
-    </md-list-item>
+    <div ng-repeat="menuItem in mobidul.menu">
+      <!-- Menu Items -->
+      <md-list-item
+        class="md-list-item"
+        ng-repeat="item in menuItem"
+        ng-if=" ! item.isDivider"
+        ng-click="mobidul.switchContent(item)"
+      >
+        <!-- TODO: add ng-disabled to parent element -->
+        <!-- ng-disabled="item.isDivider" -->
+        <md-icon ng-if="item.href === 'map'">map</md-icon>
+        <md-icon ng-if="item.func === 'getForCategory'">group_work</md-icon>
+        <md-icon ng-if="item.href !== 'map' && item.func === 'switchcontent'">location_on</md-icon>
+        <span flex ng-if="! item.isDivider">{{ item.text }}</span>
+      </md-list-item>
+
+      <!-- Menu Divider -->
+      <md-list-item
+        class="menuDivider menuDividerEmpty"
+        ng-repeat="item in menuItem"
+        ng-if="item.isDivider">
+      </md-list-item>
+    </div>
+
 
     <md-list-item
       ng-if="menu.isRallyMode"

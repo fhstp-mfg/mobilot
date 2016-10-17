@@ -75,34 +75,31 @@ function MenuController (
   {
     menu.config = MobidulService.Mobidul;
 
-
-    if ( ! menu.isGoToHomeEnabled && ! menu.isGoToAboutEnabled )
+    if ( ! menu.isGoToHomeEnabled && ! menu.isGoToAboutEnabled ) {
       menu.isLastDividerEnabled = false;
+    }
 
     MobidulService.getMobidulMode(StateManager.state.params.mobidulCode)
-    .then(function (mode) {
-      menu.isRallyMode = mode == MobidulService.MOBIDUL_MODE_RALLY;
-    });
+      .then(function (mode) {
+        menu.isRallyMode = mode == MobidulService.MOBIDUL_MODE_RALLY;
+      });
 
-    //$log.info('MenuController - _initDefaultValues - menu.isRallyMode');
-    //$log.debug(menu.isRallyMode);
+    // $log.info('MenuController - _initDefaultValues - menu.isRallyMode');
+    // $log.debug(menu.isRallyMode);
 
     // TODO: Implement Promise
-    var  currentUser = UserService.Session;
+    var currentUser = UserService.Session;
     menu.currentUser = currentUser;
 
-    var isLoggedIn   = currentUser.isLoggedIn;
-
-
-    if ( isLoggedIn )
-    {
-      menu.isLoggedIn      = isLoggedIn;
+    var isLoggedIn = currentUser.isLoggedIn;
+    if (isLoggedIn) {
+      menu.isLoggedIn = isLoggedIn;
       menu.accountItemText = menu._logoutAccountText;
 
-      menu.profile.flex    = menu._profileFlexThird;
+      menu.profile.flex = menu._profileFlexThird;
+    } else {
+      menu.profile.flex = menu._profileFlexFull;
     }
-    else
-      menu.profile.flex    = menu._profileFlexFull;
   }
 
 
@@ -119,7 +116,7 @@ function MenuController (
           colorElements[c].style.color = config.foreground;
         }
 
-        menu.myFont = FontService.getFontClass( config.font );
+        menu.myFont = FontService.getFontClass(config.font);
       });
 
     // $rootScope.$on('$destroy', configListener);

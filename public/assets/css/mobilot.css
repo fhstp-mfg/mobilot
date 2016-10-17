@@ -694,6 +694,9 @@ md-backdrop.md-sidenav-backdrop {
 .menuDividerEmpty {
   min-height: 1.2em;
 }
+.menuDividerEmpty::before {
+  content: none;
+}
 .menuDivider button.md-button:not([disabled]):hover {
   background: #bbb;
 }
