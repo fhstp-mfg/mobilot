@@ -393,8 +393,7 @@ md-checkbox.md-checked .md-icon {
 /*******************/
 
 md-toolbar,
-.md-toolbar-tools,
-.menu-login {
+.md-toolbar-tools {
   height: 56px;
   min-height: 56px;
 }
@@ -684,6 +683,14 @@ md-backdrop.md-sidenav-backdrop {
   position: fixed
 }
 
+.menu-login {
+  height: 56px;
+  min-height: 56px;
+}
+.ios-menu-login {
+  height: 76px;
+  min-height: 76px;
+}
 .menu-login button {
   padding: 0 !important
 }
