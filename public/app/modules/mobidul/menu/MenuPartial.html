@@ -37,7 +37,7 @@
   <md-list ng-class="menu.myFont">
     <!-- Mobidul Menu -->
     <div ng-repeat="menuItem in mobidul.menu">
-      <!-- Menu Items -->
+      <!-- Items (I) -->
       <md-list-item
         class="md-list-item"
         ng-repeat="item in menuItem"
@@ -52,7 +52,7 @@
         <span flex ng-if="! item.isDivider">{{ item.text }}</span>
       </md-list-item>
 
-      <!-- Menu Divider -->
+      <!-- Divider (D) -->
       <md-list-item
         class="menuDivider menuDividerEmpty"
         ng-repeat="item in menuItem"
