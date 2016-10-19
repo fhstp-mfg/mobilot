@@ -26,7 +26,7 @@
     <md-button
       flex
       class="md-raised"
-      ng-class="{ 'md-warn' : menu.isLoggedIn }"
+      ng-class="{ 'md-warn': menu.isLoggedIn }"
       ng-click="menu.loginLogoutButtonClick()"
       ng-if="menu.isLoggedIn"
     >
@@ -48,15 +48,18 @@
         <md-icon ng-if="item.href === 'map'">map</md-icon>
         <md-icon ng-if="item.func === 'getForCategory'">group_work</md-icon>
         <md-icon ng-if="item.href !== 'map' && item.func === 'switchcontent'">location_on</md-icon>
-        <span flex ng-if="! item.isDivider">{{ item.text }}</span>
+        <span flex>{{ item.text }}</span>
       </md-list-item>
 
       <!-- Divider (D) -->
       <md-list-item
-        class="menuDivider menuDividerEmpty"
+        class="menuDivider"
+        ng-class="{ 'menuDividerEmpty': ! item.text }"
         ng-repeat="item in menuItem"
         ng-if="item.isDivider"
-        ng-disabled="item.isDivider">
+        ng-disabled="item.isDivider"
+      >
+        <span flex>{{ item.text }}</span>
       </md-list-item>
     </div>
 
