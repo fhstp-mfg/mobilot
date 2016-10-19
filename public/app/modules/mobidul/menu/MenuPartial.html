@@ -45,7 +45,6 @@
         ng-click="mobidul.switchContent(item)"
       >
         <!-- TODO: add ng-disabled to parent element -->
-        <!-- ng-disabled="item.isDivider" -->
         <md-icon ng-if="item.href === 'map'">map</md-icon>
         <md-icon ng-if="item.func === 'getForCategory'">group_work</md-icon>
         <md-icon ng-if="item.href !== 'map' && item.func === 'switchcontent'">location_on</md-icon>
@@ -56,7 +55,8 @@
       <md-list-item
         class="menuDivider menuDividerEmpty"
         ng-repeat="item in menuItem"
-        ng-if="item.isDivider">
+        ng-if="item.isDivider"
+        ng-disabled="item.isDivider">
       </md-list-item>
     </div>
 
@@ -71,7 +71,10 @@
 
     <!-- Admin area -->
     <div ng-if="menu.currentUser.role > 0">
-      <md-list-item class="menuDivider">
+      <md-list-item
+        class="menuDivider"
+        ng-disabled="true"
+      >
         <span translate="MOBIDUL"></span>
       </md-list-item>
 
@@ -90,15 +93,6 @@
         <md-icon>settings</md-icon>
         <span flex translate="OPTIONS"></span>
       </md-list-item>
-
-      <!-- <md-list-item
-        ng-if="menu.currentUser.role == 1"
-        ng-click="mobidul.cloneMyMobidul()"
-        ng-show="menu.isCloneMobidulEnabled"
-      >
-        <md-icon>content_copy</md-icon>
-        <span flex translate="CLONE"></span>
-      </md-list-item> -->
     </div>
 
     <!-- Join -->
@@ -110,7 +104,8 @@
     <!-- Common area -->
     <md-list-item
       class="menuDivider menuDividerEmpty"
-      ng-show="menu.isLastDividerEnabled">
+      ng-show="menu.isLastDividerEnabled"
+      ng-disabled="true">
     </md-list-item>
 
     <md-list-item
