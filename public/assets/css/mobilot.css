@@ -393,7 +393,8 @@ md-checkbox.md-checked .md-icon {
 /*******************/
 
 md-toolbar,
-.md-toolbar-tools {
+.md-toolbar-tools,
+.menu-login {
   height: 56px;
   min-height: 56px;
 }
