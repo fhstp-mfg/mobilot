@@ -30,6 +30,8 @@ function LocalStorageService (
     shouldExplainGenericGeoPermit : shouldExplainGenericGeoPermit,
     explainNearGeoPermit : explainNearGeoPermit,
     shouldExplainNearGeoPermit : shouldExplainNearGeoPermit,
+    explainGeoPermit : explainGeoPermit,
+    shouldExplainGeoPermit : shouldExplainGeoPermit,
 
     // Rally progress functions
     getProgress   : getProgress,
@@ -56,7 +58,7 @@ function LocalStorageService (
 
     return defer.promise;
   }
-  
+
   function getValue (key) {
     var defer = $q.defer();
 
@@ -72,16 +74,17 @@ function LocalStorageService (
   function init ()
   {
     service.localStorage = $localStorage.$default({
-      EXPLAIN_GENERIC_GEO_PERMIT : true,
-      EXPLAIN_NEAR_GEO_PERMIT : true
+      EXPLAIN_GEO_PERMIT : true,
+      // EXPLAIN_GENERIC_GEO_PERMIT : true,
+      // EXPLAIN_NEAR_GEO_PERMIT : true,
     });
   }
-  
+
   function explainGenericGeoPermit (explain) {
-    // NOTE take care of digest cycles,
+    // NOTE: take care of digest cycles,
     //  just because a field is set here,
     //  doesn't actually mean it's already retrievable
-    // NOTE check out docs, (use $timeout in your controller)
+    // NOTE: check out docs, (use $timeout in your controller)
     service.localStorage.EXPLAIN_GENERIC_GEO_PERMIT = explain;
   }
 
@@ -93,10 +96,10 @@ function LocalStorageService (
   // Near Geo Permit
 
   function explainNearGeoPermit (explain) {
-    // NOTE take care of digest cycles,
+    // NOTE: take care of digest cycles,
     //  just because a field is set here,
     //  doesn't actually mean it's already retrievable
-    // NOTE check out docs, (use $timeout in your controller)
+    // NOTE: check out docs, (use $timeout in your controller)
     service.localStorage.EXPLAIN_NEAR_GEO_PERMIT = explain;
   }
 
@@ -104,9 +107,20 @@ function LocalStorageService (
     return service.localStorage.EXPLAIN_NEAR_GEO_PERMIT;
   }
 
+  function explainGeoPermit (explain) {
+    // NOTE: take care of digest cycles,
+    //  just because a field is set here,
+    //  doesn't actually mean it's already retrievable
+    // NOTE: check out docs, (use $timeout in your controller)
+    service.localStorage.EXPLAIN_GEO_PERMIT = explain;
+  }
 
-  function setProgress(mobidulCode, progress){
+  function shouldExplainGeoPermit () {
+    return service.localStorage.EXPLAIN_GEO_PERMIT;
+  }
 
+
+  function setProgress (mobidulCode, progress) {
     //$log.info('LocalStorageService - setProgress:');
     //$log.debug(mobidulCode, progress);
 
@@ -115,17 +129,17 @@ function LocalStorageService (
 
       service.localStorage.progressStorage[mobidulCode]['progress'] = progress;
 
-      $timeout(function(){
+      $timeout(function () {
         resolve();
       });
     });
 
   }
 
-  function setState(mobidulCode, state){
-    return $q(function(resolve, reject) {
+  function setState (mobidulCode, state) {
+    return $q(function (resolve, reject) {
       service.localStorage.progressStorage[mobidulCode]['state'] = state;
-      $timeout(function(){
+      $timeout(function () {
         resolve();
       });
     });
@@ -139,16 +153,16 @@ function LocalStorageService (
    * @param states
    * @returns {*}
    */
-  function getProgress(mobidulCode, states){
+  function getProgress (mobidulCode, states) {
 
-    if(!service.localStorage.progressStorage){
+    if ( ! service.localStorage.progressStorage ) {
       service.localStorage.progressStorage = {};
     }
 
-    return $q(function(resolve, reject){
-      if(! service.localStorage.progressStorage[mobidulCode]){
+    return $q(function (resolve, reject) {
+      if ( ! service.localStorage.progressStorage[mobidulCode]) {
 
-        if(! states[0]){
+        if ( ! states[0] ) {
           $log.warn('You are trying to create a rally progress notation without passing the states of the this mobidulMode');
         }
 
@@ -158,7 +172,7 @@ function LocalStorageService (
           score: 0
         };
       }
-      $timeout(function(){
+      $timeout(function () {
         //$log.info('LocalStorageService - getProgress - $timeout - service.localStorage:');
         //$log.debug(service.localStorage);
         resolve( service.localStorage.progressStorage[mobidulCode] );
@@ -166,17 +180,15 @@ function LocalStorageService (
     });
   }
 
-  function resetProgress(mobidulCode, states){
-
-    return $q(function(resolve, reject){
-
+  function resetProgress (mobidulCode, states) {
+    return $q(function (resolve, reject) {
       var progress = service.localStorage.progressStorage[mobidulCode] = {
         progress: 0,
         state: states[0],
         score: 0
       };
 
-      $timeout(function(){
+      $timeout(function () {
         return resolve(progress);
       });
     });
@@ -185,14 +197,14 @@ function LocalStorageService (
   function increaseScore (mobidulCode, score) {
     var deferred = $q.defer();
 
-    if ( ! isNaN(service.localStorage.progressStorage[mobidulCode].score)) {
+    if ( ! isNaN(service.localStorage.progressStorage[mobidulCode].score) ) {
       var newScore = service.localStorage.progressStorage[mobidulCode].score += score;
       $timeout(function () {
         deferred.resolve(newScore);
       });
     } else {
       $timeout(function () {
-        deferred.reject({msg: 'No entry in progress storage'});
+        deferred.reject({ msg: 'No entry in progress storage' });
       });
     }
     return deferred.promise;
@@ -202,7 +214,10 @@ function LocalStorageService (
     var deferred = $q.defer();
 
     $timeout(function () {
-      deferred.resolve(service.localStorage.progressStorage[mobidulCode] && service.localStorage.progressStorage[mobidulCode].score);
+      deferred.resolve(
+        service.localStorage.progressStorage[mobidulCode] &&
+        service.localStorage.progressStorage[mobidulCode].score
+      );
     });
 
     return deferred.promise;
@@ -210,7 +225,6 @@ function LocalStorageService (
 
   /// events
   // ...
-
 
   return service;
 }

@@ -44,8 +44,7 @@ function MobidulController (
   {
     $log.debug('init MobidulController');
     // $log.debug(StateManager.state);
-    LocalStorageService.explainGenericGeoPermit(true);
-
+    // LocalStorageService.explainGenericGeoPermit(true);
 
     _initDefaultValues();
 

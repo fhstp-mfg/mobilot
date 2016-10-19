@@ -92,8 +92,7 @@ function MapController (
   function _init () {
     // $log.debug('MapController init');
     // $log.debug('isNewStation : ' + map.isNewStation);
-    // LocalStorageService.explainGenericGeoPermit(true);
-
+    LocalStorageService.init();
 
     _initDefaultValues();
 
@@ -183,10 +182,7 @@ function MapController (
     // $log.debug('watchPosition in MapController : ');
     // $log.debug($scope.myPosition);
 
-    if (
-      ! $scope.myPosition &&
-      LocalStorageService.shouldExplainGenericGeoPermit()
-    ) {
+    if ( ! $scope.myPosition && LocalStorageService.shouldExplainGeoPermit() ) {
       var informAboutGeoPermitDialog =
         $mdDialog.alert()
           .parent(angular.element(document.body))
@@ -196,12 +192,11 @@ function MapController (
           .ok($translate.instant('OK'));
 
       $mdDialog.show( informAboutGeoPermitDialog )
-      .then(function () {
-        LocalStorageService.explainGenericGeoPermit(false);
+        .then(function () {
+          LocalStorageService.explainGeoPermit(false);
 
-        _watchPosition();
-      });
-
+          _watchPosition();
+        });
     } else {
       _watchPosition();
     }
