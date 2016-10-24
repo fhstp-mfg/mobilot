@@ -828,11 +828,11 @@ li:focus {
 }
 
 
-/*
-  Rally Directives
-*/
+/**
+ * Rally Directives
+ */
 
-#station-container p {
+#station_container p {
   margin-bottom: 1em;
   margin-top: 1em;
 }

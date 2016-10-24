@@ -445,7 +445,7 @@ angular
 
 
           // /:mobidulCode/:stationCode/:media
-                    .state('mobidul.media', {
+          .state('mobidul.media', {
             url : '/media/:media',
             views : {
               'mobidulContent' : {

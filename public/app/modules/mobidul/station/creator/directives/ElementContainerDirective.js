@@ -18,7 +18,7 @@ function ElementContainer(
 ) {
   return {
     restrict: 'E',
-    template:
+    template: (
       '<div class="editor-element-opt-container">' +
         '<md-button class="editor-element-opt" ng-click="ctrl.delete()">' +
           '<md-icon style="color: #EF4A53">delete</md-icon>' +
@@ -30,7 +30,9 @@ function ElementContainer(
         '<md-button class="editor-element-opt" ng-click="ctrl.collapse()">' +
           '<md-icon style="color: #106391">edit</md-icon>' +
         '</md-button>' +
-      '</div>',
+      '</div>'
+    ),
+
     scope: {
       element: '='
     },

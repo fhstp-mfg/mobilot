@@ -123,8 +123,8 @@
 
   "INFORMATION": "Information",
 
-  "EXPLAIN_GENERIC_GEO_PERMIT": "Mobilot needs the permission to determine your position.",
-  "EXPLAIN_NEAR_GEO_PERMIT": "In order to find Mobiduls near you, Mobilot needs the permission to determine your position.",
+  "EXPLAIN_GENERIC_GEO_PERMIT": "Mobilot needs your permission to determine your position.",
+  "EXPLAIN_NEAR_GEO_PERMIT": "In order to find Mobiduls near you, Mobilot needs your permission to determine your position.",
   "UNKNOWN_ERROR_MSG": "Unknown Error. Please contact an administrator.",
   "PERMISSION_DENIED_MSG": "Your position couldn't be determined. Please activate in the options the authority, in order to determine your position.",
   "POSITION_UNAVAILABLE_MSG": "Unfortunately your position couldn't be determined. Would you like to try it again?",
