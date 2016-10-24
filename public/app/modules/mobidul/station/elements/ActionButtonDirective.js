@@ -23,7 +23,7 @@ function ActionButton (
     template: '' +
       '<div>' +
         '<md-button ' +
-          'class="md-raised md-primary" ' +
+          'class="md-raised md-primary md-mobilot" ' +
           'ng-click="actionButton.clicked()"' +
         '>' +
           '<ng-transclude></ng-transclude>' +

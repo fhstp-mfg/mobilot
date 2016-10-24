@@ -22,11 +22,21 @@ function PhotoUploadConfig(
     template:
     '<div>' +
       '{{content}}' +
-      '<md-button class="md-raised md-primary" translate="UPLOAD_PHOTO">{{ \'UPLOAD_PHOTO\' | translate }}</md-button><br/>' +
+      '<md-button class="md-raised md-primary md-mobilot" translate="UPLOAD_PHOTO">' +
+        '{{ \'UPLOAD_PHOTO\' | translate }}' +
+      '</md-button><br/>' +
       '<div class="config-part">' +
-        '<md-input-container><input type="text" ng-model="content" placeholder="{{ \'EXPLAINATION\' | translate }}"></md-input-container>' +
-        '<action-selector data-opts="ctrl.actionOpts" data-selection="success" data-name="SUCCESS_ACTION"></action-selector>' +
-        '<md-button data-ng-click="ctrl.exportPictures()">{{ \'DOWNLOAD_PHOTOS\' | translate }}</md-button>' +
+        '<md-input-container>' +
+          '<input type="text" ng-model="content" placeholder="{{ \'EXPLAINATION\' | translate }}">' +
+        '</md-input-container>' +
+        '<action-selector' +
+          ' data-opts="ctrl.actionOpts"' +
+          ' data-selection="success"' +
+          ' data-name="SUCCESS_ACTION"' +
+        '></action-selector>' +
+        '<md-button data-ng-click="ctrl.exportPictures()">' +
+          '{{ \'DOWNLOAD_PHOTOS\' | translate }}' +
+        '</md-button>' +
       '</div>' +
     '</div>',
     scope: {

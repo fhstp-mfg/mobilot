@@ -34,7 +34,7 @@ function InputCode (
 
           '<md-button ' +
             'type="submit" ' +
-            'class="md-raised md-primary" ' +
+            'class="md-raised md-primary md-mobilot" ' +
           '>{{ \'GO\' | translate }}</md-button>' +
         '</form>' +
       '</div>'
@@ -86,7 +86,7 @@ function InputCode (
 
           $rootScope.$broadcast('action', $scope.error);
         }
-        
+
         ActivityService.pushActivity();
       }
     }
