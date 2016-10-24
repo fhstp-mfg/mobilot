@@ -45,9 +45,9 @@
         ng-click="mobidul.switchContent(item)"
       >
         <!-- TODO: add ng-disabled to parent element -->
-        <md-icon ng-if="item.href === 'map'">map</md-icon>
+        <md-icon ng-if="item.href === 'map' || item.href === 'mobilot.html'">map</md-icon>
         <md-icon ng-if="item.func === 'getForCategory'">group_work</md-icon>
-        <md-icon ng-if="item.href !== 'map' && item.func === 'switchcontent'">location_on</md-icon>
+        <md-icon ng-if="( item.href !== 'map' || item.href !== 'map.html' ) && item.func === 'switchcontent'">location_on</md-icon>
         <span flex>{{ item.text }}</span>
       </md-list-item>
 
