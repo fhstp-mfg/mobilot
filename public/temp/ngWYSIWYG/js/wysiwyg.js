@@ -388,16 +388,17 @@ angular.module('ngWYSIWYG').directive('wysiwygEdit', ['$log', '$compile', '$time
 					});
 			};
 
-			scope.addedImage = function (hash)
-			{
-				var imgSrc = 'image/' + 400 + '/' + hash+'.jpg';
-				var x = '<a href="#/' + $stateParams.mobidulCode + '/media/' + hash +'.jpg">' +
-					'<img class="picture" '      +
-					'src="' + imgSrc + '" ' +
-					'width="100%" '         +
-					'height="auto" '        +
-					'style="max-width : 100%"></a>';
-				scope.execCommand('insertHTML', x);
+			scope.addedImage = function (hash) {
+				var imgSrc = cordovaUrl + '/image/' + 400 + '/' + hash + '.jpg';
+				var html = '<a href="#/' + $stateParams.mobidulCode + '/media/' + hash +'.jpg">' +
+					'<img' +
+            ' class="picture"' +
+					  ' src="' + imgSrc + '"' +
+					  ' width="100%"' +
+					  ' height="auto"' +
+					  ' style="max-width: 100%"' +
+          '></a>';
+				scope.execCommand('insertHTML', html);
 			};
 
 			$element.ready(function() {
