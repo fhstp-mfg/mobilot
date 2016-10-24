@@ -7,30 +7,23 @@
     layout-padding
     ng-class="{ 'ios-top-margin': stationCreator.isCordovaIos }"
   >
-    <md-input-container class="less-pb-field">
+    <md-input-container class="less-pb-field" style="margin-bottom: 0">
       <label translate="NAME"></label>
       <input
         id="station_creator_name"
         ng-model="stationCreator.station.name"
         ng-keyup="stationCreator.changeName()"
-        required>
+        required
+      >
     </md-input-container>
 
-    <div layout-sm="column">
-      <!-- <md-input-container class="less-pb-field">
-          <label>Mobidul Link</label>
-          <input
-          class="url-field mobidul-url-field"
-          ng-model="stationCreator.station.link"
-          disabled>
-        </md-input-container> -->
-
-      <md-input-container class="less-pb-field" flex>
+    <div layout="column" ng-show="stationCreator.editStationCode">
+      <md-input-container class="less-pb-field" style="margin-bottom: 0" flex>
         <label>
           <span translate="STATION_CODE"></span>
-          <span ng-show="stationCreator.basis.codeHelper.show">
+          <!-- <span ng-show="stationCreator.basis.codeHelper.show">
             - {{ stationCreator.basis.codeHelper.text }}
-          </span>
+          </span> -->
         </label>
 
         <input
@@ -40,15 +33,24 @@
           maxlength="20"
           required>
         </md-input-container>
+      </div>
 
+    <div layout="column">
       <p class="helper" translate="STATION_LINK_WILL_BE"></p>
-      <p class="url-helper">
-        <!-- <span>{{ creator.mobidul.link }}</span> -->
-        <span>{{ stationCreator._mobilotUrl }}</span>
-        <span>/#/</span>
-        <span>{{ stationCreator.mobidulCode }}</span>
-        <span>/</span>
-        <span>{{ stationCreator.codePreview }}</span>
+      <div class="url-helper">
+        <div>{{ stationCreator._mobilotUrl }}</div>
+        <div>/#/</div>
+        <div>{{ stationCreator.mobidulCode }}</div>
+        <div>/</div>
+        <div class="codePreview" ng-click="stationCreator.invokeChangeCode()">
+          <span class="stationCode">{{ stationCreator.codePreview }}</span>
+          <md-icon class="codePreviewIcon">edit</md-icon>
+        </div>
+      </div>
+      <p class="codeHelperText">
+        <span ng-show="stationCreator.basis.codeHelper.show">
+          * Station code {{ stationCreator.basis.codeHelper.text }}.
+        </span>
       </p>
     </div>
 

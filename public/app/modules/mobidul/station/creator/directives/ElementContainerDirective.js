@@ -15,34 +15,34 @@ function ElementContainer(
   $log, $compile, $rootScope, $translate,
   $mdDialog, $stateParams,
   MobidulService
-){
+) {
   return {
     restrict: 'E',
     template:
       '<div class="editor-element-opt-container">' +
-        '<md-button class="editor-element-opt" data-ng-click="ctrl.delete()">' +
-          '<md-icon>delete</md-icon>' +
+        '<md-button class="editor-element-opt" ng-click="ctrl.delete()">' +
+          '<md-icon style="color: #EF4A53">delete</md-icon>' +
         '</md-button>' +
-        '<md-button  class="editor-element-opt" data-ng-click="ctrl.showInfo()">' +
-          '<md-icon>{{ctrl.icon}}</md-icon>' +
+        '<md-button class="editor-element-opt" ng-click="ctrl.showInfo()">' +
+          // '<md-icon>{{ ctrl.icon }}</md-icon>' +
+          '<md-icon style="color: #2E9FDE">info</md-icon>' +
         '</md-button>' +
-        '<md-button class="editor-element-opt" data-ng-click="ctrl.collapse()">' +
-          '<md-icon>build</md-icon>' +
+        '<md-button class="editor-element-opt" ng-click="ctrl.collapse()">' +
+          '<md-icon style="color: #106391">edit</md-icon>' +
         '</md-button>' +
       '</div>',
     scope: {
       element: '='
     },
-    link: function($scope, $element, $attrs, ctrl){
-      //$log.info('ElementContainer - element:');
-      //$log.debug($scope.element);
+
+    link: function ($scope, $element, $attrs, ctrl) {
+      // $log.info('ElementContainer - element:');
+      // $log.debug($scope.element);
 
       ctrl.element = $scope.element;
-
       var type = ctrl.element.type;
 
-      switch(type){
-
+      switch (type) {
         case 'HTML':
           $element.append($compile('<html-container-config data-content="ctrl.element.content"></html-container-config>')($scope));
           break;
@@ -83,7 +83,7 @@ function ElementContainer(
           $log.error('couldn\'t render element with type: ' + type);
       }
 
-      $rootScope.$on('selected:editorElement', function ( event, msg ) {
+      $rootScope.$on('selected:editorElement', function (event, msg) {
         if ( msg != ctrl.element.$$hashKey ) {
           $element.removeClass('selected');
         }
@@ -92,27 +92,22 @@ function ElementContainer(
       // Retrieving Icon
       // TODO: can be simplified if element config is not bound to mode but global
       MobidulService.getMobidulConfig($stateParams.mobidulCode)
-      .then(function ( config ) {
-
-        for (var element in config.elements) {
-
-          if (config.elements.hasOwnProperty(element)){
-            if (element == ctrl.element.type) {
+      .then(function (config) {
+        for ( var element in config.elements ) {
+          if ( config.elements.hasOwnProperty(element) ) {
+            if ( element == ctrl.element.type ) {
               ctrl.icon = config.elements[element].icon;
               break;
             }
           }
         }
-
-      })
-
+      });
     },
     controller: ElementContainerController,
     controllerAs: 'ctrl'
   };
 
-  function ElementContainerController($scope, $element, $attrs){
-
+  function ElementContainerController($scope, $element, $attrs) {
     var ctrl = this;
 
     ctrl.delete = function () {
@@ -135,23 +130,20 @@ function ElementContainer(
     };
 
     ctrl.showInfo = function () {
-
       var saveMobidulOptionsDialog =
         $mdDialog.alert()
           .parent(angular.element(document.body))
-          .title( $translate.instant($scope.element.type) )
+          .title($translate.instant($scope.element.type))
           // TODO: implement component description
-          .textContent( $translate.instant($scope.element.type + '_DESCRIPTION') )
+          .textContent($translate.instant($scope.element.type + '_DESCRIPTION'))
           .ariaLabel($translate.instant('CLOSE'))
           .ok($translate.instant('CLOSE'));
 
       $mdDialog.show( saveMobidulOptionsDialog )
         .then(function () {
-
+          // ...
         });
-
     };
-
   }
 }
 

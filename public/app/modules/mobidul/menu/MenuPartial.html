@@ -8,7 +8,7 @@
     class="menu-login"
     layout="row"
     layout-padding
-    ng-class="{ 'ios-top-padding' : menu.isCordovaIos }"
+    ng-class="{ 'ios-top-padding ios-menu-login': menu.isCordovaIos }"
   >
     <md-button
       flex="{{ menu.profile.flex }}"
@@ -26,7 +26,7 @@
     <md-button
       flex
       class="md-raised"
-      ng-class="{ 'md-warn' : menu.isLoggedIn }"
+      ng-class="{ 'md-warn': menu.isLoggedIn }"
       ng-click="menu.loginLogoutButtonClick()"
       ng-if="menu.isLoggedIn"
     >
@@ -36,17 +36,33 @@
 
   <md-list ng-class="menu.myFont">
     <!-- Mobidul Menu -->
-    <md-list-item
-      class="md-list-item"
-      ng-repeat="item in mobidul.menu"
-      ng-click=" ! item.isDivider ? mobidul.switchContent( item ) : null"
-      ng-class="item.isDivider ? 'menuDivider menuDividerEmpty' : ''"
-    >
-      <md-icon ng-if="item.href === 'map'">map</md-icon>
-      <md-icon ng-if="item.func === 'getForCategory'">group_work</md-icon>
-      <md-icon ng-if="item.href !== 'map' && item.func === 'switchcontent'">location_on</md-icon>
-      <span flex ng-if="! item.isDivider">{{ item.text }}</span>
-    </md-list-item>
+    <div ng-repeat="menuItem in mobidul.menu">
+      <!-- Items (I) -->
+      <md-list-item
+        class="md-list-item"
+        ng-repeat="item in menuItem"
+        ng-if=" ! item.isDivider"
+        ng-click="mobidul.switchContent(item)"
+      >
+        <!-- TODO: add ng-disabled to parent element -->
+        <md-icon ng-if="item.href === 'map'">map</md-icon>
+        <md-icon ng-if="item.func === 'getForCategory'">group_work</md-icon>
+        <md-icon ng-if="item.href !== 'map' && item.func === 'switchcontent'">location_on</md-icon>
+        <span flex>{{ item.text }}</span>
+      </md-list-item>
+
+      <!-- Divider (D) -->
+      <md-list-item
+        class="menuDivider"
+        ng-class="{ 'menuDividerEmpty': ! item.text }"
+        ng-repeat="item in menuItem"
+        ng-if="item.isDivider"
+        ng-disabled="item.isDivider"
+      >
+        <span flex>{{ item.text }}</span>
+      </md-list-item>
+    </div>
+
 
     <md-list-item
       ng-if="menu.isRallyMode"
@@ -58,7 +74,10 @@
 
     <!-- Admin area -->
     <div ng-if="menu.currentUser.role > 0">
-      <md-list-item class="menuDivider">
+      <md-list-item
+        class="menuDivider"
+        ng-disabled="true"
+      >
         <span translate="MOBIDUL"></span>
       </md-list-item>
 
@@ -77,15 +96,6 @@
         <md-icon>settings</md-icon>
         <span flex translate="OPTIONS"></span>
       </md-list-item>
-
-      <!-- <md-list-item
-        ng-if="menu.currentUser.role == 1"
-        ng-click="mobidul.cloneMyMobidul()"
-        ng-show="menu.isCloneMobidulEnabled"
-      >
-        <md-icon>content_copy</md-icon>
-        <span flex translate="CLONE"></span>
-      </md-list-item> -->
     </div>
 
     <!-- Join -->
@@ -97,7 +107,8 @@
     <!-- Common area -->
     <md-list-item
       class="menuDivider menuDividerEmpty"
-      ng-show="menu.isLastDividerEnabled">
+      ng-show="menu.isLastDividerEnabled"
+      ng-disabled="true">
     </md-list-item>
 
     <md-list-item

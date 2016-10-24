@@ -157,27 +157,29 @@ function PhotoService(
           newFileName.join('.');
 
           if (finalFile.length > 6) {
-
-            //Check if file is already in MediaList
+            // Check if file is already in MediaList
             var hash = CryptoJS.MD5(finalFile).toString(CryptoJS.enc.Base64);
 
             var File = {
               'name': 'file',
               'file': finalFile,
-              'filename': newFileName + ".jpg",
+              'filename': newFileName + '.jpg',
               'hash': hash,
               'extension': '.jpg',
               'componentId': componentId,
               'stationCode': $stateParams.stationCode
             };
 
-              $http.post('/' + $stateParams.mobidulCode + '/saveImage', JSON.stringify(File)).then(function (response) {
-                resolve(response.data);
-              }, function (error) {
-                reject(error);
-              });
+            $http.post(cordovaUrl + '/' + $stateParams.mobidulCode + '/saveImage',
+              JSON.stringify(File)
+            ).then(function (response) {
+              resolve(response.data);
+            }, function (error) {
+              reject(error);
+            });
 
           } else {
+            // ...
           }
         };
       };

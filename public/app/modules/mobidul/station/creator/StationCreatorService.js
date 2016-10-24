@@ -35,7 +35,7 @@ function StationCreatorService (
     saveStation          : saveStation,
     deleteStation        : deleteStation,
     cloneMyStation       : cloneMyStation,
-    updateStationContent: updateStationContent
+    updateStationContent : updateStationContent
   };
 
 
@@ -75,15 +75,14 @@ function StationCreatorService (
    * @returns {*} Call of the Server
    */
   function cloneMyStation(mobidulCode, stationCode) {
-
     return $http.get(cordovaUrl + '/' + mobidulCode + '/cloneStation/' + stationCode)
       .success(function (response, status, headers, config) {
       return response;
     })
-      .error(function (response, status, headers, config) {
-        $log.error(response);
-        $log.error(status);
-      });
+    .error(function (response, status, headers, config) {
+      $log.error(response);
+      $log.error(status);
+    });
   }
 
   return service;

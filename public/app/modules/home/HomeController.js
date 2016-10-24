@@ -60,12 +60,10 @@ function HomeController (
 
   /// private functions
 
-  function _init ()
-  {
+  function _init () {
     $log.debug('HomeController init');
 
     LocalStorageService.init();
-    LocalStorageService.explainNearGeoPermit(true);
   }
 
 
@@ -240,27 +238,32 @@ function HomeController (
 
     if (
       home.searchTypeIndex == HomeService.NEAR_ME_MOBIDULE &&
-      home.myPosition == null &&
-      LocalStorageService.shouldExplainNearGeoPermit()
+      home.myPosition == null
     ) {
-      var informAboutGeoPermitDialog =
-        $mdDialog.alert()
-          .parent(angular.element(document.body))
-          .title($translate.instant('INFORMATION'))
-          .textContent($translate.instant('EXPLAIN_NEAR_GEO_PERMIT'))
-          .ariaLabel($translate.instant('INFORMATION'))
-          .ok($translate.instant('OK'));
+      if ( LocalStorageService.shouldExplainGeoPermit() ) {
+        var informAboutGeoPermitDialog =
+          $mdDialog.alert()
+            .parent(angular.element(document.body))
+            .title($translate.instant('INFORMATION'))
+            .textContent($translate.instant('EXPLAIN_NEAR_GEO_PERMIT'))
+            .ariaLabel($translate.instant('INFORMATION'))
+            .ok($translate.instant('OK'));
 
-      $mdDialog.show( informAboutGeoPermitDialog )
-      .then(function () {
-        LocalStorageService.explainNearGeoPermit(false);
+        $mdDialog.show( informAboutGeoPermitDialog )
+        .then(function () {
+          LocalStorageService.explainGeoPermit(false);
 
+          home.getMyPosition()
+            .then(function (position) {
+              _switchSearchType();
+            });
+        });
+      } else {
         home.getMyPosition()
-          .then(function (position)
-          {
+          .then(function (position) {
             _switchSearchType();
           });
-      });
+      }
     } else {
       _switchSearchType();
     }

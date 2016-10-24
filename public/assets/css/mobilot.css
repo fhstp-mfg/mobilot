@@ -80,7 +80,31 @@ p { margin: 0; }
   font-size   : 0.8em;
   padding-top : 0;
   margin-top  : 0;
+  cursor      : default;
 }
+.url-helper div {
+  float: left;
+  padding: 1px 2px;
+}
+.codePreview {
+  outline: 0;
+}
+.codePreview .stationCode {
+  color: gray;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.codePreview .stationCode:hover {
+  background-color: #ccc;
+}
+.codePreviewIcon {
+  font-size: 12px;
+}
+.codeHelperText {
+  font-size: 0.7em;
+}
+
+
 
 @media screen and (min-width: 380px) {
   .helper, .url-helper {
@@ -501,7 +525,7 @@ map {
   margin-bottom: 2.5em;
 }
 
-editor{
+editor {
   display: block;
 }
 
@@ -568,7 +592,7 @@ editor-tools div {
   display: inline-block;
 }
 
-span.button-label{
+span.button-label {
   font-size: 8px;
   display: block;
   font-weight: 500;
@@ -622,7 +646,8 @@ element-container {
 
 .editor-element-opt-container {
   border-bottom: 1px solid grey;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
 }
 
 .editor-element-opt {
@@ -658,6 +683,14 @@ md-backdrop.md-sidenav-backdrop {
   position: fixed
 }
 
+.menu-login {
+  height: 56px;
+  min-height: 56px;
+}
+.ios-menu-login {
+  height: 76px;
+  min-height: 76px;
+}
 .menu-login button {
   padding: 0 !important
 }
@@ -668,6 +701,9 @@ md-backdrop.md-sidenav-backdrop {
 }
 .menuDividerEmpty {
   min-height: 1.2em;
+}
+.menuDividerEmpty::before {
+  content: none;
 }
 .menuDivider button.md-button:not([disabled]):hover {
   background: #bbb;
@@ -682,11 +718,11 @@ md-backdrop.md-sidenav-backdrop {
 */
 
 md-radio-button .md-off,
-md-radio-button.md-checked .md-off{
+md-radio-button.md-checked .md-off {
   border-color: #3797c4;
 }
 
-md-radio-button .md-on{
+md-radio-button .md-on {
   background-color: #3797c4;
 }
 
@@ -705,11 +741,11 @@ mbl-station-progress > div {
   width:100%;
 }
 
-mbl-station-progress > div::-webkit-scrollbar{
+mbl-station-progress > div::-webkit-scrollbar {
   display: none;
 }
 
-.progressbar li{
+.progressbar li {
   width: 80px;
 }
 
@@ -783,12 +819,11 @@ mbl-station-progress > div::-webkit-scrollbar{
 .progressbar li.current:before {
   border-color: #55b776;
 }
-
 .progressbar li.active + li:after {
   background-color: #55b776;
 }
 
-li:focus{
+li:focus {
     outline:none;
 }
 
@@ -806,8 +841,8 @@ html-container {
   display: block;
 }
 
-html-container img {
-  max-width:100%;
+html-container .picture {
+  max-width: 100%
 }
 
 positionicon {
@@ -840,7 +875,7 @@ positionicon .material-icons {
   }
 }
 
-mbl-free-text-input textarea{
+mbl-free-text-input textarea {
     padding: 1em;
     width: 100%;
     box-sizing: border-box;
@@ -920,7 +955,7 @@ ul[dnd-list] li {
 }
 
 #list_stations ul[dnd-list] > li,
-#editortabs ul[dnd-list] > li{
+#editortabs ul[dnd-list] > li {
   padding: 0;
   margin: 0;
   border: none;
