@@ -6,7 +6,7 @@ angular
 StationCreatorController.$inject = [
   '$log', '$rootScope', '$scope', '$q', '$translate',
   '$state', '$stateParams', 'StateManager',
-  '$mdDialog',
+  '$mdDialog', '$cordovaBeacon',
   'UtilityService', 'HeaderService', 'MobidulService',
   'StationCreatorService', 'MapService', 'StationService'
 ];
@@ -15,7 +15,7 @@ StationCreatorController.$inject = [
 function StationCreatorController (
   $log, $rootScope, $scope, $q, $translate,
   $state, $stateParams, StateManager,
-  $mdDialog,
+  $mdDialog, $cordovaBeacon,
   UtilityService, HeaderService, MobidulService,
   StationCreatorService, MapService, StationService
 )

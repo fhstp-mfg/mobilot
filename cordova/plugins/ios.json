@@ -18,6 +18,9 @@
         },
         "cordova-plugin-crosswalk-webview": {
             "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
+        },
+        "com.unarin.cordova.beacon": {
+            "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
         }
     },
     "dependent_plugins": {

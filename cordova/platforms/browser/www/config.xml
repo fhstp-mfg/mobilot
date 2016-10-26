@@ -5,11 +5,11 @@
     </feature>
     <name>Mobilot</name>
     <description>
-        Mobilot is a system for creating intuitive mobile information systems.
-    </description>
+      Mobilot is a system for creating intuitive mobile information systems.
+  </description>
     <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
-    </author>
+      Apache Cordova Team
+  </author>
     <content src="angular.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -23,4 +23,9 @@
     <preference name="xwalkMode" value="embedded" />
     <preference name="xwalkMultipleApk" value="true" />
     <preference name="android-minSdkVersion" value="16" />
+    <preference name="SplashScreen" value="screen" />
+    <preference name="AutoHideSplashScreen" value="true" />
+    <preference name="SplashScreenDelay" value="5000" />
+    <preference name="FadeSplashScreenDuration" value="750" />
+    <preference name="DisallowOverscroll" value="true" />
 </widget>
