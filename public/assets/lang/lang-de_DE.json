@@ -86,7 +86,7 @@
   "REGISTRATION_ERROR": "Registrierung Fehler",
   "REGISTRATION_ERROR_TRY_AGAIN": "Das Registrieren hat leider nicht geklappt. Bitte probiere es nochmal.",
 
-  "ACTIVATION_MSG": "Danke für deine Registrierung. Du wirds in Kürze weitergeleitet und kannst loslegen. Viel Spaß!",
+  "ACTIVATION_MSG": "Danke für deine Registrierung. Du wirst in Kürze weitergeleitet und kannst loslegen. Viel Spaß!",
 
   "TAB_BASE": "Basis",
   "TAB_CATEGORY": "Kategorien",
@@ -113,7 +113,7 @@
   "JOIN_CODE_INPUT_DESCRIPTION": "Mitmach-Codes können vom Ersteller eines Mobidul bereitgestellt werden.\nUm bei einem Mobidul als \"Redakteur\" mitzumachen, kannst du einen Mitmach-Code eingeben oder einen QR-Code einscannen.",
   "JOIN_NOT_POSSIBLE": "Mitmachen nicht möglich",
   "JOIN_CODE_INVALID_EXPLANATION": "Dieser Mitmach-Code ist ungültig. Bitte versuche es nochmal oder kontaktiere den Ersteller des Mobiduls.",
-  "GROUP_EXPLANATION": "Mitmach-Codes geben die Möglichkeit beim einem Mobidul mitzumachen.\nBenutzer welche den gleichen Code verwenden, gehören der selben Gruppe an.",
+  "GROUP_EXPLANATION": "Mitmach-Codes geben die Möglichkeit bei einem Mobidul mitzumachen.\nBenutzer welche den gleichen Code verwenden, gehören der selben Gruppe an.",
 
   "HIDE_ON_HOME": "Auf der Startseite verbergern",
 
@@ -204,7 +204,7 @@
   "CLONE_MOBIDUL": "Mobidul klonen",
   "MOBIDUL_NAME": "Mobidul Name",
   "NEW_MOBIDUL_NAME": "Neues Mobidul",
-  "ENTER_NEW_MOBIDUL_NAME": "Gib einen neuen Mobidul Name ein:",
+  "ENTER_NEW_MOBIDUL_NAME": "Gib einen neuen Mobidul Namen ein:",
   "MOBIDUL_CODE": "Mobidul Code",
   "CLONE_INFO_SUCCESS": "Kopieren des aktuellen Mobiduls war erfolgreich!",
 
@@ -288,6 +288,8 @@
   "HTML_DESCRIPTION": "Dieses Element ermöglicht Dir normalen Text mit Bildern zu erstellen. Hierfür stehen dir gängige Formatierungshilfen zur Verfügung.",
   "IF_NEAR": "Abstandsmesser",
   "IF_NEAR_DESCRIPTION": "Dieses Element löst eine Aktion aus wenn sich der oder die SpielerIn in einer gewissen Entfernung zur Station befindet. Falls das GPS Signal zu ungenau sein sollte wird stattdessen ein Eingabefeld angezeigt. Dieses löst bei der richtigen Eingabe der \"Absicherung\" dieselbe Aktion aus.",
+  "BLUETOOTH": "Bluetooth",
+  "BLUETOOTH_DESCRIPTION": "Dieses Element erlaubt es eine spezielle Aktion für die Station auszulösen, wenn der Nutzer nahe einem vordefinierten Bluetooth Beacon ist, welcher zuvor gescannt werden muss.",
   "INPUT_CODE": "Eingabefeld",
   "INPUT_CODE_DESCRIPTION": "Dieses Element verlangt von dem oder der SpielerIn eine Texteingabe. Es kann unterschieden werden welche Aktion bei richtiger und welche bei falscher Eingabe ausgeführt werden soll.",
   "BUTTON": "Button",
@@ -338,6 +340,13 @@
   "ACTION": "Aktion",
   "SUCCESS_ACTION": "Erfolgsaktion",
   "ERROR_ACTION": "Fehleraktion",
+
+  "BLUETOOTH_SUCCESS": "Beacon wurde gefunden. Wähle nun was passieren soll, wenn sich der Nutzer beim Beacon befindet.",
+  "BLUETOOTH_INACCURATE_FALLBACK": "Das Bluetoothsignal konnte nicht gefunden worden oder ist ungenau. Gib den Code ein um weiterzumachen.",
+  "BLUETOOTH_FEEDBACK": "Die Nähe zu deinem Bluetooth Beacon ist: {{distance}}. \n Wenn du bei 'Immediate' bist, wird das Event ausgelöst.",
+  "BLUETOOTH_FETCHING": "Suche nach Bluetooth Signalen...",
+
+  "COUNTDOWN_INFO": "Nach dem die Zeit abgelaufen ist passiert etwas bei dieser Station. Restzeit (Sekunden): ",
 
   "WSC_MOBIDUL_PROTECTED": "Dieser Mobidul Code ist geschützt und kann nicht verändert werden!",
   "WSC_MOBIDUL_SUCCESS": "Glückwunsch! Dein Mobidul wurde erfolgreich erstellt.",

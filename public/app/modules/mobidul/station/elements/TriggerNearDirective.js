@@ -32,6 +32,7 @@ function TriggerNear (
             'data-success="VERIFY_IF_NEAR:{{ success }}" ' +
             'data-error={{triggerNear.errorAction}}' +
           '></mbl-input-code>' +
+          '<md-divider style="margin-bottom: 1em; margin-top: 0.5em"></md-divider>'+
         '</div>' +
 
         '<div ng-if=" ! triggerNear.inaccurate">' +
@@ -41,6 +42,7 @@ function TriggerNear (
             '<span ng-if="triggerNear.distance" translate="DISTANCE_FEEDBACK" translate-values="{distance: triggerNear.distance, accuracy: triggerNear.accuracy}"></span>' +
             '<md-icon class="search-anim">track_changes</md-icon>' +
           '</div>' +
+          '<md-divider style="margin-bottom: 1em; margin-top: 0.5em"></md-divider>'+
         '</div>' +
       '</div>'
     ,

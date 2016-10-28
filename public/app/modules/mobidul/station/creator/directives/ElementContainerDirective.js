@@ -55,6 +55,18 @@ function ElementContainer(
           $element.append($compile('<trigger-near-config data-range="ctrl.element.range" fallback="ctrl.element.fallback" data-success="ctrl.element.success"></trigger-near-config>')($scope));
           break;
 
+        case 'BLUETOOTH':
+          $element.append($compile('<blue-tooth-config fallback="ctrl.element.fallback" data-success="ctrl.element.success"></blue-tooth-config>')($scope));
+          console.debug("BLUE-->ctrl.element");
+          console.debug(ctrl.element);
+          console.debug("BLUE-->$scope");
+          console.debug($scope);
+          console.debug("BLUE-->ctrl");
+          console.debug(ctrl);
+          console.debug("BLUE-->type");
+          console.debug(ctrl.element.type);
+          break;
+
         case 'INPUT_CODE':
           $element.append($compile('<input-code-config data-id="ctrl.element.id" data-verifier="ctrl.element.verifier" data-success="ctrl.element.success" error="ctrl.element.error"></input-code-config>')($scope));
           break;
