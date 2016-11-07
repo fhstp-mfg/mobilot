@@ -41,9 +41,8 @@
     },
     "com.unarin.cordova.beacon": {
         "source": {
-            "type": "git",
-            "url": "https://github.com/petermetz/cordova-plugin-ibeacon.git",
-            "subdir": "."
+            "type": "registry",
+            "id": "com.unarin.cordova.beacon"
         },
         "is_top_level": true,
         "variables": {}

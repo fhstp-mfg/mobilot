@@ -527,7 +527,7 @@ function StationController (
                     //   // TODO: add service for bluetooth searching which ranges for bluetooth ranging.
                     //   console.debug("Bluetooth Service triggered... Theoretically.")
                     // }, 0);
-                    if ( ! isCordova ) {
+                    if ( isCordova ) {
                       angular
                       .element(container)
                       .append($compile("<mbl-blue-tooth range='" + obj.range + "' fallback='" + obj.fallback + "' success='" + obj.success + "'></mbl-blue-tooth>")($scope));

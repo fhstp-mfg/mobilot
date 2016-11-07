@@ -44,10 +44,10 @@ function EditorPanel(
        //$log.info('config in editorpanel:');
        //$log.debug(config);
       ctrl.editorConfig = config.elements;
-      //TODO: ADD ! infront of is CORDOVA and check on Editor and others if it should be rendered too.
-      if ( isCordova ) {
-        delete ctrl.editorConfig.BLUETOOTH;
-      }
+      
+      // if ( isCordova ) {
+      //   delete ctrl.editorConfig.BLUETOOTH;
+      // }
     });
 
     ctrl.addElement = function(type){

@@ -43,13 +43,14 @@ function Bluetooth(
     controllerAs: 'ctrl'
   };
 
-  function BluetoothController($scope, $element, $attrs, $cordovaBeacon) {
+  function BluetoothController(
+    $scope, $element, $attrs, $rootScope
+  ) {
     var ctrl = this;
 
-    // Store all recognized beacons
-    ctrl.beacons = {};
     ctrl.actionOpts = RallyService.getActions();
-    ctrl.openBeaconDialog = function (  ) {
+
+    ctrl.openBeaconDialog = function () {
       var scanBluetoothDialog = {
         parent       : angular.element(document.body),
         title        : $translate.instant('BLUETOOTH_TITLE_SCAN'),
@@ -61,28 +62,14 @@ function Bluetooth(
       };
 
       $mdDialog.show(scanBluetoothDialog);
-    }
-    ;
-    // ctrl.scanForBeacon = function () {
-    //   if( isCordova ) {
-    //     // Request Authorization for IOS
-    //     $cordovaBeacon.requestWhenInUseAuthorization();
-    //
-    //     $rootScope.$on("$cordovaBeacon:didRangeBeaconsInRegion", function ( event, pluginResult ) {
-    //       var uniqueBeaconKey;
-    //       console.log("CHECK");
-    //       console.log(pluginResult.beacons.length);
-    //       for(var i = 0; i < pluginResult.beacons.length; i++) {
-    //         uniqueBeaconKey = pluginResult.beacons[i].uuid + ":" + pluginResult.beacons[i].major + ":" + pluginResult.beacons[i].minor;
-    //         $scope.beacons[uniqueBeaconKey] = pluginResult.beacons[i];
-    //       }
-    //
-    //     });
-    //
-    //     $cordovaBeacon.startRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion("EstimoteSampleRegion", "B9407F30-F5F8-466E-AFF9-25556B57FE6D"));
-    //   }
-    // };
+    };
 
+
+    var foundImmediateBeaconListener = $rootScope.$on('rootScope:foundImmediateBeacon', function(event, data) {
+      console.debug(data);
+    });
+
+    $rootScope.$on('$destroy', foundImmediateBeaconListener);
   }
 }
 
@@ -92,14 +79,14 @@ function Bluetooth(
   //---------------------------------------------------------------------------------------------
 
   BluetoothScanDialogController.$inject = [
-    '$log', '$scope', '$mdDialog', '$translate',
+    '$log', '$scope', '$rootScope', '$mdDialog', '$translate',
     '$cordovaBeacon',
     'MobidulService', 'CreatorService',
     'UtilityService'
   ];
 
   function BluetoothScanDialogController (
-    $log, $scope, $mdDialog, $translate,
+    $log, $scope, $rootScope, $mdDialog, $translate,
     $cordovaBeacon,
     MobidulService, CreatorService,
     UtilityService
@@ -108,6 +95,7 @@ function Bluetooth(
     var bluetoothDialog = this;
 
     // constants
+    bluetoothDialog._confirmRegions = 3;
     // NOTE: Add here all the manufacturers with their regions available
     bluetoothDialog._availbaleRegions = [
       { id: 1, manufacturer: "Estimote", region: "B9407F30-F5F8-466E-AFF9-25556B57FE6D" },
@@ -119,8 +107,12 @@ function Bluetooth(
     bluetoothDialog.canNotSave = false;
     bluetoothDialog.showRegion = false;
     bluetoothDialog.customRegion = null;
+    bluetoothDialog.selectedRegion = null;
     bluetoothDialog.selectedManufacturer = null;
-    bluetoothDialog.beacons = {};
+    bluetoothDialog.beaconRegionRef = null;
+    bluetoothDialog.beacons = [];
+    bluetoothDialog.foundImmediateBeacon = null;
+    bluetoothDialog.confirmedImmediateBeacon = 0;
 
 
     // functions
@@ -137,7 +129,7 @@ function Bluetooth(
     function _init () {
       _initDefaultValues();
 
-      //_searchForBeacons();
+      _searchForBeacons();
     }
 
     function _initDefaultValues() {
@@ -146,39 +138,67 @@ function Bluetooth(
 
     function _searchForBeacons() {
       $cordovaBeacon.requestWhenInUseAuthorization();
-      $rootScope.$on("$cordovaBeacon:didRangeBeaconsInRegion", function ( event, pluginResult ) {
-        var uniqueBeaconKey;
-        console.log("CHECK");
-        console.log(pluginResult.beacons.length);
-        for(var i = 0; i < pluginResult.beacons.length; i++) {
-          uniqueBeaconKey = pluginResult.beacons[i].uuid + ":" + pluginResult.beacons[i].major + ":" + pluginResult.beacons[i].minor;
-          bluetoothDialog.beacons[uniqueBeaconKey] = pluginResult.beacons[i];
+      $rootScope.$on('$cordovaBeacon:didRangeBeaconsInRegion', function (event, pluginResult) {
+        bluetoothDialog.beacons = [];
+        for (var i = 0; i < pluginResult.beacons.length; i++) {
+          var currentBeacon = pluginResult.beacons[i];
+          var uniqueBeaconKey = (
+            currentBeacon.uuid + ":" +
+            currentBeacon.major + ":" +
+            currentBeacon.minor
+          );
+
+          if ( currentBeacon.proximity === 'ProximityImmediate' ) {
+            currentBeacon.uniqueKey = uniqueBeaconKey;
+            bluetoothDialog.beacons.push(currentBeacon);
+          }
         }
 
+        if ( bluetoothDialog.beacons.length === 1 ) {
+          if ( bluetoothDialog.foundImmediateBeacon === null ) {
+            bluetoothDialog.foundImmediateBeacon = bluetoothDialog.beacons[0];
+          } else if ( bluetoothDialog.foundImmediateBeacon.uniqueKey === bluetoothDialog.beacons[0].uniqueKey ) {
+              bluetoothDialog.confirmedImmediateBeacon++;
+
+              if ( bluetoothDialog.confirmedImmediateBeacon >= bluetoothDialog._confirmRegions ) {
+                $rootScope.$emit('rootScope:foundImmediateBeacon', bluetoothDialog.foundImmediateBeacon);
+                close();
+              }
+          } else {
+            bluetoothDialog.foundImmediateBeacon = null;
+            bluetoothDialog.confirmedImmediateBeacon = 0
+          }
+        }
       });
 
-      var selectedRegion = ! _isOtherManufacturerSelected()
+      bluetoothDialog.selectedRegion = ! _isOtherManufacturerSelected()
         ? bluetoothDialog.selectedManufacturer.region
         : bluetoothDialog.customRegion;
 
-      $cordovaBeacon.startRangingBeaconsInRegion(
-        $cordovaBeacon.createBeaconRegion(
-          bluetoothDialog.selectedManufacturer.manufacturer,
-          selectedRegion
-        )
+      bluetoothDialog.beaconRegionRef = $cordovaBeacon.createBeaconRegion(
+        bluetoothDialog.selectedManufacturer.manufacturer,
+        bluetoothDialog.selectedRegion
       );
-
-      alert(JSON.stringify(bluetoothDialog.beacons) + "REGION: "+ selectedRegion);
+      $cordovaBeacon.startRangingBeaconsInRegion(bluetoothDialog.beaconRegionRef);
     }
 
     function _isOtherManufacturerSelected() {
       return bluetoothDialog.selectedManufacturer.id === 3
     }
 
+    function _stopRangingBeacons() {
+      $cordovaBeacon.stopRangingBeaconsInRegion(bluetoothDialog.beaconRegionRef);
+    }
+
 
     /// public functions
 
-    function close () {
+    function close() {
+      _stopRangingBeacons();
+
+      bluetoothDialog.foundImmediateBeacon = null;
+      bluetoothDialog.confirmedImmediateBeacon = 0
+
       $mdDialog.hide();
     }
 

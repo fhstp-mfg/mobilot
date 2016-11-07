@@ -27,8 +27,7 @@
               <md-option
                   ng-value="beaconInfo"
                   ng-repeat="beaconInfo in bluetoothDialog._availbaleRegions"
-
-              >{{beaconInfo.manufacturer}}</md-option>
+              >{{ beaconInfo.manufacturer }}</md-option>
             </md-select>
           </md-input-container>
         <br>
@@ -72,11 +71,5 @@
       class="md-primary md-mobilot-color"
       translate="CANCEL"
     ></md-button>
-
-    <!--<md-button-->
-      <!--ng-click="bluetoothDialog.scanBeacon()"-->
-      <!--class="md-raised md-primary md-mobilot"-->
-      <!--translate="BLUETOOTH_START_SCAN"-->
-    <!--&gt;</md-button>-->
   </md-dialog-actions>
 </md-dialog>

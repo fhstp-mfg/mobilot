@@ -56,7 +56,7 @@ function ElementContainer(
           break;
 
         case 'BLUETOOTH':
-          if ( ! isCordova ) {
+          if ( isCordova ) {
             $element.append($compile('<blue-tooth-config fallback="ctrl.element.fallback" data-success="ctrl.element.success"></blue-tooth-config>')($scope));
             // console.debug("BLUE-->ctrl.element");
             // console.debug(ctrl.element);
