@@ -37,12 +37,12 @@ angular.module('Mobidul', [
   // 'uiGmapgoogle-maps',
   'ngMap', 'ngWYSIWYG', 'ngStorage',
   'panzoom',
-  'StationCreator'
+  'StationCreator', 'ngCordovaBeacon'
 ]);
 
 
 /// Mobidul submodules
 
 angular.module('StationCreator', [
-  'dndLists', 'ngCordovaBeacon'
+  'dndLists'
 ]);

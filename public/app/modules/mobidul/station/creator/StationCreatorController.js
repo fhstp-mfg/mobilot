@@ -479,6 +479,8 @@ function StationCreatorController (
           medialist: []
         };
 
+        console.debug("HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+        console.debug(stationCreator.station.content);
 
         // $log.debug('station data : ');
         // $log.debug(stationData);

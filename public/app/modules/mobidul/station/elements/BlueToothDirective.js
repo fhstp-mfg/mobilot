@@ -45,6 +45,9 @@ function BlueTooth (
       '</div>'
     ,
 
+    //TODO: Bluetooth Scan Button for Scanning and Rescan the bluetooth. If not found show the fallback field with the code.
+
+
     link: function ($scope, $element, $attrs, BlueTooth) {
       // NOTE: Add .broadcast('inaccurateBluetooth') signal in the BluetoothService if the beacon is not in proximity
       // "near" at least or "immediate", in order to distinguish between beacons.

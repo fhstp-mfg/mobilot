@@ -523,14 +523,15 @@ function StationController (
 
                   case 'BLUETOOTH':
                     // HACK: force to startwatching after stopwatching event from headerservice
-                    $timeout(function () {
-                      // TODO: add service for bluetooth searching which ranges for bluetooth ranging.
-                      console.debug("Bluetooth Service triggered... Theoretically.")
-                    }, 0);
-                    angular
-                    .element(container)
-                    .append($compile("<mbl-blue-tooth range='" + obj.range + "' fallback='" + obj.fallback + "' success='" + obj.success + "'></mbl-blue-tooth>")($scope));
-
+                    // $timeout(function () {
+                    //   // TODO: add service for bluetooth searching which ranges for bluetooth ranging.
+                    //   console.debug("Bluetooth Service triggered... Theoretically.")
+                    // }, 0);
+                    if ( ! isCordova ) {
+                      angular
+                      .element(container)
+                      .append($compile("<mbl-blue-tooth range='" + obj.range + "' fallback='" + obj.fallback + "' success='" + obj.success + "'></mbl-blue-tooth>")($scope));
+                    }
                     // console.debug("BLUE-->range-->fallback-->success");
                     // console.debug(obj.range);
                     // console.debug(obj.fallback);

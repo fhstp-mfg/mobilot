@@ -345,6 +345,11 @@
   "BLUETOOTH_INACCURATE_FALLBACK": "Das Bluetoothsignal konnte nicht gefunden worden oder ist ungenau. Gib den Code ein um weiterzumachen.",
   "BLUETOOTH_FEEDBACK": "Die Nähe zu deinem Bluetooth Beacon ist: {{distance}}. \n Wenn du bei 'Immediate' bist, wird das Event ausgelöst.",
   "BLUETOOTH_FETCHING": "Suche nach Bluetooth Signalen...",
+  "BLUETOOTH_START_SCAN": "Beacon scannen",
+  "BLUETOOTH_TITLE_SCAN": "Bluetooth Beacons scannen",
+  "BLUETOOTH_DESC_SCAN_SUPPORTED": "Die Folgenden Hersteller werden unterstützt (einen auswählen aus der Liste):",
+  "BLUETOOTH_DESC_SCAN_CHOOSE": "Hersteller",
+
 
   "COUNTDOWN_INFO": "Nach dem die Zeit abgelaufen ist passiert etwas bei dieser Station. Restzeit (Sekunden): ",
 

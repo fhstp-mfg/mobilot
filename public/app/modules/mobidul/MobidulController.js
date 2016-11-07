@@ -139,7 +139,6 @@ function MobidulController (
         }
       });
 
-      console.debug('JHERE: ', mobidul.menu);
 
 
       if ( StateManager.isMobidul() )
