@@ -21,6 +21,7 @@ public/lib
 
 # Cordova source folders
 cordova/platforms/ios/www/
+cordova/platforms/android/
 
 # exclude React bundle
 public/assets/js/react.bundle.js
