@@ -8,12 +8,12 @@ angular
 
   Bluetooth.$inject = [
   '$log', '$translate', '$rootScope',
-  'RallyService', '$mdDialog'
+  'RallyService', '$mdDialog', 'BluetoothBeaconService'
 ];
 
 function Bluetooth(
   $log, $translate, $rootScope,
-  RallyService, $mdDialog
+  RallyService, $mdDialog, BluetoothBeaconService
 ) {
   return {
     restrict: 'E',
@@ -21,23 +21,28 @@ function Bluetooth(
     '<div>' +
     '<md-button class="md-raised md-primary" ng-click="ctrl.openBeaconDialog()">Scan Beacon' +
     '<md-icon>bluetooth_searching</md-icon></md-button><br/>' +
-      '<div class="config-part">' +
+      '<div ng-show="ctrl.beaconFoundCheck" class="config-part">' +
         '<br/><span translate="BLUETOOTH_SUCCESS"></span>' +
         '<hr />'+
         '<action-selector data-opts="ctrl.actionOpts" data-selection="success" data-name="SUCCESS_ACTION"></action-selector>' +
         '<md-input-container>' +
           '<input type="text" ng-model="fallback" placeholder="{{ \'FALLBACK\' | translate }}">' +
         '</md-input-container>' +
+        '<hr />'+
+        '<md-input-container>' +
+          '<input type="text" ng-model="beaconName" placeholder="{{ \'BLUETOOTH_NAME_BEACON\' | translate }}">' +
+        '</md-input-container>' +
+        '<span ng-bind="ctrl.beaconKey"></span>' +
       '</div>' +
     '</div>',
     scope: {
-      range: '=',
+      beaconKey: '=',
+      beaconName: '=',
       fallback: '=',
       success: '='
     },
     link: function ($scope, $element, $attr, ctrl) {
-      console.debug("BLUE-->$scope-->LINK FUNCTION");
-      console.debug($scope);
+
     },
     controller: BluetoothController,
     controllerAs: 'ctrl'
@@ -48,8 +53,12 @@ function Bluetooth(
   ) {
     var ctrl = this;
 
+    // vars
+    ctrl.beaconKey = null;
+    ctrl.beaconFoundCheck = null;
     ctrl.actionOpts = RallyService.getActions();
 
+    // functions
     ctrl.openBeaconDialog = function () {
       var scanBluetoothDialog = {
         parent       : angular.element(document.body),
@@ -65,11 +74,24 @@ function Bluetooth(
     };
 
 
-    var foundImmediateBeaconListener = $rootScope.$on('rootScope:foundImmediateBeacon', function(event, data) {
+    ctrl.foundImmediateBeaconListener = $rootScope.$on('rootScope:foundImmediateBeacon', function(event, data) {
+      $scope.$apply(function () {
+        ctrl.beaconKey = data.uniqueKey;
+        ctrl.beaconFoundCheck = true;
+      });
+
+      console.debug("BEAcON");
+      console.debug(BluetoothBeaconService.isBeaconFound);
       console.debug(data);
+      console.debug(data.uniqueKey);
+      console.debug("BEAcON_SERVICe");
+      console.debug(BluetoothBeaconService.getBeacon());
+
+      //NOTE: REMOVE this if not working
+      event.stopPropagation();
     });
 
-    $rootScope.$on('$destroy', foundImmediateBeaconListener);
+    $scope.$on('$destroy', ctrl.foundImmediateBeaconListener);
   }
 }
 
@@ -80,15 +102,15 @@ function Bluetooth(
 
   BluetoothScanDialogController.$inject = [
     '$log', '$scope', '$rootScope', '$mdDialog', '$translate',
-    '$cordovaBeacon',
-    'MobidulService', 'CreatorService',
+    '$cordovaBeacon', '$timeout',
+    'MobidulService', 'CreatorService', 'BluetoothBeaconService',
     'UtilityService'
   ];
 
   function BluetoothScanDialogController (
     $log, $scope, $rootScope, $mdDialog, $translate,
-    $cordovaBeacon,
-    MobidulService, CreatorService,
+    $cordovaBeacon, $timeout,
+    MobidulService, CreatorService, BluetoothBeaconService,
     UtilityService
   ) {
     /// BluetoothScanDialogController
@@ -104,7 +126,7 @@ function Bluetooth(
     ];
 
     // vars
-    bluetoothDialog.canNotSave = false;
+    bluetoothDialog.lockedBeacon = false;
     bluetoothDialog.showRegion = false;
     bluetoothDialog.customRegion = null;
     bluetoothDialog.selectedRegion = null;
@@ -113,6 +135,7 @@ function Bluetooth(
     bluetoothDialog.beacons = [];
     bluetoothDialog.foundImmediateBeacon = null;
     bluetoothDialog.confirmedImmediateBeacon = 0;
+    bluetoothDialog.scanningText = null;
 
 
     // functions
@@ -134,11 +157,14 @@ function Bluetooth(
 
     function _initDefaultValues() {
       bluetoothDialog.selectedManufacturer = bluetoothDialog._availbaleRegions[0];
+      bluetoothDialog.scanningText = $translate.instant('BLUETOOTH_INFO_SEARCH');
     }
 
     function _searchForBeacons() {
       $cordovaBeacon.requestWhenInUseAuthorization();
+
       $rootScope.$on('$cordovaBeacon:didRangeBeaconsInRegion', function (event, pluginResult) {
+
         bluetoothDialog.beacons = [];
         for (var i = 0; i < pluginResult.beacons.length; i++) {
           var currentBeacon = pluginResult.beacons[i];
@@ -149,20 +175,39 @@ function Bluetooth(
           );
 
           if ( currentBeacon.proximity === 'ProximityImmediate' ) {
+            $scope.$apply(function () {
+              bluetoothDialog.scanningText = $translate.instant('BLUETOOTH_INFO_FOUND');
+            });
+
             currentBeacon.uniqueKey = uniqueBeaconKey;
             bluetoothDialog.beacons.push(currentBeacon);
           }
         }
 
         if ( bluetoothDialog.beacons.length === 1 ) {
+          $scope.$apply(function ()  {
+            bluetoothDialog.scanningText = $translate.instant('BLUETOOTH_INFO_FOUND');
+          });
+
           if ( bluetoothDialog.foundImmediateBeacon === null ) {
             bluetoothDialog.foundImmediateBeacon = bluetoothDialog.beacons[0];
           } else if ( bluetoothDialog.foundImmediateBeacon.uniqueKey === bluetoothDialog.beacons[0].uniqueKey ) {
+              $scope.$apply(function () {
+                bluetoothDialog.scanningText = $translate.instant('BLUETOOTH_INFO_FOUND_ONE');
+              });
               bluetoothDialog.confirmedImmediateBeacon++;
 
               if ( bluetoothDialog.confirmedImmediateBeacon >= bluetoothDialog._confirmRegions ) {
+                $scope.$apply(function () {
+                  bluetoothDialog.scanningText = $translate.instant('BLUETOOTH_INFO_LOCKED');
+                });
+                bluetoothDialog.lockedBeacon = true;
+
                 $rootScope.$emit('rootScope:foundImmediateBeacon', bluetoothDialog.foundImmediateBeacon);
-                close();
+                BluetoothBeaconService.setBeaconFound(bluetoothDialog.foundImmediateBeacon);
+                $timeout(function () {
+                  close();
+                }, 1000);
               }
           } else {
             bluetoothDialog.foundImmediateBeacon = null;
@@ -197,7 +242,7 @@ function Bluetooth(
       _stopRangingBeacons();
 
       bluetoothDialog.foundImmediateBeacon = null;
-      bluetoothDialog.confirmedImmediateBeacon = 0
+      bluetoothDialog.confirmedImmediateBeacon = 0;
 
       $mdDialog.hide();
     }

@@ -349,7 +349,12 @@
   "BLUETOOTH_TITLE_SCAN": "Bluetooth Beacons scannen",
   "BLUETOOTH_DESC_SCAN_SUPPORTED": "Die Folgenden Hersteller werden unterstützt (einen auswählen aus der Liste):",
   "BLUETOOTH_DESC_SCAN_CHOOSE": "Hersteller",
+  "BLUETOOTH_NAME_BEACON": "Beschrifte deinen Beacon (ratsam für Unterscheidung):",
 
+  "BLUETOOTH_INFO_SEARCH": "Suche Beacon... ",
+  "BLUETOOTH_INFO_FOUND": "Beacon gefunden (nahe)... ",
+  "BLUETOOTH_INFO_FOUND_ONE": "Bewege den Beacon nicht... ",
+  "BLUETOOTH_INFO_LOCKED": "Beacon gescannt!",
 
   "COUNTDOWN_INFO": "Nach dem die Zeit abgelaufen ist passiert etwas bei dieser Station. Restzeit (Sekunden): ",
 

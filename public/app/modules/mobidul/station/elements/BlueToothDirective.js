@@ -17,9 +17,10 @@ function BlueTooth (
   return {
     restrict: 'E',
     scope: {
+      beaconKey: '@',
+      beaconName: '@',
       fallback: '@',
       success: '@',
-      range: '@'
     },
     template: '' +
       '<div>' +

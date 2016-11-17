@@ -107,8 +107,8 @@ function MenuController (
   {
     var configListener =
       $rootScope.$on('rootScope:setConfig', function (event, config) {
-        $log.debug('Heard "rootScope:setConfig" in MenuController');
-        $log.debug(config);
+        // $log.debug('Heard "rootScope:setConfig" in MenuController');
+        // $log.debug(config);
 
         var colorElements = document.querySelectorAll('.menu-login, .menuDivider');
         for (var c = 0; c < colorElements.length; c++) {
@@ -119,7 +119,7 @@ function MenuController (
         menu.myFont = FontService.getFontClass(config.font);
       });
 
-    // $rootScope.$on('$destroy', configListener);
+     $scope.$on('$destroy', configListener);
   }
 
 

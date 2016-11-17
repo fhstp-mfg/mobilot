@@ -341,6 +341,8 @@ function StationCreatorController (
       {
         // $log.debug('StationCreatorController _loadStation callback : ');
         // $log.debug(response);
+        console.debug('BLUE::StationCreatorController _loadStation callback:: ');
+        console.debug(response);
 
         var stationData = response || null;
 
@@ -394,6 +396,8 @@ function StationCreatorController (
 
           try {
             stationCreator.station.content =  JSON.parse(stationData.content);
+            console.debug('BLUE::StationCreatorController _loadStation::stationData.content');
+            console.debug(stationCreator.station.content );
           } catch(e) {
             $log.error('Error while parsing station.content');
           }
@@ -479,7 +483,7 @@ function StationCreatorController (
           medialist: []
         };
 
-        console.debug("HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+        console.debug('BLUE::StationCreatorController _saveStation::stationCreator.station.content');
         console.debug(stationCreator.station.content);
 
         // $log.debug('station data : ');

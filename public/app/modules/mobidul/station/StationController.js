@@ -145,6 +145,9 @@ function StationController (
                 station.order        = response.order;
                 station.coords       = response.coords;
 
+                console.debug("BLUE::StationController::_initStation::station.content");
+                console.debug(station.content);
+
                 /// XXX: this is just for testing purposes
                 /// choosing right content based on Mobidul type
                 RallyService.refresh();
@@ -221,6 +224,9 @@ function StationController (
                   station.config = JSON.parse(station.content);
                   // $log.info('station.config:');
                   // $log.debug(station.config);
+
+                  console.debug("BLUE::StationController::_initStation::station.config");
+                  console.debug(station.config);
 
                   // Display dev tools for rally
                   station.isOwner = UserService.Session.role == 1;
@@ -530,7 +536,7 @@ function StationController (
                     if ( isCordova ) {
                       angular
                       .element(container)
-                      .append($compile("<mbl-blue-tooth range='" + obj.range + "' fallback='" + obj.fallback + "' success='" + obj.success + "'></mbl-blue-tooth>")($scope));
+                      .append($compile("<mbl-blue-tooth beacon-key='" + obj.beaconKey + "' beacon-name='" + obj.beaconName + "' fallback='" + obj.fallback + "' success='" + obj.success + "'></mbl-blue-tooth>")($scope));
                     }
                     // console.debug("BLUE-->range-->fallback-->success");
                     // console.debug(obj.range);
