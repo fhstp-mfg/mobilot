@@ -21,6 +21,8 @@ package io.cordova.hellocordova;
 
 import android.os.Bundle;
 import org.apache.cordova.*;
+import android.webkit.WebView;
+import android.os.Build;
 
 public class MainActivity extends CordovaActivity
 {
@@ -30,5 +32,9 @@ public class MainActivity extends CordovaActivity
         super.onCreate(savedInstanceState);
         // Set by <content src="index.html" /> in config.xml
         loadUrl(launchUrl);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        	WebView.setWebContentsDebuggingEnabled(true);
+        }
     }
 }
