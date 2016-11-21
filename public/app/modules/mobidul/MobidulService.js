@@ -138,33 +138,27 @@ function MobidulService (
 
 
   function getConfig (mobidulCode) {
-    //$log.info('getConfig in MobidulService');
-    //$log.debug(mobidulCode);
+    // $log.info('getConfig in MobidulService');
+    // $log.debug(mobidulCode);
 
     var deferred = $q.defer();
 
-    // don't reload the config if mobidul isn't changed
-    if ( service.Mobidul.mobidulCode === mobidulCode ) {
-      deferred.resolve(service.Mobidul);
-    } else {
+    $http.get(cordovaUrl + '/' + mobidulCode + '/getConfig')
+    .success(function (response, status, headers, config) {
+      // console.debug('response: ', response);
 
-      $http.get(cordovaUrl + '/' + mobidulCode + '/getConfig')
-      .success(function (response, status, headers, config) {
+      if (response) {
+        service.Mobidul = response;
+      }
 
-        if ( response ) {
-          service.Mobidul = response;
-        }
+      deferred.resolve(response);
+    })
+    .error(function (response, status, headers, config) {
+      $log.error(response);
+      $log.error(status);
 
-        deferred.resolve(response);
-      })
-      .error(function (response, status, headers, config) {
-        $log.error(response);
-        $log.error(status);
-
-        deferred.reject(response);
-      });
-    }
-
+      deferred.reject(response);
+    });
 
     return deferred.promise;
   }

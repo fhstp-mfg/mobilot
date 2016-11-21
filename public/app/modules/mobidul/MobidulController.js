@@ -72,7 +72,7 @@ function MobidulController (
     var menuReadyListener =
       $rootScope.$on('Menu::ready', function (event) {
         // $log.debug('Heard "Menu::ready" in MobidulController');
-        // $log.debug(data);
+        // $log.debug(event);
 
         _requestConfig();
       });
@@ -90,7 +90,6 @@ function MobidulController (
 
     MobidulService.getConfig(mobidulCode)
     .then(function (mobidulConfig) {
-
       // TODO: save the whole configuration without overriding
       // MobidulService.Config.title = config.mobidulName;
       // HeaderService.title = config.mobidulName;
