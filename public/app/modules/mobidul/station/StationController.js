@@ -253,7 +253,6 @@ function StationController (
   }
 
   function _initActionListener () {
-
     $scope.$on('action', function (event, msg) {
       actionPerformed(msg);
     });
