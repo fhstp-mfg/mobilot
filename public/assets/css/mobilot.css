@@ -837,11 +837,12 @@ li:focus {
   margin-top: 1em;
 }
 
-html-container {
+mbl-html-container {
   display: block;
 }
 
-html-container .picture {
+mbl-html-container .picture,
+mbl-html-container img{
   max-width: 100%
 }
 
