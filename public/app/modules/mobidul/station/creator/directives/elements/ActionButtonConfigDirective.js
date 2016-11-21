@@ -19,7 +19,7 @@ function EditorActionButton(
     restrict: 'E',
     template:
     '<div>' +
-      '<md-button class="md-raised md-primary">{{content}}</md-button><br/>' +
+      '<md-button class="md-raised md-primary md-mobilot">{{content}}</md-button><br/>' +
       '<div class="config-part">' +
         '<md-input-container>' +
           '<input type="text" ng-model="content" placeholder="{{ \'LABEL\' | translate }}">' +

@@ -828,20 +828,21 @@ li:focus {
 }
 
 
-/*
-  Rally Directives
-*/
+/**
+ * Rally Directives
+ */
 
-#station-container p {
+#station_container p {
   margin-bottom: 1em;
   margin-top: 1em;
 }
 
-html-container {
+mbl-html-container {
   display: block;
 }
 
-html-container .picture {
+mbl-html-container .picture,
+mbl-html-container img{
   max-width: 100%
 }
 

@@ -128,9 +128,9 @@ function PhotoService(
             }
           }
 
-          //you have to create a new canvas element for each upload.
-          //reusing an existing one isn't working on iphones due to safari resource limits.
-          var canvas = document.createElement('canvas');// that.$.myCanvas;
+          // you have to create a new canvas element for each upload.
+          // reusing an existing one isn't working on iphones due to safari resource limits.
+          var canvas = document.createElement('canvas'); // that.$.myCanvas;
 
           //if portrait picture: switch imagewidth and imageheight
           if (exifOr == 8 || exifOr == 6) {
@@ -148,7 +148,7 @@ function PhotoService(
           _drawImageIOSFix(ctx, image, 0, 0, image.width, image.height, 0, 0, Math.round(imageWidth), Math.round(imageHeight), exifOr);
 
           // The resized file ready for upload
-          var finalFile = canvas.toDataURL("image/jpeg", 0.7);
+          var finalFile = canvas.toDataURL('image/jpeg', 0.7);
           var newFileName = file.name.split('.');
 
           //TODO change it so that it works with angular

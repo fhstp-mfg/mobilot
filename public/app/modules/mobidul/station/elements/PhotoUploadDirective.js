@@ -23,18 +23,18 @@ function PhotoUpload (
         '{{ content }}' +
 
         '<form>' +
-          '<input ' +
-            'type="file" ' +
-            'class="hidden" ' +
-            'id="{{ id }}" ' +
-            'onchange="angular.element(this).scope().uploadPhoto(this)" ' +
-            'accept="image/*"' +
+          '<input' +
+            ' type="file"' +
+            ' class="hidden"' +
+            ' id="{{ id }}"' +
+            ' onchange="angular.element(this).scope().uploadPhoto(this)"' +
+            ' accept="image/*"' +
           '>' +
         '</form>' +
 
-        '<md-button ' +
-          'class="md-raised md-primary" ' +
-          'ng-click="photoUpload.selectPhoto()"' +
+        '<md-button' +
+          ' class="md-raised md-primary md-mobilot"' +
+          ' ng-click="photoUpload.selectPhoto()"' +
         '>{{ \'UPLOAD_PHOTO\' | translate }}</md-button>' +
       '</div>'
     ,

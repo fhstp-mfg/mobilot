@@ -253,7 +253,6 @@ function StationController (
   }
 
   function _initActionListener () {
-
     $scope.$on('action', function (event, msg) {
       actionPerformed(msg);
     });
@@ -277,11 +276,11 @@ function StationController (
   function renderText ()
   {
     $log.warn('RenderText() is deprecated - please don\'t use it any longer!');
+
     var ergebnis = station.content; //.replace(/<.[^>]*>/g, '');
         ergebnis = '\n' + ergebnis; // billiger Trick - so ist auch vor Beginn der ersten Zeile ein \n, und das gilt auch als Whitespace also \s
 
-    var regexp =
-    [
+    var regexp = [
       // fett: beginnender * nach einem Whitespace (auch \n)
       /(\s)\*([^*\s][^*]*[^*\s])\*/g,
       // H1: beginnender ** nach einem Whitespace (auch \n)
@@ -307,8 +306,7 @@ function StationController (
     ];
 
 
-    var ersetzung =
-    [
+    var ersetzung = [
       // fett: $1 ist das Leerzeichen oder CR vor dem *, $2 der fette Text
       '$1<b>$2</b>',
       // $1 ist der Text (das vorherige Leerzeichen oder CR brauchen wir bei H1 (=Blockelement) nicht)
@@ -330,76 +328,75 @@ function StationController (
     ];
 
 
-    for ( var i = 0; i < regexp.length; i++ )
-    {
-      oneRegExp    = regexp[ i ];
-      oneErsetzung = ersetzung[ i ];
+    for (var i = 0; i < regexp.length; i++) {
+      oneRegExp = regexp[i];
+      oneErsetzung = ersetzung[i];
 
-      if ( i != 5 && i != 6 && i != 7 )
+      if ( i != 5 && i != 6 && i != 7 ) {
         ergebnis = ergebnis.replace(oneRegExp, oneErsetzung);
+      }
 
-      if ( i == 5 )
-      {
+      if ( i == 5 ) {
         var scope = station;
+
         //ergebnis.replace bei Bild geht nicht, da die Bilder() funktion dann nicht auf this zugreifen.
-        ergebnis = ergebnis.replace(oneRegExp, function (match, bildNummer)
-        {
+        ergebnis = ergebnis.replace(oneRegExp, function (match, bildNummer) {
           var myMediaList = [];
 
           //for new stations: images should be at -1 in medialist
           var stationid = ( scope.stationId != '' ) ? scope.stationId : -1;
 
           //make it safe!!
-          if ( typeof scope.stationId != 'undefined' &&
-               typeof scope.mediaList != 'undefined'
+          if ( typeof scope.stationId != 'undefined'
+            && typeof scope.mediaList != 'undefined'
           ) {
-            if ( typeof scope.mediaList[ stationid ] != 'undefined' )
-            {
-              for ( var i = 0; i < scope.mediaList[ stationid ].length; i++ )
-              {
+            if ( typeof scope.mediaList[ stationid ] != 'undefined' ) {
+              for (var i = 0; i < scope.mediaList[ stationid ].length; i++) {
                 myMediaList.push(scope.mediaList[ stationid ][ i ]);
               }
 
-              myMediaList.sort(function (x, y)
-              {
+              myMediaList.sort(function (x, y) {
                 return x.timestamp - y.timestamp;
               });
-              //getPictureByHash
 
-              //not sure if bildNummer -1 or bildNummer
-              if ( bildNummer > myMediaList.length || myMediaList.length == 0 )
-              {
-                return "<p>Ung&uuml;ltige Bildnummer: " + bildNummer + "</p>";
-              }
-              else
-              {
+              /// getPictureByHash
+              // not sure if bildNummer -1 or bildNummer
+              if ( bildNummer > myMediaList.length || myMediaList.length == 0 ) {
+                return '<p>Ung&uuml;ltige Bildnummer: ' + bildNummer + '</p>';
+              } else {
                 // an der Stelle wird für die Bildnummer die URL des Bildes (sollte md5-Hash sein) eingesetzt.
 
                 var image = scope.getPictureByHash( myMediaList[ bildNummer-1 ].hash );
 
-                if ( image != null )
-                {
-                  var imgSrc = 'image/' + window.screen.availWidth + '/' + image.url;
+                if ( image != null ) {
+                  var imgSrc = cordovaUrl + '/image/' + window.screen.availWidth + '/' + image.url;
 
-                  if ( Boolean( image.uploaded ) )
+                  if ( Boolean(image.uploaded) ) {
                     return '<a href="#/' + StateManager.state.params.mobidulCode + '/media/' + image.url +'">' +
-                      '<img class="picture" '    +
-                           'src="' + imgSrc + '" ' +
-                           'width="100%" '     +
-                           'height="auto" '    +
-                           'style="max-width : '   + window.screen.availWidth + 'px"></a>';
-                  else
+                      '<img' +
+                        ' class="picture"' +
+                        ' src="' + imgSrc + '"' +
+                        ' width="100%"' +
+                        ' height="auto"' +
+                        ' style="max-width: ' + window.screen.availWidth + 'px"' +
+                      '>' +
+                    '</a>';
+                  } else {
                     // TODO maybe add missing image default image (thumbnail)
                     return  '<a href="#/' + StateManager.state.params.mobidulCode + '/media/' + image.url + '">' +
-                      '<img class="picture" '    +
-                           'src="' + imgSrc + '" ' +
-                           'width="100%" '     +
-                           'height="auto" '    +
-                           'style="max-width : '   + window.screen.availWidth + 'px"></a>';
-                }
-                else
+                      '<img' +
+                        ' class="picture"' +
+                        ' src="' + imgSrc + '"' +
+                        ' width="100%"' +
+                        ' height="auto"' +
+                        ' style="max-width: ' + window.screen.availWidth + 'px"' +
+                      '>' +
+                    '</a>';
+                  }
+                } else {
                   // $log.debug("image was null");
                   $log.debug('image was null');
+                }
               }
             }
           }
@@ -408,12 +405,10 @@ function StationController (
         });
       }
 
-      if ( i == 6 )
-      {
+      if ( i == 6 ) {
         var stateParams = StateManager.state.params;
 
-        ergebnis = ergebnis.replace(oneRegExp, function (match, videoFileName)
-        {
+        ergebnis = ergebnis.replace(oneRegExp, function (match, videoFileName) {
           var videostring = '<video controls style="width: 100%;" ' +
               'poster="http://mobilot.at/media/'    +
               stateParams.mobidulCode               +
@@ -462,7 +457,6 @@ function StationController (
     // replace (the rest of) empty paragraph tags
     ergebnis = ergebnis.replace(/<p><\/p>/gmi, '');
 
-
     station.text = $sce.trustAsHtml( ergebnis );
   }
 
@@ -480,7 +474,7 @@ function StationController (
 
         if ( ! StateManager.isStationCreator() ) {
           var config = station.config[status];
-          var container = document.getElementById('station-container');
+          var container = document.getElementById('station_container');
           container.innerHTML = '';
 
           if (config) {

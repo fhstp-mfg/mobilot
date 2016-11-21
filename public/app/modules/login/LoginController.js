@@ -204,7 +204,7 @@ function LoginController (
 
       if (response.data !== 'success') {
         if (response.data.email) {
-          var emailMessage = response.data.email[0];
+          emailMessage = response.data.email[0];
 
           requestRestoreDialogTitle     = $translate.instant('RESET_PASSWORD_ERROR');
           requestRestoreDialogAriaLabel = $translate.instant('RESET_PASSWORD_ERROR');
@@ -213,7 +213,7 @@ function LoginController (
       } else {
         emailMessage = $translate.instant('RESET_PASSWORD_EMAIL');
 
-        requestRestoreDialogTitle     = $translate.instant('RESET_PASSWORD_EMAIL');
+        requestRestoreDialogTitle     = $translate.instant('RESET_PASSWORD_ERROR');
         requestRestoreDialogAriaLabel = $translate.instant('RESET_PASSWORD_EMAIL');
         requestRestoreDialogOk        = $translate.instant('CONTINUE');
       }

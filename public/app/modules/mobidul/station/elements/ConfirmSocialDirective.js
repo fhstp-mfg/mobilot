@@ -19,15 +19,16 @@
       restrict: 'E',
       template: '' +
       '<div>' +
-        '<md-button class="md-raised md-primary"' +
-          'ng-click="ctrl.openCode()">' +
+        '<md-button class="md-raised md-primary md-mobilot"' +
+          ' ng-click="ctrl.openCode()">' +
           '{{ \'OPEN_CODE\' | translate }}' +
         '</md-button>' +
-        '<md-button class="md-raised md-primary"' +
-          'ng-click="ctrl.startScan()">' +
+        '<md-button class="md-raised md-primary md-mobilot"' +
+          ' ng-click="ctrl.startScan()">' +
           '{{ \'SCAN_CODE\' | translate }}' +
         '</md-button>' +
-        '<md-button class="md-raised md-primary" ng-if="ctrl.isConfirmed" ng-click="ctrl.actionPerformed()">' +
+        '<md-button class="md-raised md-primary md-mobilot"' +
+          ' ng-if="ctrl.isConfirmed" ng-click="ctrl.actionPerformed()">' +
           '{{ \'PERFORM_ACTION\' | translate }}' +
         '</md-button>' +
       '</div>',

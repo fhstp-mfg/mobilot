@@ -20,10 +20,8 @@ function AttachmentService (
     /// constants
     // ...
 
-
     /// vars
     // ...
-
 
     /// functions
     saveTextInput: saveTextInput,
@@ -36,10 +34,8 @@ function AttachmentService (
 
   /// private helpers
   function _getPhotoExportUrl (stationCode, componentId) {
-
     return $q(function (resolve, reject) {
-
-      $http.get( '/' + stationCode + '/exportImages/' + componentId )
+      $http.get(cordovaUrl + '/' + stationCode + '/exportImages/' + componentId)
       .success(function (result) {
         //$log.info('result from _getPhotoExportUrl:', result);
         resolve(result);
@@ -52,6 +48,7 @@ function AttachmentService (
 
   // Todo: should be private - needs better test
   function startDownloadFromUrl (url, name) {
+    // XXX: NOTE: This can't be right: <a/> ?!
     var anchor = angular.element('<a/>');
     anchor.attr({
       href: url,
@@ -62,9 +59,12 @@ function AttachmentService (
 
   /// services
   function saveTextInput (text, mobidulCode, stationCode, componentId) {
-
-    var url = '/' + mobidulCode + '/' + stationCode + '/saveText/' + componentId,
-        data = {payload: {text: text}};
+    var url = cordovaUrl + '/' + mobidulCode + '/' + stationCode + '/saveText/' + componentId;
+    var data = {
+      payload: {
+        text: text
+      }
+    };
 
     return $q(function (resolve, reject) {
       $http.post(url, data)
@@ -78,8 +78,7 @@ function AttachmentService (
   }
 
   function exportTextsFromComponent (mobidulCode, stationCode, componentId) {
-
-    var url = '/' + mobidulCode + '/' + stationCode + '/exportTexts/' + componentId;
+    var url = cordovaUrl + '/' + mobidulCode + '/' + stationCode + '/exportTexts/' + componentId;
 
     return $q(function (resolve, reject) {
       $http.get(url)
@@ -91,17 +90,13 @@ function AttachmentService (
       })
     });
   }
-  
-  function exportPicturesFromComponent (stationCode, componentId)
-  {
+
+  function exportPicturesFromComponent (stationCode, componentId) {
     return $q(function (resolve, reject) {
       _getPhotoExportUrl(stationCode, componentId)
       .then(function (result) {
-
-        if( ! result.empty ){
-
+        if ( ! result.empty ) {
           startDownloadFromUrl(result.url, 'export.zip');
-
         } else {
           $mdDialog.show(
             $mdDialog.alert()
@@ -111,9 +106,7 @@ function AttachmentService (
             .ariaLabel($translate.instant('OK'))
             .ok($translate.instant('OK'))
           );
-
         }
-
       }, function (error) {
         reject(error);
       });

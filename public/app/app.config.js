@@ -445,7 +445,7 @@ angular
 
 
           // /:mobidulCode/:stationCode/:media
-                    .state('mobidul.media', {
+          .state('mobidul.media', {
             url : '/media/:media',
             views : {
               'mobidulContent' : {
@@ -459,10 +459,10 @@ angular
       /// exceptional redirects
 
       $urlRouterProvider
-        .when('/:mobidulCode/',    '/:mobidulCode/map')
+        .when('/:mobidulCode/',     '/:mobidulCode/map')
         // NOTE: this redirect doesn't seem to work properly
-        .when('/:mobidulCode',       '/:mobidulCode/map')
-        .when('/:mobidulCode/map/',  '/:mobidulCode/map');
+        .when('/:mobidulCode',      '/:mobidulCode/map')
+        .when('/:mobidulCode/map/', '/:mobidulCode/map');
     }
   ])
 
