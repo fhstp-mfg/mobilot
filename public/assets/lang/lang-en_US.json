@@ -316,7 +316,7 @@
   "SECONDS": "Seconds",
   "SHOW_COUNTDOWN": "Show Countdown",
 
-  "RANGE_INPUT_PLACEHOLDER": "Distance (in metre)",
+  "RANGE_INPUT_PLACEHOLDER": "Distance (in meters)",
   "FALLBACK": "Fallback",
 
   "GPS_FETCHING": "Searching for location...",
