@@ -35,10 +35,7 @@ function BluetoothBeaconService (
     if (! service.isBeaconFound) {
       service.isBeaconFound = true;
     }
-    service.beacon = beacon;
-
-    console.debug("BEACON SERVICE TRIGGERED::setBeacon::");
-    console.debug(service.beacon);
+    angular.copy(beacon, service.beacon);
   }
 
   function getBeacon () {

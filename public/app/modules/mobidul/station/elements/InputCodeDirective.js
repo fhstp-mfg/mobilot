@@ -37,7 +37,7 @@ function InputCode (
             'class="md-raised md-primary" ' +
           '>{{ \'GO\' | translate }}</md-button>' +
         '</form>' +
-        '<md-divider style="margin-bottom: 1em; margin-top: 0.5em"></md-divider>' +
+        '<md-divider id="station_creator_divider"></md-divider>' +
       '</div>'
     ,
 

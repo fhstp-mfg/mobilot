@@ -27,7 +27,7 @@ function ActionButton (
           'ng-click="actionButton.clicked()"' +
         '>' +
           '<ng-transclude></ng-transclude>' +
-        '</md-button> <br/><md-divider style="margin-bottom: 1em; margin-top: 0.5em"></md-divider>' +
+        '</md-button> <br/><md-divider id="station_creator_divider"></md-divider>' +
       '</div>'
     ,
     controller: ActionButtonController,

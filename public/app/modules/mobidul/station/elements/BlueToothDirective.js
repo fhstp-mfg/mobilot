@@ -7,21 +7,15 @@ angular
 
 
 BlueTooth.$inject = [
-  '$log', '$translate', '$rootScope', 'ActivityService'
+  '$log', '$translate', '$rootScope', 'ActivityService', 'BluetoothBeaconService'
 ];
 
 
 function BlueTooth (
-  $log, $translate, $rootScope, ActivityService
+  $log, $translate, $rootScope, ActivityService, BluetoothBeaconService
 ) {
   return {
     restrict: 'E',
-    scope: {
-      beaconKey: '@',
-      beaconName: '@',
-      fallback: '@',
-      success: '@',
-    },
     template: '' +
       '<div>' +
         '<div ng-if="bluetooth.inaccurate">' +
@@ -31,7 +25,7 @@ function BlueTooth (
             'data-success="VERIFY_IF_NEAR:{{ success }}" ' +
             'data-error={{bluetooth.errorAction}}' +
           '></mbl-input-code>' +
-          '<md-divider style="margin-bottom: 1em; margin-top: 0.5em"></md-divider>'+
+          '<md-divider id="station_creator_divider"></md-divider>'+
         '</div>' +
 
         '<div ng-if=" ! bluetooth.inaccurate">' +
@@ -41,10 +35,17 @@ function BlueTooth (
             '<md-icon class="search-anim" style="margin-right: 1em; margin-bottom: 0.5em">bluetooth_searching</md-icon>' +
             '<span ng-if="bluetooth.distance" translate="BLUETOOTH_FEEDBACK" translate-values="{distance: bluetooth.distance}"></span>' +
           '</div>' +
-          '<md-divider style="margin-bottom: 1em; margin-top: 0.5em"></md-divider>' +
+          '<md-divider id="station_creator_divider"></md-divider>' +
         '</div>' +
       '</div>'
     ,
+    scope: {
+      beaconname: '@',
+      beaconkey: '@',
+      fallback: '@',
+      success: '@',
+    },
+    bindToController: true,
 
     //TODO: Bluetooth Scan Button for Scanning and Rescan the bluetooth. If not found show the fallback field with the code.
 
@@ -52,6 +53,13 @@ function BlueTooth (
     link: function ($scope, $element, $attrs, BlueTooth) {
       // NOTE: Add .broadcast('inaccurateBluetooth') signal in the BluetoothService if the beacon is not in proximity
       // "near" at least or "immediate", in order to distinguish between beacons.
+      console.debug("BLUE::BlueToothDirective::link::Beacon Data");
+      console.debug($scope.beaconname);
+      console.debug($scope.beaconkey);
+      console.debug($scope.success);
+      console.debug($scope.fallback);
+
+
       $scope.$on('inaccurateBluetooth', function (event, inaccurate) {
         if (inaccurate) {
           BlueTooth.inaccurate = true;
@@ -101,6 +109,11 @@ function BlueTooth (
     $scope, $element, $attrs
   ) {
     var bluetooth = this;
+    console.debug("BLUE::BlueToothDirective::link::Beacon Data MORE");
+    console.debug(bluetooth.beaconkey);
+    console.debug(bluetooth.beaconname);
+    console.debug(bluetooth.success);
+    console.debug(bluetooth.fallback);
 
     bluetooth.errorAction = 'SAY:' + $translate.instant('INPUT_CODE_DEFAULT_ERROR_MSG');
     bluetooth.default = $translate.instant('BLUETOOTH_FETCHING');

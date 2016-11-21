@@ -349,7 +349,7 @@
   "BLUETOOTH_TITLE_SCAN": "Bluetooth Beacons scannen",
   "BLUETOOTH_DESC_SCAN_SUPPORTED": "Die Folgenden Hersteller werden unterstützt (einen auswählen aus der Liste):",
   "BLUETOOTH_DESC_SCAN_CHOOSE": "Hersteller",
-  "BLUETOOTH_NAME_BEACON": "Beschrifte deinen Beacon (ratsam für Unterscheidung):",
+  "BLUETOOTH_NAME_BEACON": "Beschrifte deinen Beacon (optional):",
 
   "BLUETOOTH_INFO_SEARCH": "Suche Beacon... ",
   "BLUETOOTH_INFO_FOUND": "Beacon gefunden (nahe)... ",

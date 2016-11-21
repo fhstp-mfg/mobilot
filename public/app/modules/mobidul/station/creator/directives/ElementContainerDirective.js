@@ -57,7 +57,7 @@ function ElementContainer(
 
         case 'BLUETOOTH':
           if ( isCordova ) {
-            $element.append($compile('<blue-tooth-config beacon-key="ctrl.element.beaconKey" beacon-name="ctrl.element.beaconName" fallback="ctrl.element.fallback" data-success="ctrl.element.success"></blue-tooth-config>')($scope));
+            $element.append($compile('<blue-tooth-config beaconname="ctrl.element.beaconname" beaconkey="ctrl.element.beaconkey" fallback="ctrl.element.fallback" data-success="ctrl.element.success" beaconfoundcheck="ctrl.element.beaconfoundcheck"></blue-tooth-config>')($scope));
             console.debug("BLUE-->ctrl.element");
             console.debug(ctrl.element);
             // console.debug("BLUE-->$scope");
@@ -99,6 +99,8 @@ function ElementContainer(
       }
 
       $rootScope.$on('selected:editorElement', function (event, msg) {
+        console.debug("MESSAGE", ctrl.element);
+        console.debug("MESSAGE 2", msg);
         if ( msg != ctrl.element.$$hashKey ) {
           $element.removeClass('selected');
         }
