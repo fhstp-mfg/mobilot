@@ -20,7 +20,8 @@ function Bluetooth(
     template:
     '<div>' +
     '<md-button class="md-raised md-primary" ng-click="ctrl.openBeaconDialog()">Scan Beacon' +
-    '<md-icon>bluetooth_searching</md-icon></md-button><br/>' +
+    '<md-icon>bluetooth_searching</md-icon></md-button>' +
+    '<span ng-if="ctrl.beaconfoundcheck && !ctrl.beaconname" translate="BLUETOOTH_FIX_INFO" translate-values="{value: ctrl.beaconname}"></span><br/>' +
       '<div ng-show="ctrl.beaconfoundcheck" class="config-part">' +
         '<br/><span translate="BLUETOOTH_SUCCESS"></span>' +
         '<hr />'+
@@ -61,8 +62,6 @@ function Bluetooth(
     ctrl.beaconKey = $scope.beaconkey;
     ctrl.actionOpts = RallyService.getActions();
 
-    console.debug("BLUE-->");
-    console.debug(ctrl.beaconfoundcheck);
     // functions
     ctrl.openBeaconDialog = function () {
       var scanBluetoothDialog = {
