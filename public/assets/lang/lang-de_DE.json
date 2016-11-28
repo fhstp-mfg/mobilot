@@ -342,7 +342,7 @@
   "ERROR_ACTION": "Fehleraktion",
 
   "BLUETOOTH_SUCCESS": "Beacon wurde gefunden. Wähle nun was passieren soll, wenn sich der Nutzer beim Beacon befindet.",
-  "BLUETOOTH_INACCURATE_FALLBACK": "Das Bluetoothsignal konnte nicht gefunden worden oder ist ungenau. Gib den Code ein um weiterzumachen.",
+  "BLUETOOTH_INACCURATE_FALLBACK": "Das Bluetoothsignal konnte nicht gefunden werden, oder ist ungenau. Gib den Code ein oder probiere weiter zu scannen.",
   "BLUETOOTH_FEEDBACK": "Die Nähe zu deinem Bluetooth Beacon ist: {{distance}}. \n Wenn du bei 'Immediate' bist, wird das Event ausgelöst.",
   "BLUETOOTH_FETCHING": "Suche nach Bluetooth Signalen...",
   "BLUETOOTH_START_SCAN": "Beacon scannen",
@@ -351,11 +351,19 @@
   "BLUETOOTH_DESC_SCAN_CHOOSE": "Hersteller",
   "BLUETOOTH_NAME_BEACON": "Beschrifte deinen Beacon (optional):",
   "BLUETOOTH_FIX_INFO": "Beacon \"{{value}}\" gespeichert.",
+  "BLUETOOTH_SCAN_BTN": "Beacon scannen",
+  "BLUETOOTH_FIND_BTN": "Beacon suchen",
 
   "BLUETOOTH_INFO_SEARCH": "Suche Beacon... ",
   "BLUETOOTH_INFO_FOUND": "Beacon gefunden (nahe)... ",
   "BLUETOOTH_INFO_FOUND_ONE": "Bewege den Beacon nicht... ",
   "BLUETOOTH_INFO_LOCKED": "Beacon gescannt!",
+
+  "BLUETOOTH_INFO_2_SEARCH": "Suche Beacon der Station... ",
+  "BLUETOOTH_INFO_2_FAR": "Du bist noch WEITER entfernt.",
+  "BLUETOOTH_INFO_2_NEAR": "Du bist schon NAHE dran.",
+  "BLUETOOTH_INFO_2_IMMEDIATE": "Du bist schon SEHR NAHE dran.",
+  "BLUETOOTH_INFO_2_FOUND": "Beacon gefunden!!",
 
   "COUNTDOWN_INFO": "Nach dem die Zeit abgelaufen ist passiert etwas bei dieser Station. Restzeit (Sekunden): ",
 

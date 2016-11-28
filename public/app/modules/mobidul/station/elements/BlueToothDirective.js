@@ -18,24 +18,35 @@ function BlueTooth (
     restrict: 'E',
     template: '' +
       '<div>' +
-        '<div ng-if="bluetooth.inaccurate">' +
-          '<span translate="BLUETOOTH_INACCURATE_FALLBACK"></span>' +
-          '<mbl-input-code ' +
-            'data-verifier="{{ fallback }}" ' +
-            'data-success="VERIFY_IF_NEAR:{{ success }}" ' +
-            'data-error={{bluetooth.errorAction}}' +
-          '></mbl-input-code>' +
-          '<md-divider id="station_creator_divider"></md-divider>'+
+        '<div layout="row" layout-align="center center">' +
+        '<md-button class="md-raised md-primary" ' +
+                    'ng-click="bluetooth.startScanningProcess()">{{ \'BLUETOOTH_FIND_BTN\' | translate }} ' +
+        '<md-icon>bluetooth_searching</md-icon></md-button>' +
+        '</div>' +
+        '<md-divider ng-if="!bluetooth.showScanText" id="station_creator_divider"></md-divider>' +
+
+        '<div ng-if="bluetooth.showScanText">' +
+        '<br /><table class="mobilotInvisibleTable">' +
+          '<tr>' +
+            '<td><md-progress-circular ng-if="!bluetooth.lockedBeacon" ' +
+                                      'md-mode="indeterminate" ' +
+                                      'md-diameter="30">' +
+            '</md-progress-circular></td>' +
+            '<td>&nbsp;</td>' +
+            '<td><span style="word-break:break-all;" ng-show="bluetooth.showScanText" ng-bind="bluetooth.scanningText"></span></td>' +
+          '</tr>' +
+        '</table>' +
+        '<md-divider id="station_creator_divider"></md-divider>' +
         '</div>' +
 
-        '<div ng-if=" ! bluetooth.inaccurate">' +
-          '<md-icon ng-if="bluetooth.trigger">bluetooth_connected</md-icon>' +
-          '<div ng-if=" ! bluetooth.trigger">' +
-            '<span>{{ bluetooth.default }}</span>' +
-            '<md-icon class="search-anim" style="margin-right: 1em; margin-bottom: 0.5em">bluetooth_searching</md-icon>' +
-            '<span ng-if="bluetooth.distance" translate="BLUETOOTH_FEEDBACK" translate-values="{distance: bluetooth.distance}"></span>' +
-          '</div>' +
-          '<md-divider id="station_creator_divider"></md-divider>' +
+        '<div ng-if="bluetooth.failedScan">' +
+          '<br/>' +
+          '<span translate="BLUETOOTH_INACCURATE_FALLBACK"></span>' +
+          '<mbl-input-code ' +
+            'verifier="{{ bluetooth.fallback }}" ' +
+            'success="VERIFY_IF_NEAR:{{ bluetooth.success }}" ' +
+            'error={{bluetooth.errorAction}}' +
+          '></mbl-input-code>' +
         '</div>' +
       '</div>'
     ,
@@ -46,59 +57,9 @@ function BlueTooth (
       success: '@',
     },
     bindToController: true,
-
-    //TODO: Bluetooth Scan Button for Scanning and Rescan the bluetooth. If not found show the fallback field with the code.
-
-
     link: function ($scope, $element, $attrs, BlueTooth) {
-      // NOTE: Add .broadcast('inaccurateBluetooth') signal in the BluetoothService if the beacon is not in proximity
-      // "near" at least or "immediate", in order to distinguish between beacons.
-      console.debug("BLUE::BlueToothDirective::link::Beacon Data");
-      console.debug($scope.beaconname);
-      console.debug($scope.beaconkey);
-      console.debug($scope.success);
-      console.debug($scope.fallback);
 
-
-      $scope.$on('inaccurateBluetooth', function (event, inaccurate) {
-        if (inaccurate) {
-          BlueTooth.inaccurate = true;
-        }
-      });
-
-      // NOTE: Maybe not needed as inaccurate should be enough
-      $scope.$on('distanceBluetooth', function (event, msg) {
-        if (msg) {
-          BlueTooth.default = null;
-          BlueTooth.inaccurate = false;
-          BlueTooth.distance = 452;
-          BlueTooth.accuracy = 3;
-
-          BlueTooth.range = BlueTooth.distance + BlueTooth.accuracy;
-
-          ActivityService.commitActivity({
-            type: ActivityService.TYPES.APP_EVENT,
-            name: ActivityService.APP_EVENTS.USER_POSITION,
-            payload: {
-              distance: BlueTooth.distance,
-              accuracy: BlueTooth.accuracy,
-              range: BlueTooth.range,
-              inaccurate: false
-            }
-          });
-
-          if ( BlueTooth.distance <= BlueTooth.range ) {
-            // NOTE: Here the services which are fetching for bluetooth signal should be stopped. This means the
-            // beacon is found and triggered. Than the action can be performed. For the beacon with the respective
-            // id which is in the database.
-            BlueTooth.trigger = true;
-
-            $rootScope.$broadcast('action', $attrs.success);
-          }
-        }
-      });
     },
-
     controller: BlueToothController,
     controllerAs: 'bluetooth'
   };
@@ -106,19 +67,166 @@ function BlueTooth (
 
 
   function BlueToothController (
-    $scope, $element, $attrs
+    $scope, $element, $attrs, $cordovaBeacon, $timeout, $rootScope
   ) {
     var bluetooth = this;
-    console.debug("BLUE::BlueToothDirective::link::Beacon Data MORE");
-    console.debug(bluetooth.beaconkey);
-    console.debug(bluetooth.beaconname);
-    console.debug(bluetooth.success);
-    console.debug(bluetooth.fallback);
 
+    // constants
+    // NOTE: The manufacturer name could be delivered with the station component (atm. random string)
+    bluetooth.manufacturer = "TheChosenOne";
+    bluetooth.stoppingTime = 50000;
+
+    // vars
+    bluetooth.scanningText = $translate.instant('BLUETOOTH_INFO_2_SEARCH');
     bluetooth.errorAction = 'SAY:' + $translate.instant('INPUT_CODE_DEFAULT_ERROR_MSG');
     bluetooth.default = $translate.instant('BLUETOOTH_FETCHING');
-    bluetooth.inaccurate = false;
-    bluetooth.trigger = false;
+    bluetooth.countingHits = 0;
+    bluetooth.countingFails = 0;
+    bluetooth.lockedBeacon = false;
+    bluetooth.showScanText = false;
+    bluetooth.failedScan = false;
+    bluetooth.triggered = false;
+
+    // private vars
+    bluetooth._beaconKey = null;
+    bluetooth._beaconName = null;
+    bluetooth._beaconUUID = null;
+    bluetooth._success = null;
+    bluetooth._fallback = null;
+    bluetooth._countingHitsTarget = 3;
+    bluetooth._countingFailsTarget = 70;
+
+    // functions
+    bluetooth.startScanningProcess = function () {
+      _storeComponentData();
+
+      bluetooth.showScanText = true;
+      bluetooth.triggered = false;
+
+      _performBeaconSearch();
+
+      //NOTE: Timeout to maximal search
+      $timeout(function () {
+        if ( !bluetooth.lockedBeacon ) {
+          _didNotFoundBeacon();
+        }
+      }, bluetooth.stoppingTime);
+    };
+
+    // private functions
+    function _storeComponentData() {
+      // NOTE: Split the string by the delimiter ":" in order to get UUID, Major, Minor
+      var beaconStringSplit = bluetooth.beaconkey.split(/:/);
+      // console.debug("UUID" + beaconStringSplit[0]);
+      // console.debug("MAJOR" + beaconStringSplit[1]);
+      // console.debug("MINOR" + beaconStringSplit[2]);
+
+      bluetooth._beaconKey = bluetooth.beaconkey;
+      bluetooth._beaconName = bluetooth.beaconname;
+      bluetooth._beaconUUID = beaconStringSplit[0];
+      bluetooth._success = bluetooth.success;
+      bluetooth._fallback = bluetooth.fallback;
+    }
+
+    function _performBeaconSearch () {
+      $cordovaBeacon.requestWhenInUseAuthorization();
+
+      $rootScope.$on('$cordovaBeacon:didRangeBeaconsInRegion', function (event, pluginResult) {
+        // console.debug("HEREREHERHEHRHEHRHERHEHRHE");
+        for (var i = 0; i < pluginResult.beacons.length; i++) {
+          var currentBeacon = pluginResult.beacons[i];
+          var uniqueBeaconKey = (
+            currentBeacon.uuid + ":" +
+            currentBeacon.major + ":" +
+            currentBeacon.minor
+          );
+
+          if ( uniqueBeaconKey === bluetooth._beaconKey ) {
+            // console.debug("IF IFIFIFIFI IFIFIFIFIF IFIFIF");
+            switch (currentBeacon.proximity) {
+              case "ProximityFar":
+                  // console.debug("INSIDE SWITCH::FAR");
+                  $scope.$apply(function() {
+                    bluetooth.scanningText = $translate.instant('BLUETOOTH_INFO_2_FAR');
+                  });
+                break;
+              case "ProximityNear":
+                  // console.debug("INSIDE SWITCH::NEAR");
+                  $scope.$apply(function () {
+                    bluetooth.scanningText = $translate.instant('BLUETOOTH_INFO_2_NEAR');
+                  });
+                break;
+              case "ProximityImmediate":
+                // console.debug("INSIDE SWITCH::IMMEDIATE");
+                $scope.$apply(function () {
+                  bluetooth.scanningText = $translate.instant('BLUETOOTH_INFO_2_IMMEDIATE');
+                });
+                bluetooth.countingHits++;
+                break;
+              default:
+                // console.debug("INSIDE SWITCH::NOTHING");
+                $scope.$apply(function () {
+                  bluetooth.scanningText = "BLUE::PROXIMITY::NO BEACON FOUND";
+                });
+                break;
+            }
+          } else {
+            $scope.$apply(function () {
+              bluetooth.scanningText = "BLUE::PROXIMITY::NO BEACON FOUND";
+            });
+            bluetooth.countingFails++;
+          }
+        }
+
+        if ( bluetooth.countingHits >= bluetooth._countingHitsTarget) {
+          _foundBeaconAndStop();
+          if ( ! bluetooth.triggered ) {
+            bluetooth.triggered = true;
+            $rootScope.$broadcast('action', $attrs.success);
+          }
+        }
+
+        if ( bluetooth.countingFails >= bluetooth._countingFailsTarget) {
+          _didNotFoundBeacon();
+        }
+      });
+
+      bluetooth.beaconRegionRef = $cordovaBeacon.createBeaconRegion(
+        bluetooth.manufacturer,
+        bluetooth._beaconUUID
+      );
+
+      $cordovaBeacon.startRangingBeaconsInRegion(bluetooth.beaconRegionRef);
+    }
+
+    function _stopRangingBeacons() {
+      $cordovaBeacon.stopRangingBeaconsInRegion(bluetooth.beaconRegionRef);
+    }
+
+    function _foundBeaconAndStop() {
+      _stopRangingBeacons();
+
+      bluetooth.countingHits = 0;
+      $scope.$apply(function () {
+        bluetooth.scanningText = $translate.instant('BLUETOOTH_INFO_2_FOUND');
+        bluetooth.lockedBeacon = true;
+      });
+    }
+
+    function _didNotFoundBeacon () {
+      _stopRangingBeacons();
+      bluetooth.countingFails = 0;
+
+      $scope.$apply(function() {
+        bluetooth.failedScan = true;
+        bluetooth.showScanText = false;
+      });
+    }
+    // console.debug("BLUE::BlueToothDirective::controller::Beacon Data");
+    // console.debug(bluetooth.beaconkey);
+    // console.debug(bluetooth.beaconname);
+    // console.debug(bluetooth.success);
+    // console.debug(bluetooth.fallback);
   }
 }
 

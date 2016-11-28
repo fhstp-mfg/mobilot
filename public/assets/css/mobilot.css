@@ -439,6 +439,7 @@ map {
   margin-top      : 0.5em;
   background-color: #95b7d4;
   color: #3797c4;
+  opacity: 0.2;
   border: 0.05em solid;
 }
 

@@ -21,7 +21,7 @@ function Bluetooth(
     '<div>' +
     '<md-button class="md-raised md-primary" ng-click="ctrl.openBeaconDialog()">Scan Beacon' +
     '<md-icon>bluetooth_searching</md-icon></md-button>' +
-    '<span ng-if="ctrl.beaconfoundcheck && !ctrl.beaconname" translate="BLUETOOTH_FIX_INFO" translate-values="{value: ctrl.beaconname}"></span><br/>' +
+    '<span ng-if="ctrl.beaconfoundcheck && ctrl.beaconname" translate="BLUETOOTH_FIX_INFO" translate-values="{value: ctrl.beaconname}"></span><br/>' +
       '<div ng-show="ctrl.beaconfoundcheck" class="config-part">' +
         '<br/><span translate="BLUETOOTH_SUCCESS"></span>' +
         '<hr />'+
@@ -126,8 +126,8 @@ function Bluetooth(
     // NOTE: Add here all the manufacturers with their regions available
     bluetoothDialog._availbaleRegions = [
       { id: 1, manufacturer: "Estimote", region: "B9407F30-F5F8-466E-AFF9-25556B57FE6D" },
-      { id: 2, manufacturer: "Florian" , region: "B9407F30-F5F8-466E-AFF9-25556B57FE6B" },
-      { id: 3, manufacturer: "Anderer Hersteller", region: "custom" }
+      { id: 2, manufacturer: "Estimote - B" , region: "B9407F30-F5F8-466E-AFF9-25556B57FE6B" },
+      { id: 999, manufacturer: "Anderer Hersteller", region: "custom" }
     ];
 
     // vars
@@ -146,7 +146,7 @@ function Bluetooth(
     // functions
     bluetoothDialog.close        = close;
     bluetoothDialog.selectRegion = selectRegion;
-
+    bluetoothDialog.validateUUID = validateUUID;
 
     // constructor
     _init();
@@ -169,7 +169,7 @@ function Bluetooth(
       $cordovaBeacon.requestWhenInUseAuthorization();
 
       $rootScope.$on('$cordovaBeacon:didRangeBeaconsInRegion', function (event, pluginResult) {
-        console.debug("BLUE::BluetoothConfigDirective::_searchForBeacons::ON WAS TRIGGERED");
+        // console.debug("BLUE::BluetoothConfigDirective::_searchForBeacons::ON WAS TRIGGERED");
         bluetoothDialog.beacons = [];
         for (var i = 0; i < pluginResult.beacons.length; i++) {
           var currentBeacon = pluginResult.beacons[i];
@@ -180,7 +180,7 @@ function Bluetooth(
           );
 
           if ( currentBeacon.proximity === 'ProximityImmediate' ) {
-            console.debug("BLUE::BluetoothConfigDirective::_searchForBeacons::CURRENT BEACON IMMEDIATE");
+            // console.debug("BLUE::BluetoothConfigDirective::_searchForBeacons::CURRENT BEACON IMMEDIATE");
             $scope.$apply(function () {
               bluetoothDialog.scanningText = $translate.instant('BLUETOOTH_INFO_FOUND');
             });
@@ -195,7 +195,7 @@ function Bluetooth(
         }
 
         if ( bluetoothDialog.beacons.length === 1 ) {
-          console.debug("BLUE::BluetoothConfigDirective::_searchForBeacons::ONLY ONE IMMEDIATE");
+          // console.debug("BLUE::BluetoothConfigDirective::_searchForBeacons::ONLY ONE IMMEDIATE");
           $scope.$apply(function ()  {
             bluetoothDialog.scanningText = $translate.instant('BLUETOOTH_INFO_FOUND');
           });
@@ -203,14 +203,14 @@ function Bluetooth(
           if ( bluetoothDialog.foundImmediateBeacon === null ) {
             bluetoothDialog.foundImmediateBeacon = bluetoothDialog.beacons[0];
           } else if ( bluetoothDialog.foundImmediateBeacon.uniqueKey === bluetoothDialog.beacons[0].uniqueKey ) {
-            console.debug("BLUE::BluetoothConfigDirective::_searchForBeacons::COMPARING BEACON");
+            // console.debug("BLUE::BluetoothConfigDirective::_searchForBeacons::COMPARING BEACON");
               $scope.$apply(function () {
                 bluetoothDialog.scanningText = $translate.instant('BLUETOOTH_INFO_FOUND_ONE');
               });
               bluetoothDialog.confirmedImmediateBeacon++;
 
               if ( bluetoothDialog.confirmedImmediateBeacon >= bluetoothDialog._confirmRegions ) {
-                console.debug("BLUE::BluetoothConfigDirective::_searchForBeacons::SAVE FOUND BEACON");
+                // console.debug("BLUE::BluetoothConfigDirective::_searchForBeacons::SAVE FOUND BEACON");
                 $scope.$apply(function () {
                   bluetoothDialog.scanningText = $translate.instant('BLUETOOTH_INFO_LOCKED');
                 });
@@ -223,7 +223,7 @@ function Bluetooth(
                 }, 1000);
               }
           } else {
-            console.debug("BLUE::BluetoothConfigDirective::_searchForBeacons::LOST BEACON");
+            // console.debug("BLUE::BluetoothConfigDirective::_searchForBeacons::LOST BEACON");
             bluetoothDialog.foundImmediateBeacon = null;
             bluetoothDialog.confirmedImmediateBeacon = 0
           }
@@ -242,7 +242,7 @@ function Bluetooth(
     }
 
     function _isOtherManufacturerSelected() {
-      return bluetoothDialog.selectedManufacturer.id === 3
+      return bluetoothDialog.selectedManufacturer.id === 999;
     }
 
     function _stopRangingBeacons() {
@@ -263,6 +263,12 @@ function Bluetooth(
 
     function selectRegion () {
       bluetoothDialog.showRegion = !!_isOtherManufacturerSelected();
+    }
+
+    function validateUUID(uuid) {
+      //NOTE: Checks the entered UUID for specific format ignoring upper and lower case
+      //00000000-0000-0000-0000-000000000000
+      return /^[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(uuid);
     }
   }
 })();

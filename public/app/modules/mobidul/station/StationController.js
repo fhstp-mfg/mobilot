@@ -516,7 +516,6 @@ function StationController (
                     break;
 
                   case 'IF_NEAR':
-                    console.debug('IF_NEAR HEREEE: ', obj);
                     // HACK: force to startwatching after stopwatching event from headerservice
                     $timeout(function () {
                       GeoLocationService.startPositionWatching(station.coords);
@@ -529,7 +528,6 @@ function StationController (
                     break;
 
                   case 'BLUETOOTH':
-                    console.debug('BLUETOOTH HEREEE: ', obj);
                     // HACK: force to startwatching after stopwatching event from headerservice
                     // $timeout(function () {
                     //   // TODO: add service for bluetooth searching which ranges for bluetooth ranging.
