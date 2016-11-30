@@ -17,7 +17,9 @@ function ShowScore (
   return {
 
     restrict: 'E',
-    template: '<div>{{ctrl.parsedScore}}</div>',
+    template: '<div>{{ctrl.parsedScore}}' +
+              '<md-divider id="station_creator_divider"></md-divider>'+
+              '</div>',
     scope: {
       content : '@'
     },

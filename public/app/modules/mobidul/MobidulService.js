@@ -45,6 +45,9 @@ function MobidulService (
         IF_NEAR: {
           icon: 'my_location'
         },
+        BLUETOOTH: {
+          icon: 'settings_bluetooth'
+        },
         INPUT_CODE: {
           icon: 'check_box'
         },

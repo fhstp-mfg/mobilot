@@ -288,6 +288,8 @@
   "HTML_DESCRIPTION": "This element allows you to create normal text with pictures. Therefore you have common formatting tools available.",
   "IF_NEAR": "Distance Meter",
   "IF_NEAR_DESCRIPTION": "This element triggers an action, when the player is in a specific range to the station. If the GPS signal would be to inaccurate, a input field is shown to the user. This triggers the \"Fallback\", if the input is right, which performs the action then.",
+  "BLUETOOTH": "Bluetooth",
+  "BLUETOOTH_DESCRIPTION": "This element allows to trigger a specific action when the player is near the predefined beacon, which as to be scanned.",
   "INPUT_CODE": "Input Field",
   "INPUT_CODE_DESCRIPTION": "This element asks the player for a text input. It can be distinguished which action should be performed if the input is right or wrong.",
   "BUTTON": "Button",
@@ -338,6 +340,13 @@
   "ACTION": "Action",
   "SUCCESS_ACTION": "Success Action",
   "ERROR_ACTION": "Error Action",
+
+  "BLUETOOTH_SUCCESS": "Beacon was found. Choose an action to perform now.",
+  "BLUETOOTH_INACCURATE_FALLBACK": "The Bluetooth signal couldn't be found or is inaccurate. You can enter the code to proceed.",
+  "BLUETOOTH_FEEDBACK": "The proximity to your beacon is: {{distance}}. \n If the proximity is at 'Immediate', the event will be triggered.",
+  "BLUETOOTH_FETCHING": "Looking for Bluetooth signals...",
+
+  "COUNTDOWN_INFO": "After the countdown finished, something happens at this station. Time left (seconds): ",
 
   "WSC_MOBIDUL_PROTECTED": "This Mobidul code is protected and can't be changed!",
   "WSC_MOBIDUL_SUCCESS": "Congratulations! Your Mobidul was created successfully.",

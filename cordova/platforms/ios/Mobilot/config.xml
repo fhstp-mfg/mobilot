@@ -21,6 +21,9 @@
     <feature name="BarcodeScanner">
         <param name="ios-package" value="CDVBarcodeScanner" />
     </feature>
+    <feature name="LocationManager">
+        <param name="ios-package" value="CDVLocationManager" />
+    </feature>
     <name>Mobilot</name>
     <description>
       Mobilot is a system for creating intuitive mobile information systems.
@@ -49,7 +52,6 @@
     <splash height="2208" src="res/screen/ios/Default-736h.png" width="1242" />
     <preference name="AllowInlineMediaPlayback" value="false" />
     <preference name="BackupWebStorage" value="cloud" />
-    <preference name="DisallowOverscroll" value="true" />
     <preference name="EnableViewportScale" value="false" />
     <preference name="KeyboardDisplayRequiresUserAction" value="true" />
     <preference name="MediaPlaybackRequiresUserAction" value="false" />
@@ -69,4 +71,5 @@
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="SplashScreenDelay" value="5000" />
     <preference name="FadeSplashScreenDuration" value="750" />
+    <preference name="DisallowOverscroll" value="true" />
 </widget>

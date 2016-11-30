@@ -61,16 +61,18 @@ function RallyService (
       SAY: {
         attr: true,
         action: function (attr) {
-          var sayActionDialog = $mdDialog.alert()
-          .parent( angular.element(document.body) )
-          .clickOutsideToClose(true)
-          .title($translate.instant('SAY_TITLE'))
-          .textContent(attr)
-          .ariaLabel($translate.instant('SAY_TITLE'))
-          .ok($translate.instant('CLOSE'));
+          return $q(function ( resolve, reject ) {
+            var sayActionDialog = $mdDialog.alert()
+            .parent( angular.element(document.body) )
+            .clickOutsideToClose(true)
+            .title($translate.instant('SAY_TITLE'))
+            .textContent(attr)
+            .ariaLabel($translate.instant('SAY_TITLE'))
+            .ok($translate.instant('CLOSE'));
 
-          $mdDialog.show(sayActionDialog);
-          resolve(false);
+            $mdDialog.show(sayActionDialog);
+            resolve(false);
+          });
         }
       },
       GO_TO_CURRENT: {

@@ -20,12 +20,13 @@ function ElementContainer(
     restrict: 'E',
     template: (
       '<div class="editor-element-opt-container">' +
+      '<md-button class="editor-element-opt" ng-click="ctrl.showInfo()">' +
+      '<md-icon style="color: #2E9FDE">{{ ctrl.icon }}</md-icon>' +
+      '<span>{{ ctrl.type }}</span>'+
+      // '<md-icon style="color: #2E9FDE">info</md-icon>' +
+      '</md-button>' +
         '<md-button class="editor-element-opt" ng-click="ctrl.delete()">' +
           '<md-icon style="color: #EF4A53">delete</md-icon>' +
-        '</md-button>' +
-        '<md-button class="editor-element-opt" ng-click="ctrl.showInfo()">' +
-          // '<md-icon>{{ ctrl.icon }}</md-icon>' +
-          '<md-icon style="color: #2E9FDE">info</md-icon>' +
         '</md-button>' +
         '<md-button class="editor-element-opt" ng-click="ctrl.collapse()">' +
           '<md-icon style="color: #106391">edit</md-icon>' +
@@ -55,6 +56,27 @@ function ElementContainer(
 
         case 'IF_NEAR':
           $element.append($compile('<trigger-near-config data-range="ctrl.element.range" fallback="ctrl.element.fallback" data-success="ctrl.element.success"></trigger-near-config>')($scope));
+          break;
+
+        case 'BLUETOOTH':
+          if ( isCordova ) {
+            $element.append($compile('<blue-tooth-config beaconname="ctrl.element.beaconname" ' +
+                                                        'beaconkey="ctrl.element.beaconkey" ' +
+                                                        'fallback="ctrl.element.fallback" ' +
+                                                        'success="ctrl.element.success" ' +
+                                                        'beaconfoundcheck="ctrl.element.beaconfoundcheck" ' +
+                                                        'selectedrange="ctrl.element.selectedrange">' +
+                                    '</blue-tooth-config>')($scope));
+            // console.debug("BLUE-->ctrl.element");
+            // console.debug(ctrl.element);
+            // console.debug("BLUE-->$scope");
+            // console.debug($scope);
+            // console.debug("BLUE-->ctrl");
+            // console.debug(ctrl);
+            // console.debug("BLUE-->type");
+            // console.debug(ctrl.element.type);
+          }
+
           break;
 
         case 'INPUT_CODE':

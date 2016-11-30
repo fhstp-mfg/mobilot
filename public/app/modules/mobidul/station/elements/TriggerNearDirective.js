@@ -41,6 +41,7 @@ function TriggerNear (
             '<span ng-if="triggerNear.distance" translate="DISTANCE_FEEDBACK" translate-values="{distance: triggerNear.distance, accuracy: triggerNear.accuracy}"></span>' +
             '<md-icon class="search-anim">track_changes</md-icon>' +
           '</div>' +
+          '<md-divider id="station_creator_divider"></md-divider>'+
         '</div>' +
       '</div>'
     ,

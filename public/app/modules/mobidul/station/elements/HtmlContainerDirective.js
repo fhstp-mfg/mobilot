@@ -20,7 +20,7 @@ function HtmlContainer (
     template: (
       '<div>' +
         '<div ng-transclude></div>' +
-        '<br>' +
+        '<md-divider id="station_creator_divider"></md-divider>' +
       '</div>'
     )
   }
