@@ -500,7 +500,7 @@ function StationController (
                   case 'HTML':
                     angular
                     .element(container)
-                    .append($compile('<mbl-html-container>' + obj.content + '</mbl-html-container>')($scope))
+                    .append($compile('<mbl-html-container>' + obj.content + '</mbl-html-container>')($scope));
                     break;
 
                   case 'INPUT_CODE':
@@ -536,7 +536,16 @@ function StationController (
                     if ( isCordova ) {
                       angular
                       .element(container)
-                      .append($compile("<mbl-blue-tooth beaconname='" + obj.beaconname + "' beaconkey='" + obj.beaconkey + "' fallback='" + obj.fallback + "' success='" + obj.success + "'></mbl-blue-tooth>")($scope));
+                      .append($compile("<mbl-blue-tooth beaconname='" + obj.beaconname + "' " +
+                                                       "beaconkey='" + obj.beaconkey + "' " +
+                                                       "fallback='" + obj.fallback + "' " +
+                                                       "success='" + obj.success + "' " +
+                                                       "selectedrange='" + obj.selectedrange + "'></mbl-blue-tooth>")($scope));
+                    } else  {
+                      angular
+                      .element(container)
+                      .append($compile('<mbl-html-container>{{ "BLUETOOTH_NOT_AVAILABLE_WEB\" | translate }}</mbl-html-container>')($scope))
+                      .append($compile("<mbl-input-code verifier='" + obj.fallback + "' success='" + obj.success + "' error='SAY:{{ \"INPUT_CODE_DEFAULT_ERROR_MSG\" | translate }}'></mbl-input-code>")($scope));
                     }
                     // console.debug("BLUE-->range-->fallback-->success");
                     // console.debug(obj.range);

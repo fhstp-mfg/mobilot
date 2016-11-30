@@ -19,7 +19,7 @@ function Bluetooth(
     restrict: 'E',
     template:
     '<div>' +
-    '<md-button class="md-raised md-primary" ng-click="ctrl.openBeaconDialog()">Scan Beacon' +
+    '<md-button class="md-raised md-primary" ng-click="ctrl.openBeaconDialog()">{{ \'BLUETOOTH_SCAN_BTN\' | translate }}' +
     '<md-icon>bluetooth_searching</md-icon></md-button>' +
     '<span ng-if="ctrl.beaconfoundcheck && ctrl.beaconname" translate="BLUETOOTH_FIX_INFO" translate-values="{value: ctrl.beaconname}"></span><br/>' +
       '<div ng-show="ctrl.beaconfoundcheck" class="config-part">' +
@@ -29,11 +29,16 @@ function Bluetooth(
         '<md-input-container>' +
           '<input type="text" ng-model="ctrl.fallback" placeholder="{{ \'FALLBACK\' | translate }}">' +
         '</md-input-container>' +
-        '<hr />'+
         '<md-input-container>' +
           '<input type="text" ng-model="ctrl.beaconname" placeholder="{{ \'BLUETOOTH_NAME_BEACON\' | translate }}">' +
         '</md-input-container>' +
-        '<md-input-container>' +
+        '<hr />' +
+        '<span translate="BLUETOOTH_CHECKBOXES"></span>' +
+        '<br /><br /><md-radio-group ng-model="ctrl.selectedrange" layout="row"> ' +
+          '<md-radio-button value="Immediate" class="md-accent">{{ \'BLUETOOTH_CHECKBOX_IMMEDIATE\' | translate }}</md-radio-button>' +
+          '<md-radio-button value="Near" class="md-accent">{{ \'BLUETOOTH_CHECKBOX_NEAR\' | translate }}</md-radio-button>' +
+        '</md-radio-group>' +
+        '<md-input-container style="display: none">' +
           '<input type="text" ng-model="ctrl.beaconkey">' +
         '</md-input-container>' +
       '</div>' +
@@ -43,11 +48,14 @@ function Bluetooth(
       beaconkey: '=',
       fallback: '=',
       success: '=',
-      beaconfoundcheck: '='
+      beaconfoundcheck: '=',
+      selectedrange: '=',
     },
     bindToController: true,
     link: function ($scope, $element, $attr, ctrl) {
-
+      if (ctrl.selectedrange === undefined) {
+        ctrl.selectedrange = "Immediate";
+      }
     },
     controller: BluetoothController,
     controllerAs: 'ctrl'
@@ -57,7 +65,7 @@ function Bluetooth(
     $scope, $element, $attrs, $rootScope
   ) {
     var ctrl = this;
-
+    ctrl.beaconfoundcheck = true;
     // vars
     ctrl.beaconKey = $scope.beaconkey;
     ctrl.actionOpts = RallyService.getActions();

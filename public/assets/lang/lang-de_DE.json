@@ -342,6 +342,7 @@
   "ERROR_ACTION": "Fehleraktion",
 
   "BLUETOOTH_SUCCESS": "Beacon wurde gefunden. Wähle nun was passieren soll, wenn sich der Nutzer beim Beacon befindet.",
+  "BLUETOOTH_CHECKBOXES": "Wähle aus ob der Benutzer SEHR NAHE oder NAHE beim Beacon sein muss, um ihn zu aktivieren.",
   "BLUETOOTH_INACCURATE_FALLBACK": "Das Bluetoothsignal konnte nicht gefunden werden, oder ist ungenau. Gib den Code ein oder probiere weiter zu scannen.",
   "BLUETOOTH_FEEDBACK": "Die Nähe zu deinem Bluetooth Beacon ist: {{distance}}. \n Wenn du bei 'Immediate' bist, wird das Event ausgelöst.",
   "BLUETOOTH_FETCHING": "Suche nach Bluetooth Signalen...",
@@ -353,6 +354,9 @@
   "BLUETOOTH_FIX_INFO": "Beacon \"{{value}}\" gespeichert.",
   "BLUETOOTH_SCAN_BTN": "Beacon scannen",
   "BLUETOOTH_FIND_BTN": "Beacon suchen",
+  "BLUETOOTH_CHECKBOX_IMMEDIATE": "Sehr nahe (< 1m)",
+  "BLUETOOTH_CHECKBOX_NEAR":"Nahe (< 10m)",
+  "BLUETOOTH_NOT_AVAILABLE_WEB": "Bluetooth scannen funktioniert hier leider nicht. Du kannst aber den Code eingeben bei der Station.",
 
   "BLUETOOTH_INFO_SEARCH": "Suche Beacon... ",
   "BLUETOOTH_INFO_FOUND": "Beacon gefunden (nahe)... ",

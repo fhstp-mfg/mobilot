@@ -44,7 +44,7 @@ function BlueTooth (
           '<span translate="BLUETOOTH_INACCURATE_FALLBACK"></span>' +
           '<mbl-input-code ' +
             'verifier="{{ bluetooth.fallback }}" ' +
-            'success="VERIFY_IF_NEAR:{{ bluetooth.success }}" ' +
+            'success="{{ bluetooth.success }}" ' +
             'error={{bluetooth.errorAction}}' +
           '></mbl-input-code>' +
         '</div>' +
@@ -55,6 +55,7 @@ function BlueTooth (
       beaconkey: '@',
       fallback: '@',
       success: '@',
+      selectedrange: '@',
     },
     bindToController: true,
     link: function ($scope, $element, $attrs, BlueTooth) {
@@ -74,7 +75,7 @@ function BlueTooth (
     // constants
     // NOTE: The manufacturer name could be delivered with the station component (atm. random string)
     bluetooth.manufacturer = "TheChosenOne";
-    bluetooth.stoppingTime = 50000;
+    bluetooth.stoppingTime = 240000;
 
     // vars
     bluetooth.scanningText = $translate.instant('BLUETOOTH_INFO_2_SEARCH');
@@ -93,7 +94,7 @@ function BlueTooth (
     bluetooth._beaconUUID = null;
     bluetooth._success = null;
     bluetooth._fallback = null;
-    bluetooth._countingHitsTarget = 3;
+    bluetooth._countingHitsTarget = 2;
     bluetooth._countingFailsTarget = 70;
 
     // functions
@@ -155,13 +156,18 @@ function BlueTooth (
                   $scope.$apply(function () {
                     bluetooth.scanningText = $translate.instant('BLUETOOTH_INFO_2_NEAR');
                   });
+                  if ( bluetooth.selectedrange === "Near" ) {
+                    bluetooth.countingHits++;
+                  }
                 break;
               case "ProximityImmediate":
                 // console.debug("INSIDE SWITCH::IMMEDIATE");
                 $scope.$apply(function () {
                   bluetooth.scanningText = $translate.instant('BLUETOOTH_INFO_2_IMMEDIATE');
                 });
-                bluetooth.countingHits++;
+                if ( bluetooth.selectedrange === "Immediate" || bluetooth.selectedrange === "Near" ) {
+                  bluetooth.countingHits++;
+                }
                 break;
               default:
                 // console.debug("INSIDE SWITCH::NOTHING");
