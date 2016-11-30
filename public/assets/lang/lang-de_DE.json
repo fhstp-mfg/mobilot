@@ -70,6 +70,8 @@
 
   "REGISTER": "Registrieren",
   "REGISTER_USER": "Benutzer registrieren",
+  "REGISTER_ERROR_REQ": "Wird benötigt!",
+  "REGISTER_ERROR_REQ_PWD": "Wird benötigt! Mindestens 6 Zeichen.",
 
   "REGISTRATION_INFORMATION": "Registrierung Informationen",
 
@@ -361,7 +363,7 @@
   "BLUETOOTH_INFO_SEARCH": "Suche Beacon... ",
   "BLUETOOTH_INFO_FOUND": "Beacon gefunden (nahe)... ",
   "BLUETOOTH_INFO_FOUND_ONE": "Bewege den Beacon nicht... ",
-  "BLUETOOTH_INFO_LOCKED": "Beacon gescannt!",
+  "BLUETOOTH_INFO_LOCKED": "Beacon gescannt!!",
 
   "BLUETOOTH_INFO_2_SEARCH": "Suche Beacon der Station... ",
   "BLUETOOTH_INFO_2_FAR": "Du bist noch WEITER entfernt.",

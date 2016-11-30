@@ -70,6 +70,8 @@
 
   "REGISTER": "Register",
   "REGISTER_USER": "Register user",
+  "REGISTER_ERROR_REQ": "Is required!",
+  "REGISTER_ERROR_REQ_PWD": "Is required! At least 6 chars.",
 
   "REGISTRATION_INFORMATION": "Registration Information's",
 
@@ -341,10 +343,33 @@
   "SUCCESS_ACTION": "Success Action",
   "ERROR_ACTION": "Error Action",
 
-  "BLUETOOTH_SUCCESS": "Beacon was found. Choose an action to perform now.",
-  "BLUETOOTH_INACCURATE_FALLBACK": "The Bluetooth signal couldn't be found or is inaccurate. You can enter the code to proceed.",
-  "BLUETOOTH_FEEDBACK": "The proximity to your beacon is: {{distance}}. \n If the proximity is at 'Immediate', the event will be triggered.",
-  "BLUETOOTH_FETCHING": "Looking for Bluetooth signals...",
+  "BLUETOOTH_SUCCESS": "Beacon was found. Choose the action, which will be triggered if the user is near.",
+  "BLUETOOTH_CHECKBOXES": "Choose if the user has to be in IMMEDIATE or NEAR range of the beacon, in order to trigger it.",
+  "BLUETOOTH_INACCURATE_FALLBACK": "The bluetooth signal couldn't be found, or is inaccurate. Please enter the code, or scan further.",
+  "BLUETOOTH_FEEDBACK": "The distance to your beacon is: {{distance}}. \n If you are at 'Immediate', the event is triggered.",
+  "BLUETOOTH_FETCHING": "Fetching for beacon signals...",
+  "BLUETOOTH_START_SCAN": "Scan Beacon",
+  "BLUETOOTH_TITLE_SCAN": "Scan Bluetooth Beacons",
+  "BLUETOOTH_DESC_SCAN_SUPPORTED": "The following manufacturers are supported (choose one from the list):",
+  "BLUETOOTH_DESC_SCAN_CHOOSE": "Manufacturer",
+  "BLUETOOTH_NAME_BEACON": "Name your beacon (optional):",
+  "BLUETOOTH_FIX_INFO": "Beacon \"{{value}}\" saved.",
+  "BLUETOOTH_SCAN_BTN": "Scan Beacon",
+  "BLUETOOTH_FIND_BTN": "Search Beacon",
+  "BLUETOOTH_CHECKBOX_IMMEDIATE": "Immediate (< 1m)",
+  "BLUETOOTH_CHECKBOX_NEAR":"Near (< 10m)",
+  "BLUETOOTH_NOT_AVAILABLE_WEB": "Bluetooth scanning isn't working here sadly. You can enter the code at the station.",
+
+  "BLUETOOTH_INFO_SEARCH": "Searching beacon... ",
+  "BLUETOOTH_INFO_FOUND": "Beacon found (immediate)... ",
+  "BLUETOOTH_INFO_FOUND_ONE": "Don't move the beacon... ",
+  "BLUETOOTH_INFO_LOCKED": "Beacon scanned!!",
+
+  "BLUETOOTH_INFO_2_SEARCH": "Searching station beacon... ",
+  "BLUETOOTH_INFO_2_FAR": "Your are FAR aways.",
+  "BLUETOOTH_INFO_2_NEAR": "You are NEAR already.",
+  "BLUETOOTH_INFO_2_IMMEDIATE": "You are IMMEDIATE now.",
+  "BLUETOOTH_INFO_2_FOUND": "Beacon found!!",
 
   "COUNTDOWN_INFO": "After the countdown finished, something happens at this station. Time left (seconds): ",
 
