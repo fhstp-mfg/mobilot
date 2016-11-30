@@ -18,7 +18,9 @@ function SetTimeout (
     restrict: 'E',
     template: '' +
       '<div data-ng-if="setTimeout.show">' +
+        '<span translate="COUNTDOWN_INFO"></span>' +
         '<span>{{ setTimeout.countdown }}</span>' +
+        '<br/><md-divider id="station_creator_divider"></md-divider>' +
       '</div>'
     ,
 

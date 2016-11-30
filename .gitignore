@@ -20,7 +20,10 @@ public/lib
 .env.php
 
 # Cordova source folders
-cordova/platforms/ios/www/
+cordova/www
+cordova/platforms/browser
+cordova/platforms/ios
+cordova/platforms/android
 
 # exclude React bundle
 public/assets/js/react.bundle.js

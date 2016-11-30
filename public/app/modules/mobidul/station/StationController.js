@@ -145,6 +145,9 @@ function StationController (
                 station.order        = response.order;
                 station.coords       = response.coords;
 
+                console.debug("BLUE::StationController::_initStation::station.content");
+                console.debug(station.content);
+
                 /// XXX: this is just for testing purposes
                 /// choosing right content based on Mobidul type
                 RallyService.refresh();
@@ -221,6 +224,9 @@ function StationController (
                   station.config = JSON.parse(station.content);
                   // $log.info('station.config:');
                   // $log.debug(station.config);
+
+                  console.debug("BLUE::StationController::_initStation::station.config");
+                  console.debug(station.config);
 
                   // Display dev tools for rally
                   station.isOwner = UserService.Session.role == 1;
@@ -488,7 +494,7 @@ function StationController (
                   case 'HTML':
                     angular
                     .element(container)
-                    .append($compile('<mbl-html-container>' + obj.content + '</mbl-html-container>')($scope))
+                    .append($compile('<mbl-html-container>' + obj.content + '</mbl-html-container>')($scope));
                     break;
 
                   case 'INPUT_CODE':
@@ -513,6 +519,32 @@ function StationController (
                     .element(container)
                     .append($compile("<mbl-trigger-near range='" + obj.range + "' fallback='" + obj.fallback + "' success='" + obj.success + "'></mbl-trigger-near>")($scope));
 
+                    break;
+
+                  case 'BLUETOOTH':
+                    // HACK: force to startwatching after stopwatching event from headerservice
+                    // $timeout(function () {
+                    //   // TODO: add service for bluetooth searching which ranges for bluetooth ranging.
+                    //   console.debug("Bluetooth Service triggered... Theoretically.")
+                    // }, 0);
+                    if ( isCordova ) {
+                      angular
+                      .element(container)
+                      .append($compile("<mbl-blue-tooth beaconname='" + obj.beaconname + "' " +
+                                                       "beaconkey='" + obj.beaconkey + "' " +
+                                                       "fallback='" + obj.fallback + "' " +
+                                                       "success='" + obj.success + "' " +
+                                                       "selectedrange='" + obj.selectedrange + "'></mbl-blue-tooth>")($scope));
+                    } else  {
+                      angular
+                      .element(container)
+                      .append($compile('<mbl-html-container>{{ "BLUETOOTH_NOT_AVAILABLE_WEB\" | translate }}</mbl-html-container>')($scope))
+                      .append($compile("<mbl-input-code verifier='" + obj.fallback + "' success='" + obj.success + "' error='SAY:{{ \"INPUT_CODE_DEFAULT_ERROR_MSG\" | translate }}'></mbl-input-code>")($scope));
+                    }
+                    // console.debug("BLUE-->range-->fallback-->success");
+                    // console.debug(obj.range);
+                    // console.debug(obj.fallback);
+                    // console.debug(obj.success);
                     break;
 
                   case 'PHOTO_UPLOAD':

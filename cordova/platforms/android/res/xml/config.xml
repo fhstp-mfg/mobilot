@@ -18,14 +18,28 @@
     <preference default="embedded" name="xwalkMode" />
     <preference default="true" name="xwalkMultipleApk" />
     <preference default="16" name="android-minSdkVersion" />
-    <allow-intent href="market:*" />
-    <name>Mobilot</name>
     <description>
         Mobilot is a system for creating intuitive mobile information systems.
     </description>
+    <feature name="LocationManager">
+        <param name="android-package" value="com.unarin.cordova.beacon.LocationManager" />
+    </feature>
+    <allow-intent href="market:*" />
+    <splash density="land-hdpi" src="res/screen/android/splash-land-hdpi.png" />
+    <splash density="land-ldpi" src="res/screen/android/splash-land-ldpi.png" />
+    <splash density="land-mdpi" src="res/screen/android/splash-land-mdpi.png" />
+    <splash density="land-xhdpi" src="res/screen/android/splash-land-xhdpi.png" />
+    <splash density="port-hdpi" src="res/screen/android/splash-port-hdpi.png" />
+    <splash density="port-ldpi" src="res/screen/android/splash-port-ldpi.png" />
+    <splash density="port-mdpi" src="res/screen/android/splash-port-mdpi.png" />
+    <splash density="port-xhdpi" src="res/screen/android/splash-port-xhdpi.png" />
+    <name>Mobilot</name>
+    <description>
+      Mobilot is a system for creating intuitive mobile information systems.
+  </description>
     <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
-    </author>
+      Apache Cordova Team
+  </author>
     <content src="angular.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -39,4 +53,9 @@
     <preference name="xwalkMode" value="embedded" />
     <preference name="xwalkMultipleApk" value="true" />
     <preference name="android-minSdkVersion" value="16" />
+    <preference name="SplashScreen" value="screen" />
+    <preference name="AutoHideSplashScreen" value="true" />
+    <preference name="SplashScreenDelay" value="5000" />
+    <preference name="FadeSplashScreenDuration" value="750" />
+    <preference name="DisallowOverscroll" value="true" />
 </widget>

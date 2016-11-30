@@ -1,0 +1,64 @@
+<md-dialog>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2 translate="BLUETOOTH_TITLE_SCAN"></h2>
+      <span flex></span>
+      <md-button
+        class="md-icon-button"
+        ng-click="bluetoothDialog.close()"
+      >
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content>
+    <md-content layout-padding>
+
+      <div layout="column">
+        <p class="helper" translate="BLUETOOTH_DESC_SCAN_SUPPORTED"></p>
+        <br>
+          <md-input-container id="bluetooth_region_selection">
+            <label translate="BLUETOOTH_DESC_SCAN_CHOOSE"></label>
+            <md-select
+                ng-model="bluetoothDialog.selectedManufacturer"
+                md-on-close="bluetoothDialog.selectRegion()"
+                style="margin-bottom: 0"
+            >
+              <md-option
+                  ng-value="beaconInfo"
+                  ng-repeat="beaconInfo in bluetoothDialog._availbaleRegions"
+              >{{ beaconInfo.manufacturer }}</md-option>
+            </md-select>
+          </md-input-container>
+        <br>
+        <md-input-container class="md-block" ng-if="bluetoothDialog.showRegion">
+          <label>Region</label>
+          <input ng-model="bluetoothDialog.customRegion">
+        </md-input-container>
+      </div>
+
+
+      <div layout="column">
+        <table class="mobilotInvisibleTable">
+          <tr>
+            <td><md-progress-circular ng-if="!bluetoothDialog.lockedBeacon"
+                                      md-mode="indeterminate"
+                                      md-diameter="30">
+            </md-progress-circular></td>
+            <td>&nbsp;&nbsp;&nbsp;</td>
+            <td><span ng-bind="bluetoothDialog.scanningText"></span></td>
+          </tr>
+        </table>
+      </div>
+    </md-content>
+  </md-dialog-content>
+
+  <md-dialog-actions>
+    <md-button
+      ng-click="bluetoothDialog.close()"
+      class="md-primary md-mobilot-color"
+      translate="CANCEL"
+    ></md-button>
+  </md-dialog-actions>
+</md-dialog>

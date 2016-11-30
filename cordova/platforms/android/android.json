@@ -37,6 +37,18 @@
                         {
                             "xml": "<activity android:label=\"Share\" android:name=\"com.google.zxing.client.android.HelpActivity\"><intent-filter><action android:name=\"android.intent.action.VIEW\" /><category android:name=\"android.intent.category.DEFAULT\" /></intent-filter></activity>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<receiver android:name=\"org.altbeacon.beacon.startup.StartupBroadcastReceiver\"><intent-filter><action android:name=\"android.intent.action.BOOT_COMPLETED\" /><action android:name=\"android.intent.action.ACTION_POWER_CONNECTED\" /><action android:name=\"android.intent.action.ACTION_POWER_DISCONNECTED\" /></intent-filter></receiver>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<service android:enabled=\"true\" android:exported=\"true\" android:isolatedProcess=\"false\" android:label=\"iBeacon\" android:name=\"org.altbeacon.beacon.service.BeaconService\"></service>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<service android:enabled=\"true\" android:name=\"org.altbeacon.beacon.BeaconIntentProcessor\"><meta-data android:name=\"background\" android:value=\"true\" /><intent-filter android:priority=\"1\"><action android:name=\"com.unarin.cordova.beacon.IBeaconPlugin.DID_RANGING\" /><action android:name=\"com.unarin.cordova.beacon.IBeaconPlugin.DID_MONITORING\" /></intent-filter></service>",
+                            "count": 1
                         }
                     ],
                     "/manifest": [
@@ -50,6 +62,22 @@
                         },
                         {
                             "xml": "<uses-feature android:name=\"android.hardware.camera\" android:required=\"false\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.BLUETOOTH\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.BLUETOOTH_ADMIN\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />",
                             "count": 1
                         }
                     ]
@@ -97,6 +125,10 @@
                         {
                             "xml": "<preference default=\"16\" name=\"android-minSdkVersion\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"LocationManager\"><param name=\"android-package\" value=\"com.unarin.cordova.beacon.LocationManager\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -117,6 +149,9 @@
             "PACKAGE_NAME": "io.cordova.hellocordova"
         },
         "cordova-plugin-crosswalk-webview": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "com.unarin.cordova.beacon": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },
@@ -140,6 +175,48 @@
             "clobbers": [
                 "cordova.plugins.barcodeScanner"
             ]
+        },
+        {
+            "file": "plugins/com.unarin.cordova.beacon/www/lib/underscore-min-1.6.js",
+            "id": "com.unarin.cordova.beacon.underscorejs",
+            "runs": true
+        },
+        {
+            "file": "plugins/com.unarin.cordova.beacon/www/lib/q.min.js",
+            "id": "com.unarin.cordova.beacon.Q",
+            "runs": true
+        },
+        {
+            "file": "plugins/com.unarin.cordova.beacon/www/LocationManager.js",
+            "id": "com.unarin.cordova.beacon.LocationManager",
+            "merges": [
+                "cordova.plugins"
+            ]
+        },
+        {
+            "file": "plugins/com.unarin.cordova.beacon/www/Delegate.js",
+            "id": "com.unarin.cordova.beacon.Delegate",
+            "runs": true
+        },
+        {
+            "file": "plugins/com.unarin.cordova.beacon/www/model/Region.js",
+            "id": "com.unarin.cordova.beacon.Region",
+            "runs": true
+        },
+        {
+            "file": "plugins/com.unarin.cordova.beacon/www/Regions.js",
+            "id": "com.unarin.cordova.beacon.Regions",
+            "runs": true
+        },
+        {
+            "file": "plugins/com.unarin.cordova.beacon/www/model/CircularRegion.js",
+            "id": "com.unarin.cordova.beacon.CircularRegion",
+            "runs": true
+        },
+        {
+            "file": "plugins/com.unarin.cordova.beacon/www/model/BeaconRegion.js",
+            "id": "com.unarin.cordova.beacon.BeaconRegion",
+            "runs": true
         }
     ],
     "plugin_metadata": {
@@ -147,6 +224,7 @@
         "cordova-plugin-geolocation": "2.2.0",
         "cordova-plugin-whitelist": "1.2.2",
         "phonegap-plugin-barcodescanner": "6.0.1",
-        "cordova-plugin-crosswalk-webview": "2.0.0"
+        "cordova-plugin-crosswalk-webview": "2.0.0",
+        "com.unarin.cordova.beacon": "3.4.1"
     }
 }

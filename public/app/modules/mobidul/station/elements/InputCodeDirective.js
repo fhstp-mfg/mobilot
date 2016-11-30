@@ -37,6 +37,7 @@ function InputCode (
             'class="md-raised md-primary md-mobilot" ' +
           '>{{ \'GO\' | translate }}</md-button>' +
         '</form>' +
+        '<md-divider id="station_creator_divider"></md-divider>' +
       '</div>'
     ,
 
