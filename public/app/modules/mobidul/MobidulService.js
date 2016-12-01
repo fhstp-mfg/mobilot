@@ -60,9 +60,9 @@ function MobidulService (
         SET_TIMEOUT: {
           icon: 'alarm'
         },
-        //FREE_TEXT: {
-        //  icon: 'edit'
-        //},
+        FREE_TEXT: {
+         icon: 'edit'
+        },
         //CONFIRM_SOCIAL: {
         //  icon: 'people'
         //},

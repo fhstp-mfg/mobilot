@@ -20,16 +20,17 @@ function FreeTextInputConfig(
     template:
     '<div>' +
       '<md-input-container>' +
-        '<input type="text" ng-model="question" placeholder="{{ \'QUESTION\' | translate }}">' +
+        '<input type="text" ng-model="ctrl.question" placeholder="{{ \'QUESTION\' | translate }}">' +
       '</md-input-container>' +
-      '<action-selector data-opts="ctrl.actionOpts" data-selection="SUCCESS_ACTION"></action-selector>' +
-      '<md-button data-ng-click="ctrl.exportAnswers()">{{ \'DOWNLOAD_ANSWERS\' | translate }}</md-button>' +
+      '<action-selector opts="ctrl.actionOpts" selection="ctrl.success" name="SUCCESS_ACTION"></action-selector>' +
+      '<md-button class="md-primary" ng-click="ctrl.exportAnswers()">{{ \'DOWNLOAD_ANSWERS\' | translate }}</md-button>' +
     '</div>',
     scope: {
+      success: '=',
       question: '=',
-      id: '=',
-      success: '='
+      id: '='
     },
+    bindToController: true,
     link: function ($scope, $element, $attr, ctrl) {
 
       if ( ! $scope.id ) {
@@ -44,12 +45,10 @@ function FreeTextInputConfig(
     var ctrl = this;
 
     ctrl.exportAnswers = function () {
-
       var stationCode = $stateParams.stationCode,
           mobidulCode = $stateParams.mobidulCode;
 
       AttachmentService.exportTextsFromComponent(mobidulCode, stationCode, $scope.id);
-
     };
 
     ctrl.actionOpts = RallyService.getActions();

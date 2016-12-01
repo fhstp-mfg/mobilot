@@ -83,21 +83,21 @@ function ElementContainer(
           $element.append($compile('<input-code-config data-id="ctrl.element.id" data-verifier="ctrl.element.verifier" data-success="ctrl.element.success" error="ctrl.element.error"></input-code-config>')($scope));
           break;
 
-        case 'PHOTO_UPLOAD':
-          $element.append($compile('<photo-upload-config data-success="ctrl.element.success" data-id="ctrl.element.id" data-content="ctrl.element.content"></photo-upload-config>')($scope));
-          break;
+        // case 'PHOTO_UPLOAD':
+        //   $element.append($compile('<photo-upload-config data-success="ctrl.element.success" data-id="ctrl.element.id" data-content="ctrl.element.content"></photo-upload-config>')($scope));
+        //   break;
 
         case 'SET_TIMEOUT':
           $element.append($compile('<set-timeout-config data-action="ctrl.element.action" data-delay="ctrl.element.delay" data-show="ctrl.element.show"></set-timeout-config>')($scope));
           break;
 
         case 'FREE_TEXT':
-          $element.append($compile('<free-text-input-config data-success="ctrl.element.success" data-question="ctrl.element.question" data-id="ctrl.element.id"></free-text-input-config>')($scope));
+          $element.append($compile('<free-text-input-config success="ctrl.element.success" question="ctrl.element.question" id="ctrl.element.id"></free-text-input-config>')($scope));
           break;
 
-        case 'CONFIRM_SOCIAL':
-          $element.append($compile('<confirm-social-config data-id="ctrl.element.id" data-success="ctrl.element.success"></confirm-social-config>')($scope));
-          break;
+        // case 'CONFIRM_SOCIAL':
+        //   $element.append($compile('<confirm-social-config data-id="ctrl.element.id" data-success="ctrl.element.success"></confirm-social-config>')($scope));
+        //   break;
 
         case 'SHOW_SCORE':
           $element.append($compile('<show-score-config data-content="ctrl.element.content"></show-score-config>')($scope));
