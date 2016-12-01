@@ -35,11 +35,13 @@ function StationController (
   station.panZoomConfig = {};
   station.panZoomModel  = {};
   station.myFont        = '';
+  station.isRalley      = true;
 
   /// functions
   // station.getStation        = getStation;
   station.renderText        = renderText;
   station.getPictureByHash  = getPictureByHash;
+  station.checkIfRalley     = checkIfRalley;
   $scope.actionPerformed    = actionPerformed;
 
   /// XXX temp function
@@ -103,6 +105,7 @@ function StationController (
     _initActionListener();
 
     _listenToConfig();
+    checkIfRalley();
   }
 
 
@@ -615,6 +618,12 @@ function StationController (
     return null;
   }
 
+  function checkIfRalley () {
+    MobidulService.getMobidulMode(StateManager.state.params.mobidulCode)
+    .then(function (mobidulMode) {
+      station.isRalley = mobidulMode == MobidulService.MOBIDUL_MODE_RALLY;
+    });
+  }
 
   /// events
   // ...
