@@ -732,8 +732,8 @@ class WebServicesController extends BaseController
 
     return $response;
   }
-  
-  
+
+
   /**
    * This function duplicates a mobidul in the database and all it's subtables by the given mobidulcode.
    * @param $mobidulCode Code of the old mobidul which is duplicated
@@ -746,7 +746,7 @@ class WebServicesController extends BaseController
       'msg' => "Couldn't clone Mobidul.",
       'success' => false
     ];
-  
+
     $request = Request::instance();
     $content = $request->getContent();
     $mobidulJson = json_decode($content);
@@ -824,7 +824,7 @@ class WebServicesController extends BaseController
             $clonedNavigation->save();
           }
         }
-        
+
         // THIRD - C: Replicate the stations for the current Mobidul and other related tables
         /*
          * Important as it stores the cloned Categories and checks if they already exist so if one station is assigned
@@ -832,7 +832,7 @@ class WebServicesController extends BaseController
          * exists and if so, the cloned category from this list is used.
          */
         $clonedCategoryExists = array();
-        
+
         if (count($stationOC) > 0) {
           foreach ($stationOC as $station) {
             $clonedStation = $station->replicate();
@@ -858,17 +858,17 @@ class WebServicesController extends BaseController
                 $clonedCategory = $categoryOC->replicate();
                 $clonedCategory->mobidulId = $clonedMobidulID;
                 $clonedCategory->save();
-                
+
                 array_push($clonedCategoryExists, $clonedCategory);
               }
-              
+
               DB::table('category2station')->insert(
                 [
                   'categoryId' => $clonedCategory->id,
                   'stationId' => $clonedStation->id
                 ]);
-              
-              
+
+
               $navCategory = NavigationItem::where('mobidulId', $clonedMobidulID)->where('categoryId', $categoryOC->id)->first();
               $navStation = NavigationItem::where('mobidulId', $clonedMobidulID)->where('stationId', $stationId)->first();
 
@@ -883,8 +883,8 @@ class WebServicesController extends BaseController
             }
           }
         }
-  
-  
+
+
         //THIRD - D: Duplicate the categories that are not related to any station
         $categoryOC = Category::where('mobidulId', $mobidulId)->get();
         if (count($categoryOC) > 0) {
@@ -929,7 +929,7 @@ class WebServicesController extends BaseController
         $clonedStation = $stationOC->replicate();
         $clonedStationCode = $clonedStation->code;
         $clonedStationName = $clonedStation->name;
-        
+
         //This is used to change the name and code of the station if already existent. Also if the name would be
         //too long it gets shortened in order to generate a new code.
         if(strlen($clonedStationCode) > 19) {
@@ -945,7 +945,7 @@ class WebServicesController extends BaseController
         } else {
           $clonedStation->name = $this->ChangeStationData($clonedStationName, "name");
         }
-        
+
         $allStationsOfMobidul = Station::where('mobidulId', $mobidulId)->get();
         $clonedStation->order = $clonedStation->order + count($allStationsOfMobidul) - 1;
         $clonedStation->save();
@@ -1588,74 +1588,73 @@ class WebServicesController extends BaseController
   {
     $mobidulId = Mobidul::GetId($mobidulCode);
 
-    if ( ! $this->isAllowed($mobidulCode) )
+    if ( ! $this->isAllowed($mobidulCode) ) {
       return 'not allowed';
+    }
 
-
-    if ( Mobidul::find($mobidulId)->locked &&
-       ! $this->GetIsOwnerOfMobidul($mobidulCode) )
-
+    if ( Mobidul::find($mobidulId)->locked
+      && ! $this->GetIsOwnerOfMobidul($mobidulCode)
+    ) {
       return 'mobidul locked';
-
+    }
 
 
     $canEdit = $this->CanEditStation($stationId);
 
-    if ( is_bool($canEdit) && $canEdit )
-    {
-      if ( ! empty($stationId) )
-      {
+    if ( is_bool($canEdit) && $canEdit ) {
+      if ( ! empty($stationId) ) {
         DB::beginTransaction();
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
-
         $category2Station = Category2Station::where('stationId', $stationId);
-        $station          = Station::where('id', $stationId)->first();
+        $station = Station::where('id', $stationId)->first();
 
         $stationOrder = $station->order;
-        //\Log::info("stationOrder: " . $stationOrder);
+        \Log::info("stationOrder: " . $stationOrder);
 
         $deletedCategory2Station = true; // doesn't have to exist
         $deletedStation = false; // has to exist
 
 
         $navigationItems = NavigationItem::where('stationId', $stationId);
-        if ( $navigationItems->count() > 0 )
+        if ( $navigationItems->count() > 0 ) {
           $navigationItems->delete();
+        }
 
         // delete Category2Station
-        if ( $category2Station->count() > 0 )
+        if ( $category2Station->count() > 0 ) {
           $deletedCategory2Station = $category2Station->delete();
+        }
 
-        if ( $deletedCategory2Station )
+        if ( $deletedCategory2Station ) {
           // delete Station
-          if ( $station->count() > 0 )
+          if ( $station->count() > 0 ) {
             $deletedStation = $station->delete();
+          }
+        }
 
 
-        if ( $deletedStation )
-        {
+        if ($deletedStation) {
           DB::statement('SET FOREIGN_KEY_CHECKS = 1');
           DB::commit();
 
-          //Rearrange Order of Stations
+          // Rearrange Order of Stations
           Station::removeOrder($mobidulId, $stationOrder);
 
           return 'success';
-        }
-        else
-        {
+        } else {
           DB::rollback();
           DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
           return 'Konnte Station nicht löschen!';
         }
       }
-      else
+      else {
         return 'Keine Station angegeben!';
-    }
-    else
+      }
+    } else {
       return $canEdit;
+    }
   }
 
 
@@ -1668,12 +1667,12 @@ class WebServicesController extends BaseController
    */
   public function RemoveStationByCode ($mobidulCode, $stationCode)
   {
-    //\Log::info('REMOVE STATION BY CODE');
-    //\Log::info($mobidulCode);
-    //\Log::info($stationCode);
+    // \Log::info('REMOVE STATION BY CODE');
+    // \Log::info($mobidulCode);
+    // \Log::info($stationCode);
 
     $stationId = Station::GetId($stationCode);
-    //\Log::info($stationId);
+    // \Log::info($stationId);
 
     return $this->RemoveStation($mobidulCode, $stationId);
   }
@@ -1683,14 +1682,15 @@ class WebServicesController extends BaseController
   {
     $mobidulId = Mobidul::GetId($mobidulCode);
 
-    if ( ! $this->isAllowed($mobidulCode) )
+    if ( ! $this->isAllowed($mobidulCode) ) {
       return 'not allowed';
+    }
 
-
-    if ( Mobidul::find($mobidulId)->locked &&
-       ! $this->GetIsOwnerOfMobidul($mobidulCode) )
-
+    if ( Mobidul::find($mobidulId)->locked
+      && ! $this->GetIsOwnerOfMobidul($mobidulCode)
+    ) {
       return 'mobidul locked';
+    }
 
 
     $request = Request::instance();
@@ -1699,30 +1699,34 @@ class WebServicesController extends BaseController
     $params = json_decode($params);
     $canEdit = $this->CanEditStation($params->id);
 
-    if ( is_bool($canEdit) && $canEdit )
-    {
-      if ( $this->GetIsOwnerOfMobidul($mobidulCode) )
-
+    if ( is_bool($canEdit) && $canEdit ) {
+      if ( $this->GetIsOwnerOfMobidul($mobidulCode) ) {
         DB::table('station')
-            ->where('id', $params->id)
-            ->update(['code'    => $params->code,
-                'lat'     => $params->lat,
-                'lon'     => $params->lon,
-                'name'    => $params->name,
-                'contentType' => $params->contentType,
-                'content'   => $params->content,
-                'locked'    => $params->locked,
-                'enabled'   => $params->enabled]);
-      else
+          ->where('id', $params->id)
+          ->update([
+            'code'        => $params->code,
+            'lat'         => $params->lat,
+            'lon'         => $params->lon,
+            'name'        => $params->name,
+            'contentType' => $params->contentType,
+            'content'     => $params->content,
+            'locked'      => $params->locked,
+            'enabled'     => $params->enabled
+          ]
+        );
+      } else {
         DB::table('station')
-            ->where('id', $params->id)
-            ->update(['code'    => $params->code,
-                'lat'     => $params->lat,
-                'lon'     => $params->lon,
-                'name'    => $params->name,
-                'contentType' => $params->contentType,
-                'content'   => $params->content]);
-
+          ->where('id', $params->id)
+          ->update([
+            'code'        => $params->code,
+            'lat'         => $params->lat,
+            'lon'         => $params->lon,
+            'name'        => $params->name,
+            'contentType' => $params->contentType,
+            'content'     => $params->content
+          ]
+        );
+      }
 
       DB::table('category2station')
           ->where('stationId', $params->id)
@@ -1733,39 +1737,38 @@ class WebServicesController extends BaseController
           ->delete();
 
 
-      foreach ( $params->categories as $categorieId )
-      {
+      foreach ($params->categories as $categorieId) {
         DB::table('category2station')
           ->insert([
             'categoryId' => $categorieId,
             'stationId'  => $params->id
-          ]);
+          ]
+        );
       }
 
-      foreach ( $params->medialist as $mediaitem )
-      {
+      foreach ($params->medialist as $mediaitem) {
         $attachment = Attachment::where('hash', $mediaitem->hash)->first();
 
-        if ( $attachment == null )
-        {
+        if ( $attachment == null ) {
           //attachment zur späteren Verwendung anlegen
-          $attachment = Attachment::create(
-            array(
-              'mobidulId' => $mobidulId,
-              'hash'    => $mediaitem->hash
-            )
-          );
+          $attachment = Attachment::create([
+            'mobidulId' => $mobidulId,
+            'hash'    => $mediaitem->hash
+          ]);
         }
 
         DB::table('station2attachment')
-          ->insert(['attachment_id' => $attachment->id,
-                'station_id'  => $params->id]);
+          ->insert([
+            'attachment_id' => $attachment->id,
+            'station_id'  => $params->id
+          ]
+        );
       }
 
       return 'success';
-    }
-    else
+    } else {
       return $canEdit;
+    }
   }
 
 
@@ -1776,13 +1779,12 @@ class WebServicesController extends BaseController
     // get this medialist, the dirty way !
 
     $pivotEntries = DB::table('station2attachment')
-                      ->where('station_id', $id )
+                      ->where('station_id', $id)
                       ->orderBy('created_at')
                       ->get();
 
-    foreach ( $pivotEntries as $pivotEntry )
-    {
-      $attachment = Attachment::find( $pivotEntry->attachment_id );
+    foreach ($pivotEntries as $pivotEntry) {
+      $attachment = Attachment::find($pivotEntry->attachment_id);
 
       $mediaList[] = [
         "hash"      => $attachment->hash,
@@ -1799,9 +1801,9 @@ class WebServicesController extends BaseController
 
     $result->mediaList = $mediaList;
 
-    $result->canEdit = is_bool( $this->CanEditStation( $station->id ) ) &&
-                       $this->CanEditStation( $station->id )            &&
-                       $this->IsAllowed( $mobidulCode );
+    $result->canEdit = is_bool($this->CanEditStation($station->id))
+      && $this->CanEditStation($station->id)
+      && $this->IsAllowed($mobidulCode);
 
     return json_encode($result);
   }
@@ -1997,7 +1999,7 @@ class WebServicesController extends BaseController
     }
     return null;
   }
-  
+
   /**
    * This function checks whether the user is allowed to clone the current mobidul or not.
    * @return bool information if the user can clone or not

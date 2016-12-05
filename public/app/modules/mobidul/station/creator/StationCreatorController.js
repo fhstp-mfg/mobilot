@@ -837,16 +837,16 @@ function StationCreatorController (
     stationCreator.editStationCode = ! stationCreator.editStationCode;
   }
 
-  function deleteStation ()
-  {
+
+  function deleteStation () {
     var confirmDeleteStationDialog =
       $mdDialog.confirm()
-      .parent(angular.element(document.body))
-      .title($translate.instant('STATION_DELETE_CONFIRMATION_TITLE'))
-      .textContent($translate.instant('STATION_DELETE_CONFIRMATION'))
-      .ariaLabel($translate.instant('STATION_DELETE_CONFIRMATION_TITLE'))
-      .ok($translate.instant('DELETE'))
-      .cancel($translate.instant('CANCEL'));
+        .parent(angular.element(document.body))
+        .title($translate.instant('STATION_DELETE_CONFIRMATION_TITLE'))
+        .textContent($translate.instant('STATION_DELETE_CONFIRMATION'))
+        .ariaLabel($translate.instant('STATION_DELETE_CONFIRMATION_TITLE'))
+        .ok($translate.instant('DELETE'))
+        .cancel($translate.instant('CANCEL'));
 
     $mdDialog.show(confirmDeleteStationDialog)
     .then(function () {
@@ -856,9 +856,9 @@ function StationCreatorController (
       var stationCode = currentStateParams.stationCode || null;
 
 
-      if ( mobidulCode && stationCode )
+      if ( mobidulCode && stationCode ) {
         StationCreatorService
-          .deleteStation( mobidulCode, stationCode )
+          .deleteStation(mobidulCode, stationCode)
           .success(function (response, status, headers, config) {
             if ( response === 'success' ) {
               $state.go(
@@ -875,6 +875,7 @@ function StationCreatorController (
             // TODO: alert window einbauen und dann weiterleitung auf (?)
             alert(response);
           });
+      }
     });
   }
 
