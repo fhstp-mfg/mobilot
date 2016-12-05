@@ -1,5 +1,7 @@
 # Mobilot
 
+https://www.mobilot.at
+
 Mobilot presents an intuitive system for easily creating and consuming content-centric content: _seekoi_. It can be used for various applications and is intended to enable this for all Internet users.
 
 ### About
@@ -41,4 +43,4 @@ Project _seekoi_ runs from January to December 2016 and is funded through the [1
 
 ## License
 
-[MIT license](http://opensource.org/licenses/MIT)
+[BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause)
