@@ -1,9 +1,10 @@
 (function () {
-  'use strict';
+'use strict';
 
 angular
   .module('StationCreator')
   .directive('elementContainer', ElementContainer);
+
 
 ElementContainer.$inject = [
   '$log', '$compile', '$rootScope', '$translate',
@@ -47,15 +48,36 @@ function ElementContainer(
 
       switch (type) {
         case 'HTML':
-          $element.append($compile('<html-container-config data-content="ctrl.element.content"></html-container-config>')($scope));
+          $element.append(
+            $compile('' +
+              '<html-container-config ' +
+                'content="ctrl.element.content"' +
+              '></html-container-config>'
+            )($scope)
+          );
           break;
 
         case 'BUTTON':
-          $element.append($compile('<action-button-config data-success="ctrl.element.success" data-content="ctrl.element.content"></action-button-config>')($scope));
+          $element.append(
+            $compile('' +
+              '<action-button-config ' +
+                'success="ctrl.element.success" ' +
+                'content="ctrl.element.content"' +
+              '></action-button-config>'
+            )($scope)
+          );
           break;
 
         case 'IF_NEAR':
-          $element.append($compile('<trigger-near-config data-range="ctrl.element.range" fallback="ctrl.element.fallback" data-success="ctrl.element.success"></trigger-near-config>')($scope));
+          $element.append(
+            $compile('' +
+              '<trigger-near-config ' +
+                'range="ctrl.element.range" ' +
+                'fallback="ctrl.element.fallback" ' +
+                'success="ctrl.element.success"' +
+              '></trigger-near-config>'
+            )($scope)
+          );
           break;
 
         case 'BLUETOOTH':
@@ -72,7 +94,7 @@ function ElementContainer(
                 '</blue-tooth-config>'
               )($scope)
             );
-            
+
             // console.debug("BLUE-->ctrl.element");
             // console.debug(ctrl.element);
             // console.debug("BLUE-->$scope");
@@ -82,31 +104,76 @@ function ElementContainer(
             // console.debug("BLUE-->type");
             // console.debug(ctrl.element.type);
           }
-
           break;
 
         case 'INPUT_CODE':
-          $element.append($compile('<input-code-config data-id="ctrl.element.id" data-verifier="ctrl.element.verifier" data-success="ctrl.element.success" error="ctrl.element.error"></input-code-config>')($scope));
+          $element.append(
+            $compile('' +
+              '<input-code-config ' +
+                'id="ctrl.element.id" ' +
+                'verifier="ctrl.element.verifier" ' +
+                'success="ctrl.element.success" ' +
+                'error="ctrl.element.error"' +
+              '></input-code-config>'
+            )($scope)
+          );
           break;
 
         // case 'PHOTO_UPLOAD':
-        //   $element.append($compile('<photo-upload-config data-success="ctrl.element.success" data-id="ctrl.element.id" data-content="ctrl.element.content"></photo-upload-config>')($scope));
+        //   $element.append(
+        //     $compile('' +
+        //       '<photo-upload-config ' +
+        //         'success="ctrl.element.success" ' +
+        //         'id="ctrl.element.id" ' +
+        //         'content="ctrl.element.content"' +
+        //       '></photo-upload-config>'
+        //     )($scope)
+        //   );
         //   break;
 
         case 'SET_TIMEOUT':
-          $element.append($compile('<set-timeout-config data-action="ctrl.element.action" data-delay="ctrl.element.delay" data-show="ctrl.element.show"></set-timeout-config>')($scope));
+          $element.append(
+            $compile('' +
+              '<set-timeout-config ' +
+                'action="ctrl.element.action" ' +
+                'delay="ctrl.element.delay" ' +
+                'show="ctrl.element.show"' +
+              '></set-timeout-config>'
+            )($scope)
+          );
           break;
 
         case 'FREE_TEXT':
-          $element.append($compile('<free-text-input-config success="ctrl.element.success" question="ctrl.element.question" id="ctrl.element.id"></free-text-input-config>')($scope));
+          $element.append(
+            $compile('' +
+              '<free-text-input-config ' +
+                'success="ctrl.element.success" ' +
+                'question="ctrl.element.question" ' +
+                'id="ctrl.element.id"' +
+              '></free-text-input-config>'
+            )($scope)
+          );
           break;
 
         // case 'CONFIRM_SOCIAL':
-        //   $element.append($compile('<confirm-social-config data-id="ctrl.element.id" data-success="ctrl.element.success"></confirm-social-config>')($scope));
+        //   $element.append(
+        //     $compile('' +
+        //       '<confirm-social-config ' +
+        //         'id="ctrl.element.id" ' +
+        //         'success="ctrl.element.success"' +
+        //       '></confirm-social-config>'
+        //     )($scope)
+        //   );
         //   break;
 
         case 'SHOW_SCORE':
-          $element.append($compile('<show-score-config data-content="ctrl.element.content"></show-score-config>')($scope));
+          $element.append(
+              $compile('' +
+              '<show-score-config ' +
+                'content="ctrl.element.content"' +
+              '></show-score-config>'
+            )($scope)
+          );
           break;
 
         default:
@@ -123,7 +190,7 @@ function ElementContainer(
       // TODO: can be simplified if element config is not bound to mode but global
       MobidulService.getMobidulConfig($stateParams.mobidulCode)
       .then(function (config) {
-        for ( var element in config.elements ) {
+        for (var element in config.elements) {
           if ( config.elements.hasOwnProperty(element) ) {
             if ( element == ctrl.element.type ) {
               ctrl.icon = config.elements[element].icon;
@@ -133,11 +200,12 @@ function ElementContainer(
         }
       });
     },
+
     controller: ElementContainerController,
     controllerAs: 'ctrl'
   };
 
-  function ElementContainerController($scope, $element, $attrs) {
+  function ElementContainerController ($scope, $element, $attrs) {
     var ctrl = this;
 
     ctrl.delete = function () {
@@ -169,7 +237,7 @@ function ElementContainer(
           .ariaLabel($translate.instant('CLOSE'))
           .ok($translate.instant('CLOSE'));
 
-      $mdDialog.show( saveMobidulOptionsDialog )
+      $mdDialog.show(saveMobidulOptionsDialog)
         .then(function () {
           // ...
         });
