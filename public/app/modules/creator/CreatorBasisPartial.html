@@ -55,11 +55,13 @@
 
     <md-input-container data-ng-if="creator.isNewMobidul">
       <md-select data-ng-model="creator.mobidul.mode">
-        <md-select-header>
-          <span translate="MOBIDUL_MODE"></span>
-        </md-select-header>
-        <md-option data-ng-repeat="mode in creator.modes"
-                   data-ng-value="mode.name">{{mode.name}}</md-option>
+        <md-optgroup>
+          <label translate="MOBIDUL_MODE"></label>
+          <md-option
+            ng-repeat="mode in creator.modes"
+            ng-value="mode.name"
+          >{{ mode.name }}</md-option>
+        </md-optgroup>
       </md-select>
     </md-input-container>
 
