@@ -24,7 +24,7 @@ function PhotoUploadConfig(
       '{{content}}' +
       '<md-button class="md-raised md-primary md-mobilot" translate="UPLOAD_PHOTO">' +
         '{{ \'UPLOAD_PHOTO\' | translate }}' +
-      '</md-button><br/>' +
+      '</md-button><br />' +
       '<div class="config-part">' +
         '<md-input-container>' +
           '<input type="text" ng-model="content" placeholder="{{ \'EXPLAINATION\' | translate }}">' +

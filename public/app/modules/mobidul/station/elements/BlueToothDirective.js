@@ -40,7 +40,7 @@ function BlueTooth (
         '</div>' +
 
         '<div ng-if="bluetooth.failedScan">' +
-          '<br/>' +
+          '<br />' +
           '<span translate="BLUETOOTH_INACCURATE_FALLBACK"></span>' +
           '<mbl-input-code ' +
             'verifier="{{ bluetooth.fallback }}" ' +

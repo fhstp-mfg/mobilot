@@ -21,9 +21,10 @@ function Bluetooth(
     '<div>' +
     '<md-button class="md-raised md-primary" ng-click="ctrl.openBeaconDialog()">{{ \'BLUETOOTH_SCAN_BTN\' | translate }}' +
     '<md-icon>bluetooth_searching</md-icon></md-button>' +
-    '<span ng-if="ctrl.beaconfoundcheck && ctrl.beaconname" translate="BLUETOOTH_FIX_INFO" translate-values="{value: ctrl.beaconname}"></span><br/>' +
+    '<span ng-if="ctrl.beaconfoundcheck && ctrl.beaconname" translate="BLUETOOTH_FIX_INFO" translate-values="{value: ctrl.beaconname}"></span><br />' +
       '<div ng-show="ctrl.beaconfoundcheck" class="config-part">' +
-        '<br/><span translate="BLUETOOTH_SUCCESS"></span>' +
+        '<br />' +
+        '<span translate="BLUETOOTH_SUCCESS"></span>' +
         '<hr />'+
         '<action-selector data-opts="ctrl.actionOpts" data-selection="ctrl.success" data-name="SUCCESS_ACTION"></action-selector>' +
         '<md-input-container>' +
@@ -34,7 +35,8 @@ function Bluetooth(
         '</md-input-container>' +
         '<hr />' +
         '<span translate="BLUETOOTH_CHECKBOXES"></span>' +
-        '<br /><br /><md-radio-group ng-model="ctrl.selectedrange" layout="row"> ' +
+        '<br /><br />' +
+        '<md-radio-group ng-model="ctrl.selectedrange" layout="row"> ' +
           '<md-radio-button value="Immediate" class="md-accent">{{ \'BLUETOOTH_CHECKBOX_IMMEDIATE\' | translate }}</md-radio-button>' +
           '<md-radio-button value="Near" class="md-accent">{{ \'BLUETOOTH_CHECKBOX_NEAR\' | translate }}</md-radio-button>' +
         '</md-radio-group>' +
