@@ -170,7 +170,7 @@ class User extends \Eloquent /*implements RemindableInterface*/ {
    */
   public function isAdminInMobidul ($mobidulId)
   {
-    if ( $this->username == 'admin' ) {
+    if ( (bool) $this->admin == true ) {
       return true;
     }
 

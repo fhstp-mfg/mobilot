@@ -993,7 +993,7 @@ class WebServicesController extends BaseController {
    */
   public function GetIsOwnerOfMobidul ($mobidulCode)
   {
-    if ( Auth::check() && Auth::user()->username == 'admin' ) {
+    if ( Auth::check() && (bool) Auth::user()->admin == true ) {
       return true;
     }
 
