@@ -745,50 +745,46 @@ function StationCreatorController (
   function changeName ()
   {
     if ( stationCreator.isNewStation || stationCreator.basis.generateCode ) {
-      // TODO: change default station name handling
-      var stationName = stationCreator.station.name.trim() || '(' + $translate.instant('UNKNOWN') + ')';
-      var stationCode = UtilityService.getCodeFromName( stationName );
+      var stationName = stationCreator.station.name
+        ? stationCreator.station.name.trim()
+        : '(' + $translate.instant('UNKNOWN') + ')';
+      var stationCode = UtilityService.getCodeFromName(stationName);
 
-      if ( stationCode ) {
+      if (stationCode) {
         stationCreator.basis.codeHelper.text = stationCreator._codeHelperGenerating;
       }
 
 
-      if ( stationCreator.isNewStation ||
-         ( ! stationCreator.isNewStation &&
-           ! _isOriginalCode( stationCode ) ) )
-      {
+      if ( stationCreator.isNewStation
+        || ( ! stationCreator.isNewStation
+          && ! _isOriginalCode(stationCode)
+        )
+      ) {
         StationService
-          .requestValidCode( stationCode )
-          .success(function (code, status, headers, config)
-          {
+          .requestValidCode(stationCode)
+          .success(function (code, status, headers, config) {
             // $log.debug('request valid code callback from changeName : ');
             // $log.debug(code);
 
             stationCode = code;
 
-            if ( stationCode )
-            {
+            if (stationCode) {
               stationCreator.station.code = stationCode;
-
 
               _refreshCodeHelper( stationCode, stationCreator._codeHelperGenerated );
 
-
-              if ( ! stationCreator.isNewStation )
-
+              if ( ! stationCreator.isNewStation ) {
                 stationCreator.basis.generateCode = false;
-            }
-            else
-            {
+              }
+            } else {
               stationCreator.station.code = '';
 
               _resetCodeHelper();
             }
           });
-      }
-      else
+      } else {
         _restoreOriginalStationCode();
+      }
     }
   }
 
@@ -797,17 +793,17 @@ function StationCreatorController (
     // $log.debug('change code', stationCreator.station.code);
 
     stationCreator.station.code =
-      UtilityService.formatCode( stationCreator.station.code );
+      UtilityService.formatCode(stationCreator.station.code);
 
     // $log.debug('formatted code', stationCreator.station.code);
 
     var stationCode = stationCreator.station.code;
 
-
-    if ( stationCode )
-    {
-      if ( stationCreator.isNewStation ||
-        ( ! stationCreator.isNewStation && ! _isOriginalCode(stationCode))
+    if (stationCode) {
+      if ( stationCreator.isNewStation
+        || ( ! stationCreator.isNewStation
+          && ! _isOriginalCode(stationCode)
+        )
       ) {
         StationService.requestValidCode(stationCode)
           .success(function (code, status, headers, config) {
@@ -845,14 +841,14 @@ function StationCreatorController (
   {
     var confirmDeleteStationDialog =
       $mdDialog.confirm()
-      .parent( angular.element(document.body) )
+      .parent(angular.element(document.body))
       .title($translate.instant('STATION_DELETE_CONFIRMATION_TITLE'))
       .textContent($translate.instant('STATION_DELETE_CONFIRMATION'))
       .ariaLabel($translate.instant('STATION_DELETE_CONFIRMATION_TITLE'))
       .ok($translate.instant('DELETE'))
       .cancel($translate.instant('CANCEL'));
 
-    $mdDialog.show( confirmDeleteStationDialog )
+    $mdDialog.show(confirmDeleteStationDialog)
     .then(function () {
       var currentStateParams = StateManager.state.params;
 
@@ -861,26 +857,22 @@ function StationCreatorController (
 
 
       if ( mobidulCode && stationCode )
-
         StationCreatorService
           .deleteStation( mobidulCode, stationCode )
-          .success(function (response, status, headers, config)
-          {
-            if ( response === 'success' )
-            {
+          .success(function (response, status, headers, config) {
+            if ( response === 'success' ) {
               $state.go(
                 'mobidul.map',
-                { mobidulCode : mobidulCode },
-                { reload : true }
+                { mobidulCode: mobidulCode },
+                { reload: true }
               );
             }
           })
-          .error(function (response, status, headers, config)
-          {
+          .error(function (response, status, headers, config) {
             $log.error(response);
             $log.error(status);
 
-            // TODO - alert window einbauen und dann weiterleitung auf (?)
+            // TODO: alert window einbauen und dann weiterleitung auf (?)
             alert(response);
           });
     });
