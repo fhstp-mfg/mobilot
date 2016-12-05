@@ -9,7 +9,6 @@ UserService.$inject = [
   'HeaderService'
 ];
 
-
 function UserService (
   $log, $rootScope, $http, $q, $timeout,
   $stateParams, $translate,
@@ -32,8 +31,7 @@ function UserService (
 
   /// UserService
   var service = {
-    // _guestName     : 'Gast',
-    _guestName     : $translate.instant('LOGIN'),
+    _guestName : $translate.instant('LOGIN'),
 
     login           : login,
     logout          : logout,
@@ -44,8 +42,8 @@ function UserService (
     changePassword  : changePassword,
     requestRestore  : requestRestore,
 
-    getEditStationPermit        : getEditStationPermit,
-    getRequestAllStationsPermit    : getRequestAllStationsPermit,
+    getEditStationPermit             : getEditStationPermit,
+    getRequestAllStationsPermit      : getRequestAllStationsPermit,
     getRequestCategoryStationsPermit : getRequestCategoryStationsPermit,
 
     Role   : _Roles,
@@ -63,7 +61,7 @@ function UserService (
     },
 
     // save current mobidulCode to cache roles
-    currentMobidul: ''
+    currentMobidul : ''
   };
 
 
@@ -77,22 +75,21 @@ function UserService (
     return {
       // @description - TODO
       RequestAllStations : role == _Roles._isAdmin ||
-      true /* editMode permits */ // TODO - see previous (inline-block) comment
+      true /* editMode permits */ // TODO: see previous (inline-block) comment
       ,
       // @description - TODO
       RequestCategoryStations : role == _Roles._isAdmin ||
-      true /* editMode permits */ // TODO - see previous (inline-block) comment
+      true /* editMode permits */ // TODO: see previous (inline-block) comment
       ,
       // @description - TODO
       EditStation : role == _Roles._isAdmin ||
       ( role == _Roles._isPlayer &&
-      true /* editMode permits */ ) // TODO - see previous (inline-block) comment
+      true /* editMode permits */ ) // TODO: see previous (inline-block) comment
     };
   }
 
 
   function _getRoleForMobidul (mobidulCode) {
-
     var deferred = $q.defer();
 
     if (service.currentMobidul === mobidulCode ) {
@@ -120,7 +117,6 @@ function UserService (
 
 
   function _getPermit (mobidulCode) {
-
     var deferred = $q.defer();
 
     // to make sure the permit was initialized
@@ -138,8 +134,8 @@ function UserService (
 
   function login (credentials) {
     var postData = {
-      user     : credentials.username,
-      password : credentials.password
+      user: credentials.username,
+      password: credentials.password
     };
 
     return $http.post(cordovaUrl + '/login', postData)
@@ -247,7 +243,7 @@ function UserService (
         };
 
         if (isGuest) {
-          userData.guestId = response.usernam;
+          userData.guestId = response.username;
         }
 
         service.Session = userData;
