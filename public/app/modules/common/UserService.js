@@ -260,9 +260,6 @@ function UserService (
 
     _getRoleForMobidul(mobidulCode)
       .then(function (role) {
-        console.warn('restoreUserRole role: ');
-        console.warn(role);
-
         service.Session.role   = role;
         service.Permit         = _checkPermits(role);
         service.currentMobidul = mobidulCode;
