@@ -42,7 +42,11 @@
         <div>/#/</div>
         <div>{{ stationCreator.mobidulCode }}</div>
         <div>/</div>
-        <div class="codePreview" ng-click="stationCreator.invokeChangeCode()">
+        <div
+          class="codePreview"
+          style="margin-top: -2px"
+          ng-click="stationCreator.invokeChangeCode()"
+        >
           <span class="stationCode">{{ stationCreator.codePreview }}</span>
           <md-icon class="codePreviewIcon">edit</md-icon>
         </div>
