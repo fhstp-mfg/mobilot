@@ -1018,7 +1018,7 @@ class WebServicesController extends BaseController {
       $role = $this->GetIsOwnerOfMobidul($mobidulCode)
         ? 1 : $this->IsAllowed($mobidulCode) == true
           || $this->IsAllowed($mobidulCode) === 'allowed'
-        ? 2 : 0
+        ? 2 : 0;
 
       return [
         'role' => $role
@@ -1317,10 +1317,10 @@ class WebServicesController extends BaseController {
     }
 
 
-    //get current order of station
+    // get current order of station
     $order = Station::getCurrentOrder($mobidulId);
 
-    //\Log::info('order: ' . $order);
+    // \Log::info('order: ' . $order);
 
     $hasWorked =
       DB::table('station')
@@ -1397,7 +1397,7 @@ class WebServicesController extends BaseController {
     if ( Mobidul::find($mobidulId)->locked
       && ! $this->GetIsOwnerOfMobidul($mobidulCode)
     ) {
-      return [[
+      return [
         'saved' => false,
         'msg'   => 'mobidul locked'
       ];
@@ -1719,7 +1719,7 @@ class WebServicesController extends BaseController {
         $attachment = Attachment::where('hash', $mediaitem->hash)->first();
 
         if ( $attachment == null ) {
-          //attachment zur späteren Verwendung anlegen
+          // attachment zur späteren Verwendung anlegen
           $attachment = Attachment::create([
             'mobidulId' => $mobidulId,
             'hash'    => $mediaitem->hash

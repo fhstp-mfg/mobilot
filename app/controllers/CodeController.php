@@ -6,8 +6,7 @@ use App\Models\User;
 use App\Models\User2Mobidul;
 
 
-class CodeController extends BaseController
-{
+class CodeController extends BaseController {
 
   public function play ($code)
   {
@@ -29,7 +28,7 @@ class CodeController extends BaseController
   {
     \Log::info('JoinMobidul : ' . $code);
 
-    if ( $this->isCodeValid($code) )  {
+    if ( $this->isCodeValid($code) ) {
       $mobidulId =
         DB::table('codes')
           ->select('mobidulId')
@@ -185,12 +184,10 @@ class CodeController extends BaseController
     }
 
     // TODO: implement max trys exception and try again functionality
-    Codes::create(
-      array(
-        'code'       => $code,
-        'mobidulId' => $mobidulId
-      )
-    );
+    Codes::create([
+      'code' => $code,
+      'mobidulId' => $mobidulId
+    ]);
 
     return $code;
   }
@@ -258,7 +255,7 @@ class CodeController extends BaseController
       } else {
         return 'not owner';
       }
-    } else {
+    } else {
       return 'not existing';
     }
   }
@@ -290,12 +287,6 @@ class CodeController extends BaseController
     if ( Auth::check() && Auth::user()->admin == true ) {
       return true;
     }
-
-    // if ( $this->GetOwnerOfMobidul($mobidulId) == Auth::id() ) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
 
     $isOwnerOfMobidul = $this->GetOwnerOfMobidul($mobidulId) == Auth::id();
 
