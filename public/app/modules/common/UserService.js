@@ -92,20 +92,20 @@ function UserService (
   function _getRoleForMobidul (mobidulCode) {
     var deferred = $q.defer();
 
-    if (service.currentMobidul === mobidulCode ) {
+    if ( service.currentMobidul === mobidulCode ) {
       deferred.resolve(service.Session.role);
     } else {
-      $http.get( cordovaUrl + '/RoleForMobidul/' + mobidulCode )
+      $http.get(cordovaUrl + '/RoleForMobidul/' + mobidulCode)
       .success(function (response, status, headers, config) {
-
-        var role = angular.isDefined( response.role ) ? response.role : null;
+        var role = angular.isDefined(response.role) ? response.role : null;
 
         if ( role !== null ) {
           deferred.resolve(response.role);
         } else {
-          deferred.reject({msg: 'No User Role passed from Server'});
+          deferred.reject({
+            msg: 'No user role passed from server !'
+          });
         }
-
       })
       .error(function (response, status, headers, config) {
         deferred.reject(response);
@@ -121,11 +121,11 @@ function UserService (
 
     // to make sure the permit was initialized
     _getRoleForMobidul(mobidulCode)
-    .then(function (role) {
-      deferred.resolve(service.Permit);
-    }, function (error) {
-      deferred.reject(error);
-    });
+      .then(function (role) {
+        deferred.resolve(service.Permit);
+      }, function (error) {
+        deferred.reject(error);
+      });
 
     return deferred.promise;
   }
@@ -259,21 +259,24 @@ function UserService (
     var deferred = $q.defer();
 
     _getRoleForMobidul(mobidulCode)
-    .then(function (role) {
-      service.Session.role   = role;
-      service.Permit         = _checkPermits(role);
-      service.currentMobidul = mobidulCode;
+      .then(function (role) {
+        console.warn('restoreUserRole role: ');
+        console.warn(role);
 
-      HeaderService.refresh();
+        service.Session.role   = role;
+        service.Permit         = _checkPermits(role);
+        service.currentMobidul = mobidulCode;
 
-      deferred.resolve();
+        HeaderService.refresh();
 
-    }, function (error) {
-      $log.error('Error: UserService - restoreUserRole:');
-      $log.error(error);
+        deferred.resolve();
+      },
+      function (error) {
+        $log.error('Error: UserService - restoreUserRole:');
+        $log.error(error);
 
-      deferred.reject(error);
-    });
+        deferred.reject(error);
+      });
 
     return deferred.promise;
   }
