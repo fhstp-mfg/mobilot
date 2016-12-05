@@ -14,6 +14,7 @@ app/storage
 public/upload
 public/export
 public/lib
+public/bin
 
 # Laravel 5
 .env.*.php
