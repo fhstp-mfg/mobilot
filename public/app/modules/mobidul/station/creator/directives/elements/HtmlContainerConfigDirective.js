@@ -13,25 +13,26 @@ HtmlEditor.$inject = [
 function HtmlEditor (
   $log, $sce
 ) {
-
   return {
     restrict: 'E',
-    scope: {
-      content: '='
-    },
-    template: '' +
+
+    template: (
       '<div>' +
         '<div ' +
-          'ng-bind-html="htmlEditor.trustAsHtml(content)" ' +
+          'ng-bind-html="htmlEditor.trustAsHtml( content )" ' +
           'class="editor-preview" ' +
           'style="padding: 1rem"' +
         '></div>' +
         '<wysiwyg-edit ' +
           'content="content" ' +
-          'api="htmlEditor.api">' +
-        '</wysiwyg-edit>' +
+          'api="htmlEditor.api"' +
+        '></wysiwyg-edit>' +
       '</div>'
-    ,
+    ),
+
+    scope: {
+      content: '='
+    },
 
     link: function ($scope, $element, $attrs, HtmlEditor) {
       // ...
@@ -42,17 +43,15 @@ function HtmlEditor (
   };
 
 
-
   function HtmlEditorController (
     $scope, $element, $attrs
   ) {
     var htmlEditor = this;
 
-    htmlEditor.trustAsHtml = function (str) {
-      return $sce.trustAsHtml(str);
+    htmlEditor.trustAsHtml = function (html) {
+      return $sce.trustAsHtml(html);
     }
   }
-
 }
 
 })();

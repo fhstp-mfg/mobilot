@@ -12,23 +12,26 @@ ElementContainer.$inject = [
   'MobidulService'
 ];
 
-function ElementContainer(
+function ElementContainer (
   $log, $compile, $rootScope, $translate,
   $mdDialog, $stateParams,
   MobidulService
 ) {
   return {
     restrict: 'E',
+
     template: (
       '<div class="editor-element-opt-container">' +
-      '<md-button class="editor-element-opt" ng-click="ctrl.showInfo()">' +
-      '<md-icon style="color: #2E9FDE">{{ ctrl.icon }}</md-icon>' +
-      '<span>{{ ctrl.type }}</span>'+
-      // '<md-icon style="color: #2E9FDE">info</md-icon>' +
-      '</md-button>' +
+        '<md-button class="editor-element-opt" ng-click="ctrl.showInfo()">' +
+          // '<md-icon style="color: #2E9FDE">info</md-icon>' +
+          '<md-icon style="color: #2E9FDE">{{ ctrl.icon }}</md-icon>' +
+          '<span>{{ ctrl.type }}</span>' +
+        '</md-button>' +
+
         '<md-button class="editor-element-opt" ng-click="ctrl.delete()">' +
           '<md-icon style="color: #EF4A53">delete</md-icon>' +
         '</md-button>' +
+
         '<md-button class="editor-element-opt" ng-click="ctrl.collapse()">' +
           '<md-icon style="color: #106391">edit</md-icon>' +
         '</md-button>' +
