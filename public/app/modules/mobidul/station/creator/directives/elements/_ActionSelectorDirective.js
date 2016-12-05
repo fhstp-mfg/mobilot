@@ -18,7 +18,7 @@ function ActionSelector(
     transclude: true,
     replace: true,
 
-    template:
+    template: (
       '<md-input-container>' +
         '<md-select ' +
           'ng-model="ctrl.selectionTemp" ' +
@@ -37,7 +37,8 @@ function ActionSelector(
             'ng-change="ctrl.selectionChange()" ' +
           '/>' +
         '</md-input-container>' +
-      '</md-input-container>',
+      '</md-input-container>'
+    ),
 
     scope: {
       opts: '=',
