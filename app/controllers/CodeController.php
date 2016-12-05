@@ -283,7 +283,11 @@ class CodeController extends BaseController
 
   public function GetIsOwnerOfMobidul ($mobidulId)
   {
-    if ( Auth::check() && Auth::user()->username == 'admin' ) {
+    \Log::info('GetIsOwnerOfMobidul:');
+    \Log::info(Auth::user()->admin);
+    \Log::info(Auth::user()->admin == true);
+
+    if ( Auth::check() && Auth::user()->admin == true ) {
       return true;
     }
 
