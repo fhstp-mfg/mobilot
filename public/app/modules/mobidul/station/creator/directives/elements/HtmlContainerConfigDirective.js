@@ -48,7 +48,7 @@ function HtmlEditor (
   ) {
     var htmlEditor = this;
 
-    htmlEditor.trustAsHtml = function ( str ) {
+    htmlEditor.trustAsHtml = function (str) {
       return $sce.trustAsHtml(str);
     }
   }

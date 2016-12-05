@@ -6,11 +6,14 @@
     class="creator-content"
     layout-padding
     ng-class="{
-      'creator-content-new' : ! creator.showCreatorTabs,
-      'ios-top-margin' : creator.isCordovaIos
+      'creator-content-new': ! creator.showCreatorTabs,
+      'ios-top-margin': creator.isCordovaIos
     }"
   >
-    <p class="helper" ng-show=" ! creator.showCreatorTabs" translate="MOBIDUL_CREATOR_TEXT"></p>
+    <p class="helper"
+      ng-show=" ! creator.showCreatorTabs"
+      translate="MOBIDUL_CREATOR_TEXT"
+    ></p>
 
     <md-input-container class="creator-input-container">
       <label translate="NAME"></label>
