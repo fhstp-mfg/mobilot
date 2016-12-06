@@ -1,7 +1,7 @@
 // import React, { Component, PropTypes } from 'react'
 // import { render } from 'react-dom'
 
-console.debug('~ React loaded ~')
+// console.debug('~ React loaded ~')
 
 
 // class HelloComponent extends Component {

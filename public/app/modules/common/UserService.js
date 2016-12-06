@@ -9,7 +9,6 @@ UserService.$inject = [
   'HeaderService'
 ];
 
-
 function UserService (
   $log, $rootScope, $http, $q, $timeout,
   $stateParams, $translate,
@@ -32,8 +31,7 @@ function UserService (
 
   /// UserService
   var service = {
-    // _guestName     : 'Gast',
-    _guestName     : $translate.instant('LOGIN'),
+    _guestName : $translate.instant('LOGIN'),
 
     login           : login,
     logout          : logout,
@@ -44,8 +42,8 @@ function UserService (
     changePassword  : changePassword,
     requestRestore  : requestRestore,
 
-    getEditStationPermit        : getEditStationPermit,
-    getRequestAllStationsPermit    : getRequestAllStationsPermit,
+    getEditStationPermit             : getEditStationPermit,
+    getRequestAllStationsPermit      : getRequestAllStationsPermit,
     getRequestCategoryStationsPermit : getRequestCategoryStationsPermit,
 
     Role   : _Roles,
@@ -63,7 +61,7 @@ function UserService (
     },
 
     // save current mobidulCode to cache roles
-    currentMobidul: ''
+    currentMobidul : ''
   };
 
 
@@ -77,38 +75,37 @@ function UserService (
     return {
       // @description - TODO
       RequestAllStations : role == _Roles._isAdmin ||
-      true /* editMode permits */ // TODO - see previous (inline-block) comment
+      true /* editMode permits */ // TODO: see previous (inline-block) comment
       ,
       // @description - TODO
       RequestCategoryStations : role == _Roles._isAdmin ||
-      true /* editMode permits */ // TODO - see previous (inline-block) comment
+      true /* editMode permits */ // TODO: see previous (inline-block) comment
       ,
       // @description - TODO
       EditStation : role == _Roles._isAdmin ||
       ( role == _Roles._isPlayer &&
-      true /* editMode permits */ ) // TODO - see previous (inline-block) comment
+      true /* editMode permits */ ) // TODO: see previous (inline-block) comment
     };
   }
 
 
   function _getRoleForMobidul (mobidulCode) {
-
     var deferred = $q.defer();
 
-    if (service.currentMobidul === mobidulCode ) {
+    if ( service.currentMobidul === mobidulCode ) {
       deferred.resolve(service.Session.role);
     } else {
-      $http.get( cordovaUrl + '/RoleForMobidul/' + mobidulCode )
+      $http.get(cordovaUrl + '/RoleForMobidul/' + mobidulCode)
       .success(function (response, status, headers, config) {
-
-        var role = angular.isDefined( response.role ) ? response.role : null;
+        var role = angular.isDefined(response.role) ? response.role : null;
 
         if ( role !== null ) {
           deferred.resolve(response.role);
         } else {
-          deferred.reject({msg: 'No User Role passed from Server'});
+          deferred.reject({
+            msg: 'No user role passed from server !'
+          });
         }
-
       })
       .error(function (response, status, headers, config) {
         deferred.reject(response);
@@ -120,16 +117,15 @@ function UserService (
 
 
   function _getPermit (mobidulCode) {
-
     var deferred = $q.defer();
 
     // to make sure the permit was initialized
     _getRoleForMobidul(mobidulCode)
-    .then(function (role) {
-      deferred.resolve(service.Permit);
-    }, function (error) {
-      deferred.reject(error);
-    });
+      .then(function (role) {
+        deferred.resolve(service.Permit);
+      }, function (error) {
+        deferred.reject(error);
+      });
 
     return deferred.promise;
   }
@@ -138,8 +134,8 @@ function UserService (
 
   function login (credentials) {
     var postData = {
-      user     : credentials.username,
-      password : credentials.password
+      user: credentials.username,
+      password: credentials.password
     };
 
     return $http.post(cordovaUrl + '/login', postData)
@@ -247,7 +243,7 @@ function UserService (
         };
 
         if (isGuest) {
-          userData.guestId = response.usernam;
+          userData.guestId = response.username;
         }
 
         service.Session = userData;
@@ -263,21 +259,21 @@ function UserService (
     var deferred = $q.defer();
 
     _getRoleForMobidul(mobidulCode)
-    .then(function (role) {
-      service.Session.role   = role;
-      service.Permit         = _checkPermits(role);
-      service.currentMobidul = mobidulCode;
+      .then(function (role) {
+        service.Session.role   = role;
+        service.Permit         = _checkPermits(role);
+        service.currentMobidul = mobidulCode;
 
-      HeaderService.refresh();
+        HeaderService.refresh();
 
-      deferred.resolve();
+        deferred.resolve();
+      },
+      function (error) {
+        $log.error('Error: UserService - restoreUserRole:');
+        $log.error(error);
 
-    }, function (error) {
-      $log.error('Error: UserService - restoreUserRole:');
-      $log.error(error);
-
-      deferred.reject(error);
-    });
+        deferred.reject(error);
+      });
 
     return deferred.promise;
   }

@@ -16,36 +16,36 @@
 
         <p>{{ option.name }}</p>
 
-        <!-- TODO - find better solution to display settings description -->
+        <!-- TODO: find better solution to display settings description -->
         <!-- <p>{{ option.description }}</p> -->
       </md-list-item>
     </md-list>
 
 
-	<!-- Duplicate -->
-	<div layout="column">
-		<md-button
-			class="md-raised md-primary md-mobilot"
-			ng-show="true"
-			ng-click="stationCreator.cloneStation()"
-			flex>
-			<md-icon>content_copy</md-icon>
-			<span translate="CLONE_STATION"></span>
-		</md-button>
-	</div>
+    <!-- Duplicate station -->
+    <div layout="column">
+      <md-button
+        class="md-raised md-primary md-mobilot"
+        ng-show="true"
+        ng-click="stationCreator.cloneStation()"
+        flex>
+        <md-icon>content_copy</md-icon>
+        <span translate="CLONE_STATION"></span>
+      </md-button>
+    </div>
 
 
-	<!-- Dangerous settings -->
-	<div layout="column">
-		<md-button
-			class="md-raised md-warn"
-			ng-show="true"
-			ng-click="stationCreator.deleteStation()"
-			flex>
-
-			<md-icon>delete</md-icon>
-			<span translate="DELETE_STATION"></span>
-		</md-button>
-	</div>
+    <!-- Dangerous settings -->
+    <div layout="column">
+      <md-button
+        class="md-raised md-warn"
+        ng-show="true"
+        ng-click="stationCreator.deleteStation()"
+        flex
+      >
+        <md-icon>delete</md-icon>
+        <span translate="DELETE_STATION"></span>
+      </md-button>
+    </div>
   </md-content>
 </div>

@@ -21,8 +21,7 @@ angular
       });
 
       $translateProvider.determinePreferredLanguage();
-      // TODO: for global usage, this should be en_EN defaultly
-      $translateProvider.fallbackLanguage('de_DE');
+      $translateProvider.fallbackLanguage('en_US');
       $translateProvider.useSanitizeValueStrategy('escapeParameters');
       $translateProvider.useLocalStorage();
 
