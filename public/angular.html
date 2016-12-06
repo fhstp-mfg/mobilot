@@ -1,279 +1,87 @@
 <!DOCTYPE html>
 <html ng-app="Mobilot">
-  <head>
-    <!--meta charset="utf-8"-->
-    <!--meta name="format-detection" content="telephone=no"-->
-    <!--meta name="msapplication-tap-highlight" content="no"-->
-    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-    <!--meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"-->
+<head>
+  <!--meta charset="utf-8"-->
+  <!--meta name="format-detection" content="telephone=no"-->
+  <!--meta name="msapplication-tap-highlight" content="no"-->
+  <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+  <!--meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"-->
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- <meta name="apple-mobile-web-app-status-bar-style" content="green-translucent"> -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- <meta name="apple-mobile-web-app-status-bar-style" content="green-translucent"> -->
 
-    <title>Mobilot</title>
+  <title>Mobilot</title>
 
-    <!-- Including the CSS File  -->
-    <link rel="stylesheet" href="lib/angular-material/angular-material.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="temp/ngWYSIWYG/css/editor.css">
-    <link rel="stylesheet" href="assets/css/mobilot.css">
-    <link rel="stylesheet" href="assets/css/shame.css">
+  <!-- Including the CSS File  -->
+  <link rel="stylesheet" href="lib/angular-material/angular-material.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="temp/ngWYSIWYG/css/editor.css">
+  <link rel="stylesheet" href="assets/css/mobilot.css">
+  <link rel="stylesheet" href="assets/css/shame.css">
 
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="57x57" href="assets/favicon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="assets/favicon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="assets/favicon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/favicon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="assets/favicon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="assets/favicon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="assets/favicon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="assets/favicon/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="assets/favicon/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="assets/favicon/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="assets/favicon/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="assets/favicon/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="assets/favicon/manifest.json">
+  <link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg" color="#3797c4">
+  <meta name="msapplication-TileColor" content="#3797c4">
+  <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+  <meta name="theme-color" content="#3797c4">
 
-    <!-- Favicons -->
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
 
-    <link rel="apple-touch-icon" sizes="57x57" href="assets/favicon/apple-touch-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="assets/favicon/apple-touch-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="assets/favicon/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/favicon/apple-touch-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="assets/favicon/apple-touch-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="assets/favicon/apple-touch-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="assets/favicon/apple-touch-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="assets/favicon/apple-touch-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon-180x180.png">
-    <link rel="icon" type="image/png" href="assets/favicon/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="assets/favicon/android-chrome-192x192.png" sizes="192x192">
-    <link rel="icon" type="image/png" href="assets/favicon/favicon-96x96.png" sizes="96x96">
-    <link rel="icon" type="image/png" href="assets/favicon/favicon-16x16.png" sizes="16x16">
-    <link rel="manifest" href="assets/favicon/manifest.json">
-    <link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg" color="#3797c4">
-    <meta name="msapplication-TileColor" content="#3797c4">
-    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
-    <meta name="theme-color" content="#3797c4">
+      background-color: #3797c4;
+      background-image: url('/assets/img/splash-bg.png');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      background-size: 61.83%;
+    }
+  </style>
+</head>
+<body id="body">
+  <!-- <div ui-view="loader"></div> -->
+  <div ui-view="header"></div>
+  <div ui-view="content"></div>
+  <div ui-view="login"></div>
 
+  <script src="https://maps.google.com/maps/api/js?key=AIzaSyD2a1NXYQjRKYaU0Vyym9JJvIMcZervnkw"></script>
+  <script src="bin/app.bundle.js"></script>
 
-    <style>
-      html, body {
-        margin: 0;
-        height: 100%;
+  <script>
+    if (googleLoaded) {
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      // console.info('Hostname: ' + document.location.hostname);
+      var isLocalhost = document.location.hostname != 'mobilot.at'
+        || document.location.hostname != 'mobilot.fhstp.ac.at';
 
-        background-color: #3797c4;
-        background-image: url('/assets/img/splash-bg.png');
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: center;
-        background-size: 61.83%;
-      }
-    </style>
-  </head>
+      gaAuto = isLocalhost ? 'none' : 'auto';
+      console.info('Localhost: ' + isLocalhost);
 
-  <body id="body">
-    <!-- <div ui-view="loader"></div> -->
-    <div ui-view="header"></div>
-    <div ui-view="content"></div>
-    <div ui-view="login"></div>
-
-    <script src="https://maps.google.com/maps/api/js?key=AIzaSyD2a1NXYQjRKYaU0Vyym9JJvIMcZervnkw"></script>
-
-    <!-- startup -->
-    <script src="bin/app.bundle.js"></script>
-<!-- <script src="assets/js/constants.js"></script> -->
-<!-- <script src="assets/js/mobile_imports.js"></script> -->
-
-    <!-- <script>
-      // NOTE: This should be deprecated code
-      // use Mobilot as "mobidul-only"
-      if ( _START_MOBIDUL != null ) {
-        if ( ! isCordova ) {
-          window.location = '/' + _START_MOBIDUL + '/';
-        } else {
-          window.location = _mobimer_url + _mob_code + '=' + _START_MOBIDUL + '/';
-        }
-      }
-    </script> -->
-
-    <!-- libs -->
-<!-- <script src="lib/jquery/dist/jquery.min.js"></script> -->
-    <!-- <script src="lib/hamsterjs/hamster.js"></script> -->
-    <!-- <script src="lib/angular/angular.js"></script> -->
-<!-- <script src="lib/angular/angular.min.js"></script> -->
-<!-- <script src="lib/angular-animate/angular-animate.min.js"></script> -->
-<!-- <script src="lib/angular-aria/angular-aria.min.js"></script> -->
-<!-- <script src="lib/angular-route/angular-route.min.js"></script> -->
-<!-- <script src="lib/angular-ui-router/release/angular-ui-router.min.js"></script> -->
-<!-- <script src="lib/angular-resource/angular-resource.min.js"></script> -->
-<!-- <script src="lib/angular-material/angular-material.min.js"></script> -->
-<!-- <script src="lib/ngGeolocation/ngGeolocation.min.js"></script> -->
-<!-- <script src="lib/angular-sanitize/angular-sanitize.min.js"></script> -->
-<!-- <script src="lib/lodash/lodash.min.js"></script> -->
-
-    <!-- <script src='lib/angular-google-maps/dist/angular-google-maps.min.js'></script> -->
-<!-- <script src="https://maps.google.com/maps/api/js?key=AIzaSyD2a1NXYQjRKYaU0Vyym9JJvIMcZervnkw"></script> -->
-    <!--<script src="https://maps.google.com/maps/api/js"></script>-->
-
-    <!-- <script src="assets/js/google-maps-api.js"></script> -->
-<!-- <script src="lib/ngmap/build/scripts/ng-map.min.js"></script> -->
-<!-- <script src="lib/angular-mousewheel/mousewheel.js"></script> -->
-<!-- <script src="lib/angular-pan-zoom/release/panzoom.min.js"></script> -->
-<!-- <script src="assets/js/exif.js"></script> -->
-<!-- <script src="assets/js/md5.js"></script> -->
-<!-- <script src="temp/ngWYSIWYG/js/wysiwyg.js"></script> -->
-<!-- <script src="assets/js/angular-drag-and-drop-lists.js"></script> -->
-<!-- <script src="lib/ngstorage/ngStorage.min.js"></script> -->
-<!-- <script src="lib/angular-cookies/angular-cookies.min.js"></script> -->
-<!-- <script src="lib/angular-translate/angular-translate.min.js"></script> -->
-<!-- <script src="lib/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script> -->
-<!-- <script src="lib/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script> -->
-<!-- <script src="lib/angular-translate-storage-local/angular-translate-storage-local.min.js"></script> -->
-
-<!-- <script src="assets/js/qrcode.js"></script> -->
-<!-- <script src="assets/js/qrcode_UTF8.js"></script> -->
-<!-- <script src="lib/angular-qrcode/angular-qrcode.js"></script> -->
-
-<!-- <script src="assets/js/ng-cordova-beacon.min.js"></script> -->
-
-<!-- <script src="lib/angulartics/dist/angulartics.min.js"></script> -->
-<!-- <script src="lib/angulartics-google-analytics/dist/angulartics-google-analytics.min.js"></script> -->
-
-
-    <!-- init -->
-<!-- <script src="assets/js/check_offline.js"></script> -->
-
-    <!-- react -->
-    <!-- <script src="lib/react/react.min.js"></script>
-    <script src="lib/react/react-dom.min.js"></script>
-    <script src="lib/react-motion/build/react-motion.js"></script>
-    <script src="lib/ngReact/ngReact.min.js"></script> -->
-
-    <!-- angular -->
-<!-- <script src="app/app.modules.js"></script> -->
-<!-- <script src="app/app.config.js"></script> -->
-
-
-    <!-- config -->
-    <!-- <script src="app/modules/common/ConfigService.js"></script> -->
-
-
-    <!-- directives -->
-<!-- <script src="app/modules/mobidul/menu/MenuDirective.js"></script> -->
-
-
-    <!-- models -->
-<!-- <script src="app/modules/core/models/StateModel.js"></script> -->
-
-
-    <!-- features -->
-
-    <!-- login feature -->
-    <!-- <script src="app/modules/login/LoginService.js"></script> -->
-<!-- <script src="app/modules/login/LoginController.js"></script> -->
-
-    <!-- profile feature -->
-<!-- <script src="app/modules/profile/ProfileController.js"></script> -->
-
-    <!-- play feature -->
-<!-- <script src="app/modules/play/PlayService.js"></script> -->
-<!-- <script src="app/modules/play/PlayController.js"></script> -->
-
-    <!-- menu features -->
-<!-- <script src="app/modules/mobidul/menu/dialog/CloneMobidulDialogController.js"></script> -->
-<!-- <script src="app/modules/mobidul/menu/MenuController.js"></script> -->
-
-    <!-- mobidul feature -->
-<!-- <script src="app/modules/mobidul/MobidulService.js"></script> -->
-<!-- <script src="app/modules/mobidul/MobidulController.js"></script> -->
-
-    <!-- mobidul elements -->
-<!-- <script src="app/modules/mobidul/station/elements/HtmlContainerDirective.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/elements/InputCodeDirective.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/elements/ActionButtonDirective.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/elements/TriggerNearDirective.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/elements/BlueToothDirective.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/elements/PhotoUploadDirective.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/elements/SetTimeoutDirective.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/elements/FreeTextInputDirective.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/elements/ConfirmSocialDirective.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/elements/ShowScoreDirective.js"></script> -->
-
-    <!-- creator feature -->
-<!-- <script src="app/modules/creator/CreatorService.js"></script> -->
-<!-- <script src="app/modules/creator/CreatorController.js"></script> -->
-
-    <!-- core -->
-<!-- <script src="app/modules/core/StateManager.js"></script> -->
-<!-- <script src="app/modules/core/HeaderService.js"></script> -->
-
-<!-- <script src="app/modules/core/CoreController.js"></script> -->
-<!-- <script src="app/modules/core/HeaderController.js"></script> -->
-
-<!-- <script src="app/modules/core/LanguageService.js"></script> -->
-
-    <!-- common -->
-<!-- <script src="app/modules/common/ActivityService.js"></script> -->
-<!-- <script src="app/modules/common/FontService.js"></script> -->
-<!-- <script src="app/modules/common/GeoLocationService.js"></script> -->
-<!-- <script src="app/modules/common/InfoWindowController.js"></script> -->
-<!-- <script src="app/modules/common/LocalStorageService.js"></script> -->
-<!-- <script src="app/modules/common/RallyService.js"></script> -->
-<!-- <script src="app/modules/common/UserService.js"></script> -->
-<!-- <script src="app/modules/common/UtilityService.js"></script> -->
-<!-- <script src="app/modules/common/PhotoService.js"></script> -->
-<!-- <script src="app/modules/common/AttachmentService.js"></script> -->
-
-    <!-- home feature -->
-<!-- <script src="app/modules/home/HomeService.js"></script> -->
-<!-- <script src="app/modules/home/HomeController.js"></script> -->
-
-    <!-- station feature -->
-<!-- <script src="app/modules/mobidul/station/StationService.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/StationController.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/elements/StationProgressDirective.js"></script> -->
-
-    <!-- mobidul map feature -->
-<!-- <script src="app/modules/mobidul/map/MapService.js"></script> -->
-<!-- <script src="app/modules/mobidul/map/MapController.js"></script> -->
-
-    <!-- mobidul list feature -->
-<!-- <script src="app/modules/mobidul/list/ListService.js"></script> -->
-<!-- <script src="app/modules/mobidul/list/ListStationsController.js"></script> -->
-
-    <!-- station creator feature -->
-<!-- <script src="app/modules/mobidul/station/creator/StationCreatorService.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/creator/StationCreatorController.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/creator/BluetoothBeaconService.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/creator/directives/EditorDirective.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/creator/directives/EditorTabDirective.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/creator/directives/ElementContainerDirective.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/creator/directives/elements/_ActionSelectorDirective.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/creator/directives/elements/HtmlContainerConfigDirective.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/creator/directives/elements/InputCodeConfig.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/creator/directives/elements/ActionButtonConfigDirective.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/creator/directives/elements/TriggerNearConfigDirective.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/creator/directives/elements/BluetoothConfigDirective.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/creator/directives/EditorToolsDirective.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/creator/directives/elements/PhotoUploadConfigDirective.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/creator/directives/elements/SetTimeoutConfigDirective.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/creator/directives/elements/FreeTextInputConfigDirective.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/creator/directives/elements/ConfirmSocialConfigDirective.js"></script> -->
-<!-- <script src="app/modules/mobidul/station/creator/directives/elements/ShowScoreConfigDirective.js"></script> -->
-
-    <!-- station media feature -->
-<!-- <script src="app/modules/mobidul/station/media/MediaController.js"></script> -->
-
-    <!-- about feature -->
-<!-- <script src="app/modules/mobidul/about/AboutController.js"></script> -->
-
-
-    <script>
-      if (googleLoaded) {
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-        // console.info('Hostname: ' + document.location.hostname);
-        var isLocalhost = document.location.hostname != 'mobilot.at'
-          || document.location.hostname != 'mobilot.fhstp.ac.at';
-
-        gaAuto = isLocalhost ? 'none' : 'auto';
-        console.info('Localhost: ' + isLocalhost);
-
-        ga('create', 'UA-69167839-1', gaAuto);
-        // ga('send', 'pageview');
-      } else {
-        console.warn('Can\'t load GoogleAnalyticsObject because offline .');
-      }
-    </script>
-  </body>
+      ga('create', 'UA-69167839-1', gaAuto);
+      // ga('send', 'pageview');
+    } else {
+      console.warn('Can\'t load GoogleAnalyticsObject because offline .');
+    }
+  </script>
+</body>
 </html>
