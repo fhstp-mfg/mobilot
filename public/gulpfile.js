@@ -115,7 +115,7 @@ gulp.task('build', function () {
   ])
   .pipe(concat('app.bundle.js'))
   .pipe(ngAnnotate())
-  .pipe(uglify())
+  // .pipe(uglify())
   .pipe(gulp.dest('bin/'))
   .pipe(notify({ message: 'Yuhuu! Finished building Mobilot!' }));
 });
