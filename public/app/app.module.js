@@ -44,5 +44,5 @@ angular.module('Mobidul', [
 /// Mobidul submodules
 
 angular.module('StationCreator', [
-  'dndLists'
+  'dndLists', 'as.sortable'
 ]);

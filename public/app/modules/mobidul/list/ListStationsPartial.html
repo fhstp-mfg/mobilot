@@ -40,24 +40,27 @@
       ></h1>
     </div>
 
+    <!--dnd-draggable="station"-->
+    <!--dnd-moved="list.moveStation( $index )"-->
+    <!--dnd-effect-allowed="move"-->
+    <!--dnd-disable-if=" ! list.canEditStation"-->
     <md-list
       id="list_stations"
       layout="column"
       ng-class="{ 'ios-top-margin': list.isCordovaIos }"
     >
-      <ul
-        dnd-list="list.stations"
-        dnd-disable-if=" ! list.canEditStation"
+      <div id="sortableContainerStations">
+      <ul data-as-sortable="list.dragControlListenersStation"
+        ng-model="list.stations"
+        data-is-disabled=" ! list.canEditStation"
         ng-class="{ 'ios-no-top-margin': list.isCordovaIos }"
       >
         <li
           ng-repeat="station in list.stations | filter : list.searchQuery | orderBy : station.order"
-          dnd-draggable="station"
-          dnd-moved="list.moveStation( $index )"
-          dnd-effect-allowed="move"
-          dnd-disable-if=" ! list.canEditStation"
+          data-as-sortable-item=""
         >
-          <md-list-item
+          <div data-as-sortable-item-handle="">
+            <md-list-item
             class="station-item"
             ng-class-odd="'station-odd'"
             ng-click="list.switchContent( list.params.mobidulCode, station.code, station )"
@@ -77,8 +80,10 @@
 
             <md-divider ng-if=" ! $last"></md-divider>
           </md-list-item>
+          </div>
         </li>
       </ul>
+      </div>
     </md-list>
   </md-content>
 </div>

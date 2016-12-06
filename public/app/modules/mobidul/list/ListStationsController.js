@@ -29,6 +29,14 @@ function ListStationsController (
   list.searchQuery    = '';
   list.canEditStation = false;
   list.myFont         = '';
+  list.dragControlListenersStation = {
+    orderChanged: function(event) {
+      list.moveStation(event.dest.index);
+    },
+    containerPositioning: 'relative',
+    containment: '#sortableContainerStations',
+  };
+
 
 
   /// functions
@@ -184,7 +192,8 @@ function ListStationsController (
 
   function moveStation (index)
   {
-    list.stations.splice(index, 1);
+    //list.stations.splice(index, 1);
+    console.debug("Station New Index: ", index);
 
     angular.forEach(list.stations, function (station, i) {
       station.order = i;

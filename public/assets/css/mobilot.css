@@ -907,6 +907,20 @@ mbl-free-text-input textarea {
 }
 
 
+.as-sortable-item,
+.as-sortable-placeholder {
+  border: none !important;
+  padding-right: 4% !important;
+  margin: inherit;
+}
+
+.as-sortable-item,
+.as-sortable-dragging {
+  border: none;
+}
+
+
+
 
 /************Drag and Drop List****************/
 /**

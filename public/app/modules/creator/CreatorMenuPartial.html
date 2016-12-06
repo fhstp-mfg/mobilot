@@ -14,19 +14,20 @@
       <p class="helper center" translate="EMPTY_MENU_LIST"></p>
     </div>
 
-    <ul dnd-list="creator.menu" ng-show="creator.menu.length">
-      <!-- The dnd-draggable directive makes an element draggable and will
-           transfer the object that was assigned to it. If an element was
-           dragged away, you have to remove it from the original list
-           yourself using the dnd-moved attribute -->
+    <!--In the <li> element-->
+    <!--dnd-draggable="menuItem"-->
+    <!--dnd-moved="creator.menu.splice( $index, 1 )"-->
+    <!--dnd-effect-allowed="move"-->
+    <!--dnd-selected="models.selected = menuItem"-->
+
+    <div id="sortableContainerCreator">
+      <ul data-as-sortable="creator.dragControlListeners" ng-show="creator.menu.length" ng-model="creator.menu">
       <li
         ng-repeat="menuItem in creator.menu"
-        dnd-draggable="menuItem"
-        dnd-moved="creator.menu.splice( $index, 1 )"
-        dnd-effect-allowed="move"
-        dnd-selected="models.selected = menuItem"
+        data-as-sortable-item=""
       >
         <div
+          data-as-sortable-item-handle=""
           layout="row"
           ng-class="menuItem.isDivider ? 'menuDivider' : ''"
         >
@@ -47,6 +48,7 @@
         </div>
       </li>
     </ul>
+    </div>
 
     <div layout="row" layout-sm="column">
       <md-button
