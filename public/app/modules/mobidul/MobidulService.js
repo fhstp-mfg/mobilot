@@ -6,16 +6,16 @@ angular
 MobidulService.$inject = [
   '$log', '$rootScope', '$stateParams',
   '$http', '$q', '$timeout', '$translate',
-  'LocalStorageService'
-  /*'RallyService'*/
+  'LocalStorageService',
+  // 'RallyService'
 ];
 
 
 function MobidulService (
   $log, $rootScope, $stateParams,
   $http, $q, $timeout, $translate,
-  LocalStorageService
-  /*RallyService*/
+  LocalStorageService,
+  // RallyService
 )
 {
   /// MobidulService
