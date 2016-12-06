@@ -14,6 +14,8 @@ app/storage
 public/upload
 public/export
 public/lib
+public/bin
+public/npm-debug.log
 
 # Laravel 5
 .env.*.php

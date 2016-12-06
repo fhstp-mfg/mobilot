@@ -79,18 +79,18 @@ function LoginController (
 
   function _checkIsLoggedIn ()
   {
-    if (UserService.Session.isLoggedIn) {
-      if (StateManager.isActivate())
-        // TODO: Find a better solution for this !!!
+    if ( UserService.Session.isLoggedIn ) {
+      if ( StateManager.isActivate() ) {
+        // TODO: Find a better solution for the following !!!
         $timeout(function () {
           $state.go('home');
         }, 4000);
-      else {
+      } else {
         StateManager.back();
       }
     } else {
       if (StateManager.isActivate()) {
-        // TODO: Find a better solution for this !!!
+        // TODO: Find a better solution for the following !!!
         $timeout(function () {
           $state.go('home.login');
         }, 4000);

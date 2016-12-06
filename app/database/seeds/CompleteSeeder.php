@@ -2,7 +2,7 @@
 
 use App\Models\Mobidul;
 use App\Models\User;
-use App\Models\Station; 
+use App\Models\Station;
 use App\Models\Attachment;
 use App\Models\Category;
 use App\Models\User2Mobidul;
@@ -11,31 +11,31 @@ use App\Models\NavigationItem;
 
 
 class CompleteSeeder extends Seeder {
- 
+
     public function run()
-	{
-         
-        
+  {
+
+
         \DB::table('navigationitems')->delete();
         \DB::table('user2mobidul')->delete();
         \DB::table('category2station')->delete();
-        
+
         \DB::table('category')->delete();
         \DB::table('station')->delete();
-        
-		\DB::table('user')->delete();
+
+    \DB::table('user')->delete();
         \DB::table('mobidul')->delete();
-        
-        
+
+
         //#################
         //MOBIDUL
         //#################
-        
-        
+
+
         $mobidul1=Mobidul::create(
-			array (
-				'name' => 'guide',
-				'code' => 'guide',
+      array (
+        'name' => 'guide',
+        'code' => 'guide',
                 'minAccuracy'=> 100,
                 'defaultPage_stationCode'=>'AllGeBra',
                 'flagCodeSnippet'=>true,
@@ -45,151 +45,151 @@ class CompleteSeeder extends Seeder {
                 'centerLat'=>48.18422587351,
                 'centerLon'=>16.08575732002,
                 'centerRadius'=>1000,
-			));
+      ));
         $mobidul2=Mobidul::create(
             array(
-				'name' => 'wald',
-				'code' => 'wald',
+        'name' => 'wald',
+        'code' => 'wald',
                 'defaultPage_stationCode'=>'ahorn',
                 'flagScanCode'=>true,
                 'flagGetByLocation'=>true,
                 'centerLat'=>48.234506906852,
                 'centerLon'=>15.477418904399,
-                'centerRadius'=>1000,	
-		));
-        
+                'centerRadius'=>1000,
+    ));
+
         //#################
         //USER
         //#################
-        
-        
+
+
         $user1=User::create(
-			array (
-				'username' => 'admin',
-				'password' => Hash::make('m0b1l0t!'),
-				'email' => ''
-			)); 
-        
+      array (
+        'username' => 'admin',
+        'password' => Hash::make('p6dNCvAUbTFGUqYk'),
+        'email' => ''
+      ));
+
         $user2=User::create(
-			array (
-				'username' => 'wald1',
-				'password' => Hash::make('1234'),
-				'email' => ''
-			));
+      array (
+        'username' => 'wald1',
+        'password' => Hash::make('123456'),
+        'email' => ''
+      ));
         $user3=User::create(
-			array (
-				'username' => 'wald2',
-				'password' => Hash::make('1234'),
-				'email' => ''
-			)); 
+      array (
+        'username' => 'wald2',
+        'password' => Hash::make('123456'),
+        'email' => ''
+      ));
         $user4=User::create(
-			array (
-				'username' => 'wald3',
-				'password' =>  Hash::make('1234'),
-				'email' => ''
-			));
+      array (
+        'username' => 'wald3',
+        'password' =>  Hash::make('123456'),
+        'email' => ''
+      ));
         $user4=User::create(
-			array (
-				'username' => 'wald4',
-				'password' =>  Hash::make('1234'),
-				'email' => ''
-			));
+      array (
+        'username' => 'wald4',
+        'password' =>  Hash::make('123456'),
+        'email' => ''
+      ));
         $user4=User::create(
-			array (
-				'username' => 'wald5',
-				'password' =>  Hash::make('1234'),
-				'email' => ''
-			));
+      array (
+        'username' => 'wald5',
+        'password' =>  Hash::make('123456'),
+        'email' => ''
+      ));
         $user4=User::create(
-			array (
-				'username' => 'wald6',
-				'password' =>  Hash::make('1234'),
-				'email' => ''
-			));
-        
+      array (
+        'username' => 'wald6',
+        'password' =>  Hash::make('123456'),
+        'email' => ''
+      ));
+
         //#################
         //User2Mobidul
         //#################
-        
-		\DB::table('user2mobidul')->insert(array (
-			0 => 
-			array (
-				'userId' => $user1->id,
-				'mobidulId' => $mobidul1->id,
-				'rights' => 1
-			),
-			1 => 
-			array (
-				'userId' => $user1->id,
-				'mobidulId' => $mobidul2->id,
-				'rights' => 1
-			)
-		));
-        
+
+    \DB::table('user2mobidul')->insert(array (
+      0 =>
+      array (
+        'userId' => $user1->id,
+        'mobidulId' => $mobidul1->id,
+        'rights' => 1
+      ),
+      1 =>
+      array (
+        'userId' => $user1->id,
+        'mobidulId' => $mobidul2->id,
+        'rights' => 1
+      )
+    ));
+
         //###################
         //CATEGORY!!
         //###################
-        
+
         $category1=Category::create(
-			array (
-				'name' => '&Ouml;ffentlich',
-				'mobidulId' => $mobidul1->id,
-				'created_at' => '2014-07-10 11:31:01',
-				'updated_at' => '2014-07-10 11:31:01',
-			)); 
+      array (
+        'name' => '&Ouml;ffentlich',
+        'mobidulId' => $mobidul1->id,
+        'created_at' => '2014-07-10 11:31:01',
+        'updated_at' => '2014-07-10 11:31:01',
+      ));
         $category2=Category::create(
-			array (
-				'name' => 'Wirtschaft',
-				'mobidulId' => $mobidul1->id,
-				'created_at' => '2014-07-10 11:31:01',
-				'updated_at' => '2014-07-10 11:31:01',
-			)); 
+      array (
+        'name' => 'Wirtschaft',
+        'mobidulId' => $mobidul1->id,
+        'created_at' => '2014-07-10 11:31:01',
+        'updated_at' => '2014-07-10 11:31:01',
+      ));
         $category3=Category::create(
-			array (
-				'name' => 'Tourismus',
-				'mobidulId' => $mobidul1->id,
-				'created_at' => '2014-07-10 11:31:01',
-				'updated_at' => '2014-07-10 11:31:01',
-			));
+      array (
+        'name' => 'Tourismus',
+        'mobidulId' => $mobidul1->id,
+        'created_at' => '2014-07-10 11:31:01',
+        'updated_at' => '2014-07-10 11:31:01',
+      ));
         $category4=Category::create(
-			array (
-				'name' => 'Pflanze',
-				'mobidulId' => $mobidul2->id,
-				'created_at' => '2014-07-10 11:31:01',
-				'updated_at' => '2014-07-10 11:31:01',
-			)); 
+      array (
+        'name' => 'Pflanze',
+        'mobidulId' => $mobidul2->id,
+        'created_at' => '2014-07-10 11:31:01',
+        'updated_at' => '2014-07-10 11:31:01',
+      ));
         $category5=Category::create(
-			array (
-				'name' => 'Tier',
-				'mobidulId' => $mobidul2->id,
-				'created_at' => '2014-07-10 11:31:01',
-				'updated_at' => '2014-07-10 11:31:01',
-			));
+      array (
+        'name' => 'Tier',
+        'mobidulId' => $mobidul2->id,
+        'created_at' => '2014-07-10 11:31:01',
+        'updated_at' => '2014-07-10 11:31:01',
+      ));
         $category6=Category::create(
-			array (
-				'name' => 'Station',
-				'mobidulId' => $mobidul2->id,
-				'created_at' => '2014-07-10 11:31:01',
-				'updated_at' => '2014-07-10 11:31:01',
-			)); 
-        
+      array (
+        'name' => 'Station',
+        'mobidulId' => $mobidul2->id,
+        'created_at' => '2014-07-10 11:31:01',
+        'updated_at' => '2014-07-10 11:31:01',
+      ));
+
         //#################
         //STATION
         //#################
-        
-        
-        
+
+
+
         $station1=Station::create(
-			array (
-				'code' => 'AllGeBra',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.18422587351380315112692187540233135223388671875,
-				'lon' => 16.085757320022100458345448714680969715118408203125,
-				'radius' => 1000,
-				'name' => 'All-Ge-Bra',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**All-Ge-Bra Brandl KEG.**
+      array (
+        'code' => 'AllGeBra',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.18422587351380315112692187540233135223388671875,
+        'lon' => 16.085757320022100458345448714680969715118408203125,
+        'radius' => 1000,
+        'name' => 'All-Ge-Bra',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**All-Ge-Bra Brandl KEG.**
 
 
 Branche:
@@ -207,21 +207,21 @@ Josef Kremslehner-Gasse 1
 &nbsp;
 
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station2=Station::create(
-			array (
-				'code' => 'almstueberl',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.20625693700760194815302384085953235626220703125,
-				'lon' => 16.064178948497300325470860116183757781982421875,
-				'radius' => 1000,
-				'name' => 'Almstüberl Erika Berger',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**Fr&uuml;hst&uuml;ckspension Almst&uuml;berl Erika Berger**
+      array (
+        'code' => 'almstueberl',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.20625693700760194815302384085953235626220703125,
+        'lon' => 16.064178948497300325470860116183757781982421875,
+        'radius' => 1000,
+        'name' => 'Almstüberl Erika Berger',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**Fr&uuml;hst&uuml;ckspension Almst&uuml;berl Erika Berger**
 
 <img class="titelbild" src="../../upload/image/Almstueberl/almstueberl_image002.jpg" />
 
@@ -261,21 +261,21 @@ Blick auf das ganze Haus
 
 Die Fr&uuml;hst&uuml;ckspension Almst&uuml;berl mit Liebe weiterf&uuml;hren!
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station3=Station::create(
-			array (
-				'code' => 'aquaedukt_brentenmais',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.1761169447699018064668052829802036285400390625,
-				'lon' => 16.0994768191333008644505753181874752044677734375,
-				'radius' => 1000,
-				'name' => 'Aquädukt über die Brentenmais',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**Aqu&auml;dukt &uuml;ber die Pfalzau**
+      array (
+        'code' => 'aquaedukt_brentenmais',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.1761169447699018064668052829802036285400390625,
+        'lon' => 16.0994768191333008644505753181874752044677734375,
+        'radius' => 1000,
+        'name' => 'Aquädukt über die Brentenmais',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**Aqu&auml;dukt &uuml;ber die Pfalzau**
 
 
 Erbauung
@@ -297,21 +297,21 @@ Immer noch imposant anzusehen, stellt das Pfalzauaqu&auml;dukt einen historische
 Dies ist eine aktuellere Darstellung
 
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station4=Station::create(
-			array (
-				'code' => 'Arrakis',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.22024805329500196648950804956257343292236328125,
-				'lon' => 16.02241158971740020433571771718561649322509765625,
-				'radius' => 1000,
-				'name' => 'Arrakis Software und Verwaltung GmbH',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**Arrakis&nbsp;Software und Verwaltung GmbH**
+      array (
+        'code' => 'Arrakis',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.22024805329500196648950804956257343292236328125,
+        'lon' => 16.02241158971740020433571771718561649322509765625,
+        'radius' => 1000,
+        'name' => 'Arrakis Software und Verwaltung GmbH',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**Arrakis&nbsp;Software und Verwaltung GmbH**
 
 
 Branche:
@@ -329,21 +329,21 @@ In der Bonna 3e
 &nbsp;
 
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station5=Station::create(
-			array (
-				'code' => 'Arzt_Barfuß',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.1843725163493985519380657933652400970458984375,
-				'lon' => 16.0872888613696005677411449141800403594970703125,
-				'radius' => 1000,
-				'name' => 'Allgemeinmedizin Dr. Karin Barfuss',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**Allgemeinmedizin
+      array (
+        'code' => 'Arzt_Barfuß',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.1843725163493985519380657933652400970458984375,
+        'lon' => 16.0872888613696005677411449141800403594970703125,
+        'radius' => 1000,
+        'name' => 'Allgemeinmedizin Dr. Karin Barfuss',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**Allgemeinmedizin
 
 Dr. Karin Barfu&szlig;**
 
@@ -369,21 +369,21 @@ GKK | BVA | VA | SVA | KFA | SVB
 &nbsp;
 
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station6=Station::create(
-			array (
-				'code' => 'BajicBau',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.16131940553309931374315056018531322479248046875,
-				'lon' => 16.072375779246801386079823714680969715118408203125,
-				'radius' => 1000,
-				'name' => 'Bajic Bau KG',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**Bajic Bau KG**
+      array (
+        'code' => 'BajicBau',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.16131940553309931374315056018531322479248046875,
+        'lon' => 16.072375779246801386079823714680969715118408203125,
+        'radius' => 1000,
+        'name' => 'Bajic Bau KG',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**Bajic Bau KG**
 
 
 Branche:
@@ -401,36 +401,36 @@ Pfalzauer Stra&szlig;e 97
 &nbsp;
 
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station7=Station::create(
-			array (
-				'code' => 'bankaustria',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.180284000000000332875060848891735076904296875,
-				'lon' => 16.0781019999999017500158515758812427520751953125,
-				'radius' => 1000,
-				'name' => 'UniCredit Bank Austria AG',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '** Diese eine Bank hat kein Geld, daür steht sie im Park**',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+      array (
+        'code' => 'bankaustria',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.180284000000000332875060848891735076904296875,
+        'lon' => 16.0781019999999017500158515758812427520751953125,
+        'radius' => 1000,
+        'name' => 'UniCredit Bank Austria AG',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '** Diese eine Bank hat kein Geld, daür steht sie im Park**',
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station8=Station::create(
-			array (
-				'code' => 'bartbergUnternehmensberatung',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.1780307246636994022992439568042755126953125,
-				'lon' => 16.105356221293998686405757325701415538787841796875,
-				'radius' => 1000,
-				'name' => 'Bartberg Beratung',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**Bartberg Beratung**
+      array (
+        'code' => 'bartbergUnternehmensberatung',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.1780307246636994022992439568042755126953125,
+        'lon' => 16.105356221293998686405757325701415538787841796875,
+        'radius' => 1000,
+        'name' => 'Bartberg Beratung',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**Bartberg Beratung**
 
 
 Branche:
@@ -448,21 +448,21 @@ Josef Kremslehner-Gasse 11
 &nbsp;
 
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station9=Station::create(
-			array (
-				'code' => 'bauergaussMarcellus',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.1811820457842969744888250716030597686767578125,
-				'lon' => 16.058728699779099002853399724699556827545166015625,
-				'radius' => 1000,
-				'name' => 'Bauer-Gauss Marcellus',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**Bauer-Gauss Marcellus**
+      array (
+        'code' => 'bauergaussMarcellus',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.1811820457842969744888250716030597686767578125,
+        'lon' => 16.058728699779099002853399724699556827545166015625,
+        'radius' => 1000,
+        'name' => 'Bauer-Gauss Marcellus',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**Bauer-Gauss Marcellus**
 
 
 Branche:
@@ -480,21 +480,21 @@ Haitzawinkel 12
 &nbsp;
 
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station10=Station::create(
-			array (
-				'code' => 'BP_Pressbaum',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.1804237433043027749590692110359668731689453125,
-				'lon' => 16.078555588817199151208114926703274250030517578125,
-				'radius' => 1000,
-				'name' => 'BP Tankstelle',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**BP Tankstelle**
+      array (
+        'code' => 'BP_Pressbaum',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.1804237433043027749590692110359668731689453125,
+        'lon' => 16.078555588817199151208114926703274250030517578125,
+        'radius' => 1000,
+        'name' => 'BP Tankstelle',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**BP Tankstelle**
 
 
 Branche:
@@ -512,21 +512,21 @@ Hauptstra&szlig;e 54
 &nbsp;
 
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station11=Station::create(
-			array (
-				'code' => 'Denkmal_KaiserJoseph',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.17888587590920224101864732801914215087890625,
-				'lon' => 16.077067136764501498191748396493494510650634765625,
-				'radius' => 1000,
-				'name' => 'Denkmal von Kaiser Joseph II.',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**Denkmal von
+      array (
+        'code' => 'Denkmal_KaiserJoseph',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.17888587590920224101864732801914215087890625,
+        'lon' => 16.077067136764501498191748396493494510650634765625,
+        'radius' => 1000,
+        'name' => 'Denkmal von Kaiser Joseph II.',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**Denkmal von
 
 Kaiser Joseph II.**
 
@@ -546,21 +546,21 @@ Erbauung:
 <img alt="" src="../../upload/image/Kaiser_Joseph_II/IMG_2547.JPG" />
 In Gedenken an Kaiser Joseph II.
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station12=Station::create(
-			array (
-				'code' => 'Drucktechnik_Szerencsics',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.1800910882050033023915602825582027435302734375,
-				'lon' => 16.084778313731700194466611719690263271331787109375,
-				'radius' => 1000,
-				'name' => 'Drucktechnik Szerencsics Werbeprint GmbH',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**Drucktechnik Szerencsics Werbeprint GmbH**
+      array (
+        'code' => 'Drucktechnik_Szerencsics',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.1800910882050033023915602825582027435302734375,
+        'lon' => 16.084778313731700194466611719690263271331787109375,
+        'radius' => 1000,
+        'name' => 'Drucktechnik Szerencsics Werbeprint GmbH',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**Drucktechnik Szerencsics Werbeprint GmbH**
 
 
 Branche:
@@ -580,21 +580,21 @@ F&uuml;nkhgasse 41e
 
 <img src="../../upload/image/Drucktechnik_Szerencsics/Logo.png" />
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station13=Station::create(
-			array (
-				'code' => 'FahrschulePressbaum',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.17868890535149972720319055952131748199462890625,
-				'lon' => 16.076425914859299837189610116183757781982421875,
-				'radius' => 1000,
-				'name' => 'Fahrschule Pressbaum',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**Fahrschule Pressbaum**
+      array (
+        'code' => 'FahrschulePressbaum',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.17868890535149972720319055952131748199462890625,
+        'lon' => 16.076425914859299837189610116183757781982421875,
+        'radius' => 1000,
+        'name' => 'Fahrschule Pressbaum',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**Fahrschule Pressbaum**
 
 
 Branche:
@@ -620,21 +620,21 @@ Hauptstra&szlig;e 60
 &nbsp;
 
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station14=Station::create(
-			array (
-				'code' => 'fotognaser',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.1833850000000012414602679200470447540283203125,
-				'lon' => 16.091065000000099871613201685249805450439453125,
-				'radius' => 1000,
-				'name' => 'Foto Gnaser',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**â€‹Foto Gnaser**
+      array (
+        'code' => 'fotognaser',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.1833850000000012414602679200470447540283203125,
+        'lon' => 16.091065000000099871613201685249805450439453125,
+        'radius' => 1000,
+        'name' => 'Foto Gnaser',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**â€‹Foto Gnaser**
 
 
 Branche:
@@ -672,21 +672,21 @@ sowie der umliegenden Umgebung in allen fotografischen Belangen zu gew&auml;hrle
 
 **<img alt="" src="http://guide.hlwpressbaum.at/upload/image/Foto_Gnaser/Gnaser_Visit_2010_neu_Handy1.jpg" style="opacity: 0.9;" />â€‹**
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station15=Station::create(
-			array (
-				'code' => 'Friedhof_scp',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.17796080495470079085862380452454090118408203125,
-				'lon' => 16.062484741210898420149533194489777088165283203125,
-				'radius' => 1000,
-				'name' => 'Friedhof Sacre Coeur',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**Alter Nonnenfriedhof beim&nbsp;Sacre Coeur**
+      array (
+        'code' => 'Friedhof_scp',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.17796080495470079085862380452454090118408203125,
+        'lon' => 16.062484741210898420149533194489777088165283203125,
+        'radius' => 1000,
+        'name' => 'Friedhof Sacre Coeur',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**Alter Nonnenfriedhof beim&nbsp;Sacre Coeur**
 
 
 Branche:
@@ -714,21 +714,21 @@ Erbauung:
 
 Alter Nonnenfriedhof, dieser ist heute nicht mehr in Benutzung.
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station16=Station::create(
-			array (
-				'code' => 'Friseur_Beatrix_Aschauer',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.20422622741710227955991285853087902069091796875,
-				'lon' => 16.067440514659399042329823714680969715118408203125,
-				'radius' => 1000,
-				'name' => 'Beatrix Aschauer',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**Beatrix Aschauer**
+      array (
+        'code' => 'Friseur_Beatrix_Aschauer',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.20422622741710227955991285853087902069091796875,
+        'lon' => 16.067440514659399042329823714680969715118408203125,
+        'radius' => 1000,
+        'name' => 'Beatrix Aschauer',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**Beatrix Aschauer**
 
 
 Branche:
@@ -746,21 +746,21 @@ Rauchengern 11
 &nbsp;
 
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station17=Station::create(
-			array (
-				'code' => 'GaestezimmerFam.Breitner',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.17959388999999958969056024216115474700927734375,
-				'lon' => 16.0740280200000000832005753181874752044677734375,
-				'radius' => 1000,
-				'name' => 'Gästezimmer Familie Breitner',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**G&auml;stezimmer Fam. Breitner**
+      array (
+        'code' => 'GaestezimmerFam.Breitner',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.17959388999999958969056024216115474700927734375,
+        'lon' => 16.0740280200000000832005753181874752044677734375,
+        'radius' => 1000,
+        'name' => 'Gästezimmer Familie Breitner',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**G&auml;stezimmer Fam. Breitner**
 
 
 Branche: Fremdenzimmer
@@ -792,21 +792,21 @@ Text
 
 Text.
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station18=Station::create(
-			array (
-				'code' => 'Heimatmuseum',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.06061248316930090140886022709310054779052734375,
-				'lon' => 16.116729736328100131004248396493494510650634765625,
-				'radius' => 1000,
-				'name' => 'Heimatmuseum',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**Heimatmuseum**
+      array (
+        'code' => 'Heimatmuseum',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.06061248316930090140886022709310054779052734375,
+        'lon' => 16.116729736328100131004248396493494510650634765625,
+        'radius' => 1000,
+        'name' => 'Heimatmuseum',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**Heimatmuseum**
 
 
 Branche:Kultur
@@ -817,7 +817,7 @@ Adresse:Hauptstra&szlig;e 79&nbsp; 3021 Pressbaum
 
 &nbsp;
 
-Gr&uuml;ndung:Am 19. Sep. 1959 erfolgte die Gr&uuml;ndung des Museums. 
+Gr&uuml;ndung:Am 19. Sep. 1959 erfolgte die Gr&uuml;ndung des Museums.
 
 
 <img alt="" src="http://guide.hlwpressbaum.at/upload/image/Heimatmuseum/heimatmuseum_ausstellungsbeitrag_1.jpg" />
@@ -830,21 +830,21 @@ Im ehemaligen Amtshaus der Gemeinde wurden, &nbsp;f&uuml;r 700 Exponate geeignet
 
 <img alt="" src="http://guide.hlwpressbaum.at/upload/image/Heimatmuseum/heimatmuseum_ausstellungsbeitrag_3.jpg" />
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station19=Station::create(
-			array (
-				'code' => 'hlwpressbaum',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.18059543541419742496145772747695446014404296875,
-				'lon' => 16.08252525815920108698264812119305133819580078125,
-				'radius' => 1000,
-				'name' => 'HLW Pressbaum',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**HLW Pressbaum**
+      array (
+        'code' => 'hlwpressbaum',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.18059543541419742496145772747695446014404296875,
+        'lon' => 16.08252525815920108698264812119305133819580078125,
+        'radius' => 1000,
+        'name' => 'HLW Pressbaum',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**HLW Pressbaum**
 
 
 Branche:
@@ -896,21 +896,21 @@ Der beliebte fachpraktische Unterricht bildet einen wichtigen Eckpfeiler unseres
 
 Hier sehen Sie unsere neue Restaurantk&uuml;che
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station20=Station::create(
-			array (
-				'code' => 'holdoptik',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.1842008368900991399641497991979122161865234375,
-				'lon' => 16.092696194743698612228399724699556827545166015625,
-				'radius' => 1000,
-				'name' => 'Hold Optik',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**Hold Optik**
+      array (
+        'code' => 'holdoptik',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.1842008368900991399641497991979122161865234375,
+        'lon' => 16.092696194743698612228399724699556827545166015625,
+        'radius' => 1000,
+        'name' => 'Hold Optik',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**Hold Optik**
 
 
 Branche:
@@ -958,21 +958,21 @@ Hier sehen Sie eine historische Aufnahme der Geb&auml;udes, in dessen rechtem Te
 
 <a href="https://www.facebook.com/pages/Hold-Optik/129446450405929?ref=ts&amp;fref=ts" target="_blank">Finden Sie uns auf Facebook!</a>
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station21=Station::create(
-			array (
-				'code' => 'Ingeneurbuero_Brandstetter',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.185610022106601491032051853835582733154296875,
-				'lon' => 16.05915785322140010293878731317818164825439453125,
-				'radius' => 1000,
-				'name' => 'Ingenieurbüro DI Fritz Brandstetter',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**Ingenieurb&uuml;ro DI Fritz Brandstetter**
+      array (
+        'code' => 'Ingeneurbuero_Brandstetter',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.185610022106601491032051853835582733154296875,
+        'lon' => 16.05915785322140010293878731317818164825439453125,
+        'radius' => 1000,
+        'name' => 'Ingenieurbüro DI Fritz Brandstetter',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**Ingenieurb&uuml;ro DI Fritz Brandstetter**
 
 
 Gr&uuml;ndung:&nbsp;
@@ -1026,21 +1026,21 @@ fb@ib-brandstetter.at
 <img src="../../upload/image/Ingenieurbuero_Brandstetter/Logo2_Ingenieurbuero_Brandstetter.jpg" />
 
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station22=Station::create(
-			array (
-				'code' => 'kaiserbruenndl',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.16136680999999697405655751936137676239013671875,
-				'lon' => 16.038038809999999756428223918192088603973388671875,
-				'radius' => 1000,
-				'name' => 'Kaiserbrünndl',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**Schulzentrum Sacre Coeur**
+      array (
+        'code' => 'kaiserbruenndl',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.16136680999999697405655751936137676239013671875,
+        'lon' => 16.038038809999999756428223918192088603973388671875,
+        'radius' => 1000,
+        'name' => 'Kaiserbrünndl',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**Schulzentrum Sacre Coeur**
 
 
 Branche:
@@ -1078,21 +1078,21 @@ Historische Aufnahme der Frontseite
 Heute gibt es ein Gymnasium, eine Mittelschule, eine Volksschule, einen Kindergarten, eine Bakip, ein Colleg, ein Internat und einen Hort
 
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station23=Station::create(
-			array (
-				'code' => 'mariasfashion',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.1476844318487025020658620633184909820556640625,
-				'lon' => 16.065187459086899934845860116183757781982421875,
-				'radius' => 1000,
-				'name' => 'Maria\'s Fashion',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**Maria&#39;s Fashion**
+      array (
+        'code' => 'mariasfashion',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.1476844318487025020658620633184909820556640625,
+        'lon' => 16.065187459086899934845860116183757781982421875,
+        'radius' => 1000,
+        'name' => 'Maria\'s Fashion',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**Maria&#39;s Fashion**
 
 
 Branche:
@@ -1110,21 +1110,21 @@ Pfalzauerstra&szlig;e 156
 &nbsp;
 
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station24=Station::create(
-			array (
-				'code' => 'omvtankstelle_grosram',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.16363448605920183354101027362048625946044921875,
-				'lon' => 16.0051435280795004700848949141800403594970703125,
-				'radius' => 1000,
-				'name' => 'OMV Tankstelle',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**OMV Tankstelle Gro&szlig;ram**
+      array (
+        'code' => 'omvtankstelle_grosram',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.16363448605920183354101027362048625946044921875,
+        'lon' => 16.0051435280795004700848949141800403594970703125,
+        'radius' => 1000,
+        'name' => 'OMV Tankstelle',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**OMV Tankstelle Gro&szlig;ram**
 
 
 Branche:
@@ -1142,21 +1142,21 @@ Gro&szlig;ram 1
 &nbsp;
 
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station25=Station::create(
-			array (
-				'code' => 'orgelbau_niemeczek',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.18102466317319709787625470198690891265869140625,
-				'lon' => 16.07128143796879982119207852520048618316650390625,
-				'radius' => 1000,
-				'name' => 'Der Orgelbau im Wienerwald',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**Der Orgelbau im Wienerwald
+      array (
+        'code' => 'orgelbau_niemeczek',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.18102466317319709787625470198690891265869140625,
+        'lon' => 16.07128143796879982119207852520048618316650390625,
+        'radius' => 1000,
+        'name' => 'Der Orgelbau im Wienerwald',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**Der Orgelbau im Wienerwald
 
 Orgelbaumeister Robert Niemeczek**
 
@@ -1200,21 +1200,21 @@ Ansicht des Wohnhauses &ndash; Siedlungsstra&szlig;e 19 im Jahre 2012
 
 ...die Erhaltung historisch wertvoller Instrumente sowohl im Bereich der Kirchenorgeln als auch im Bereich der mechanischen Musikinstrumente
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station26=Station::create(
-			array (
-				'code' => 'pfarrkirche',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.17903700000000100089891930110752582550048828125,
-				'lon' => 16.077602000000098314558272249996662139892578125,
-				'radius' => 1000,
-				'name' => 'Pfarrkirche Pressbaum',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**Pfarrkirche Pressbaum**
+      array (
+        'code' => 'pfarrkirche',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.17903700000000100089891930110752582550048828125,
+        'lon' => 16.077602000000098314558272249996662139892578125,
+        'radius' => 1000,
+        'name' => 'Pfarrkirche Pressbaum',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**Pfarrkirche Pressbaum**
 
 
 Kategorie:
@@ -1266,21 +1266,21 @@ Unser Tipp:
 Informieren Sie sich &uuml;ber das Pfarrleben der Pfarrgemeinde Pressbaum &uuml;ber die Aush&auml;nge auf den zwei Anschlagtafeln links vom Kircheneingang!
 
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station27=Station::create(
-			array (
-				'code' => 'polizeiposten ',
-				'mobidulId' => $mobidul1->id,
-				'lat' => 48.1794385244131007084433804266154766082763671875,
-				'lon' => 16.076841831207300259620751603506505489349365234375,
-				'radius' => 1000,
-				'name' => 'Polizeiposten ',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**Polizeiposten**
+      array (
+        'code' => 'polizeiposten ',
+        'mobidulId' => $mobidul1->id,
+        'lat' => 48.1794385244131007084433804266154766082763671875,
+        'lon' => 16.076841831207300259620751603506505489349365234375,
+        'radius' => 1000,
+        'name' => 'Polizeiposten ',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**Polizeiposten**
 
 
 Branche:
@@ -1310,21 +1310,21 @@ _Datum_
 Fr&uuml;her fand man den Polizeiposten neben der Gemeinde, heute befindet er sich direkt darin.
 
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station28=Station::create(
-			array (
-				'code' => 'ahorn',
-				'mobidulId' => $mobidul2->id,
-				'lat' => 48.2345069068523031319273286499083042144775390625,
-				'lon' => 15.477418904399399934845860116183757781982421875,
-				'radius' => 1000,
-				'name' => 'Ahorn',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**Ahorn**
+      array (
+        'code' => 'ahorn',
+        'mobidulId' => $mobidul2->id,
+        'lat' => 48.2345069068523031319273286499083042144775390625,
+        'lon' => 15.477418904399399934845860116183757781982421875,
+        'radius' => 1000,
+        'name' => 'Ahorn',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**Ahorn**
 
 Die *Ahorne* (_Acer_) bilden eine <a href="http://de.wikipedia.org/wiki/Gattung_%28Biologie%29" title="Gattung (Biologie)">Pflanzengattung</a> in der Unterfamilie der <a href="http://de.wikipedia.org/wiki/Rosskastaniengew%C3%A4chse" title="Rosskastaniengewächse">Rosskastaniengew&auml;chse</a> (Hippocastanoideae) innerhalb der Familie der <a href="http://de.wikipedia.org/wiki/Seifenbaumgew%C3%A4chse" title="Seifenbaumgewächse">Seifenbaumgew&auml;chse</a> (Sapindaceae). Je nach Autor gibt es 110 bis 200 Ahorn-Arten. Sie sind in gem&auml;&szlig;igten und tropischen Gebieten in Eurasien, Nordafrika, Zentral- und Nordamerika weitverbreitet. Viele Arten werden vielseitig genutzt.
 
@@ -1351,29 +1351,29 @@ Es werden <a href="http://de.wikipedia.org/wiki/Spaltfrucht" title="Spaltfrucht"
 Bei windbest&auml;ubten Ahornarten ist am Grunde der Bl&uuml;ten ein Diskus.
 
 (l) Wahr
-	(i) Falsch
+  (i) Falsch
 
 
 Ahornb&auml;ume gibt es auf allen Kontinenten der Erde
 
 (s) Wahr',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
-        
-       
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
+
+
         $station31=Station::create(
-			array (
-				'code' => 'hohenegg',
-				'mobidulId' => $mobidul2->id,
-				'lat' => 48.2343353953796025734845898114144802093505859375,
-				'lon' => 15.4772043276781996468116631149314343929290771484375,
-				'radius' => 1000,
-				'name' => 'Burgruine Hohenegg',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**<strong>Geschichte der Burg Hohenegg</strong>**
+      array (
+        'code' => 'hohenegg',
+        'mobidulId' => $mobidul2->id,
+        'lat' => 48.2343353953796025734845898114144802093505859375,
+        'lon' => 15.4772043276781996468116631149314343929290771484375,
+        'radius' => 1000,
+        'name' => 'Burgruine Hohenegg',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**<strong>Geschichte der Burg Hohenegg</strong>**
 
 Die Geschichte der Burg Hohenegg reicht sehr weit zur&uuml;ck. Sie wird hier ab der &Uuml;bernahme durch die Familie Montecuccoli kurz dargestellt.
 
@@ -1390,23 +1390,23 @@ Quiz
 Wie alt wurde Raimondo?
 
 (f) 91
-	(h) 71
-	(b) 4',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+  (h) 71
+  (b) 4',
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station32=Station::create(
-			array (
-				'code' => 'mammutbaum',
-				'mobidulId' => $mobidul2->id,
-				'lat' => 48.36970733615549988826387561857700347900390625,
-				'lon' => 15.553550725078100214204823714680969715118408203125,
-				'radius' => 1000,
-				'name' => 'Göttweiger Mammutbäume',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**G&ouml;ttweiger Mammutb&auml;ume**
+      array (
+        'code' => 'mammutbaum',
+        'mobidulId' => $mobidul2->id,
+        'lat' => 48.36970733615549988826387561857700347900390625,
+        'lon' => 15.553550725078100214204823714680969715118408203125,
+        'radius' => 1000,
+        'name' => 'Göttweiger Mammutbäume',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**G&ouml;ttweiger Mammutb&auml;ume**
 
 Im Jahr 1880 legte der sp&auml;tere Abt Adalbert Dungel mehrere Samen der Wellingtonia gigantea auf dem Plateau des vom Ortszentrum &ouml;stlich gelegenen Eichberg in die Erde. Heute geh&ouml;ren die Mammutb&auml;ume, die so genannten Adalbert-Wellingtonien, zu den gr&ouml;&szlig;ten zusammenstehenden Best&auml;nden in Mitteleuropa. Die G&ouml;ttweiger-Wald-Erlebniswelt wurde am 22. Oktober 2004 vom Forstbetrieb Stift G&ouml;ttweig, dem Land Nieder&ouml;sterreich und dem &Ouml;kogymnasium der Englischen Fr&auml;ulein in Krems er&ouml;ffnet. Die Besucher haben die M&ouml;glichkeit &uuml;ber 30 verschiedene heimische Baum- und Straucharten kennenzulernen und Hintergrundinformationen zu bekommen. Zudem gibt es im Arboretum, dem Baumgarten bei den Mammutb&auml;umen, die M&ouml;glichkeit, weitere 50 Baumarten aus aller Welt zu betrachten. (Wikipedia)
 
@@ -1417,25 +1417,25 @@ Im Jahr 1880 legte der sp&auml;tere Abt Adalbert Dungel mehrere Samen der Wellin
 Welcher Baumart geh&ouml;ren die Mammutb&auml;ume an?
 
 (at) Adalbertonien
-	(it) Dungeltonien
+  (it) Dungeltonien
 
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			));
-        
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
+
         $station36=Station::create(
-			array (
-				'code' => 'rehtext',
-				'mobidulId' => $mobidul2->id,
-				'lat' => 48.2930159029640009293871116824448108673095703125,
-				'lon' => 15.526084904765600214204823714680969715118408203125,
-				'radius' => 1000,
-				'name' => 'Reh',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => '**Reh**
+      array (
+        'code' => 'rehtext',
+        'mobidulId' => $mobidul2->id,
+        'lat' => 48.2930159029640009293871116824448108673095703125,
+        'lon' => 15.526084904765600214204823714680969715118408203125,
+        'radius' => 1000,
+        'name' => 'Reh',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => '**Reh**
 
 Das *Reh* (_Capreolus capreolus_), zur Unterscheidung vom <a href="http://de.wikipedia.org/wiki/Sibirisches_Reh" title="Sibirisches Reh">Sibirischen Reh</a> auch *Europ&auml;isches Reh* genannt, ist eine &uuml;berwiegend auf dem europ&auml;ischen Kontinent vorkommende <a href="http://de.wikipedia.org/wiki/Hirsche" title="Hirsche">Hirschart</a>. In Mitteleuropa ist es der h&auml;ufigste und gleichzeitig kleinste Vertreter der Hirsche.
 
@@ -1450,36 +1450,36 @@ Das Reh unterliegt dem <a href="http://de.wikipedia.org/wiki/Jagdrecht" title="J
 Wie nennt man junge Rehe?
 
 (p) Ricke
-	(r) Kitz
+  (r) Kitz
 
 
 Welchen Lebensraum bevorzugen Rehe?
 
 (e) Waldlichtungen
-	(g) Stra&szlig;enr&auml;nder
+  (g) Stra&szlig;enr&auml;nder
 
 
 Rehe sind
 
 (g) immer einzeln unterwegs
-	(i) vom Jagdrecht ausgenommen
+  (i) vom Jagdrecht ausgenommen
 
 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
         $station37=Station::create(
-			array (
-				'code' => 'wildschweindi',
-				'mobidulId' => $mobidul2->id,
-				'lat' => 48.3149395108871004822503891773521900177001953125,
-				'lon' => 15.5624771166797000176984511199407279491424560546875,
-				'radius' => 1000,
-				'name' => 'Wildschwein',
-				'enabled' => 1,
-				'contentType' => 'html',
-				'content' => 'Das *Wildschwein* (_Sus scrofa_) geh&ouml;rt zur <a href="http://de.wikipedia.org/wiki/Familie_%28Biologie%29" title="Familie (Biologie)">Familie</a> der altweltlichen oder <a href="http://de.wikipedia.org/wiki/Echte_Schweine" title="Echte Schweine">echten Schweine</a> (Suidae) aus der <a href="http://de.wikipedia.org/wiki/Ordnung_%28Biologie%29" title="Ordnung (Biologie)">Ordnung</a> der Paarhufer. Das urspr&uuml;ngliche Verbreitungsgebiet der Art reicht von Westeuropa bis S&uuml;dost-<a href="http://de.wikipedia.org/wiki/Asien" title="Asien">Asien</a>, durch Einb&uuml;rgerungen in <a href="http://de.wikipedia.org/wiki/Nordamerika" title="Nordamerika">Nord-</a> und <a href="http://de.wikipedia.org/wiki/S%C3%BCdamerika" title="Südamerika">S&uuml;damerika</a>, <a href="http://de.wikipedia.org/wiki/Australien" title="Australien">Australien</a> sowie auf zahlreichen Inseln ist es heute fast weltweit verbreitet.
+      array (
+        'code' => 'wildschweindi',
+        'mobidulId' => $mobidul2->id,
+        'lat' => 48.3149395108871004822503891773521900177001953125,
+        'lon' => 15.5624771166797000176984511199407279491424560546875,
+        'radius' => 1000,
+        'name' => 'Wildschwein',
+        'enabled' => 1,
+        'contentType' => 'html',
+        'content' => 'Das *Wildschwein* (_Sus scrofa_) geh&ouml;rt zur <a href="http://de.wikipedia.org/wiki/Familie_%28Biologie%29" title="Familie (Biologie)">Familie</a> der altweltlichen oder <a href="http://de.wikipedia.org/wiki/Echte_Schweine" title="Echte Schweine">echten Schweine</a> (Suidae) aus der <a href="http://de.wikipedia.org/wiki/Ordnung_%28Biologie%29" title="Ordnung (Biologie)">Ordnung</a> der Paarhufer. Das urspr&uuml;ngliche Verbreitungsgebiet der Art reicht von Westeuropa bis S&uuml;dost-<a href="http://de.wikipedia.org/wiki/Asien" title="Asien">Asien</a>, durch Einb&uuml;rgerungen in <a href="http://de.wikipedia.org/wiki/Nordamerika" title="Nordamerika">Nord-</a> und <a href="http://de.wikipedia.org/wiki/S%C3%BCdamerika" title="Südamerika">S&uuml;damerika</a>, <a href="http://de.wikipedia.org/wiki/Australien" title="Australien">Australien</a> sowie auf zahlreichen Inseln ist es heute fast weltweit verbreitet.
 
 Wildschweine sind <a href="http://de.wikipedia.org/wiki/Allesfresser" title="Allesfresser">Allesfresser</a> und sehr anpassungsf&auml;hig, in Mitteleuropa nimmt die Population vor allem durch den vermehrten Anbau von Mais derzeit stark zu und wandert verst&auml;rkt in besiedelte Bereiche ein. Das Wildschwein ist die Stammform des <a href="http://de.wikipedia.org/wiki/Hausschwein" title="Hausschwein">Hausschweines</a>.
 
@@ -1490,323 +1490,323 @@ Wildschweine sind in Europa seit Urzeiten <a class="mw-redirect" href="http://de
 Wildscheine sind
 
 (o) Unpaarhufer
-	(q) nur in Europa anzutreffen
+  (q) nur in Europa anzutreffen
 
 
 Das Wildschwein ist mit dem Hausschwein verwandt.
 
 (i) Wahr
-	(h) es dort heimisch ist
-	 ',
-				'durationInMinutes' => NULL,
-				'created_at' => '2014-07-10 11:31:02',
-				'updated_at' => '2014-07-10 11:31:02',
-			)); 
-        
-        
+  (h) es dort heimisch ist
+   ',
+        'durationInMinutes' => NULL,
+        'created_at' => '2014-07-10 11:31:02',
+        'updated_at' => '2014-07-10 11:31:02',
+      ));
+
+
         //#################
         //CATEGORY2STATION
         //#################
-        
+
         $category2Station1=Category2Station::create(
-			array (
-				'stationID' => $station1->id,
-				'categoryId' => $category2->id
-			)); 
+      array (
+        'stationID' => $station1->id,
+        'categoryId' => $category2->id
+      ));
         $category2Station2=Category2Station::create(
-			array (
-				'stationID' => $station2->id,
-				'categoryId' => $category2->id
-			));
+      array (
+        'stationID' => $station2->id,
+        'categoryId' => $category2->id
+      ));
         $category2Station3=Category2Station::create(
-			array (
-				'stationID' => $station3->id,
-				'categoryId' => $category3->id
-			));
+      array (
+        'stationID' => $station3->id,
+        'categoryId' => $category3->id
+      ));
         $category2Station4=Category2Station::create(
-			array (
-				'stationID' => $station4->id,
-				'categoryId' => $category2->id
-			));
+      array (
+        'stationID' => $station4->id,
+        'categoryId' => $category2->id
+      ));
         $category2Station5=Category2Station::create(
-			array (
-				'stationID' => $station5->id,
-				'categoryId' => $category2->id
-			));
+      array (
+        'stationID' => $station5->id,
+        'categoryId' => $category2->id
+      ));
         $category2Station6=Category2Station::create(
-			array (
-				'stationID' => $station6->id,
-				'categoryId' => $category2->id
-			));
+      array (
+        'stationID' => $station6->id,
+        'categoryId' => $category2->id
+      ));
         $category2Station7=Category2Station::create(
-			array (
-				'stationID' => $station7->id,
-				'categoryId' => $category2->id
-			));
+      array (
+        'stationID' => $station7->id,
+        'categoryId' => $category2->id
+      ));
         $category2Station8=Category2Station::create(
-			array (
-				'stationID' => $station8->id,
-				'categoryId' => $category2->id
-			));
+      array (
+        'stationID' => $station8->id,
+        'categoryId' => $category2->id
+      ));
         $category2Station9=Category2Station::create(
-			array (
-				'stationID' => $station9->id,
-				'categoryId' => $category2->id
-			));
+      array (
+        'stationID' => $station9->id,
+        'categoryId' => $category2->id
+      ));
         $category2Station10=Category2Station::create(
-			array (
-				'stationID' => $station10->id,
-				'categoryId' => $category2->id
-			));
+      array (
+        'stationID' => $station10->id,
+        'categoryId' => $category2->id
+      ));
         $category2Station11=Category2Station::create(
-			array (
-				'stationID' => $station11->id,
-				'categoryId' => $category3->id
-			));
+      array (
+        'stationID' => $station11->id,
+        'categoryId' => $category3->id
+      ));
         $category2Station12=Category2Station::create(
-			array (
-				'stationID' => $station12->id,
-				'categoryId' => $category2->id
-			));
+      array (
+        'stationID' => $station12->id,
+        'categoryId' => $category2->id
+      ));
         $category2Station13=Category2Station::create(
-			array (
-				'stationID' => $station13->id,
-				'categoryId' => $category2->id
-			));
+      array (
+        'stationID' => $station13->id,
+        'categoryId' => $category2->id
+      ));
         $category2Station14=Category2Station::create(
-			array (
-				'stationID' => $station14->id,
-				'categoryId' => $category2->id
-			));
+      array (
+        'stationID' => $station14->id,
+        'categoryId' => $category2->id
+      ));
         $category2Station15=Category2Station::create(
-			array (
-				'stationID' => $station15->id,
-				'categoryId' => $category3->id
-			));
+      array (
+        'stationID' => $station15->id,
+        'categoryId' => $category3->id
+      ));
         $category2Station16=Category2Station::create(
-			array (
-				'stationID' => $station16->id,
-				'categoryId' => $category2->id
-			));
+      array (
+        'stationID' => $station16->id,
+        'categoryId' => $category2->id
+      ));
         $category2Station17=Category2Station::create(
-			array (
-				'stationID' => $station17->id,
-				'categoryId' => $category3->id
-			));
+      array (
+        'stationID' => $station17->id,
+        'categoryId' => $category3->id
+      ));
         $category2Station18=Category2Station::create(
-			array (
-				'stationID' => $station18->id,
-				'categoryId' => $category3->id
-			));
+      array (
+        'stationID' => $station18->id,
+        'categoryId' => $category3->id
+      ));
         $category2Station19=Category2Station::create(
-			array (
-				'stationID' => $station19->id,
-				'categoryId' => $category1->id
-			));
+      array (
+        'stationID' => $station19->id,
+        'categoryId' => $category1->id
+      ));
         $category2Station20=Category2Station::create(
-			array (
-				'stationID' => $station20->id,
-				'categoryId' => $category2->id
-			));
+      array (
+        'stationID' => $station20->id,
+        'categoryId' => $category2->id
+      ));
         $category2Station21=Category2Station::create(
-			array (
-				'stationID' => $station21->id,
-				'categoryId' => $category2->id
-			));
+      array (
+        'stationID' => $station21->id,
+        'categoryId' => $category2->id
+      ));
         $category2Station22=Category2Station::create(
-			array (
-				'stationID' => $station22->id,
-				'categoryId' => $category1->id
-			));
+      array (
+        'stationID' => $station22->id,
+        'categoryId' => $category1->id
+      ));
         $category2Station23=Category2Station::create(
-			array (
-				'stationID' => $station23->id,
-				'categoryId' => $category2->id
-			));
+      array (
+        'stationID' => $station23->id,
+        'categoryId' => $category2->id
+      ));
         $category2Station24=Category2Station::create(
-			array (
-				'stationID' => $station24->id,
-				'categoryId' => $category2->id
-			));
+      array (
+        'stationID' => $station24->id,
+        'categoryId' => $category2->id
+      ));
         $category2Station25=Category2Station::create(
-			array (
-				'stationID' => $station25->id,
-				'categoryId' => $category2->id
-			));
+      array (
+        'stationID' => $station25->id,
+        'categoryId' => $category2->id
+      ));
         $category2Station26=Category2Station::create(
-			array (
-				'stationID' => $station26->id,
-				'categoryId' => $category3->id
-			));
+      array (
+        'stationID' => $station26->id,
+        'categoryId' => $category3->id
+      ));
         $category2Station27=Category2Station::create(
-			array (
-				'stationID' => $station27->id,
-				'categoryId' => $category1->id
-			));
+      array (
+        'stationID' => $station27->id,
+        'categoryId' => $category1->id
+      ));
         $category2Station28=Category2Station::create(
-			array (
-				'stationID' => $station28->id,
-				'categoryId' => $category4->id
-			));
+      array (
+        'stationID' => $station28->id,
+        'categoryId' => $category4->id
+      ));
         $category2Station31=Category2Station::create(
-			array (
-				'stationID' => $station31->id,
-				'categoryId' => $category6->id
-			));
+      array (
+        'stationID' => $station31->id,
+        'categoryId' => $category6->id
+      ));
         $category2Station32=Category2Station::create(
-			array (
-				'stationID' => $station32->id,
-				'categoryId' => $category4->id
-			));
+      array (
+        'stationID' => $station32->id,
+        'categoryId' => $category4->id
+      ));
         $category2Station36=Category2Station::create(
-			array (
-				'stationID' => $station36->id,
-				'categoryId' => $category5->id
-			));
+      array (
+        'stationID' => $station36->id,
+        'categoryId' => $category5->id
+      ));
         $category2Station37=Category2Station::create(
-			array (
-				'stationID' => $station37->id,
-				'categoryId' => $category5->id
-			));
-        
-        
-        
+      array (
+        'stationID' => $station37->id,
+        'categoryId' => $category5->id
+      ));
+
+
+
          //################
         //NAVIGATIONITEM
         //################
-        
+
         $navigationItem0=NavigationItem::create(
-            array('mobidulId'=>$mobidul2->id, 
-                  'isDivider'=>true, 
-                  'order'=>0, 
-                  'icon'=>'', 
+            array('mobidulId'=>$mobidul2->id,
+                  'isDivider'=>true,
+                  'order'=>0,
+                  'icon'=>'',
                   'text'=>'Navigation'
                  )
-        ); 
-                  
-        
+        );
+
+
         $navigationItem1=NavigationItem::create(
             array(
-                'mobidulId'=>$mobidul2->id, 
-                'hardcoded'=>'map.html', 
-                'order'=>1, 
-                'icon'=>'icon-map-marker', 
+                'mobidulId'=>$mobidul2->id,
+                'hardcoded'=>'map.html',
+                'order'=>1,
+                'icon'=>'icon-map-marker',
                 'text'=>'Karte'
             )
         );
-        
+
         $navigationItem2=NavigationItem::create(
-            array('mobidulId'=>$mobidul2->id, 
-                  'isDivider'=>true, 
-                  'order'=>2, 
-                  'icon'=>'', 
+            array('mobidulId'=>$mobidul2->id,
+                  'isDivider'=>true,
+                  'order'=>2,
+                  'icon'=>'',
                   'text'=>'Kategorien'
                  )
-        ); 
-        
+        );
+
         $navigationItem2=NavigationItem::create(
             array(
-                'mobidulId'=>$mobidul2->id, 
-                'categoryId'=>$category4->id, 
-                'order'=>3, 
-                'icon'=>'icon-leaf', 
+                'mobidulId'=>$mobidul2->id,
+                'categoryId'=>$category4->id,
+                'order'=>3,
+                'icon'=>'icon-leaf',
                 'text'=>'Alle Pflanzen'
             )
         );
          $navigationItem3=NavigationItem::create(
             array(
-                'mobidulId'=>$mobidul2->id, 
-                'categoryId'=>$category5->id, 
-                'order'=>4, 
-                'icon'=>'icon-bullhorn', 
+                'mobidulId'=>$mobidul2->id,
+                'categoryId'=>$category5->id,
+                'order'=>4,
+                'icon'=>'icon-bullhorn',
                 'text'=>'Alle Tiere'
             )
         );
          $navigationItem4=NavigationItem::create(
             array(
-                'mobidulId'=>$mobidul2->id, 
-                'categoryId'=>$category6->id, 
-                'order'=>5, 
-                'icon'=>'icon-dashboard', 
+                'mobidulId'=>$mobidul2->id,
+                'categoryId'=>$category6->id,
+                'order'=>5,
+                'icon'=>'icon-dashboard',
                 'text'=>'Alle Stationen'
             )
         );
-        
-        
+
+
         $navigationItem0=NavigationItem::create(
-            array('mobidulId'=>$mobidul1->id, 
-                  'isDivider'=>true, 
-                  'order'=>0, 
-                  'icon'=>'', 
+            array('mobidulId'=>$mobidul1->id,
+                  'isDivider'=>true,
+                  'order'=>0,
+                  'icon'=>'',
                   'text'=>'Stadt'
                  )
-        ); 
-        
+        );
+
          $navigationItem5=NavigationItem::create(
             array(
-                'mobidulId'=>$mobidul1->id, 
-                'hardcoded'=>'map.html',  
-                'order'=>1, 
-                'icon'=>'icon-map-marker', 
+                'mobidulId'=>$mobidul1->id,
+                'hardcoded'=>'map.html',
+                'order'=>1,
+                'icon'=>'icon-map-marker',
                 'text'=>'Stadtplan'
             )
         );
-        
+
         $navigationItem0=NavigationItem::create(
-            array('mobidulId'=>$mobidul1->id, 
-                  'isDivider'=>true, 
-                  'order'=>2, 
-                  'icon'=>'', 
+            array('mobidulId'=>$mobidul1->id,
+                  'isDivider'=>true,
+                  'order'=>2,
+                  'icon'=>'',
                   'text'=>'A bis Z '
                  )
-        ); 
+        );
         $navigationItem6=NavigationItem::create(
             array(
-                'mobidulId'=>$mobidul1->id, 
-                'categoryId'=>$category1->id, 
-                'order'=>3, 
-                'icon'=>'icon-group', 
+                'mobidulId'=>$mobidul1->id,
+                'categoryId'=>$category1->id,
+                'order'=>3,
+                'icon'=>'icon-group',
                 'text'=>'Öffentlich'
             )
         );
         $navigationItem7=NavigationItem::create(
             array(
-                'mobidulId'=>$mobidul1->id, 
-                'categoryId'=>$category2->id, 
-                'order'=>4, 
-                'icon'=>'icon-briefcase', 
+                'mobidulId'=>$mobidul1->id,
+                'categoryId'=>$category2->id,
+                'order'=>4,
+                'icon'=>'icon-briefcase',
                 'text'=>'Wirtschaft'
             )
         );
-        
+
         $navigationItem8=NavigationItem::create(
             array(
-                'mobidulId'=>$mobidul1->id, 
-                'categoryId'=>$category1->id, 
-                'order'=>5, 
-                'icon'=>'icon-camera', 
+                'mobidulId'=>$mobidul1->id,
+                'categoryId'=>$category1->id,
+                'order'=>5,
+                'icon'=>'icon-camera',
                 'text'=>'Tourismus'
             )
         );
-        
+
         $navigationItem0=NavigationItem::create(
-            array('mobidulId'=>$mobidul1->id, 
-                  'isDivider'=>true, 
-                  'order'=>6, 
-                  'icon'=>'', 
+            array('mobidulId'=>$mobidul1->id,
+                  'isDivider'=>true,
+                  'order'=>6,
+                  'icon'=>'',
                   'text'=>'Information'
                  )
-        ); 
-        
+        );
+
         $navigationItem9=NavigationItem::create(
             array(
-                'mobidulId'=>$mobidul1->id, 
-                'stationId'=>$station19->id, 
-                'order'=>7, 
-                'icon'=>'icon-home', 
+                'mobidulId'=>$mobidul1->id,
+                'stationId'=>$station19->id,
+                'order'=>7,
+                'icon'=>'icon-home',
                 'text'=>'Stadt Pressbaum'
             )
         );
-        
+
     }
 }

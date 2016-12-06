@@ -1,5 +1,6 @@
 describe('RallyService', function () {
-  var RallyService, mockStateParams, mockMobidulService, $q, $scope;
+  var RallyService, mockStateParams, mockMobidulService,
+      $q, $scope;
 
   beforeEach(angular.mock.module('Mobilot'));
 
@@ -8,28 +9,41 @@ describe('RallyService', function () {
       mobidulCode: 'rally'
     };
 
-    module(function ( $provide ) {
+    module(function ($provide) {
       $provide.value('$stateParams', mockStateParams);
     });
 
     mockMobidulService = {
       getMobidulConfig: function (code) {
         var deferred = $q.defer();
+
         if (code == 'rally') {
-          deferred.resolve({mode: 'rally', hiddenStations: true});
+          deferred.resolve({
+            mode: 'rally',
+            hiddenStations: true
+          });
         } else {
-          deferred.resolve({mode: 'default', hiddenStations: false});
+          deferred.resolve({
+            mode: 'default',
+            hiddenStations: false
+          });
         }
+
         return deferred.promise;
       },
-      getProgress: function(){
+
+      getProgress: function () {
         var deferred = $q.defer();
-        deferred.resolve({progress: 2});
+
+        deferred.resolve({
+          progress: 2
+        });
+
         return deferred.promise;
       }
     };
 
-    module(function ( $provide ) {
+    module(function ($provide) {
       $provide.value('MobidulService', mockMobidulService);
     });
   });
@@ -49,27 +63,21 @@ describe('RallyService', function () {
     var station, stations;
 
     beforeEach(function () {
-      station = [
-        {
+      station = [{
+        order: 0
+      }];
+
+      stations = [{
           order: 0
-        }
-      ];
-      stations = [
-        {
-          order: 0
-        },
-        {
+        }, {
           order: 1
-        },
-        {
+        }, {
           order: 2
-        },
-        {
+        }, {
           order: 3
-        },
-        {
+        }, {
           order: 4
-        },
+        }
       ];
     });
 
@@ -79,38 +87,32 @@ describe('RallyService', function () {
 
     it('should return the station if length == 1', function () {
       RallyService.filterStations(station)
-      .then(function ( filtered ) {
-        expect(filtered).toBe(station);
-      });
+        .then(function (filtered) {
+          expect(filtered).toBe(station);
+        });
 
       $scope.$digest();
-
     });
 
     it('should return the filtered list for hiddenStation mobiduls', function () {
-
       RallyService.filterStations(stations)
-      .then(function ( filtered ) {
-        expect(filtered.length).toBe(3);
-      });
+        .then(function ( filtered ) {
+          expect(filtered.length).toBe(3);
+        });
 
       $scope.$digest();
 
     });
 
     it('should return all stations for ! hiddenStation mobiduls', function () {
-
       mockStateParams.mobidulCode = 'default';
 
       RallyService.filterStations(stations)
-      .then(function (list) {
-        expect(list.length).toBe(5);
-      });
+        .then(function (list) {
+          expect(list.length).toBe(5);
+        });
 
       $scope.$digest();
-
     });
-
   });
-
 });

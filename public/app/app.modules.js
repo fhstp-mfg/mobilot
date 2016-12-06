@@ -2,7 +2,8 @@
 /// Mobilot module
 
 angular.module('Mobilot', [
-  'ngMaterial', 'react',
+  'ngMaterial',
+  // 'react',
   'ui.router', 'pascalprecht.translate', 'ngCookies',
   'monospaced.qrcode',
   'angulartics', 'angulartics.google.analytics',
