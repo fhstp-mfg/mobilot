@@ -5,7 +5,7 @@
   "main": "angular.html",
   "scripts": {
     "test": "karma start",
-    "watchify": "watchify public/app/app.react.js -o public/assets/js/react.bundle.js -v -t [ babelify --presets [ es2015 react stage-2 ] ]",
+    "watchify": "watchify public/app/app.react.js -o public/assets/js/react.bundle.js -v -t [ babelify --presets [ es2015 react stage-2 ] ]"
   },
   "repository": {
     "type": "git",
@@ -44,6 +44,6 @@
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-motion": "^0.4.4",
-    "watchify": "^3.7.0",
+    "watchify": "^3.7.0"
   }
 }
