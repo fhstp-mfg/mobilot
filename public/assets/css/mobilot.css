@@ -523,6 +523,12 @@ map {
   padding-right : 0
 }
 
+.creator-list-delete-item-controls .md-icon-drag {
+  margin-top: 7px;
+  margin-left: 3px;
+  margin-right: 15px;
+}
+
 .tinyeditor {
   padding : 0;
   border  : 0;
@@ -910,8 +916,7 @@ mbl-free-text-input textarea {
 .as-sortable-item,
 .as-sortable-placeholder {
   border: none !important;
-  padding-right: 4% !important;
-  margin: inherit;
+  padding-right: 5% !important;
 }
 
 .as-sortable-item,

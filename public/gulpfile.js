@@ -21,6 +21,7 @@ gulp.task('build', function () {
     'lib/ngGeolocation/ngGeolocation.min.js',
     'lib/angular-sanitize/angular-sanitize.min.js',
     'lib/lodash/lodash.min.js',
+    'lib/ng-sortable/dist/ng-sortable.min.js',
     // 'https://maps.google.com/maps/api/js?key=AIzaSyD2a1NXYQjRKYaU0Vyym9JJvIMcZervnkw',
     'lib/ngmap/build/scripts/ng-map.min.js',
     'lib/angular-mousewheel/mousewheel.js',
