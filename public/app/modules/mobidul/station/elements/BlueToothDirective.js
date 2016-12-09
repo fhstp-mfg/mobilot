@@ -55,7 +55,7 @@ function BlueTooth (
       beaconkey: '@',
       fallback: '@',
       success: '@',
-      selectedrange: '@',
+      selectedrange: '@'
     },
     bindToController: true,
     link: function ($scope, $element, $attrs, BlueTooth) {
