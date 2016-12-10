@@ -302,11 +302,11 @@ function RallyService (
   }
 
   function performAction (actionString) {
-    var action = actionString.split(':')[0];
-    var attr = actionString.replace(action + ':', '');
-
-    return service.ACTIONS[action].action(attr);
-
+    return $q(function(resolve, reject) {
+      var action = actionString.split(':')[0];
+      var attr = actionString.replace(action + ':', '');
+      resolve(service.ACTIONS[action].action(attr));
+    });
   }
 
   function activateNext () {
