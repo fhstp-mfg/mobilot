@@ -33,7 +33,7 @@ Funktionen:
 
 Gestartet werden kann mit den TeilnehmerInnen innerhalb von wenigen Minuten, ohne jeglicher technischen Vorbereitung, einfach jeder mit seinem eigenen Smartphone, eine funktionierende Internetverbindung vorausgesetzt.
 
-Mobilot wurde im Projekt seekoi von Januar bis Dezember 2016 weiterentwickelt und wird über den 10. Call von 10. Call von Netidee durch die Internet Foundation Austria (IPA) gefördert.
+Mobilot wurde im Projekt seekoi von Januar bis Dezember 2016 weiterentwickelt und wird über den 10. Call von Netidee durch die Internet Foundation Austria (IPA) gefördert.
 
 Keywords:
 --> One or more keywords that describe your app. Keywords make App Store search results more accurate. Separate keywords with a comma. max. 100 characters
@@ -103,7 +103,7 @@ Funktionen:
 
 Gestartet werden kann mit den TeilnehmerInnen innerhalb von wenigen Minuten, ohne jeglicher technischen Vorbereitung, einfach jeder mit seinem eigenen Smartphone, eine funktionierende Internetverbindung vorausgesetzt.
 
-Mobilot wurde im Projekt seekoi von Januar bis Dezember 2016 weiterentwickelt und wird über den 10. Call von 10. Call von Netidee durch die Internet Foundation Austria (IPA) gefördert.
+Mobilot wurde im Projekt seekoi von Januar bis Dezember 2016 weiterentwickelt und wird über den 10. Call von Netidee durch die Internet Foundation Austria (IPA) gefördert.
 
 KATEGORISIERUNG
 App-Typ: Apps
