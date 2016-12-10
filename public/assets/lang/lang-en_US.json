@@ -371,6 +371,8 @@
   "BLUETOOTH_INFO_2_IMMEDIATE": "You are IMMEDIATE now.",
   "BLUETOOTH_INFO_2_FOUND": "Beacon found!!",
 
+  "FREE_TEXT_QUESTION": "Question",
+
   "COUNTDOWN_INFO": "After the countdown finished, something happens at this station. Time left (seconds): ",
 
   "WSC_MOBIDUL_PROTECTED": "This Mobidul code is protected and can't be changed!",

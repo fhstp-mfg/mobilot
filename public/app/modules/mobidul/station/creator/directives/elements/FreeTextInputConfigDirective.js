@@ -33,6 +33,9 @@ function FreeTextInputConfig(
     bindToController: true,
     link: function ($scope, $element, $attr, ctrl) {
 
+      if( ctrl.question === undefined ) {
+        ctrl.question = $translate.instant('FREE_TEXT_QUESTION');
+      }
       if ( ! $scope.id ) {
         $scope.id = util.getGUID();
       }
