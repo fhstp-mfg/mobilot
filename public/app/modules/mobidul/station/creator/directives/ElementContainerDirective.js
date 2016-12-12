@@ -19,7 +19,7 @@ function ElementContainer (
 ) {
   return {
     restrict: 'E',
-
+    transclude: true,
     template: (
       '<div class="editor-element-opt-container">' +
         '<md-button class="editor-element-opt" ng-click="ctrl.showInfo()">' +
@@ -35,6 +35,8 @@ function ElementContainer (
         '<md-button class="editor-element-opt" ng-click="ctrl.collapse()">' +
           '<md-icon style="color: #106391">edit</md-icon>' +
         '</md-button>' +
+
+        '<span ng-transclude></span> '+
       '</div>'
     ),
 
@@ -249,3 +251,34 @@ function ElementContainer (
 }
 
 })();
+
+//SPECIAL TOOLBAR:
+
+// '<div class="editor-element-opt-container">' +
+// '<md-fab-toolbar md-open="false" md-direction="left">' +
+// '<md-fab-trigger class="md-fab-bottom-right">' +
+// '<md-button class="md-fab md-mobilot md-custom-small">' +
+// '<md-icon style="color: #ffffff">menu</md-icon>' +
+// '</md-button>' +
+// '</md-fab-trigger>' +
+//
+// '<md-toolbar>' +
+// '<md-fab-actions class="md-toolbar-tools">' +
+// '<md-button class="md-icon-button" ng-click="ctrl.showInfo()">' +
+// '<md-icon style="color: #ffffff">{{ ctrl.icon }}</md-icon>' +
+// '<span>{{ ctrl.type }}</span>' +
+// '</md-button>' +
+//
+// '<md-button class="editor-element-opt" ng-click="ctrl.delete()">' +
+// '<md-icon style="color: #ffffff">delete</md-icon>' +
+// '</md-button>' +
+//
+// '<md-button class="editor-element-opt" ng-click="ctrl.collapse()">' +
+// '<md-icon style="color: #ffffff">edit</md-icon>' +
+// '</md-button>' +
+//
+// '<span ng-transclude></span> '+
+// '</md-fab-actions>' +
+// '</md-toolbar>' +
+// '</md-fab-toolbar>' +
+// '</div>'
