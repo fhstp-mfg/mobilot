@@ -9,9 +9,17 @@ angular
     {
       /// debugging
       var isDeveloperEnv = document.location.hostname != 'mobilot.at';
+
       console.info('Debugging: ' + isDeveloperEnv);
 
       $logProvider.debugEnabled( isDeveloperEnv );
+      if(!isDeveloperEnv){
+        if(!window.console) window.console = {};
+        var methods = ["log", "debug", "warn", "info"];
+        for(var i=0;i<methods.length;i++){
+          console[methods[i]] = function(){};
+        }
+      }
 
 
       // Language Settings
