@@ -15,21 +15,29 @@ root_www = "cordova/www"
 plugins     = "cordova/platforms/android/platform_www/plugins";
 plugins_android = "cordova/www/plugins";
 
-cordova_js           = "cordova/platforms/android/platform_www/cordova.js"
-cordova_plugins_js   = "cordova/platforms/android/platform_www/cordova_plugins.js"
+cordova_js         = "cordova/platforms/android/platform_www/cordova.js"
+cordova_plugins_js = "cordova/platforms/android/platform_www/cordova_plugins.js"
 
 buildExtra = "utilities/build-extras.gradle"
 androidPath = "cordova/platforms/android"
 
 public_ignored = [
-    ".excluded"
+    # dirs
+    ".excluded",
+    "app",
+    "lib",
+    "node_modules",
+    "temp",
     "upload",
+    # files
+    ".bowerrc",
     ".htaccess",
-    "disableDebug.php",
-    "enableDebug.php",
-    "update.php",
-    "updatedb.php",
-    "vulcanize.php"
+    "bower.json",
+    "gulpfile.js",
+    "index.php",
+    "karma.conf.js",
+    "package.json",
+    "robots.txt",
 ]
 
 
