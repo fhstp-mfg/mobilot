@@ -34,6 +34,7 @@ public/assets/js/react.bundle.js
 .excluded/
 *.sh
 !setup.sh
+!build_ios.sh
 
 # Composer
 composer.phar
