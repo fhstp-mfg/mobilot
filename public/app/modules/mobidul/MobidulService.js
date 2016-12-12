@@ -42,7 +42,7 @@ function MobidulService (
         BUTTON: { icon: 'crop_16_9' },
         // PHOTO_UPLOAD: { icon: 'camera_alt' },
         SET_TIMEOUT: { icon: 'alarm' },
-        FREE_TEXT: { icon: 'edit' },
+        FREE_TEXT: { icon: 'short_text' },
         // CONFIRM_SOCIAL: { icon: 'people' },
         SHOW_SCORE: { icon: 'plus_one' }
       },
