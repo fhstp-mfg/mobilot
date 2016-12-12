@@ -1,14 +1,14 @@
-var gulp = require('gulp');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var notify = require('gulp-notify');
-var ngAnnotate = require('gulp-ng-annotate');
-var sourcemaps = require('gulp-sourcemaps');
-var rimraf = require('rimraf');
+var gulp = require('gulp')
+var concat = require('gulp-concat')
+var uglify = require('gulp-uglify')
+var notify = require('gulp-notify')
+var ngAnnotate = require('gulp-ng-annotate')
+var sourcemaps = require('gulp-sourcemaps')
+var rimraf = require('rimraf')
 
 /// constants
-var BUNDLE_NAME = 'app.bundle.js';
-var BUNDLE_OUTPUT = 'bin/';
+var BUNDLE_NAME = 'app.bundle.js'
+var BUNDLE_OUTPUT = 'bin/'
 
 /// dependencies
 
@@ -120,7 +120,7 @@ var JS_DEPENDENCIES = [
   'app/modules/mobidul/station/creator/directives/elements/ShowScoreConfigDirective.js',
   'app/modules/mobidul/station/media/MediaController.js',
   'app/modules/mobidul/about/AboutController.js'
-];
+]
 
 
 /// tasks
@@ -131,9 +131,9 @@ gulp.task('default', ['clean'], function() {
     .pipe(concat(BUNDLE_NAME))
     .pipe(ngAnnotate())
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(BUNDLE_OUTPUT));
-    // .pipe(notify({ message: 'Yuhuu! Successfully build Mobilot!' }))
-});
+    .pipe(gulp.dest(BUNDLE_OUTPUT))
+    .pipe(notify({ message: 'Yuhuu! Successfully build Mobilot!' }))
+})
 
 
 // gulp.task('default', ['build']);
@@ -143,11 +143,10 @@ gulp.task('build', ['clean'], function() {
     .pipe(sourcemaps.init())
     .pipe(concat(BUNDLE_NAME))
     .pipe(ngAnnotate())
-    //.pipe(uglify())
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(BUNDLE_OUTPUT));
-    // .pipe(notify({ message: 'Yuhuu! Successfully build Mobilot!' }))
-});
+    .pipe(uglify())
+    .pipe(gulp.dest(BUNDLE_OUTPUT))
+    .pipe(notify({ message: 'Yuhuu! Successfully build Mobilot!' }))
+})
 
 gulp.task('test', function() {
   return gulp.src(JS_DEPENDENCIES)
@@ -156,17 +155,16 @@ gulp.task('test', function() {
     // .pipe(uglify())
     .pipe(gulp.dest(BUNDLE_OUTPUT))
     .pipe(notify({ message: 'Yuhuu! This file seems to be ok!' }))
-});
+})
 
 /// cleaning
 
-gulp.task("clean", function (cb) {
-  rimraf(BUNDLE_OUTPUT + '/' + BUNDLE_NAME, cb);
-});
+gulp.task('clean', function (cb) {
+  rimraf(BUNDLE_OUTPUT + '/' + BUNDLE_NAME, cb)
+})
 
 /// watchers
 
 gulp.task('watch', function() {
   gulp.watch(JS_DEPENDENCIES, ['default'])
-});
-
+})
