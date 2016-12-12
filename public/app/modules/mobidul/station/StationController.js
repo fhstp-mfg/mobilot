@@ -86,10 +86,10 @@ function StationController (
       });
   }
 
-  function activateThis(){
+  function activateThis () {
     $log.warn('StationController.activateThis(): Please don\'t use this any longer');
     RallyService.setProgress(station.order)
-      .then(function(){
+      .then(function () {
         $state.go($state.current, {}, {reload: true});
       });
   }

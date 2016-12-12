@@ -136,14 +136,11 @@ gulp.task('default', ['clean'], function() {
 })
 
 
-// gulp.task('default', ['build']);
-
 gulp.task('build', ['clean'], function() {
   return gulp.src(JS_DEPENDENCIES)
-    .pipe(sourcemaps.init())
     .pipe(concat(BUNDLE_NAME))
     .pipe(ngAnnotate())
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(gulp.dest(BUNDLE_OUTPUT))
     .pipe(notify({ message: 'Yuhuu! Successfully build Mobilot!' }))
 })

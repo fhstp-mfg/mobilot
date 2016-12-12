@@ -12,8 +12,8 @@ print strftime("> %d.%m.%Y %H:%M:%S", gmtime())
 
 root_www = "cordova/www"
 
-plugins     = "cordova/platforms/android/platform_www/plugins";
-plugins_android = "cordova/www/plugins";
+# plugins = "cordova/platforms/android/platform_www/plugins";
+# plugins_android = "cordova/www/plugins";
 
 cordova_js         = "cordova/platforms/android/platform_www/cordova.js"
 cordova_plugins_js = "cordova/platforms/android/platform_www/cordova_plugins.js"
@@ -55,8 +55,8 @@ if os.path.isdir(root_www):
 print '  o  copy from "public" to "%s"' % root_www
 shutil.copytree("public", root_www, ignore=copyignore)
 
-print '  o  copy "plugins" to "%s"' % plugins_android
-dir_util.copy_tree(plugins, plugins_android)
+# print '  o  copy "plugins" to "%s"' % plugins_android
+# dir_util.copy_tree(plugins, plugins_android)
 
 print '  o  copy "cordova.js" to "%s"' % root_www
 shutil.copy2(cordova_js, root_www)
