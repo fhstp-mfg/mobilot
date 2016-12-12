@@ -107,13 +107,15 @@ echo "When asked, always choose the later module versions required by Mobilot."
 cd public
 bower install
 
+echo "> Running development build gulp task."
+gulp
+
 echo ""
 echo "> Mobilot setup completed!"
 
 echo_further_help
 
-
-echo "> Would you like to serve Mobilot now? (Y/n)"
+echo "> Would you like to serve Mobilot locally? (Y/n)"
 read answer
 if [[ $answer == Y || $answer == y ]]
 then

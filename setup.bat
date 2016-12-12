@@ -72,6 +72,9 @@ echo "When asked, always choose the later module versions required by Mobilot."
 cd public
 bower install
 
+echo "> Running development build gulp task."
+gulp
+
 echo.
 echo ^> Mobilot setup completed!
 
@@ -84,7 +87,7 @@ echo Further help  – https://github.com/fhstp-mfg/mobilot/wiki/Setup
 echo Report issues – https://github.com/fhstp-mfg/mobilot/issues
 echo.
 
-SET /p answer4= ^> Would you like to serve Mobilot now? (Y/n) 
+SET /p answer4= ^> Would you like to serve Mobilot locally? (Y/n)
 
 IF NOT "%answer4%"=="n" (
   echo ^> php artisan serve
