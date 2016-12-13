@@ -147,18 +147,17 @@ gulp.task('build', ['clean'], function() {
 
 gulp.task('test', function() {
   return gulp.src(JS_DEPENDENCIES)
-    // .pipe(concat(BUNDLE_NAME))
     .pipe(ngAnnotate())
-    // .pipe(uglify())
-    .pipe(gulp.dest(BUNDLE_OUTPUT))
     .pipe(notify({ message: 'Yuhuu! This file seems to be ok!' }))
 })
+
 
 /// cleaning
 
 gulp.task('clean', function (cb) {
-  rimraf(BUNDLE_OUTPUT + '/' + BUNDLE_NAME, cb)
+  rimraf(BUNDLE_OUTPUT, cb)
 })
+
 
 /// watchers
 
