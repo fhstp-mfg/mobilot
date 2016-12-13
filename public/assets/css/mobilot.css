@@ -997,3 +997,60 @@ ul[dnd-list] .selected {
   background-color: #c3dae6;
   color: #808080;
 }
+
+
+/************About Page****************/
+/**
+Basic table element
+ */
+.tg {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid #ccc;
+  margin: 0 auto;
+}
+
+/**
+Table data elements
+ */
+.tg td {
+  padding: 10px 5px;
+  overflow: hidden;
+  word-break: normal;
+  border: 0 solid #ccc;
+  color: #333;
+  background-color: #fff;
+}
+
+/**
+Table header element
+ */
+.tg th {
+  font-weight: bold;
+  padding: 10px 5px;
+  overflow: hidden;
+  word-break: normal;
+  border: 0 solid #ccc;
+  color: #3797c4;
+  background-color: #f9f9f9;
+}
+
+/**
+Special table classes
+ */
+.tg .tg-rc10 {
+  background-color: #f9f9f9;
+  font-weight: bold;
+  font-size: small;
+}
+
+.tg .tg-4eph {
+  background-color: #f9f9f9;
+  font-size: smaller;
+}
+
+.tg .tg-8col {
+  background-color: #f9f9f9;
+  font-size: smaller;
+  font-style: italic;
+}
