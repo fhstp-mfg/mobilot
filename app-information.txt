@@ -17,7 +17,7 @@ Description:
 --> A description of your app, detailing features and functionality. It will also be used for your Apple Watch app. max. 4000 characters
 
 Mobilot (der mobile Pilot) ist ein System zum einfachen Erstellen von kontext-orientierten Informationen. Eine kontext-orientierte Information wird angezeigt, wenn sich die User in einer bestimmten Situation befinden z.B. an einem bestimmten Ort.
-Mit Mobilot können so einfache Naturlehrpfade, die Verortung interessanter Sehenswürdigkeiten und Bauwerke oder auch komplexere Rätselrallys von Jedermann ohne Programmierkenntnisse erstellt werden.
+Mit Mobilot können von jedem Naturlehrpfade, Städte- und Restaurantführer aber auch komplexere Rätselrallyes ohne jegliche Programmierkenntnisse erstellt werden.
 
 Funktionen:
 * Mobidule (mit Mobilot erstellte eigenständige Anwendungen) vom Typ "default" und "rally" administrieren und konsumieren
@@ -87,7 +87,7 @@ Mobilot ist ein System zum Erstellen von kontext-orientierten Informationen.
 
 Lange Beschreibung (max. 4000):
 Mobilot (der mobile Pilot) ist ein System zum einfachen Erstellen von kontext-orientierten Informationen. Eine kontext-orientierte Information wird angezeigt, wenn sich die User in einer bestimmten Situation befinden z.B. an einem bestimmten Ort.
-Mit Mobilot können so einfache Naturlehrpfade, die Verortung interessanter Sehenswürdigkeiten und Bauwerke oder auch komplexere Rätselrallys von Jedermann ohne Programmierkenntnisse erstellt werden.
+Mit Mobilot können von jedem Naturlehrpfade, Städte- und Restaurantführer aber auch komplexere Rätselrallyes ohne jegliche Programmierkenntnisse erstellt werden.
 
 Funktionen:
 * Mobidule (mit Mobilot erstellte eigenständige Anwendungen) vom Typ "default" und "rally" administrieren und konsumieren
