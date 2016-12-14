@@ -22,11 +22,6 @@ class UserController extends BaseController
         'username' => $params->user,
         'password' => $params->password
       ];
-    } else {
-      // NOTE: @deprecated !
-      // "manual" login
-      $username = $credentials['username'];
-      $password = $credentials['password'];
     }
 
     $sessionId = Session::getId();
@@ -36,50 +31,52 @@ class UserController extends BaseController
 
     if ($authAttempt) {
       $user = User::getCurrentUser();
-      \Log::info('authAttempt $user:');
-      \Log::info($user);
 
-      if ($guest) {
-        $mobidul = User2Mobidul::where('userId', $guest->id)->get();
-
-        foreach ($mobidul as $right) {
-          $existingRight = User2Mobidul::where('mobidulId', $right->mobidulId)
-            ->where('userId', $user->id)
-            ->first();
-
-          if (
-            $existingRight &&
-            $existingRight->rights >= $right->rights
-          ) {
-            User2Mobidul::where('mobidulId', $right->mobidulId)
-              ->where('userId', $user->id)
-              ->delete();
-
-
-            if ( $existingRight->rights >= $right->rights ) {
-              User2Mobidul::where('mobidulId', $right->mobidulId)
-                ->where('userId', $right->userId)
-                ->update([ 'userId' => $user->id ]);
-            } else {
-              User2Mobidul::where('mobidulId', $right->mobidulId)
-                ->where('userId', $right->userId)
-                ->delete();
-            }
-          }
-
-          Station::where('creator', $guest->id)
-            ->update([ 'creator' => $user->id ]);
-
-          Attachment::where('userId', $guest->id)
-            ->update([ 'userId' => $user->id ]);
-
-          $guest->delete();
-        }
-
+      if ($user) {
         return 'success';
       } else {
         return 'wrong';
       }
+
+      // if ($guest) {
+      //   $mobidul = User2Mobidul::where('userId', $guest->id)->get();
+      //
+      //   foreach ($mobidul as $right) {
+      //     $existingRight = User2Mobidul::where('mobidulId', $right->mobidulId)
+      //       ->where('userId', $user->id)
+      //       ->first();
+      //
+      //     if ( $existingRight
+      //       && $existingRight->rights >= $right->rights
+      //     ) {
+      //       User2Mobidul::where('mobidulId', $right->mobidulId)
+      //         ->where('userId', $user->id)
+      //         ->delete();
+      //
+      //       if ( $existingRight->rights >= $right->rights ) {
+      //         User2Mobidul::where('mobidulId', $right->mobidulId)
+      //           ->where('userId', $right->userId)
+      //           ->update([ 'userId' => $user->id ]);
+      //       } else {
+      //         User2Mobidul::where('mobidulId', $right->mobidulId)
+      //           ->where('userId', $right->userId)
+      //           ->delete();
+      //       }
+      //     }
+      //
+      //     Station::where('creator', $guest->id)
+      //       ->update([ 'creator' => $user->id ]);
+      //
+      //     Attachment::where('userId', $guest->id)
+      //       ->update([ 'userId' => $user->id ]);
+      //
+      //     $guest->delete();
+      //   }
+      //
+      //   return 'success';
+      // } else {
+      //   return 'wrong';
+      // }
     } else {
       return 'wrong';
     }
@@ -90,6 +87,8 @@ class UserController extends BaseController
   {
     Auth::logout();
     Session::flush();
+    // NOTE: This is not necessarily needed !
+    // Session::regenerate();
 
     return 'success';
   }
@@ -113,18 +112,16 @@ class UserController extends BaseController
 
         $token = $this->uuid(5, $email);
 
-        $user->username      = $username;
-        $user->email        = $email;
-        $user->password      = Hash::make($password);
+        $user->username = $username;
+        $user->email = $email;
+        $user->password = Hash::make($password);
         $user->activation_code = $token;
-        $user->guest        = false;
+        $user->guest = false;
         $user->save();
 
 
         // NOTE: sends email with link to activate user account
-        Mail::queue('emails.register',
-          array('token' => $token),
-
+        Mail::queue('emails.register', [ 'token' => $token ],
           function ($message) use ($email) {
             $message->to($email);
             $message->subject('Willkommen bei Mobilot :)');
@@ -140,7 +137,7 @@ class UserController extends BaseController
         $authAttempt = Auth::attempt($credentials, true);
 
 
-        return ( $authAttempt ) ? 'success' : 'error';
+        return $authAttempt ? 'success' : 'error';
       } else {
         return 'email-exists';
       }
