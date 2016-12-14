@@ -14,7 +14,7 @@ var _online_server = _live ? 'mobilot.at' : 'mobilot.fhstp.ac.at';
 var _online_server_regex = _online_server.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 var protocolPrefix = _https ? 'https://' : 'http://';
-    _online_server = protocolPrefix + _online_server;
+_online_server = protocolPrefix + _online_server;
 
 var _QR_CODE_REGEX = new RegExp('^http(?:s)?://' + _online_server_regex + '(?:/)+([\\w]{1,20}){1,}(?:(?:/)+([\\w]{1,20}))?(?:/)*$');
 
@@ -22,15 +22,14 @@ var _QR_CODE_REGEX = new RegExp('^http(?:s)?://' + _online_server_regex + '(?:/)
 /// Mobidul settings
 
 // change this variable to use Mobilot as "mobidul-only"
-//  also this only works for mobile devices.
-var _START_MOBIDUL          = null;    // default : null
-// _START_MOBIDUL          = 'guide';
-// _START_MOBIDUL          = 'vfrankl';
+var _START_MOBIDUL = null; // default: null
+// _START_MOBIDUL = 'example';
 
 // enables/disables the menu point "Mobidulauswahl" inside a mobidul
-var _enable_mobidulauswahl  = true;        // default : true
+var _enable_mobidulauswahl = true; // default : true
+
 // enables/disables the menu point "Über uns" inside a mobidul
-var _enable_aboutus         = true;        // default : true
+var _enable_aboutus = true; // default : true
 
 
 

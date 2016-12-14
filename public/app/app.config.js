@@ -45,13 +45,13 @@ angular
         .when('/:mobidulCode/list', '/:mobidulCode/list/all')
         .when('/:mobidulCode/list/', '/:mobidulCode/list/all')
 
-        // .when('/:mobidulCode/:stationCode/',          '/:mobidulCode/:stationCode')
+        // .when('/:mobidulCode/:stationCode/', '/:mobidulCode/:stationCode')
 
-        // .when('/:mobidulCode//edit',              '/:mobidulCode')
-        // .when('/:mobidulCode//edit/basis',            '/:mobidulCode')
-        // .when('/:mobidulCode/:stationCode/edit',        '/:mobidulCode/:stationCode/edit/basis')
-        // .when('/:mobidulCode/:stationCode/edit/',        '/:mobidulCode/:stationCode/edit/basis')
-        // .when('/:mobidulCode/:stationCode/edit/basis/',  '/:mobidulCode/:stationCode/edit/basis')
+        // .when('/:mobidulCode//edit', '/:mobidulCode')
+        // .when('/:mobidulCode//edit/basis', '/:mobidulCode')
+        // .when('/:mobidulCode/:stationCode/edit', '/:mobidulCode/:stationCode/edit/basis')
+        // .when('/:mobidulCode/:stationCode/edit/', '/:mobidulCode/:stationCode/edit/basis')
+        // .when('/:mobidulCode/:stationCode/edit/basis/', '/:mobidulCode/:stationCode/edit/basis')
         // .when('/:mobidulCode/:stationCode//edit/basis/', '/:mobidulCode/:stationCode/edit/basis')
 
         .otherwise('/');
