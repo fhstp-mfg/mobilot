@@ -391,9 +391,33 @@
   "ABOUT_MOBILOT": "About Mobilot",
 
   "MOBILOT_DESCRIPTION": "Mobilot (the mobile pilot) was developed during various research projects and allows the simple creation of context based Informationsystems.\n With Mobilot so called Mobidul's can be created for free.\n We request our users to observe the legal rules and the ethics of nice taste and we reserve the right to delte Mobidul's the offend these rules. We take no responsibility for the contet our users create.",
-  "MFG": "Mobile Research Group",
+  "MFG": "Research Group Media Computing",
   "ICMT": "Institute for Creative\\Media/Technologies",
-  "FHSTP": "University of Applied Sciences St. Pölten",
+  "FHSTP": "St. Pölten University of Applied Sciences",
+  "NETIDEE": "Netidee",
+
+  "ADDITIONAL_INFO": "Additional Information",
+  "PRIVACY_POLICY": "Privacy Policy",
+  "PRIVACY_POLICY_INFO": "In order to work appropriate, Mobilot collects data from your phone. Once you install our app, you agree that we may collect the following data:",
+  "CONTACT_ABOUT": "ACCOUNTING INFORMATION",
+  "CONTACT_ABOUT_INFO": "Individual Mobidul's can be used without registration. To create a Mobidul, you must register with your e-mail address and password. This information is transferred securely. The password is additionally transferred encrypted (actually hashed), so that also we can not read it.",
+  "LOCATION_DATA": "LOCATION DATA",
+  "LOCATION_DATA_INFO": "We need access to the location of your device. In case of an inquiry, we will determine your current location via GPS, in order to give you quick information about your immediate surroundings. Data about your location will only be used to process your request. The transmission of your location data takes place via an encrypted connection. Your location data will be anonymized after completion of your request and will be evaluated statistically to improve our service.",
+  "DEVICE_NOTE": "INFORMATION ABOUT YOUR DEVICE",
+  "DEVICE_NOTE_INFO": "This includes the operating system, device identification number, mobile provider, language, battery power, WLAN or other existing network connections and other data needed for downloading from App Stores.",
+  "CONTACT_US": "COMMUNICATION WITH US",
+  "CONTACT_US_INFO": "If you contact us, we will collect and process information on this matter. This may include all information you provide, including: name, email address, and other contact information. You can, of course, also give anonymous feedback with a mailaccount that does not reveal your identity.",
+  "INFORMATION_USAGE": "HOW DO WE USE THE INFORMATION?",
+  "INFORMATION_USAGE_INFO": "We use the information we gather in different ways. In order for the app to work, this information is first sent via a secure connection to our servers and stored there. The data are then analyzed and returned to your phone. These analysis results are also stored on our servers. We also use the collected data to further improve our app. In addition, the data are scientifically evaluated and the results are eventually published in scientific journals. This is done completely anonymously, so no one is able to draw conclusions about your person or your device used, from the published data.",
+  "DATA_SHARE": "EXTENSION OF DATA TO THIRD PARTIES",
+  "DATA_SHARE_INFO": "To run the app, we need to pass on information that we collect through the app to third parties inside and outside the European Economic Area. This can happen in the following cases: <br> -) If you decide in the future to use third-party apps that refer to data from our app and you agree to that data transfer. <br> -) If necessary, we can share your data with governmental organizations in order to prevent damage to you, us or others. <br> -) As described above, we plan to use your data in an anonymous form for scientific purposes.",
+  "SYSTEM_SECURITY": "SAFETY OF OUR SYSTEMS",
+  "SYSTEM_SECURITY_INFO": "We use systems from hosting partners to get the necessary hardware, software, networks and storage space to run the app. These systems may be located outside the European economic area. If you install the app, you agree. We use commercially available physical and technical backups to protect your data. Unfortunately, we can not guarantee 100% security of your data. The security of your data may be violated by unforeseen events such as unauthorized access, hardware or software problems, and other complications.",
+  "DATA_STORAGE": "DATA SECURITY AND DATA EXCHANGE",
+  "DATA_STORAGE_INFO": "We will save your information as long as necessary to run the app and required usage of the data described in this Privacy Statement. Normally this means that we keep the information until you delete your account. If you delete your account, you may also request the deletion of your information.",
+  "PRIVACY_CHANGES": "PRIVACY POLICY CHANGES",
+  "PRIVACY_CHANGES_INFO": "We reserve the right to change this privacy policy at any time. We will provide you with timely information on our app and / or website before any such change takes place. If you do not agree to the amended declarations, you can delete your account at any time.",
+
 
   "PRESENTED_BY": "Presented by"
 

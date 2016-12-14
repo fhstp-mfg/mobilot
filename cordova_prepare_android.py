@@ -20,10 +20,10 @@ androidPath = "cordova/platforms/android"
 public_ignored = [
     # dirs
     ".excluded",
-    "app",
-    "lib",
+    "app/*.js",
+    #"lib",
     "node_modules",
-    "temp",
+    #"temp",
     "upload",
     # files
     ".bowerrc",

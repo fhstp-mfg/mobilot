@@ -2,9 +2,9 @@
   <!-- no controller -->
 
   <md-content
-    class="header-content"
-    layout-padding
-    ng-class="{ 'ios-top-margin': about.isCordovaIos }"
+      class="header-content"
+      layout-padding
+      ng-class="{ 'ios-top-margin': about.isCordovaIos }"
   >
     <h1 translate="ABOUT_MOBILOT"></h1>
 
@@ -14,12 +14,12 @@
     <div>
       <span>FH-Prof. DI Dr. Grischa Schmiedl</span><br>
       <span>
-        <a href="http://mfg.fhstp.ac.at" translate="MFG"></a>
+        <a href="http://mc.fhstp.ac.at" translate="MFG" target="_blank"></a>
       </span>
       <br><br>
       <span translate="ICMT"></span><br>
       <span>
-        <a href="https://www.fhstp.ac.at" tranlate="FHSTP"></a>
+        <a href="https://www.fhstp.ac.at" translate="FHSTP" target="_blank"></a>
       </span>
     </div>
 
@@ -28,11 +28,63 @@
     <h3 style="margin-bottom:.2em" translate="PRESENTED_BY"></h3>
     <a href="https://www.fhstp.ac.at" target="_blank">
       <img
-        src="assets/img/fh-logo.jpg"
-        alt="{{ 'FHSTP' | translate }}"
-        title="{{ 'FHSTP' | translate }}"
-        style="max-width : 100px"
+          src="assets/img/fh-logo.jpg"
+          alt="{{ 'FHSTP' | translate }}"
+          title="{{ 'FHSTP' | translate }}"
+          style="max-width : 100px"
       >
     </a>
+    <a href="https://www.netidee.at/netidee-home/" target="_blank">
+      <img
+          src="assets/img/netidee-250.png"
+          alt="{{ 'NETIDEE' | translate }}"
+          title="{{ 'NETIDEE' | translate }}"
+          style="max-width : 250px"
+      >
+    </a>
+    <br/>
+    <span style="padding-top: 50px; padding-bottom: 15px" layout="row"><hr flex/><p translate="ADDITIONAL_INFO"></p><hr flex/></span>
+    <table class="tg" style="table-layout: auto;">
+      <tr>
+        <th translate="PRIVACY_POLICY"></th>
+        <td class="tg-8col" translate="PRIVACY_POLICY_INFO"></td>
+      </tr>
+      <tr>
+        <td class="tg-rc10" translate="CONTACT_ABOUT"></td>
+        <td class="tg-4eph" translate="CONTACT_ABOUT_INFO"></td>
+      </tr>
+      <tr>
+        <td class="tg-rc10" translate="LOCATION_DATA"></td>
+        <td class="tg-4eph" translate="LOCATION_DATA_INFO"></td>
+      </tr>
+      <tr>
+        <td class="tg-rc10" translate="DEVICE_NOTE"></td>
+        <td class="tg-4eph" translate="DEVICE_NOTE_INFO"></td>
+      </tr>
+      <tr>
+        <td class="tg-rc10" translate="CONTACT_US"></td>
+        <td class="tg-4eph" translate="CONTACT_US_INFO"></td>
+      </tr>
+      <tr>
+        <td class="tg-rc10" translate="INFORMATION_USAGE"></td>
+        <td class="tg-4eph" translate="INFORMATION_USAGE_INFO"></td>
+      </tr>
+      <tr>
+        <td class="tg-rc10" translate="DATA_SHARE"></td>
+        <td class="tg-4eph" translate="DATA_SHARE_INFO"></td>
+      </tr>
+      <tr>
+        <td class="tg-rc10" translate="SYSTEM_SECURITY"></td>
+        <td class="tg-4eph" translate="SYSTEM_SECURITY_INFO"></td>
+      </tr>
+      <tr>
+        <td class="tg-rc10" translate="DATA_STORAGE"></td>
+        <td class="tg-4eph" translate="DATA_STORAGE_INFO"></td>
+      </tr>
+      <tr>
+        <td class="tg-rc10" translate="PRIVACY_CHANGES"></td>
+        <td class="tg-4eph" translate="PRIVACY_CHANGES_INFO"></td>
+      </tr>
+    </table>
   </md-content>
 </div>
