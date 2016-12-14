@@ -107,24 +107,24 @@ function LoginController (
     $log.debug(login.credentials);
 
     UserService.login(login.credentials)
-    .then(function (response) {
-      $log.debug('login callback');
-      $log.debug(response);
+      .then(function (response) {
+        $log.debug('login callback');
+        $log.debug(response);
 
-      if (response.data === 'wrong') {
-        var loginCompletedDialog =
-          $mdDialog.alert()
-            .parent(angular.element(document.body))
-            .title($translate.instant('LOGIN_ERROR'))
-            .textContent($translate.instant('CREDENTIALS_WRONG'))
-            .ariaLabel($translate.instant('LOGIN_ERROR'))
-            .ok($translate.instant('EDIT_CREDENTIALS'));
+        if (response.data === 'wrong') {
+          var loginCompletedDialog =
+            $mdDialog.alert()
+              .parent(angular.element(document.body))
+              .title($translate.instant('LOGIN_ERROR'))
+              .textContent($translate.instant('CREDENTIALS_WRONG'))
+              .ariaLabel($translate.instant('LOGIN_ERROR'))
+              .ok($translate.instant('EDIT_CREDENTIALS'));
 
-        $mdDialog.show(loginCompletedDialog);
-      }
+          $mdDialog.show(loginCompletedDialog);
+        }
 
-      _checkIsLoggedInOnline(response);
-    });
+        _checkIsLoggedInOnline(response);
+      });
   }
 
 
