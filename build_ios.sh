@@ -4,7 +4,7 @@ echo "Building Mobilot for iOS !"
 
 cd public/
 
-echo "> Run production build task"
+echo "> Run production build gulp task"
 gulp build
 
 cd ../
