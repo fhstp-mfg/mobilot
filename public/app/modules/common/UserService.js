@@ -18,7 +18,7 @@ function UserService (
   var _Roles = {
     _isGuest  : 0,
     _isPlayer : 2,
-    _isAdmin  : 1
+    _isAdmin  : 1,
   };
 
   // NOTE: these are permissions for Guest users
@@ -221,13 +221,13 @@ function UserService (
   function restoreUser () {
     return $http.get(cordovaUrl + '/currentUser')
       .success(function (response, status, headers, config) {
-        // $log.debug('> restored current user successfully');
-        // $log.debug(response);
+        $log.debug('> Restored current user successfully !');
+        $log.debug(response);
         // $log.debug(response.guest);
 
         var isGuest = response.guest === true || response.guest == 1;
         var isGuestNot = ! isGuest;
-        // $log.debug('isGuestNot : ' + isGuestNot);
+        // $log.debug('isGuestNot: ' + isGuestNot);
 
         var email    = isGuestNot ? response.email    : null;
         var guestId  = isGuest    ? response.username : null;
