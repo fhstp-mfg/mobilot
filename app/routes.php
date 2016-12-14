@@ -103,7 +103,7 @@ Route::get('/DeleteCode/{Code}','CodeController@deleteCode')->before('auth');
 
 Route::post('/{mobidulCode}/UpdateStartPage','ConfigController@updateStartPage')->before('auth');
 
-Route::post('login', array('as' => 'login', 'uses' => 'UserController@login'));
+Route::post('login', 'UserController@login');
 Route::get('logout','UserController@logout');
 Route::post('register','UserController@register');
 Route::get('currentUser', 'UserController@getCurrentUser');
