@@ -131,7 +131,7 @@ Route::get('{mobName}/getConfig', 'ConfigController@getConfiguration');
 //looks if given Name is existing Mobidul, if not found--> error
 Route::get('{mobName}/isMobidul', 'ConfigController@isMobidul');
 
-//gets mobidul with certain station loaded. for qr codes or quicklinks
+// gets mobidul with certain station loaded. for qr codes or quicklinks
 Route::get('{mobidulCode}/{stationCode}', 'HomeController@showMobidulWithCode');
 
 //check if Image with certain hash has already been uploaded

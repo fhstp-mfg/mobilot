@@ -6,93 +6,82 @@ use App\Models\User;
 
 class HomeController extends BaseController {
 
-  /*
-  |--------------------------------------------------------------------------
-  | Default Home Controller
-  |--------------------------------------------------------------------------
-  |
-  | You may wish to use controllers instead of, or in addition to, Closure
-  | based routes. That's great! Here is an example controller method to
-  | get you started. To route to this controller, just add the route:
-  |
-  |  Route::get('/', 'HomeController@showWelcome');
-  |
-  */
-
   public function showWelcome()
   {
     return View::make('hello');
   }
 
+
   public function showMobidul($mobidulCode)
   {
-    $mob = Mobidul::where('code', $mobidulCode)->first();
+    $mobidul = Mobidul::where('code', $mobidulCode)->first();
 
-    if ( ! $mob ) {
+    if ( ! $mobidul ) {
       // App::abort(202, 'No entry found.');
       return View::make('generateNew');
     } else {
       return View::make('mobimer', [
         'mobidul' => $mobidulCode,
-        'mobidulName' => $mob->name,
-        'startAbility' => $mob->startAbility,
-        'startItemId' => $mob->startItemId
+        'mobidulName' => $mobidul->name,
+        'startAbility' => $mobidul->startAbility,
+        'startItemId' => $mobidul->startItemId
       ]);
     }
   }
 
+
   public function showMobidulWithCode($mobidulCode, $stationCode)
   {
-    $mob = Mobidul::where('code', $mobidulCode)->first();
-    // \Log::info("mobidulid ".$mob->id);
-    //
-    // \Log::info("GETCONTENTFORCODE ");
-    // \Log::info($mobidulCode."  ".$stationCode);
+    // TODO: There is a weird annomaly here.
+    // Somehow this method gets called with $mobidulCode = 'dist' and
+    // $stationCode = 'angulartics-google-analytics.min.js.map'
 
-    // find stationid
-    $station = Station::where('mobidulId', $mob->id)
-      ->where('code', $stationCode)
-      ->first();
-
-    // \Log::info($station);
+    $mobidul = Mobidul::where('code', $mobidulCode)->first();
 
 
-    if ( ! $mob ) {
+    if ( ! $mobidul ) {
       // App::abort(202, 'No entry found.');
       return View::make('generateNew');
-    } else if ( ! $station ) {
-      return View::make('mobimer', [
-        'mobidul' => $mobidulCode,
-        'mobidulName' => $mob->name
-      ]);
     } else {
-      \Log::info('station-mobid' . $station->mobidulId . ' mob-mobid' . $mob->id);
+      $station = Station::where('mobidulId', $mobidul->id)
+        ->where('code', $stationCode)
+        ->first();
 
-      if ( $station->mobidulId == $mob->id ) {
-        return Redirect::to($mobidulCode . '/#/content/' . $station->id);
-        // 'stationCode'=>$station->id, 'mobidulName'=>$mob->name));//)->with('mobidul',$mobidulCode, $stationCode);
-      } else {
+      if ( ! $station ) {
         return View::make('mobimer', [
           'mobidul' => $mobidulCode,
-          'mobidulName' => $mob->name
+          'mobidulName' => $mobidul->name
         ]);
+      } else {
+        \Log::info('station-mobid' . $station->mobidulId . ' mob-mobid' . $mobidul->id);
+
+        if ( $station->mobidulId == $mobidul->id ) {
+          return Redirect::to($mobidulCode . '/#/content/' . $station->id);
+        } else {
+          return View::make('mobimer', [
+            'mobidul' => $mobidulCode,
+            'mobidulName' => $mobidul->name
+          ]);
+        }
       }
     }
   }
 
-  public function changeToStation($mobidulCode,$stationId)
+
+  public function changeToStation($mobidulCode, $stationId)
   {
-    $mob = Mobidul::where('code', $mobidulCode)->first();
+    $mobidul = Mobidul::where('code', $mobidulCode)->first();
 
     return View::make('mobimer', [
       'mobidul' => $mobidulCode,
-      'mobidulName' => $mob->name,
+      'mobidulName' => $mobidul->name,
       'startAbility' => 'switchcontent',
       'startItemId' => $station
     ]);
   }
 
-  public function showStart ($token = null)
+
+  public function showStart($token = null)
   {
     // public_path() . '/index.html';
 
@@ -106,7 +95,7 @@ class HomeController extends BaseController {
   }
 
 
-  public function activateAccount ($token = null)
+  public function activateAccount($token = null)
   {
     if ( is_null($token) ) {
       return Redirect::to('/');
@@ -120,5 +109,4 @@ class HomeController extends BaseController {
       }
     }
   }
-
 }
