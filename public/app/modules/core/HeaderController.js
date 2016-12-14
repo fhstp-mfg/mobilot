@@ -8,7 +8,7 @@ HeaderController.$inject = [
   '$state', '$stateParams', 'StateManager',
   '$mdSidenav', '$mdMedia', '$translate',
   'UtilityService', 'UserService', 'GeoLocationService',
-  'MobidulService', 'StationService', 'ListService', 'FontService'
+  'MobidulService', 'StationService', 'ListService', 'FontService', 'LanguageService'
 ];
 
 
@@ -17,7 +17,7 @@ function HeaderController (
   $state, $stateParams, StateManager,
   $mdSidenav, $mdMedia, $translate,
   UtilityService, UserService, GeoLocationService,
-  MobidulService, StationService, ListService, FontService
+  MobidulService, StationService, ListService, FontService, LanguageService
 ) {
   var header = this;
 
@@ -61,6 +61,8 @@ function HeaderController (
   header.isCancelPanzoomEnabled = header._isCancelPanzoomEnabled;
 
   header.isShowImpressumEnabled = isHome() || isHomeLogin();
+  header.isSelectLanguageEnabled = isHome() || isHomeLogin();
+  header.originatorEv = null;
 
 
   /// functions
@@ -82,6 +84,7 @@ function HeaderController (
   header.isMedia          = isMedia;
   header.isCreator        = isCreator;
   header.isNewMobidul     = isNewMobidul;
+  header.chooseLanguage   = chooseLanguage;
 
 
   /// events
@@ -93,6 +96,7 @@ function HeaderController (
   header.saveStation      = saveStation;
   header.cancelPanzoom    = cancelPanzoom;
   header.showImpressum    = showImpressum;
+  header.dropDownMenu     = dropDownMenu;
 
 
   /// construct
@@ -363,5 +367,24 @@ function HeaderController (
   function showImpressum ()
   {
     $state.go( StateManager.IMPRESSUM );
+  }
+
+  function dropDownMenu ($mdOpenMenu, ev)
+  {
+    header.originatorEv = ev;
+    $mdOpenMenu(ev);
+  }
+
+  function chooseLanguage (langType)
+  {
+    switch (langType) {
+      case "German" :
+        LanguageService.switchLanguage("de_DE");
+        break;
+      case "English" :
+        LanguageService.switchLanguage("en_US");
+        break;
+    }
+    header.originatorEv = null;
   }
 }

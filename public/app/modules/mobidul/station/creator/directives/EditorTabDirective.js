@@ -28,7 +28,7 @@ function EditorTab(
               'dnd-effect-allowed="move">' +
             '<element-container element="element">' +
               '<md-button class="editor-element-opt" ng-click="ctrl.moveUp($index)" ng-show="!$first">' +
-                '<md-icon class="material icons">arrow_upward</md-icon>' +
+                '<md-icon class="material-icons">arrow_upward</md-icon>' +
               '</md-button>' +
             '</element-container>' +
             '</li>' +
