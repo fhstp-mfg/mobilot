@@ -39,7 +39,7 @@ class UserController extends BaseController
     }
 
     $sessionId = Session::getId();
-    $guest     = User::where('username', $sessionId)->first();
+    $guest = User::where('username', $sessionId)->first();
 
     $authAttempt = Auth::attempt($credentials, true);
 
@@ -53,7 +53,7 @@ class UserController extends BaseController
 
         foreach ($mobidul as $right) {
           $existingRight = User2Mobidul::where('mobidulId', $right->mobidulId)
-            ->where('userId',     $user->id)
+            ->where('userId', $user->id)
             ->first();
 
           if (
@@ -68,7 +68,7 @@ class UserController extends BaseController
             if ( $existingRight->rights >= $right->rights ) {
               User2Mobidul::where('mobidulId', $right->mobidulId)
                 ->where('userId', $right->userId)
-                ->update( array('userId' => $user->id) );
+                ->update([ 'userId' => $user->id ]);
             } else {
               User2Mobidul::where('mobidulId', $right->mobidulId)
                 ->where('userId', $right->userId)
@@ -77,10 +77,10 @@ class UserController extends BaseController
           }
 
           Station::where('creator', $guest->id)
-            ->update( array('creator' => $user->id) );
+            ->update([ 'creator' => $user->id ]);
 
           Attachment::where('userId', $guest->id)
-            ->update( array('userId' => $user->id) );
+            ->update([ 'userId' => $user->id ]);
 
           $guest->delete();
         }
