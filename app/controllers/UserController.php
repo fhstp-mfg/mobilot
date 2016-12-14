@@ -11,15 +11,6 @@ use App\Models\RestoreToken;
 
 class UserController extends BaseController
 {
-  /**
-   * @deprecated
-   */
-  public function showLogin ()
-  {
-    return View::make('login');
-  }
-
-
   public function login ($credentials = null)
   {
     if ( is_null($credentials) ) {
