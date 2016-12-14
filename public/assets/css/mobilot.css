@@ -713,6 +713,7 @@ md-backdrop.md-sidenav-backdrop {
 .menu-login,
 .menuDivider {
   background: rgb(55, 151, 196);
+  color: #ffffff;
 }
 .menuDividerEmpty {
   min-height: 1.2em;
