@@ -1,9 +1,6 @@
-/// wait for debug
-// alert('start safari debug');
-
 /// constants
 
-var _live = false;
+var _live = true;
 
 // NOTE: https is an iOS 9 Safari requirement !
 var _https = !!_live;
@@ -22,16 +19,7 @@ var protocolPrefix = _https ? 'https://' : 'http://';
 var _QR_CODE_REGEX = new RegExp('^http(?:s)?://' + _online_server_regex + '(?:/)+([\\w]{1,20}){1,}(?:(?:/)+([\\w]{1,20}))?(?:/)*$');
 
 
-
-var _mobimer_url   = 'mobimer.html?';
-var _mob_code      = 'code';
-var _mob_name      = 'name';
-var _station_code  = 'scode';
-var _start_ability = 'ability';
-var _start_item_id = 'startid';
-
-
-/// MOBIDUL-ONLY SETTINGS
+/// Mobidul settings
 
 // change this variable to use Mobilot as "mobidul-only"
 //  also this only works for mobile devices.
@@ -43,8 +31,6 @@ var _START_MOBIDUL          = null;    // default : null
 var _enable_mobidulauswahl  = true;        // default : true
 // enables/disables the menu point "Über uns" inside a mobidul
 var _enable_aboutus         = true;        // default : true
-
-/// MOBIDUL SETTINGS END
 
 
 
@@ -78,16 +64,3 @@ function urlExists (url) {
 
   return urlExists;
 }
-
-
-// before anything else, we have to extract some GET parameters from the url
-
-// GET parameters
-var mobidulParam      = getUrlParameter(_mob_code);
-var mobidulNameParam  = getUrlParameter(_mob_name);
-var stationCodeParam  = getUrlParameter(_station_code);
-var startAbilityParam = getUrlParameter(_start_ability);
-var startItemIdParam  = getUrlParameter(_start_item_id);
-
-
-// ...
