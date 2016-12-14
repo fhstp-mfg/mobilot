@@ -54,9 +54,10 @@
         ng-model="list.stations"
         data-is-disabled=" ! list.canEditStation"
         ng-class="{ 'ios-no-top-margin': list.isCordovaIos }"
+        style="list-style: none; padding-left: 0;"
       >
         <li
-          ng-repeat="station in list.stations | filter : list.searchQuery | orderBy : station.order"
+          ng-repeat="station in list.stations | filter: list.searchQuery | orderBy: station.order"
           data-as-sortable-item=""
         >
           <div data-as-sortable-item-handle="">

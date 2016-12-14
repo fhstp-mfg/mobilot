@@ -21,7 +21,11 @@
     <!--dnd-selected="models.selected = menuItem"-->
 
     <div id="sortableContainerCreator">
-      <ul data-as-sortable="creator.dragControlListeners" ng-show="creator.menu.length" ng-model="creator.menu">
+      <ul data-as-sortable="creator.dragControlListeners"
+        ng-show="creator.menu.length"
+        ng-model="creator.menu"
+        style="list-style: none; padding-left: 0;"
+      >
       <li
         ng-repeat="menuItem in creator.menu"
         data-as-sortable-item=""

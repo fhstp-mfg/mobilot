@@ -17,7 +17,11 @@
     <!-- NOTE: postponed for v1.1 -->
     <!-- <react-component name="Hello" props="creator.person"></react-component> -->
     <div id="sortableContainerCreator">
-      <ul data-as-sortable="creator.dragControlListeners" ng-show="creator.categories.length" ng-model="creator.categories">
+      <ul data-as-sortable="creator.dragControlListeners"
+        ng-show="creator.categories.length"
+        ng-model="creator.categories"
+        style="list-style: none; padding-left: 0;"
+      >
       <li
         ng-repeat="category in creator.categories"
         data-as-sortable-item=""
