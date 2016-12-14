@@ -297,14 +297,14 @@ function LoginController (
   {
     if (response.data && response.data === 'success') {
       UserService.isLoggedIn()
-      .then(function (response) {
-        $log.debug('is logged in callback');
-        $log.debug(response);
+        .then(function (response) {
+          $log.debug('is logged in callback');
+          $log.debug(response);
 
-        if (response.data && response.data === 'true') {
-          StateManager.redirectLogin();
-        }
-      });
+          if (response.data && response.data === 'true') {
+            StateManager.redirectLogin();
+          }
+        });
     }
   }
 

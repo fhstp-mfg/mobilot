@@ -140,7 +140,7 @@ function UserService (
 
     return $http.post(cordovaUrl + '/login', postData)
       .success(function (response, status, headers, config) {
-        // $log.debug('login response: ', response);
+        $log.debug('login response: ', response);
 
         if ( response === 'success' ) {
           service.Session.isLoggedIn = true;

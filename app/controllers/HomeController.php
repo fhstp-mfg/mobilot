@@ -4,13 +4,8 @@ use App\Models\Mobidul;
 use App\Models\Station;
 use App\Models\User;
 
-class HomeController extends BaseController {
-
-  public function showWelcome()
-  {
-    return View::make('hello');
-  }
-
+class HomeController extends BaseController
+{
 
   public function showMobidul($mobidulCode)
   {
@@ -83,15 +78,11 @@ class HomeController extends BaseController {
 
   public function showStart($token = null)
   {
-    // public_path() . '/index.html';
-
     if ( is_null($token) ) {
       return Response::make( file_get_contents(public_path() . '/angular.html') );
     } else {
       return Redirect::to('/#/restore/' . $token);
     }
-
-    // return View::make('index');
   }
 
 

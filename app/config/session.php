@@ -28,7 +28,6 @@ return array(
 	| to immediately expire on the browser closing, set that option.
 	|
 	*/
-	/* 5 years lifetime */
 	'lifetime' => 60,
 
 	'expire_on_close' => false,
