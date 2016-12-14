@@ -701,6 +701,7 @@ md-backdrop.md-sidenav-backdrop {
 .menu-login {
   height: 56px;
   min-height: 56px;
+  padding-top: 4px;
 }
 .ios-menu-login {
   height: 76px;
