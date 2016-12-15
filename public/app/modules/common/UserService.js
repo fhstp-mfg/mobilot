@@ -17,8 +17,8 @@ function UserService (
   /// constants
   var _Roles = {
     _isGuest  : 0,
-    _isPlayer : 2,
     _isAdmin  : 1,
+    _isPlayer : 2,
   };
 
   // NOTE: these are permissions for Guest users
@@ -57,11 +57,11 @@ function UserService (
       created_at     : null,
       remember_token : null,
 
-      role           : _Roles._isGuest
-    },
+      role           : _Roles._isGuest,
 
-    // save current mobidulCode to cache roles
-    currentMobidul : ''
+      // NOTE: Remembers a mobidulCode to cache user roles for
+      remMobidulCode : ''
+    },
   };
 
 
@@ -92,24 +92,24 @@ function UserService (
   function _getRoleForMobidul (mobidulCode) {
     var deferred = $q.defer();
 
-    if ( service.currentMobidul === mobidulCode ) {
+    if ( service.Session.remMobidulCode === mobidulCode ) {
       deferred.resolve(service.Session.role);
     } else {
       $http.get(cordovaUrl + '/RoleForMobidul/' + mobidulCode)
-      .success(function (response, status, headers, config) {
-        var role = angular.isDefined(response.role) ? response.role : null;
+        .success(function (response, status, headers, config) {
+          var role = angular.isDefined(response.role) ? response.role : null;
 
-        if ( role !== null ) {
-          deferred.resolve(response.role);
-        } else {
-          deferred.reject({
-            msg: 'No user role passed from server !'
-          });
-        }
-      })
-      .error(function (response, status, headers, config) {
-        deferred.reject(response);
-      });
+          if ( role !== null ) {
+            deferred.resolve(response.role);
+          } else {
+            deferred.reject({
+              msg: 'No user role passed from server !'
+            });
+          }
+        })
+        .error(function (response, status, headers, config) {
+          deferred.reject(response);
+        });
     }
 
     return deferred.promise;
@@ -129,6 +129,7 @@ function UserService (
 
     return deferred.promise;
   }
+
 
   /// services
 
@@ -164,6 +165,7 @@ function UserService (
           service.Session.isLoggedIn = false;
           service.Session.username   = guestName;
           service.Session.role       = isGuest;
+          service.Session.remMobidulCode = '';
 
           service.Permit = angular.copy( _Permits );
         }
@@ -260,12 +262,11 @@ function UserService (
 
     _getRoleForMobidul(mobidulCode)
       .then(function (role) {
-        service.Session.role   = role;
-        service.Permit         = _checkPermits(role);
-        service.currentMobidul = mobidulCode;
+        service.Session.role = role;
+        service.Session.remMobidulCode = mobidulCode;
+        service.Permit = _checkPermits(role);
 
         HeaderService.refresh();
-
         deferred.resolve();
       },
       function (error) {
