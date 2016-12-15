@@ -55,7 +55,7 @@ class CodeController extends BaseController {
             'userId'    => $userId,
             'mobidulId' => $mobidulId,
             'rights'    => 2,
-            'code'     => $code
+            'code'      => $code
           ]);
 
         \Log::info("created rights for play");
