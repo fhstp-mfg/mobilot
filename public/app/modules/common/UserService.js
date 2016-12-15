@@ -60,7 +60,7 @@ function UserService (
       role           : _Roles._isGuest,
 
       // NOTE: Remembers a mobidulCode to cache user roles for
-      remMobidulCode : ''
+      currentMobidulCode : ''
     },
   };
 
@@ -92,7 +92,7 @@ function UserService (
   function _getRoleForMobidul (mobidulCode) {
     var deferred = $q.defer();
 
-    if ( service.Session.remMobidulCode === mobidulCode ) {
+    if ( service.Session.currentMobidulCode === mobidulCode ) {
       deferred.resolve(service.Session.role);
     } else {
       $http.get(cordovaUrl + '/RoleForMobidul/' + mobidulCode)
@@ -165,7 +165,7 @@ function UserService (
           service.Session.isLoggedIn = false;
           service.Session.username   = guestName;
           service.Session.role       = isGuest;
-          service.Session.remMobidulCode = '';
+          service.Session.currentMobidulCode = '';
 
           service.Permit = angular.copy( _Permits );
         }
@@ -263,7 +263,7 @@ function UserService (
     _getRoleForMobidul(mobidulCode)
       .then(function (role) {
         service.Session.role = role;
-        service.Session.remMobidulCode = mobidulCode;
+        service.Session.currentMobidulCode = mobidulCode;
         service.Permit = _checkPermits(role);
 
         HeaderService.refresh();
