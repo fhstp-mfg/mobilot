@@ -15,10 +15,10 @@ class ActivityController extends \BaseController {
     $content = $request->getContent();
     $activities = json_decode($content);
 
-    if ( Auth::check() ){
-        $userId = Auth::id();
-    }else{
-        $userId = User::where('username', Session::getId())->first()->id;
+    if ( Auth::check() ) {
+      $userId = Auth::id();
+    } else {
+      $userId = User::where('username', Session::getId())->first()->id;
     }
 
     foreach ($activities as $aIx => $activityData) {
