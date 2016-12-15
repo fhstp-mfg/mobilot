@@ -3,13 +3,13 @@
   <!-- CreatorController as creator -->
 
   <md-content
-    class="creator-content"
-    layout-padding
-    ng-class="{ 'ios-top-margin': creator.isCordovaIos }"
+      class="creator-content"
+      layout-padding
+      ng-class="{ 'ios-top-margin': creator.isCordovaIos }"
   >
     <div
-      style="margin-top: 1em"
-      ng-show="creator.categories.length === 0"
+        style="margin-top: 1em"
+        ng-show="creator.categories.length === 0"
     >
       <p class="helper center" translate="EMPTY_CATEGORIES_LIST"></p>
     </div>
@@ -18,28 +18,28 @@
     <!-- <react-component name="Hello" props="creator.person"></react-component> -->
     <div id="sortableContainerCreator">
       <ul class="sortable-list"
-        data-as-sortable="creator.dragControlListeners"
-        ng-show="creator.categories.length"
-        ng-model="creator.categories"
+          data-as-sortable="creator.dragControlListeners"
+          ng-show="creator.categories.length"
+          ng-model="creator.categories"
       >
         <li data-as-sortable-item=""
-          ng-repeat="category in creator.categories"
-          ng-class="{ 'selected': models.selected === category }"
+            ng-repeat="category in creator.categories"
+            ng-class="{ 'selected': models.selected === category }"
         >
           <div layout="row" data-as-sortable-item-handle="">
             <md-input-container ng-maxlength="16" flex>
               <label translate="LABEL_CATEGORY"></label>
               <input
-                ng-model="category.name"
-                ng-focus="creator.focusCategory( category )"
-                ng-blur="creator.blurCategory( category )">
+                  ng-model="category.name"
+                  ng-focus="creator.focusCategory( category )"
+                  ng-blur="creator.blurCategory( category )">
             </md-input-container>
 
             <div class="creator-list-delete-item-controls">
               <md-button
-                class="md-icon-button"
-                aria-label="delete"
-                ng-click="creator.deleteCategory( category.id, $index, $event )"
+                  class="md-icon-button"
+                  aria-label="delete"
+                  ng-click="creator.deleteCategory( category.id, $index, $event )"
               >
                 <md-icon>delete</md-icon>
               </md-button>
@@ -54,9 +54,9 @@
 
     <div layout="row" layout-sm="column">
       <md-button
-        class="md-primary md-mobilot-color center"
-        aria-label="Hinzufüguen"
-        ng-click="creator.addCategory()"
+          class="md-primary md-mobilot-color center"
+          aria-label="Hinzufüguen"
+          ng-click="creator.addCategory()"
       >
         <md-icon>add</md-icon>
         <span translate="ADD_CATEGORY"></span>
@@ -66,8 +66,8 @@
     <!-- TODO: Move this into the Header -->
     <div layout="row" layout-sm="column">
       <md-button
-        class="md-raised md-primary md-mobilot"
-        ng-click="creator.saveCategories()"
+          class="md-raised md-primary md-mobilot"
+          ng-click="creator.saveCategories()"
       >
         <md-icon>check</md-icon>
         <span translate="SAVE"></span>

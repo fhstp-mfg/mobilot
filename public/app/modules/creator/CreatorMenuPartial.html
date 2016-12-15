@@ -3,13 +3,13 @@
   <!-- CreatorController as creator -->
 
   <md-content
-    class="creator-content"
-    layout-padding
-    ng-class="{ 'ios-top-margin': creator.isCordovaIos }"
+      class="creator-content"
+      layout-padding
+      ng-class="{ 'ios-top-margin': creator.isCordovaIos }"
   >
     <div
-      style="margin-top: 1em"
-      ng-show="creator.menu.length === 0"
+        style="margin-top: 1em"
+        ng-show="creator.menu.length === 0"
     >
       <p class="helper center" translate="EMPTY_MENU_LIST"></p>
     </div>
@@ -22,29 +22,29 @@
 
     <div id="sortableContainerCreator">
       <ul class="sortable-list"
-        data-as-sortable="creator.dragControlListeners"
-        ng-show="creator.menu.length"
-        ng-model="creator.menu"
+          data-as-sortable="creator.dragControlListeners"
+          ng-show="creator.menu.length"
+          ng-model="creator.menu"
       >
         <li
-          ng-repeat="menuItem in creator.menu"
-          data-as-sortable-item=""
+            ng-repeat="menuItem in creator.menu"
+            data-as-sortable-item=""
         >
           <div
-            data-as-sortable-item-handle=""
-            layout="row"
-            ng-class="menuItem.isDivider ? 'menuDivider' : ''"
+              data-as-sortable-item-handle=""
+              layout="row"
+              ng-class="menuItem.isDivider ? 'menuDivider' : ''"
           >
             <md-input-container ng-maxlength="16" flex>
-                <label>{{ menuItem.name }}</label>
-                <input ng-model="menuItem.text">
+              <!--<label>{{ menuItem.name }}</label>-->
+              <input ng-model="menuItem.text" ng-class="menuItem.isDivider ? 'inputWhiteFont' : ''">
             </md-input-container>
 
             <div class="creator-list-delete-item-controls">
               <md-button
-                class="md-icon-button"
-                aria-label="delete"
-                ng-click="creator.deleteMenuItem( menuItem.id, $index )"
+                  class="md-icon-button"
+                  aria-label="delete"
+                  ng-click="creator.deleteMenuItem( menuItem.id, $index )"
               >
                 <md-icon>delete</md-icon>
               </md-button>
@@ -59,9 +59,9 @@
 
     <div layout="row" layout-sm="column">
       <md-button
-        class="md-mobilot-color center"
-        aria-label="Hinzufügen"
-        ng-click="creator.showAddMenuItem()"
+          class="md-mobilot-color center"
+          aria-label="Hinzufügen"
+          ng-click="creator.showAddMenuItem()"
       >
         <md-icon class="md-mobilot-color">add</md-icon>
         <span translate="ADD_MENU_ENTRY"></span>
@@ -70,8 +70,8 @@
 
     <div layout="row" layout-sm="column">
       <md-button
-        class="md-raised md-primary md-mobilot"
-        ng-click="creator.saveMenu()"
+          class="md-raised md-primary md-mobilot"
+          ng-click="creator.saveMenu()"
       >
         <md-icon>check</md-icon>
         <span translate="SAVE"></span>

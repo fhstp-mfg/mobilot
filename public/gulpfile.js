@@ -161,6 +161,6 @@ gulp.task('clean', function (cb) {
 
 /// watchers
 
-gulp.task('watch', ['default'], function() {
+gulp.task('watch', function() {
   gulp.watch(JS_DEPENDENCIES, ['default'])
 })
