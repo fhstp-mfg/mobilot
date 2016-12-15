@@ -17,40 +17,39 @@
     <!-- NOTE: postponed for v1.1 -->
     <!-- <react-component name="Hello" props="creator.person"></react-component> -->
     <div id="sortableContainerCreator">
-      <ul data-as-sortable="creator.dragControlListeners"
+      <ul class="sortable-list"
+        data-as-sortable="creator.dragControlListeners"
         ng-show="creator.categories.length"
         ng-model="creator.categories"
-        style="list-style: none; padding-left: 0;"
       >
-      <li
-        ng-repeat="category in creator.categories"
-        data-as-sortable-item=""
-        ng-class="{ 'selected' : models.selected === category }"
-      >
-        <div layout="row" data-as-sortable-item-handle="">
-          <md-input-container ng-maxlength="16" flex>
-            <label translate="LABEL_CATEGORY"></label>
-            <input
-              ng-model="category.name"
-              ng-focus="creator.focusCategory( category )"
-              ng-blur="creator.blurCategory( category )">
-          </md-input-container>
+        <li data-as-sortable-item=""
+          ng-repeat="category in creator.categories"
+          ng-class="{ 'selected': models.selected === category }"
+        >
+          <div layout="row" data-as-sortable-item-handle="">
+            <md-input-container ng-maxlength="16" flex>
+              <label translate="LABEL_CATEGORY"></label>
+              <input
+                ng-model="category.name"
+                ng-focus="creator.focusCategory( category )"
+                ng-blur="creator.blurCategory( category )">
+            </md-input-container>
 
-          <div class="creator-list-delete-item-controls">
-            <md-button
-              class="md-icon-button"
-              aria-label="delete"
-              ng-click="creator.deleteCategory( category.id, $index, $event )"
-            >
-              <md-icon>delete</md-icon>
-            </md-button>
+            <div class="creator-list-delete-item-controls">
+              <md-button
+                class="md-icon-button"
+                aria-label="delete"
+                ng-click="creator.deleteCategory( category.id, $index, $event )"
+              >
+                <md-icon>delete</md-icon>
+              </md-button>
+            </div>
+            <div class="creator-list-delete-item-controls">
+              <md-icon class="md-icon-drag">drag_handle</md-icon>
+            </div>
           </div>
-          <div class="creator-list-delete-item-controls">
-            <md-icon class="md-icon-drag">drag_handle</md-icon>
-          </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
     </div>
 
     <div layout="row" layout-sm="column">

@@ -50,11 +50,11 @@
       ng-class="{ 'ios-top-margin': list.isCordovaIos }"
     >
       <div id="sortableContainerStations">
-      <ul data-as-sortable="list.dragControlListenersStation"
-        ng-model="list.stations"
+      <ul class="sortable-list"
+        data-as-sortable="list.dragControlListenersStation"
         data-is-disabled=" ! list.canEditStation"
+        ng-model="list.stations"
         ng-class="{ 'ios-no-top-margin': list.isCordovaIos }"
-        style="list-style: none; padding-left: 0;"
       >
         <li
           ng-repeat="station in list.stations | filter: list.searchQuery | orderBy: station.order"

@@ -21,40 +21,40 @@
     <!--dnd-selected="models.selected = menuItem"-->
 
     <div id="sortableContainerCreator">
-      <ul data-as-sortable="creator.dragControlListeners"
+      <ul class="sortable-list"
+        data-as-sortable="creator.dragControlListeners"
         ng-show="creator.menu.length"
         ng-model="creator.menu"
-        style="list-style: none; padding-left: 0;"
       >
-      <li
-        ng-repeat="menuItem in creator.menu"
-        data-as-sortable-item=""
-      >
-        <div
-          data-as-sortable-item-handle=""
-          layout="row"
-          ng-class="menuItem.isDivider ? 'menuDivider' : ''"
+        <li
+          ng-repeat="menuItem in creator.menu"
+          data-as-sortable-item=""
         >
-          <md-input-container ng-maxlength="16" flex>
-              <label>{{ menuItem.name }}</label>
-              <input ng-model="menuItem.text">
-          </md-input-container>
+          <div
+            data-as-sortable-item-handle=""
+            layout="row"
+            ng-class="menuItem.isDivider ? 'menuDivider' : ''"
+          >
+            <md-input-container ng-maxlength="16" flex>
+                <label>{{ menuItem.name }}</label>
+                <input ng-model="menuItem.text">
+            </md-input-container>
 
-          <div class="creator-list-delete-item-controls">
-            <md-button
-              class="md-icon-button"
-              aria-label="delete"
-              ng-click="creator.deleteMenuItem( menuItem.id, $index )"
-            >
-              <md-icon>delete</md-icon>
-            </md-button>
+            <div class="creator-list-delete-item-controls">
+              <md-button
+                class="md-icon-button"
+                aria-label="delete"
+                ng-click="creator.deleteMenuItem( menuItem.id, $index )"
+              >
+                <md-icon>delete</md-icon>
+              </md-button>
+            </div>
+            <div class="creator-list-delete-item-controls">
+              <md-icon class="md-icon-drag">drag_handle</md-icon>
+            </div>
           </div>
-          <div class="creator-list-delete-item-controls">
-            <md-icon class="md-icon-drag">drag_handle</md-icon>
-          </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
     </div>
 
     <div layout="row" layout-sm="column">

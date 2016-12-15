@@ -71,6 +71,14 @@ p { margin: 0; }
   margin-bottom: 0;
 }
 
+.sortable-list {
+  list-style: none;
+  padding-left: 0;
+}
+.sortable-list li {
+  padding-right: 0 !important;
+}
+
 .helper {
   color     : #808080;
   font-size : 0.8em;
