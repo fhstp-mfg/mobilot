@@ -20,12 +20,13 @@
       <ul data-as-sortable="creator.dragControlListeners"
         ng-show="creator.categories.length"
         ng-model="creator.categories"
-        style="list-style: none; padding-left: 0;"
+        class="drag-drop-list-custom-ul"
       >
       <li
         ng-repeat="category in creator.categories"
         data-as-sortable-item=""
         ng-class="{ 'selected' : models.selected === category }"
+        style="padding-left: 0 !important; padding-right: 0 !important;"
       >
         <div layout="row" data-as-sortable-item-handle="">
           <md-input-container ng-maxlength="16" flex>
