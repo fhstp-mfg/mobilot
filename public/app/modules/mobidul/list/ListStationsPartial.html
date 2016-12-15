@@ -59,13 +59,15 @@
         <li
           ng-repeat="station in list.stations | filter: list.searchQuery | orderBy: station.order"
           data-as-sortable-item=""
+          style="padding-right: 0 !important"
         >
           <div data-as-sortable-item-handle="">
             <md-list-item
-            class="station-item"
-            ng-class-odd="'station-odd'"
-            ng-click="list.switchContent( list.params.mobidulCode, station.code, station )"
-          >
+              class="station-item"
+              ng-class-odd="'station-odd'"
+              ng-click="list.switchContent( list.params.mobidulCode, station.code, station )"
+            >
+
             <div class="md-list-item-text stdLink">
               <h3>{{ station.name }} </h3>
             </div>
