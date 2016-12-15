@@ -389,6 +389,7 @@
 
   "WELCOME_TO_MOBILOT": "Willkommen bei Mobilot",
   "ABOUT_MOBILOT": "Über Mobilot",
+  "MOBILOT_FEEDBACK": "Feedback",
 
   "MOBILOT_DESCRIPTION": "Mobilot (der mobile Pilot) ist ein in mehreren Forschungsprojekten entstandenes System zum einfachen Erstellen kontextbasierter Informationssysteme.\n Mit Mobilot können sogenannte Mobidule kostenlos erstellt werden. \n Wir bitten unsere Anwender die gesetzliche Regeln und die der Ethik und des guten Geschmacks einzuhalten und behalten uns vor, Mobidule, die diese Regeln verletzten, zu löschen. Wir übernehmen keine Verantwortung für Inhalte unserer Nutzer.",
   "MFG": "Forschungsgruppe Media Computing",
