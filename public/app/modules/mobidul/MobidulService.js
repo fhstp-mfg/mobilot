@@ -79,8 +79,7 @@ function MobidulService (
     cloneMobidul      : cloneMobidul,
 
     /// app config
-    Config :
-    {
+    Config: {
       // TODO: these belong into a core ConfigService
       isMenuEnabled     : true,
       isHomeViewEnabled : true,
@@ -92,7 +91,7 @@ function MobidulService (
     },
 
     /// mobidul config
-    Mobidul : {
+    Mobidul: {
       // background: '',
       // foreground: '',
       // font: '',

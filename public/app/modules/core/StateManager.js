@@ -445,21 +445,17 @@ function StateManager (
 
     if ( isHome() || isHomeLogin() ) {
       $log.debug('STATE: home or home.login ->');
-
       service.setTitle('Mobilot');
-    } else if (
-      ( isRegister() || isLogin() ) &&
-      comesFrom( service.HOME_LOGIN )
+    }
+    else if ( ( isRegister() || isLogin() )
+      && comesFrom(service.HOME_LOGIN)
     ) {
       $log.debug('STATE: ( register or login ) and comes from home.login ->');
-
-      service.setTitle( service.BACK_TO_LOGIN );
-    } else if (
-      isMobidul() ||
-      (
-        ( isLogin() || isProfile() ) &&
-        comesFrom( service.MOBIDUL )
-      )
+      service.setTitle(service.BACK_TO_LOGIN);
+    }
+    else if ( isMobidul()
+      || ( isLogin() || isProfile() )
+        && comesFrom(service.MOBIDUL)
     ) {
       $log.debug('STATE: comes from mobidul.* ->');
       $log.debug('WARN: in case of isMobidul don\'t set Header title after "rootScope:setConfig" anymore !');
@@ -483,21 +479,21 @@ function StateManager (
 
         MobidulService.Mobidul.categoryName = null;
       });
-    } else if ( isLogin() || isRegister() || isReset() || isProfile() ) {
+    }
+    else if ( isLogin() || isRegister() || isReset() || isProfile() ) {
       $log.debug('STATE: login or register or reset or profile ->');
-
       service.setTitle('MOBIDUL_SELECTION');
-    } else if ( isRestore() ) {
+    }
+    else if ( isRestore() ) {
       // TODO: check if this can be moved up to escape code duplication
-
       $log.debug('STATE: restore ->');
-
       service.setTitle( service.BACK_TO_LOGIN );
-    } else if ( isPlay() ) {
+    }
+    else if ( isPlay() ) {
       $log.debug('STATE: play ->');
-
       service.setTitle( service.PLAY_TITLE );
-    } else {
+    }
+    else {
       $log.debug('STATE: another state ->');
     }
   }
