@@ -163,17 +163,20 @@ class UserController extends BaseController
       && isset($params->code)
       && isset($params->feedback)
     ) {
-      $validator = Validator::make([
+      $feedbackData = [
         'user' => $params->user,
         'code' => $params->code,
         'feedback' => $params->feedback
-      ], [
+      ];
+
+      $validator = Validator::make($feedbackData, [
         'user' => 'required|integer',
         'code' => 'required|string:255',
         'feedback' => 'required|string|min:3'
       ]);
 
       if ( $validator->passes() ) {
+        $success = DB::table('feedback')->insert($feedbackData);
         echo 'ok';
       } else {
         echo 'wrong';
