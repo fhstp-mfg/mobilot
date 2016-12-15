@@ -730,10 +730,6 @@ md-backdrop.md-sidenav-backdrop {
   line-height: 1.4em;
 }
 
-.inputWhiteFont {
-  color: #ffffff !important;
-}
-
 /*
     Radio Buttons
 */
@@ -1002,19 +998,6 @@ ul[dnd-list] li {
 ul[dnd-list] .selected {
   background-color: #c3dae6;
   color: #808080;
-}
-
-/************Drag and Drop List New****************/
-/**
-For the ul elements
- */
-.drag-drop-list-custom-ul {
-  list-style: none; padding-left: 0;
-}
-
-.drag-drop-list-custom-li {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
 }
 
 

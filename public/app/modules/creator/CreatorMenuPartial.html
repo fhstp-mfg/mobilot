@@ -24,12 +24,11 @@
       <ul data-as-sortable="creator.dragControlListeners"
         ng-show="creator.menu.length"
         ng-model="creator.menu"
-        class="drag-drop-list-custom-ul"
+        style="list-style: none; padding-left: 0;"
       >
       <li
         ng-repeat="menuItem in creator.menu"
         data-as-sortable-item=""
-        class="drag-drop-list-custom-li"
       >
         <div
           data-as-sortable-item-handle=""
@@ -38,7 +37,7 @@
         >
           <md-input-container ng-maxlength="16" flex>
               <label>{{ menuItem.name }}</label>
-              <input ng-model="menuItem.text" ng-class="menuItem.isDivider ? 'inputWhiteFont' : ''">
+              <input ng-model="menuItem.text">
           </md-input-container>
 
           <div class="creator-list-delete-item-controls">
