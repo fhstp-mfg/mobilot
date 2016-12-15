@@ -11,6 +11,7 @@ use App\Models\RestoreToken;
 
 class UserController extends BaseController
 {
+
   public function login ($credentials = null)
   {
     if ( is_null($credentials) ) {
@@ -150,6 +151,36 @@ class UserController extends BaseController
   public function getCurrentUser ()
   {
     return User::getCurrentUser();
+  }
+
+
+  public function sendFeedback () {
+    $request = Request::instance();
+    $params  = $request->getContent();
+    $params  = json_decode($params);
+
+    if ( isset($params->user)
+      && isset($params->code)
+      && isset($params->feedback)
+    ) {
+      $validator = Validator::make([
+        'user' => $params->user,
+        'code' => $params->code,
+        'feedback' => $params->feedback
+      ], [
+        'user' => 'required|integer',
+        'code' => 'required|string:255',
+        'feedback' => 'required|string|min:3'
+      ]);
+
+      if ( $validator->passes() ) {
+        echo 'ok';
+      } else {
+        echo 'wrong';
+      }
+    } else {
+      echo 'wrong';
+    }
   }
 
 
