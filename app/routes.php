@@ -110,6 +110,7 @@ Route::get('currentUser', 'UserController@getCurrentUser');
 Route::post('requestRestore', 'UserController@requestRestore');
 Route::post('changePassword', 'UserController@changePassword')->before('auth');
 Route::post('changePasswordNoAuth', 'UserController@changePassword');
+Route::post('sendFeedback', 'UserController@sendFeedback');
 
 Route::post('DeleteMobidul', 'WebServicesController@DeleteMobidul')->before('auth');
 
