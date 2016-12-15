@@ -529,10 +529,10 @@ angular
       $rootScope.$on('$stateChangeStart',
         function (event, toState, toParams, fromState, fromParams) {
           $log.debug('==============================');
-          $log.debug('====  STATE CHANGE START  ====');
+          $log.debug('>>>>  STATE CHANGE START  <<<<');
           $log.debug('= ', toState, toParams);
           $log.debug('= ', fromState, fromParams);
-          $log.debug('==============================');
+          $log.debug('------------------------------');
 
           if (fromState) {
             console.debug('= Setting new state !')
@@ -551,14 +551,13 @@ angular
             UserService.restoreUserRole(toParams.mobidulCode);
           }
 
-          $log.debug('==============================');
+          $log.debug('############################');
         });
 
 
       $rootScope.$on('$stateChangeSuccess',
         function (event, toState, toParams, fromState, fromParams) {
-          $log.debug('==== STATE CHANGE SUCCESS ====');
-          $log.debug('==============================');
+          $log.debug('>>>> STATE CHANGE SUCCESS <<<<');
 
           HeaderService.refresh();
         });
