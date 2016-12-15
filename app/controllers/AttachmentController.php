@@ -4,10 +4,11 @@ use App\Models\Attachment;
 use App\Models\Mobidul;
 use App\Models\Station;
 
-class AttachmentController extends \BaseController {
+class AttachmentController extends \BaseController
+{
 
-  public function saveTextFromComponent ($mobidulCode, $stationCode, $componentId) {
-
+  public function saveTextFromComponent ($mobidulCode, $stationCode, $componentId)
+  {
     $request = Request::instance();
 
     $content = json_decode($request->getContent());
@@ -15,9 +16,9 @@ class AttachmentController extends \BaseController {
     $stationId = Station::getId($stationCode);
     $mobidulId = Mobidul::getId($mobidulCode);
 
-    if ( Auth::check() ){
+    if ( Auth::check() ) {
       $userId = Auth::id();
-    }else{
+    } else {
       $userId = User::where('username', Session::getId())->first()->id;
     }
 
@@ -38,10 +39,11 @@ class AttachmentController extends \BaseController {
     ];
 
     return $response;
+  }
 
-    }
-
-  public function exportTextsFromComponent ($mobidulCode, $stationCode, $componentId){
+  
+  public function exportTextsFromComponent ($mobidulCode, $stationCode, $componentId)
+  {
     $stationId = Station::getId($stationCode);
     $mobidulId = Mobidul::getId($mobidulCode);
 
@@ -50,10 +52,8 @@ class AttachmentController extends \BaseController {
     // TODO: Add Authentication
 
     if ( ! $attachments->isEmpty() ) {
-
       return Response::json(array('attachments' => $attachments, 'empty' => false));
     } else {
-
       return Response::json(array('empty' => true));
     }
   }

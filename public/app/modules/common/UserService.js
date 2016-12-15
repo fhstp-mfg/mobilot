@@ -41,6 +41,7 @@ function UserService (
     restoreUserRole : restoreUserRole,
     changePassword  : changePassword,
     requestRestore  : requestRestore,
+    sendFeedback    : sendFeedback,
 
     getEditStationPermit             : getEditStationPermit,
     getRequestAllStationsPermit      : getRequestAllStationsPermit,
@@ -321,6 +322,27 @@ function UserService (
     return $http.post(cordovaUrl + '/requestRestore', postData)
       .success(function (response, status, headers, config) {
         // $log.debug(response);
+      })
+      .error(function (response, status, headers, config) {
+        $log.error(response);
+        $log.error(status);
+      });
+  }
+
+
+  function sendFeedback (message) {
+    var postData = {
+      user: service.Session.id,
+      code: service.Session.currentMobidulCode,
+      feedback: message,
+    };
+
+    return $http.post(cordovaUrl + '/sendFeedback', postData)
+      .success(function (response, status, headers, config) {
+        // $log.debug('sendFeedback response:');
+        // $log.debug(response);
+
+        return response;
       })
       .error(function (response, status, headers, config) {
         $log.error(response);
