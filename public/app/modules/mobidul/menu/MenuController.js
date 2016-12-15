@@ -217,10 +217,28 @@ function MenuController (
           UserService.sendFeedback(message)
             .then(function(response) {
               if (response.data === 'ok') {
-                alert($translate.instant('FEEDBACK_SUCCESS_MSG'))
+                $mdDialog.show(
+                  $mdDialog.alert()
+                    .parent(angular.element(document.body))
+                    .clickOutsideToClose(true)
+                    .title(FEEDBACK_TITLE)
+                    .textContent($translate.instant('FEEDBACK_SUCCESS_MSG'))
+                    .ariaLabel(FEEDBACK_TITLE)
+                    .ok($translate.instant('CLOSE'))
+                );
               } else {
-                alert($translate.instant('FEEDBACK_ERROR_MSG'));
-                openFeedbackDialog();
+                $mdDialog.show(
+                  $mdDialog.alert()
+                    .parent(angular.element(document.body))
+                    .clickOutsideToClose(true)
+                    .title(FEEDBACK_TITLE)
+                    .textContent($translate.instant('FEEDBACK_ERROR_MSG'))
+                    .ariaLabel(FEEDBACK_TITLE)
+                    .ok($translate.instant('CLOSE'))
+                )
+                .then(function() {
+                  openFeedbackDialog();
+                });
               }
             });
         }, function() {
