@@ -730,6 +730,10 @@ md-backdrop.md-sidenav-backdrop {
   line-height: 1.4em;
 }
 
+.inputWhiteFont {
+  color: #ffffff !important;
+}
+
 /*
     Radio Buttons
 */
@@ -927,6 +931,13 @@ mbl-free-text-input textarea {
   border: none;
 }
 
+.sortable-list {
+  list-style: none;
+  padding-left: 0;
+}
+.sortable-list li {
+  padding-right: 0 !important;
+}
 
 
 

@@ -287,7 +287,7 @@
   "CHOOSE_FONT": "Wähle eine Schriftart",
 
   "HTML": "Text",
-  "HTML_DESCRIPTION": "Dieses Element ermöglicht Dir normalen Text mit Bildern zu erstellen. Hierfür stehen dir gängige Formatierungshilfen zur Verfügung.",
+  "HTML_DESCRIPTION": "Dieses Element ermöglicht dir normalen Text mit Bildern zu erstellen. Hierfür stehen dir gängige Formatierungshilfen zur Verfügung.",
   "IF_NEAR": "Abstandsmesser",
   "IF_NEAR_DESCRIPTION": "Dieses Element löst eine Aktion aus wenn sich der oder die SpielerIn in einer gewissen Entfernung zur Station befindet. Falls das GPS Signal zu ungenau sein sollte wird stattdessen ein Eingabefeld angezeigt. Dieses löst bei der richtigen Eingabe der \"Absicherung\" dieselbe Aktion aus.",
   "BLUETOOTH": "Bluetooth",

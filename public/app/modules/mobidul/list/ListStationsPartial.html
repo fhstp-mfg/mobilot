@@ -2,12 +2,12 @@
   <!-- ListController as list -->
 
   <div
-    class="search-type-controls"
-    ng-class="{ 'ios-top-margin': list.isCordovaIos }"
+      class="search-type-controls"
+      ng-class="{ 'ios-top-margin': list.isCordovaIos }"
   >
     <md-input-container
-      class="search-field"
-      ng-class="list.myFont"
+        class="search-field"
+        ng-class="list.myFont"
     >
       <label translate="SEARCH"></label>
       <input ng-model="list.searchQuery">
@@ -16,27 +16,27 @@
 
 
   <md-content
-    id="list_stations_view"
-    class="header-list-tabs-content"
-    layout="column"
-    layout-align="center center"
-    ng-class="{ 'ios-top-margin': list.isCordovaIos }"
-  >
-    <div
-      id="list_progress_wrapper"
+      id="list_stations_view"
+      class="header-list-tabs-content"
       layout="column"
       layout-align="center center"
-      ng-class="list.myFont"
+      ng-class="{ 'ios-top-margin': list.isCordovaIos }"
+  >
+    <div
+        id="list_progress_wrapper"
+        layout="column"
+        layout-align="center center"
+        ng-class="list.myFont"
     >
       <md-progress-circular
-        md-mode="indeterminate"
-        style="display : {{ list.loading }}">
+          md-mode="indeterminate"
+          style="display : {{ list.loading }}">
       </md-progress-circular>
 
       <h1
-        class="loading-title"
-        style="display : {{ list.loading }}"
-        translate="STATIONS_LOADING"
+          class="loading-title"
+          style="display : {{ list.loading }}"
+          translate="STATIONS_LOADING"
       ></h1>
     </div>
 
@@ -45,49 +45,49 @@
     <!--dnd-effect-allowed="move"-->
     <!--dnd-disable-if=" ! list.canEditStation"-->
     <md-list
-      id="list_stations"
-      layout="column"
-      ng-class="{ 'ios-top-margin': list.isCordovaIos }"
+        id="list_stations"
+        layout="column"
+        ng-class="{ 'ios-top-margin': list.isCordovaIos }"
     >
       <div id="sortableContainerStations">
-      <ul data-as-sortable="list.dragControlListenersStation"
-        ng-model="list.stations"
-        data-is-disabled=" ! list.canEditStation"
-        ng-class="{ 'ios-no-top-margin': list.isCordovaIos }"
-        style="list-style: none; padding-left: 0;"
-      >
-        <li
-          ng-repeat="station in list.stations | filter: list.searchQuery | orderBy: station.order"
-          data-as-sortable-item=""
-          style="padding-right: 0 !important"
+        <ul class="sortable-list"
+            data-as-sortable="list.dragControlListenersStation"
+            data-is-disabled=" ! list.canEditStation"
+            ng-model="list.stations"
+            ng-class="{ 'ios-no-top-margin': list.isCordovaIos }"
         >
-          <div data-as-sortable-item-handle="">
-            <md-list-item
-              class="station-item"
-              ng-class-odd="'station-odd'"
-              ng-click="list.switchContent( list.params.mobidulCode, station.code, station )"
-            >
+          <li
+              ng-repeat="station in list.stations | filter: list.searchQuery | orderBy: station.order"
+              data-as-sortable-item=""
+              style="padding-right: 0 !important"
+          >
+            <div data-as-sortable-item-handle="">
+              <md-list-item
+                  class="station-item"
+                  ng-class-odd="'station-odd'"
+                  ng-click="list.switchContent( list.params.mobidulCode, station.code, station )"
+              >
 
-            <div class="md-list-item-text stdLink">
-              <h3>{{ station.name }} </h3>
-            </div>
+                <div class="md-list-item-text stdLink">
+                  <h3>{{ station.name }} </h3>
+                </div>
 
-            <div
-              class="md-secondary secondary-icon"
-              ng-show="station.canEdit"
-              ng-click="list.editStation( station.code )"
-              aria-label="{{ 'EDIT' | translate }}"
-            >
-              <span>✎</span>
+                <div
+                    class="md-secondary secondary-icon"
+                    ng-show="station.canEdit"
+                    ng-click="list.editStation( station.code )"
+                    aria-label="{{ 'EDIT' | translate }}"
+                >
+                  <span>✎</span>
+                </div>
+                <div class="md-secondary secondary-icon">
+                  <md-icon class="md-icon-drag">drag_handle</md-icon>
+                </div>
+                <md-divider ng-if=" ! $last"></md-divider>
+              </md-list-item>
             </div>
-              <div class="md-secondary secondary-icon">
-                <md-icon class="md-icon-drag">drag_handle</md-icon>
-              </div>
-            <md-divider ng-if=" ! $last"></md-divider>
-          </md-list-item>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
       </div>
     </md-list>
   </md-content>
