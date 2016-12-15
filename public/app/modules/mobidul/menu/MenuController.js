@@ -48,6 +48,7 @@ function MenuController (
   menu.goToProfile            = goToProfile;
   menu.loginLogoutButtonClick = loginLogoutButtonClick;
   menu.resetRally             = resetRally;
+  menu.openFeedbackDialog     = openFeedbackDialog;
 
 
   /// construct
@@ -130,43 +131,37 @@ function MenuController (
    */
   function loginLogoutButtonClick ()
   {
-    if ( menu.accountItemText == menu._loginAccountText )
-
+    if ( menu.accountItemText == menu._loginAccountText ) {
       $state.go('login');
-
-    else
+    } else {
       UserService
         .logout()
-        .then(function (response)
-        {
+        .then(function (response) {
           $log.debug('menu logout callback');
           $log.debug(response);
 
           var closeSidenavOnLogout = true;
 
-
-          if ( response.data &&
-               response.data === 'success' &&
-               closeSidenavOnLogout
+          if ( response.data
+            && response.data === 'success'
+            && closeSidenavOnLogout
           ) {
             $mdSidenav('menu')
               .close()
-              .then(function ()
-              {
+              .then(function () {
                 menu.isLoggedIn           = false;
                 menu.profile.flex         = menu._profileFlexFull;
                 menu.accountItemText      = menu._loginAccountText;
                 menu.currentUser.username = UserService._guestName;
               });
-          }
-          else
-          {
+          } else {
             menu.isLoggedIn           = false;
             menu.profile.flex         = menu._profileFlexThird;
             menu.accountItemText      = menu._loginAccountText;
             menu.currentUser.username = UserService._guestName;
           }
         });
+      }
   }
 
 
@@ -194,11 +189,38 @@ function MenuController (
             .ariaLabel($translate.instant('RALLY_RESET'))
             .ok($translate.instant('OK'));
 
-        $mdDialog.show( resetRallyCompletedDialog )
-          .then(function ()
-          {
+        $mdDialog.show(resetRallyCompletedDialog)
+          .then(function () {
             $state.go($state.current, $stateParams, { reload: true });
           });
+      });
+  }
+
+
+  function openFeedbackDialog() {
+    var feedbackDialog = $mdDialog.prompt()
+      .title('Feedback')
+      .textContent('Please let us know what you like about Mobilot or if you need any help!')
+      .placeholder('Your feedback')
+      .ariaLabel('Feedback')
+      // .initialValue('Your feedback ...')
+      // .targetEvent(event)
+      .ok('Send')
+      .cancel('Cancel');
+
+      $mdDialog.show(feedbackDialog)
+        .then(function(message) {
+          UserService.sendFeedback(message)
+            .then(function(response) {
+              if (response.data === 'ok') {
+                alert("Thank you for your feedback! We'll give our best to contact you!")
+              } else {
+                alert("Hmm, please help us understand better. Thank you!");
+                openFeedbackDialog();
+              }
+            });
+        }, function() {
+          // console.debug('cancel');
       });
   }
 
