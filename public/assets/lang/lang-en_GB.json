@@ -1,0 +1,426 @@
+{
+  "YES": "Yes",
+  "NO": "No",
+
+  "MOBILOT_LOADING": "Mobilot loading",
+  "LOADING": "is loading",
+
+  "CANCEL": "Cancel",
+  "CLOSE": "Close",
+  "DELETE": "Delete",
+  "CONFIRMATION": "Confirm",
+  "CONTINUE": "Continue",
+  "RESET": "Reset",
+  "CREATE": "Create",
+  "OK": "OK",
+  "JOIN": "Join",
+  "SAVE": "Save",
+  "DISCARD": "Discard",
+  "CLONE": "Duplicate",
+  "LOGIN": "Login",
+  "SEARCH": "Search",
+  "EDIT": "Edit",
+
+  "OPTIONS": "Settings",
+  "RIGHTS": "Rights",
+
+  "STATE": "State",
+  "HIDDEN": "hidden",
+  "ACTIVATED": "activated",
+  "OPEN": "open",
+  "COMPLETED": "completed",
+
+  "NAME": "Name",
+  "DESCRIPTION": "Description",
+  "LABEL": "Label",
+
+  "USER_PROFILE": "User Profile",
+  "USER_NAME": "Username",
+  "PASSWORD": "Password",
+  "EMAIL": "Email",
+
+  "CURRENT_PASSWORD": "Current Password",
+  "NEW_PASSWORD": "New Password",
+  "CHANGE_PASSWORD": "Change Password",
+  "CHANGE_PASSWORD_INFORMATION": "Change Password Information's",
+  "CONFIRM_PASSWORD": "Confirm Password",
+  "PASSWORD_CHANGED": "Password changed",
+  "PASSWORD_CHANGED_SUCCESS": "Password was changed successfully",
+  "PASSWORD_CHANGED_ERROR": "Change Password Error",
+  "LOGOUT": "Logout",
+  "BACK_TO_LOGIN": "Back to Login",
+
+  "LANGUAGE_SELECTION": "Language selection",
+
+  "GERMAN": "German",
+  "ENGLISH": "English",
+
+  "LOGIN_ERROR": "Login Error",
+  "CREDENTIALS_WRONG": "The username or password is wrong.",
+  "EDIT_CREDENTIALS": "Change data",
+
+  "FORGET_PASSWORD": "Forgot password",
+  "RESET_PASSWORD": "Reset password",
+  "PASSWORD_RESET": "Password reset",
+  "ENTER_NEW_PASSWORD": "Enter your new Password here.",
+  "RESET_PASSWORD_DESCRIPTION": "Please enter the email address of your user in order to reset your password.",
+  "RESET_PASSWORD_SUCCESS": "The password was changed successfully and you have been logged in automatically.",
+  "RESET_PASSWORD_ERROR": "Password Reset Error",
+  "RESET_PASSWORD_EMAIL": "You should receive a recovery link shortly via email. \n Please also check your junk folder.",
+
+  "REGISTER": "Register",
+  "REGISTER_USER": "Register user",
+  "REGISTER_ERROR_REQ": "Is required!",
+  "REGISTER_ERROR_REQ_PWD": "Is required! At least 6 chars.",
+
+  "REGISTRATION_INFORMATION": "Registration Information's",
+
+  "REGISTRATION_SUCCESSFUL": "Registration successfully",
+  "CONFIRM_MAIL_SENT_CHECK_SPAM": "You should receive a recovery link shortly via email. \n Please also check your junk folder..",
+  "INVALID_EMAIL": "Invalid Email Address",
+  "EMAIL_ALREADY_TAKEN": "A user with this email address is already registered.",
+  "CHANGE_EMAIL": "Change email",
+
+  "INVALID_USERNAME": "Invalid Username",
+  "USERNAME_ALREADY_TAKEN": "This Username is already taken.",
+  "CHANGE_USERNAME": "Change Username",
+
+  "REGISTRATION_ERROR": "Registration Error",
+  "REGISTRATION_ERROR_TRY_AGAIN": "The Registration failed. Please try it again.",
+
+  "ACTIVATION_MSG": "Thank you for your Registration. You will be redirected shortly in order to start. Have fun!",
+
+  "TAB_BASE": "Base",
+  "TAB_CATEGORY": "Categories",
+  "TAB_MENU": "Menu",
+  "TAB_OPTION": "Options",
+
+  "EDIT_MODE_ALL": "All",
+  "EDIT_MODE_OWN": "Own",
+  "EDIT_MODE_GROUP": "Groups",
+
+  "NEAR": "Nearby",
+  "ALL": "All",
+  "MINE": "Own",
+
+  "HOME_SEARCH_PLACEHOLDER_NEAR": "Search Mobiduls nearby",
+  "HOME_SEARCH_PLACEHOLDER_ALL": "Search all Mobiduls",
+  "HOME_SEARCH_PLACEHOLDER_MINE": "Search own Mobiduls",
+
+  "DISTANCE": "Distance {{distance}}",
+
+  "JOIN_CODE": "Join code",
+  "JOIN_CODES": "Join codes",
+  "REQUEST_CODE": "Request code",
+  "JOIN_CODE_INPUT_DESCRIPTION": "Join codes can be provided by the creator of a Mobidul.\nIn order to join a Mobidul as \"Contributing Editor\", you can enter a join code or scan a QR code.",
+  "JOIN_NOT_POSSIBLE": "Join isn't possible",
+  "JOIN_CODE_INVALID_EXPLANATION": "This join code is invalid. Please try it again or contact the creator of the Mobidul.",
+  "GROUP_EXPLANATION": "Join codes allow to participate in a Mobidul of another creator.\nUsers, who have the same code are in the same group.",
+
+  "HIDE_ON_HOME": "Hide on homescreen",
+
+  "MOBIDUL": "Mobidul",
+  "MOBIDUL_SELECTION": "All Mobiduls",
+  "TO_MOBIDUL": "To Mobidul",
+
+  "INFORMATION": "Information",
+
+  "EXPLAIN_GENERIC_GEO_PERMIT": "Mobilot needs your permission to determine your position.",
+  "EXPLAIN_NEAR_GEO_PERMIT": "In order to find Mobiduls near you, Mobilot needs your permission to determine your position.",
+  "UNKNOWN_ERROR_MSG": "Unknown Error. Please contact an administrator.",
+  "PERMISSION_DENIED_MSG": "Your position couldn't be determined. Please activate in the options the authority, in order to determine your position.",
+  "POSITION_UNAVAILABLE_MSG": "Unfortunately your position couldn't be determined. Would you like to try it again?",
+  "TIMEOUT_MSG": "Unfortunately it took too long to determine your position. Would you like to try it again?",
+
+  "POSITION_ERROR_TITLE": "Position Error",
+  "BACK_TO_MOBIDULS": "To All Mobidul's",
+  "TRY_AGAIN": "Try Again",
+  "TO_MAP": "To Map",
+
+  "UPLOAD_PHOTO": "Upload Photo",
+  "DOWNLOAD_PHOTOS": "Download Photos",
+  "EXPLAINATION": "Explanation",
+  "NO_PHOTOS": "No Photos",
+  "NO_PHOTOS_FOR_STATION": "To this station, no photos have been added.",
+
+  "MOBIDUL_MODE": "Mobidul Mode",
+
+  "CREATE_MOBIDUL": "Create Mobidul",
+  "MOBIDUL_IS_CREATED": "Mobidul is creating",
+  "OPEN_MOBIDUL": "Open Mobidul",
+  "REFRESH_MOBIDUL": "Refresh Mobidul",
+  "MOBIDUL_SAVED": "Mobidul Saved",
+  "MOBIDUL_IS_SAVED": "Mobidul is saved",
+  "MOBIDUL_OPTIONS_SAVED": "Mobidul Options have been saved.",
+
+  "DELETE_MOBIDUL": "Delete Mobidul",
+  "DELETE_MOBIDUL_WARNING": "Mobidul will be deleted irreversible.",
+  "DELETE_MOBIDUL_CONFIRMATION_TITLE": "Confirm Mobidul Delete",
+  "DELETE_MOBIDUL_CONFIRMATION_BODY": "Please confirm, that the Mobidul should be deleted.",
+  "DELETE_MOBIDUL_ERROR_MSG": "Mobidul couldn't be deleted! Please contact an administrator.",
+
+  "NOT_AUTHORIZED_TO_EDIT_MOBIDUL": "You have no authorization to edit this Mobidul!",
+  "CODE_INVALID": "This code is invalid",
+
+  "CATEGORIES": "Categories",
+
+  "ADD_CATEGORY": "Add Category",
+  "LABEL_CATEGORY": "Category",
+
+  "DELETE_CATEGORY_TITLE": "Do you really want to delete this category?",
+  "DELETE_CATEGORY_WARNING": "All associated stations will loose the connection to this category.",
+  "DELETE_COMPONENT_TITLE": "Do you really want to delete this component?",
+  "DELETE_COMPONENT_WARNING": "All information and data that is related to this component will be lost.",
+
+  "CATEGORY_DELETED": "Category was deleted.",
+  "NOT_AUTHORIZED_TO_DELETE_CATEGORY": "You have no authorization to delete this category!",
+  "NOT_AUTHORIZED_TO_EDIT_CATEGORY": "You have no authorization to edit this category!",
+  "CATEGORY_DOESNT_EXIST": "This category doesn't exist!",
+  "NO_CATEGORY_PASSED": "No category was provided!",
+
+  "EMPTY_CATEGORIES_LIST": "No categories available",
+  "NEW_CATEGORY": "New Category",
+  "CATEGORIES_SAVED": "Mobidul categories have been saved.",
+
+  "MULTIPLE_CATEGORIES_PER_STATION": "Stations can be associated with multiple categories.",
+
+  "MENU_SAVED": "Mobidul menu was saved.",
+
+  "GENERIC_NOT_ALLOWED": "You are not allowed!",
+
+  "WHICH_STATIONS_ALLOWED_TO_EDIT": "<strong>Which</strong> stations can be edited?",
+  "SAVE_OPTIONS": "Save Options",
+
+  "MAP": "Map",
+  "ADD_MAP": "Add Map",
+
+  "EMPTY_MENU_LIST": "No menu entries available",
+  "MENU_ENTRY": "Menu Entry",
+  "ADD_MENU_ENTRY": "Add Menu Entry",
+
+  "DIVIDER": "Divider",
+  "ADD_DIVIDER": "Add Divider",
+
+  "GENERAL": "General",
+
+  "CLONE_MOBIDUL": "Clone Mobidul",
+  "MOBIDUL_NAME": "Mobidul Name",
+  "NEW_MOBIDUL_NAME": "New Mobidul",
+  "ENTER_NEW_MOBIDUL_NAME": "Input new Mobidul name:",
+  "MOBIDUL_CODE": "Mobidul code",
+  "CLONE_INFO_SUCCESS": "Duplication of the current Mobidul was successful!",
+
+  "CREATING": "is generating...",
+  "AUTOMATICALLY_CREATED": "automatically generated",
+  "MANUALLY_CREATED": "manually changed",
+
+  "MOBIDUL_LINK_WILL_BE": "Mobidul address:",
+  "STATION_LINK_WILL_BE": "Station address:",
+
+  "ACCURACY": "Accuracy: {{value}}m",
+
+  "RESET_RALLY": "Reset Rally",
+  "RESET_RALLY_CONFIRMATION": "Please confirm, that you want to reset the rally progress.",
+  "RALLY_RESET": "Rally reset",
+  "RALLY_RESET_SUCCESS": "Your Rally progress was reset.",
+
+  "NO_STATION_FOR_CODE": "For this code, sadly no station exists...",
+  "STATION_NO_CONTENT": "This station has for the state {{state}} no content.",
+
+  "SAY_TITLE": "Message",
+
+  "IMMUTABLE": "Lock Mobidul settings",
+  "IMMUTABLE_STATION": "Lock station settings",
+  "IMMUTABLE_STATION_DESCRIPTION": "The station is unchangeable",
+
+  "HIDE_ON_MAP": "Hide on map",
+  "HIDE_ON_MAP_DESCRIPTION": "The station isn't showing on the map.",
+
+  "STATIONS": "Stations",
+  "ALL_STATIONS": "All Stations",
+  "NEW_STATION": "New Station",
+  "STATIONS_LOADING": "Stations are loading...",
+
+  "STATION_SAMPLE_TEXT": "This is a sample text",
+
+  "CREATE_STATION": "Create Station",
+  "CREATE_STATION_QUESTION": "Would you like to create this station?",
+
+  "SAVE_CHANGES": "Save Changes",
+  "STATION_SAVE_CONFIRMATION": "The station with the code {code}} was changed. Would you like to save the changes?",
+
+  "STATION_DELETE_CONFIRMATION_TITLE": "Confirm Station Delete",
+  "STATION_DELETE_CONFIRMATION": "Please confirm, that this station should be deleted.",
+
+  "STATION_CLONE": "Copy Station",
+  "STATION_CLONE_CONFIRMATION": "Please confirm, that you want to copy this station.",
+
+  "STATION_CLONE_SUCCESS": "Station successfully copied.",
+  "STATION_CHANGE_PLACE": "Please change the location of the new station. You will be redirected to the new stations map.",
+  "STATION_CHANGE_PLACE_WARN": "In order to save the station, you have to set a location on the map.",
+
+  "CLONE_STATION": "Copy Station",
+
+  "DELETE_STATION": "Delete Station",
+  "STATION_GETS_DELETED": "Station will be deleted irreversible.",
+
+  "QR_INFO": "QR Information",
+  "QR_NO_CODE": "This QR code contains no join code!",
+  "QR_NOT_A_CODE": "This is no QR code!",
+  "QR_NOT_VALID": "This is not a valid QR code!",
+  "QR_SCAN_FAILED": "Scanning failed: ",
+
+  "PLACE": "Location",
+  "BASE": "Base",
+
+  "NOT_ALLOWED": "Not allowed",
+  "MOBIDUL_LOCKED": "Mobidul is locked",
+  "STATION_CODE": "Station code",
+  "INVALID_STATION_CODE": "The Station code is invalid.",
+  "ERROR": "Error",
+  "UNKNOWN_ERROR": "Unknown Error",
+  "UNKNOWN": "Unknown",
+
+  "MOBIDUL_CREATOR_TEXT": "Here you can create a new Mobidul. \n After you set the name, a code will be generated, which can still be changed manually.",
+
+  "FONT_TYPE": "Font Type",
+  "CHOOSE_FONT": "Choose a font",
+
+  "HTML": "Text",
+  "HTML_DESCRIPTION": "This element allows you to create normal text with pictures. Therefore you have common formatting tools available.",
+  "IF_NEAR": "Distance Meter",
+  "IF_NEAR_DESCRIPTION": "This element triggers an action, when the player is in a specific range to the station. If the GPS signal would be to inaccurate, a input field is shown to the user. This triggers the \"Fallback\", if the input is right, which performs the action then.",
+  "BLUETOOTH": "Bluetooth",
+  "BLUETOOTH_DESCRIPTION": "This element allows to trigger a specific action when the player is near the predefined beacon, which as to be scanned.",
+  "INPUT_CODE": "Input Field",
+  "INPUT_CODE_DESCRIPTION": "This element asks the player for a text input. It can be distinguished which action should be performed if the input is right or wrong.",
+  "BUTTON": "Button",
+  "BUTTON_DESCRIPTION": "This element creates a normal button. The description of the button and the action once is clicked can be defined.",
+  "PHOTO_UPLOAD": "Photo Upload",
+  "PHOTO_UPLOAD_DESCRIPTION": "This element allows the player to upload a photo. Additionally, afterwards an action can be performed.",
+  "SET_TIMEOUT": "Countdown",
+  "SET_TIMEOUT_DESCRIPTION": "This element performs an action after a specific amount of time. It can be decided if the countdown should be visible on the stationpage or not.",
+  "FREE_TEXT": "Free Text",
+  "FREE_TEXT_DESCRIPTION": "This element lets the player enter any text. If the text is submitted an action can be performed.",
+  "CONFIRM_SOCIAL": "Social Interaction",
+  "CONFIRM_SOCIAL_DESCRIPTION": "This element lets players interact among themselves. In order to perform an action it's necessary to have another player or device.",
+
+  "SHOW_SCORE": "Show Score",
+  "SHOW_SCORE_DESCRIPTION": "This element shows the current score of the players.",
+  "DEFAULT_SCORE_MESSAGE": "Your current score is: SCORE",
+  "SCORE_PLACEHOLDER_EXPLANATION": "Write 'SCORE' as placeholder for the points.",
+
+  "QUESTION": "Question",
+  "DOWNLOAD_ANSWERS": "Download Answers",
+
+  "VERIFIER": "Verifier",
+  "GO": "GO",
+
+  "MINUTES": "Minutes",
+  "SECONDS": "Seconds",
+  "SHOW_COUNTDOWN": "Show Countdown",
+
+  "RANGE_INPUT_PLACEHOLDER": "Distance (in meters)",
+  "FALLBACK": "Fallback",
+
+  "GPS_FETCHING": "Searching for location...",
+  "GPS_INACCURATE_FALLBACK": "Your location signal is inaccurate. Enter the code at the station:",
+  "DISTANCE_FEEDBACK": "You are {{ distance }}m away from the station. \n (± {{ accuracy }}m)",
+  "INPUT_CODE_DEFAULT_ERROR_MSG": "DThat was the wrong code. Try again!",
+
+  "SCAN_CODE": "Scan code",
+  "OPEN_CODE": "Open code",
+  "PERFORM_ACTION": "Perform Action",
+
+  "OPEN_THIS": "Open Station",
+  "COMPLETE_THIS": "Close Station",
+  "COMPLETE_THIS_AND_SHOW_NEXT": "Close Station and show next",
+  "SAY:": "Show Message",
+  "GO_TO_CURRENT": "Show Current Station",
+  "SET_STATE:": "Set Station State",
+
+  "ACTION": "Action",
+  "SUCCESS_ACTION": "Success Action",
+  "ERROR_ACTION": "Error Action",
+
+  "BLUETOOTH_SUCCESS": "Beacon was found. Choose the action, which will be triggered if the user is near.",
+  "BLUETOOTH_CHECKBOXES": "Choose if the user has to be in IMMEDIATE or NEAR range of the beacon, in order to trigger it.",
+  "BLUETOOTH_INACCURATE_FALLBACK": "The bluetooth signal couldn't be found, or is inaccurate. Please enter the code, or scan further.",
+  "BLUETOOTH_FEEDBACK": "The distance to your beacon is: {{distance}}. \n If you are at 'Immediate', the event is triggered.",
+  "BLUETOOTH_FETCHING": "Fetching for beacon signals...",
+  "BLUETOOTH_START_SCAN": "Scan Beacon",
+  "BLUETOOTH_TITLE_SCAN": "Scan Bluetooth Beacons",
+  "BLUETOOTH_DESC_SCAN_SUPPORTED": "The following manufacturers are supported (choose one from the list):",
+  "BLUETOOTH_DESC_SCAN_CHOOSE": "Manufacturer",
+  "BLUETOOTH_NAME_BEACON": "Name your beacon (optional):",
+  "BLUETOOTH_FIX_INFO": "Beacon \"{{value}}\" saved.",
+  "BLUETOOTH_SCAN_BTN": "Scan Beacon",
+  "BLUETOOTH_FIND_BTN": "Search Beacon",
+  "BLUETOOTH_CHECKBOX_IMMEDIATE": "Immediate (< 1m)",
+  "BLUETOOTH_CHECKBOX_NEAR":"Near (< 10m)",
+  "BLUETOOTH_NOT_AVAILABLE_WEB": "Bluetooth scanning isn't working here sadly. You can enter the code at the station.",
+
+  "BLUETOOTH_INFO_SEARCH": "Searching beacon... ",
+  "BLUETOOTH_INFO_FOUND": "Beacon found (immediate)... ",
+  "BLUETOOTH_INFO_FOUND_ONE": "Don't move the beacon... ",
+  "BLUETOOTH_INFO_LOCKED": "Beacon scanned!!",
+
+  "BLUETOOTH_INFO_2_SEARCH": "Searching station beacon... ",
+  "BLUETOOTH_INFO_2_FAR": "Your are FAR aways.",
+  "BLUETOOTH_INFO_2_NEAR": "You are NEAR already.",
+  "BLUETOOTH_INFO_2_IMMEDIATE": "You are IMMEDIATE now.",
+  "BLUETOOTH_INFO_2_FOUND": "Beacon found!!",
+
+  "FREE_TEXT_QUESTION": "Question",
+
+  "COUNTDOWN_INFO": "After the countdown finished, something happens at this station. Time left (seconds): ",
+
+  "WSC_MOBIDUL_PROTECTED": "This Mobidul code is protected and can't be changed!",
+  "WSC_MOBIDUL_SUCCESS": "Congratulations! Your Mobidul was created successfully.",
+  "WSC_MOBIDUL_IN_USE": "This Mobidul code is already in use! Please try another code.",
+  "WSC_MOBIDUL_NO_RIGHTS": "You don't have the required rights to update this Mobidul!",
+  "WSC_MOBIDUL_UPDATED": "Mobidul was updated.",
+  "WSC_MOBIDUL_NOT_UPDATED": "Mobidul couldn't be updated!",
+  "WSC_MOBIDUL_DELETE": "Mobidul was deleted successfully. We look forward to see you again!",
+  "WSC_MOBIDUL_NO_DELETE": "Mobidul couldn't be deleted. Please inform an admin about the unknown error: ",
+  "WSC_MOBIDUL_NO_DEL_RIGHTS": "Your are not allowed to delete this Mobidul.",
+
+  "CONTACT": "Contact",
+
+  "WELCOME_TO_MOBILOT": "Welcome to Mobilot",
+  "ABOUT_MOBILOT": "About Mobilot",
+  "MOBILOT_FEEDBACK": "Feedback",
+
+  "MOBILOT_DESCRIPTION": "Mobilot (the mobile pilot) was developed during various research projects and allows the simple creation of context based Informationsystems.\n With Mobilot so called Mobidul's can be created for free.\n We request our users to observe the legal rules and the ethics of nice taste and we reserve the right to delte Mobidul's the offend these rules. We take no responsibility for the contet our users create.",
+  "MFG": "Research Group Media Computing",
+  "ICMT": "Institute for Creative\\Media/Technologies",
+  "FHSTP": "St. Pölten University of Applied Sciences",
+  "NETIDEE": "Netidee",
+
+  "ADDITIONAL_INFO": "Additional Information",
+  "PRIVACY_POLICY": "Privacy Policy",
+  "PRIVACY_POLICY_INFO": "In order to work appropriate, Mobilot collects data from your phone. Once you install our app, you agree that we may collect the following data:",
+  "CONTACT_ABOUT": "ACCOUNTING INFORMATION",
+  "CONTACT_ABOUT_INFO": "Individual Mobidul's can be used without registration. To create a Mobidul, you must register with your e-mail address and password. This information is transferred securely. The password is additionally transferred encrypted (actually hashed), so that also we can not read it.",
+  "LOCATION_DATA": "LOCATION DATA",
+  "LOCATION_DATA_INFO": "We need access to the location of your device. In case of an inquiry, we will determine your current location via GPS, in order to give you quick information about your immediate surroundings. Data about your location will only be used to process your request. The transmission of your location data takes place via an encrypted connection. Your location data will be anonymized after completion of your request and will be evaluated statistically to improve our service.",
+  "DEVICE_NOTE": "INFORMATION ABOUT YOUR DEVICE",
+  "DEVICE_NOTE_INFO": "This includes the operating system, device identification number, mobile provider, language, battery power, WLAN or other existing network connections and other data needed for downloading from App Stores.",
+  "CONTACT_US": "COMMUNICATION WITH US",
+  "CONTACT_US_INFO": "If you contact us, we will collect and process information on this matter. This may include all information you provide, including: name, email address, and other contact information. You can, of course, also give anonymous feedback with a mailaccount that does not reveal your identity.",
+  "INFORMATION_USAGE": "HOW DO WE USE THE INFORMATION?",
+  "INFORMATION_USAGE_INFO": "We use the information we gather in different ways. In order for the app to work, this information is first sent via a secure connection to our servers and stored there. The data are then analyzed and returned to your phone. These analysis results are also stored on our servers. We also use the collected data to further improve our app. In addition, the data are scientifically evaluated and the results are eventually published in scientific journals. This is done completely anonymously, so no one is able to draw conclusions about your person or your device used, from the published data.",
+  "DATA_SHARE": "EXTENSION OF DATA TO THIRD PARTIES",
+  "DATA_SHARE_INFO": "To run the app, we need to pass on information that we collect through the app to third parties inside and outside the European Economic Area. This can happen in the following cases: <br> -) If you decide in the future to use third-party apps that refer to data from our app and you agree to that data transfer. <br> -) If necessary, we can share your data with governmental organizations in order to prevent damage to you, us or others. <br> -) As described above, we plan to use your data in an anonymous form for scientific purposes.",
+  "SYSTEM_SECURITY": "SAFETY OF OUR SYSTEMS",
+  "SYSTEM_SECURITY_INFO": "We use systems from hosting partners to get the necessary hardware, software, networks and storage space to run the app. These systems may be located outside the European economic area. If you install the app, you agree. We use commercially available physical and technical backups to protect your data. Unfortunately, we can not guarantee 100% security of your data. The security of your data may be violated by unforeseen events such as unauthorized access, hardware or software problems, and other complications.",
+  "DATA_STORAGE": "DATA SECURITY AND DATA EXCHANGE",
+  "DATA_STORAGE_INFO": "We will save your information as long as necessary to run the app and required usage of the data described in this Privacy Statement. Normally this means that we keep the information until you delete your account. If you delete your account, you may also request the deletion of your information.",
+  "PRIVACY_CHANGES": "PRIVACY POLICY CHANGES",
+  "PRIVACY_CHANGES_INFO": "We reserve the right to change this privacy policy at any time. We will provide you with timely information on our app and / or website before any such change takes place. If you do not agree to the amended declarations, you can delete your account at any time.",
+
+
+  "PRESENTED_BY": "Presented by"
+
+
+}
