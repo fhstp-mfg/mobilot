@@ -20,6 +20,7 @@
   "LOGIN": "Login",
   "SEARCH": "Search",
   "EDIT": "Edit",
+  "SEND": "Send",
 
   "OPTIONS": "Settings",
   "RIGHTS": "Rights",
@@ -223,6 +224,8 @@
   "RESET_RALLY_CONFIRMATION": "Please confirm, that you want to reset the rally progress.",
   "RALLY_RESET": "Rally reset",
   "RALLY_RESET_SUCCESS": "Your Rally progress was reset.",
+  "RALLY_DIALOG": "Rally finished",
+  "RALLY_DIALOG_TEXT": "This is the final station. You have completed the rally successfully!",
 
   "NO_STATION_FOR_CODE": "For this code, sadly no station exists...",
   "STATION_NO_CONTENT": "This station has for the state {{state}} no content.",
@@ -389,7 +392,12 @@
 
   "WELCOME_TO_MOBILOT": "Welcome to Mobilot",
   "ABOUT_MOBILOT": "About Mobilot",
-  "MOBILOT_FEEDBACK": "Feedback",
+
+  "FEEDBACK_TITLE": "Feedback",
+  "FEEDBACK_TEXT": "Please let us know what you like about Mobilot or if you need any help!",
+  "FEEDBACK_PLACEHOLDER": "Your feedback",
+  "FEEDBACK_SUCCESS_MSG": "Thank you for your feedback! We'll give our best in contacting you!",
+  "FEEDBACK_ERROR_MSG": "Hmm, please help us understand better. Thank you!",
 
   "MOBILOT_DESCRIPTION": "Mobilot (the mobile pilot) was developed during various research projects and allows the simple creation of context based Informationsystems.\n With Mobilot so called Mobidul's can be created for free.\n We request our users to observe the legal rules and the ethics of nice taste and we reserve the right to delte Mobidul's the offend these rules. We take no responsibility for the contet our users create.",
   "MFG": "Research Group Media Computing",

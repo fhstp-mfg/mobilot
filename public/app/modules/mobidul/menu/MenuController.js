@@ -198,24 +198,28 @@ function MenuController (
 
 
   function openFeedbackDialog() {
+    var FEEDBACK_TITLE = $translate.instant('FEEDBACK_TITLE');
+    var FEEDBACK_TEXT = $translate.instant('FEEDBACK_TEXT');
+    var FEEDBACK_PLACEHOLDER = $translate.instant('FEEDBACK_PLACEHOLDER');
+
     var feedbackDialog = $mdDialog.prompt()
-      .title('Feedback')
-      .textContent('Please let us know what you like about Mobilot or if you need any help!')
-      .placeholder('Your feedback')
-      .ariaLabel('Feedback')
-      // .initialValue('Your feedback ...')
+      .title(FEEDBACK_TITLE)
+      .textContent(FEEDBACK_TEXT)
+      .placeholder(FEEDBACK_PLACEHOLDER)
+      .ariaLabel(FEEDBACK_TITLE)
+      // .initialValue(FEEDBACK_PLACEHOLDER)
       // .targetEvent(event)
-      .ok('Send')
-      .cancel('Cancel');
+      .ok($translate.instant('SEND'))
+      .cancel($translate.instant('CANCEL'));
 
       $mdDialog.show(feedbackDialog)
         .then(function(message) {
           UserService.sendFeedback(message)
             .then(function(response) {
               if (response.data === 'ok') {
-                alert("Thank you for your feedback! We'll give our best to contact you!")
+                alert($translate.instant('FEEDBACK_SUCCESS_MSG'))
               } else {
-                alert("Hmm, please help us understand better. Thank you!");
+                alert($translate.instant('FEEDBACK_ERROR_MSG'));
                 openFeedbackDialog();
               }
             });
