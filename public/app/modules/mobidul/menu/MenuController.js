@@ -234,7 +234,7 @@ function MenuController (
                     .title(FEEDBACK_TITLE)
                     .textContent($translate.instant('FEEDBACK_ERROR_MSG'))
                     .ariaLabel(FEEDBACK_TITLE)
-                    .ok($translate.instant('CLOSE'))
+                    .ok($translate.instant('TRY_AGAIN'))
                 )
                 .then(function() {
                   openFeedbackDialog();
