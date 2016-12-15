@@ -810,6 +810,12 @@ md-backdrop.md-sidenav-backdrop {
   color: #fff !important;
 }
 
+.md-mini {
+  line-height: 4rem;
+  width: 4rem;
+  height: 4rem;
+}
+
 /*
     Radio Buttons
 */

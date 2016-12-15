@@ -30,6 +30,12 @@ function LoginController (
     password : ''
   };
 
+  login.mobiUserAccount = {
+    username : 'mobiuser',
+    email    : 'mobiuser@gmx.at',
+    password : 'mobiuser'
+  };
+
   login.resetData = {
     resetToken      : $stateParams.token,
     newPassword     : '',
@@ -51,6 +57,7 @@ function LoginController (
   login.goToLogin          = goToLogin;
   login.goToRegister       = goToRegister;
   login.goToForgotPassword = goToForgotPassword;
+  login.loginMobiUser      = loginMobiUser;
 
 
   /// construct
@@ -125,6 +132,13 @@ function LoginController (
 
         _checkIsLoggedInOnline(response);
       });
+  }
+
+  function loginMobiUser ( ) {
+    UserService.login(login.mobiUserAccount)
+    .then(function (response) {
+      _checkIsLoggedInOnline(response);
+    });
   }
 
 
