@@ -397,7 +397,7 @@
   "FEEDBACK_TITLE": "Feedback",
   "FEEDBACK_TEXT": "Bitte lass uns wissen was du über Mobilot denkst oder falls du dabei Hilfe brauchen solltest!",
   "FEEDBACK_PLACEHOLDER": "Dein Feedback",
-  "FEEDBACK_SUCCESS_MSG": "Danke für deinen Feedback! Wir bemühen uns dich zu kontaktieren!",
+  "FEEDBACK_SUCCESS_MSG": "Danke für dein Feedback! Wir bemühen uns dich zu kontaktieren!",
   "FEEDBACK_ERROR_MSG": "Hmm, bitte hilf uns das besser zu verstehen. Danke!",
 
   "MOBILOT_DESCRIPTION": "Mobilot (der mobile Pilot) ist ein in mehreren Forschungsprojekten entstandenes System zum einfachen Erstellen kontextbasierter Informationssysteme.\n Mit Mobilot können sogenannte Mobidule kostenlos erstellt werden. \n Wir bitten unsere Anwender die gesetzliche Regeln und die der Ethik und des guten Geschmacks einzuhalten und behalten uns vor, Mobidule, die diese Regeln verletzten, zu löschen. Wir übernehmen keine Verantwortung für Inhalte unserer Nutzer.",
