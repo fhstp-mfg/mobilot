@@ -807,7 +807,7 @@ md-backdrop.md-sidenav-backdrop {
 }
 
 .inputWhiteFont {
-  color: #ffffff !important;
+  color: #fff !important;
 }
 
 /*
@@ -1028,8 +1028,9 @@ mbl-free-text-input textarea {
 }
 
 .sortable-list {
-  list-style: none;
   padding-left: 0;
+
+  list-style: none;
 }
 .sortable-list li {
   padding-right: 0 !important;
