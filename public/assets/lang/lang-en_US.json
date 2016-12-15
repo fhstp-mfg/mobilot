@@ -223,6 +223,8 @@
   "RESET_RALLY_CONFIRMATION": "Please confirm, that you want to reset the rally progress.",
   "RALLY_RESET": "Rally reset",
   "RALLY_RESET_SUCCESS": "Your Rally progress was reset.",
+  "RALLY_DIALOG": "Rally finished",
+  "RALLY_DIALOG_TEXT": "This is the final station. You have completed the rally successfully!",
 
   "NO_STATION_FOR_CODE": "For this code, sadly no station exists...",
   "STATION_NO_CONTENT": "This station has for the state {{state}} no content.",

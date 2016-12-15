@@ -331,7 +331,15 @@ function RallyService (
               $state.go('mobidul.station', { stationCode: next.code});
             });
           }, function () {
-            alert('Das ist die letzte Station. Du hast das Rally erfolgreich abgeschlossen!');
+            var rallyCompletedDialog =
+              $mdDialog.alert()
+              .parent(angular.element(document.body))
+              .title($translate.instant('RALLY_DIALOG'))
+              .textContent($translate.instant('RALLY_DIALOG_TEXT'))
+              .ariaLabel($translate.instant('RALLY_DIALOG'))
+              .ok($translate.instant('OK'));
+
+            $mdDialog.show(rallyCompletedDialog);
           });
       });
   }
