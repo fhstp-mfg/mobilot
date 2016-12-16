@@ -166,7 +166,8 @@ class UserController extends BaseController
       $feedbackData = [
         'user' => $params->user,
         'code' => $params->code,
-        'feedback' => $params->feedback
+        'feedback' => $params->feedback,
+        'created_at' => date('Y-m-d H:i:s', time())
       ];
 
       $validator = Validator::make($feedbackData, [
