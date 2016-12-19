@@ -64,12 +64,14 @@ call php artisan migrate
 
 echo.
 SET /p answer5= ^> Finally let us take a deep breath ... ... and install npm and bower modules! (press ENTER)
+
+cd public
+
 echo ^> npm install
 npm install
 
 echo ^> bower install
 echo "When asked, always choose the later module versions required by Mobilot."
-cd public
 bower install
 
 echo "> Running development build gulp task."

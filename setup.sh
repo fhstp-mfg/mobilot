@@ -99,12 +99,13 @@ echo "Finally let us take a deep breath ..."
 echo "... and install npm and bower modules! (press ENTER)"
 read answer
 
+cd public
+
 echo "> npm install"
 npm install
 
 echo "> bower install"
 echo "When asked, always choose the later module versions required by Mobilot."
-cd public
 bower install
 
 echo "> Running development build gulp task."
