@@ -616,17 +616,17 @@ function StationCreatorController (
             '</md-dialog-content>' +
 
             '<md-dialog-actions class="md-dialog-content-divider">' +
-              '<md-button ng-click="stationCreator.discardChanges()" translate="DISCARD">' +
+              '<md-button class="md-primary" ng-click="stationCreator.discardChanges()" translate="DISCARD">' +
                 '' +
               '</md-button>' +
 
               '<span flex></span>' +
 
-              '<md-button ng-click="stationCreator.closeDialog()" translate="CANCEL">' +
+              '<md-button class="md-primary" ng-click="stationCreator.closeDialog()" translate="CANCEL">' +
                 '' +
               '</md-button>' +
 
-              '<md-button ng-click="stationCreator.saveChanges()">' +
+              '<md-button class="md-primary md-mobilot" style="color: #ffffff" ng-click="stationCreator.saveChanges()">' +
                 saveButtonText +
               '</md-button>' +
             '</md-dialog-actions>' +

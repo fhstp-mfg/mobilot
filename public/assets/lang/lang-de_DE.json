@@ -428,6 +428,8 @@
   "PRIVACY_CHANGES": "ÄNDERUNGEN DER DATENSCHUTZERKLÄRUNG",
   "PRIVACY_CHANGES_INFO": "Wir behalten uns das Recht vor, diese Datenschutzerklärung jederzeit zu ändern. Wir werden Sie vor jeder solcher Änderung rechtzeitig über unsere App und/oder Website informieren. Sollten Sie den geänderten Erklärungen nicht zustimmen, können Sie Ihren Account jederzeit löschen.",
 
+  "NOT_IMPLEMENTED_DIALOG": "Nicht Verfügbar",
+  "NOT_IMPLEMENTED_TEXT": "Es tut uns Leid aber diese Funktion ist in der aktuellen Version von Mobilot nicht verfügbar. Die Idee ist, dass später verschiedene Daten von Mobidulen exportiert werden können.",
 
   "PRESENTED_BY": "Präsentiert von"
 
