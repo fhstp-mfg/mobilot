@@ -6,12 +6,12 @@ angular
   .directive('freeTextInputConfig', FreeTextInputConfig);
 
 FreeTextInputConfig.$inject = [
-  '$log', '$stateParams', '$translate',
+  '$log', '$stateParams', '$translate', '$mdDialog',
   'UtilityService', 'RallyService', 'AttachmentService'
 ];
 
 function FreeTextInputConfig(
-  $log, $stateParams, $translate,
+  $log, $stateParams, $translate, $mdDialog,
   util, RallyService, AttachmentService
 ) {
   return {
@@ -50,7 +50,15 @@ function FreeTextInputConfig(
     ctrl.exportAnswers = function () {
       var stationCode = $stateParams.stationCode,
           mobidulCode = $stateParams.mobidulCode;
+      var notImplementedYet =
+        $mdDialog.alert()
+        .parent(angular.element(document.body))
+        .title($translate.instant('NOT_IMPLEMENTED_DIALOG'))
+        .textContent($translate.instant('NOT_IMPLEMENTED_TEXT'))
+        .ariaLabel($translate.instant('NOT_IMPLEMENTED_DIALOG'))
+        .ok($translate.instant('OK'));
 
+      $mdDialog.show( notImplementedYet );
       AttachmentService.exportTextsFromComponent(mobidulCode, stationCode, $scope.id);
     };
 
