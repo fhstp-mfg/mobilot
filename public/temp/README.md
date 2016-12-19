@@ -1,2 +1,6 @@
-These dependencies should be updated
-- ngWYSIWYG contains custom code and is therefore not updateable, also it's not installed via bower
+## `temp/`
+Dependencies within `temp/` contain custom code and should therefore **not** be updated !
+
+Also, these dependencies are not installed via `bower`.
+
+**TODO**: Update dependencies on occasion.

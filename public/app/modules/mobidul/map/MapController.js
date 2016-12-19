@@ -204,7 +204,7 @@ function MapController (
 
 
   function _watchPosition () {
-    // NOTE this is the javascript animation for the tracking control
+    // NOTE: this is the javascript animation for the tracking control
     _startSignalGatheringPosition();
 
     var watchPositionId =
@@ -263,24 +263,23 @@ function MapController (
         $log.error('watchPosition error in MapController :');
         $log.error(error);
 
-        // TODO - implement possibility for retries here as well !!!
+        // TODO: implement possibility for retries here as well !!!
         var retryPossible = false; // default : true
         var errorMessage  = $translate.instant('UNKNOWN_ERROR_MSG');
 
-        switch ( error.code )
-        {
-          case MapService.PERMISSION_DENIED :
-            errorMessage  = $translate.instant('PERMISSION_DENIED_MSG');
+        switch ( error.code ) {
+          case MapService.PERMISSION_DENIED:
+            errorMessage = $translate.instant('PERMISSION_DENIED_MSG');
             retryPossible = false;
-          break;
+            break;
 
-          case MapService.POSITION_UNAVAILABLE :
+          case MapService.POSITION_UNAVAILABLE:
             errorMessage = $translate.instant('POSITION_UNAVAILABLE_MSG');
-          break;
+            break;
 
-          case MapService.TIMEOUT :
+          case MapService.TIMEOUT:
             errorMessage = $translate.instant('TIMEOUT_MSG');
-          break;
+            break;
 
           default : break;
         }
@@ -297,11 +296,9 @@ function MapController (
               .cancel($translate.instant('BACK_TO_MOBIDULS'));
 
           $mdDialog.show( positionErrorDialog )
-            .then(function ()
-            {
+            .then(function () {
               home.getMyPosition()
-                .then(function (position)
-                {
+                .then(function (position) {
                   _switchSearchType();
                 });
 
@@ -318,9 +315,8 @@ function MapController (
               .ok($translate.instant('TO_MAP'));
 
           // TODO: Implement functionality if error happens.
-          // $mdDialog.show( positionErrorDialog2 )
-          //   .then(function ()
-          //   {
+          // $mdDialog.show(positionErrorDialog2)
+          //   .then(function () {
           //     // ...
           //   });
         }
@@ -328,11 +324,10 @@ function MapController (
         _stopSignalGatheringPosition();
         _hideMyPositionMarker();
         _hideAccuracyRibbon();
-      },
-      {
-          timeout           : 5000,  // ms
-          maximumAge        : 10000, // ms
-          enableHighAccuracy : true
+      }, {
+        timeout           : 5000,  // ms
+        maximumAge        : 10000, // ms
+        enableHighAccuracy : true
       });
 
     MapService.watchPositionId = watchPositionId;
@@ -344,7 +339,7 @@ function MapController (
       $scope.locationBlink = ! $scope.locationBlink;
     }, 600);
 
-    MapService.setGatheringPositionIntervalPromise( promise );
+    MapService.setGatheringPositionIntervalPromise(promise);
   }
 
 
@@ -361,9 +356,8 @@ function MapController (
 
       if ( $scope.myPositionOpacity >= 1 ) {
         $scope.myPositionOpacity = 1;
-        $interval.cancel( myPositionAnimationInterval );
+        $interval.cancel(myPositionAnimationInterval);
       }
-
     }, 40);
   }
 
@@ -382,7 +376,7 @@ function MapController (
   function _showAccuracyRibbon () {
     $scope.$apply(function () {
       $scope.accuracyRibbon.value =
-        Math.round( $scope.myPosition.coords.accuracy );
+        Math.round($scope.myPosition.coords.accuracy);
 
       $scope.accuracyRibbon.show  = true;
     });

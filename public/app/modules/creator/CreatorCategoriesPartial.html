@@ -16,42 +16,43 @@
 
     <!-- NOTE: postponed for v1.1 -->
     <!-- <react-component name="Hello" props="creator.person"></react-component> -->
-
-    <ul dnd-list="creator.categories" ng-show="creator.categories.length">
-      <!-- The dnd-draggable directive makes an element draggable and will
-           transfer the object that was assigned to it. If an element was
-           dragged away, you have to remove it from the original list
-           yourself using the dnd-moved attribute -->
-
-      <li
-        ng-repeat="category in creator.categories"
-        dnd-draggable="category"
-        dnd-moved="creator.categories.splice( $index, 1 )"
-        dnd-effect-allowed="move"
-        dnd-selected="models.selected = category"
-        ng-class="{ 'selected' : models.selected === category }"
+    <div id="sortableContainerCreator">
+      <ul
+        class="sortable-list"
+        data-as-sortable="creator.dragControlListeners"
+        ng-show="creator.categories.length"
+        ng-model="creator.categories"
       >
-        <div layout="row">
-          <md-input-container ng-maxlength="16" flex>
-            <label translate="LABEL_CATEGORY"></label>
-            <input
-              ng-model="category.name"
-              ng-focus="creator.focusCategory( category )"
-              ng-blur="creator.blurCategory( category )">
-          </md-input-container>
+        <li data-as-sortable-item=""
+          ng-repeat="category in creator.categories"
+          ng-class="{ 'selected': models.selected === category }"
+        >
+          <div layout="row" data-as-sortable-item-handle="">
+            <md-input-container ng-maxlength="16" flex>
+              <label translate="LABEL_CATEGORY"></label>
+              <input
+                ng-model="category.name"
+                ng-focus="creator.focusCategory( category )"
+                ng-blur="creator.blurCategory( category )"
+              >
+            </md-input-container>
 
-          <div class="creator-list-delete-item-controls">
-            <md-button
-              class="md-icon-button"
-              aria-label="delete"
-              ng-click="creator.deleteCategory( category.id, $index, $event )"
-            >
-              <md-icon>delete</md-icon>
-            </md-button>
+            <div class="creator-list-delete-item-controls">
+              <md-button
+                class="md-icon-button"
+                aria-label="delete"
+                ng-click="creator.deleteCategory( category.id, $index, $event )"
+              >
+                <md-icon>delete</md-icon>
+              </md-button>
+            </div>
+            <div class="creator-list-delete-item-controls">
+              <md-icon class="md-icon-drag">drag_handle</md-icon>
+            </div>
           </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
 
     <div layout="row" layout-sm="column">
       <md-button

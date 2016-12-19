@@ -12,8 +12,7 @@ function StationCreatorService (
   $log, $http
 ) {
   /// StationCreatorService
-  var service =
-  {
+  var service = {
     /// constants
     BASIS_TAB_INDEX      : 0,
     PLACE_TAB_INDEX      : 1,
@@ -60,7 +59,7 @@ function StationCreatorService (
     return $http.post(cordovaUrl + '/' + mobidulCode + '/SaveStation/' + stationCode, stationData);
   }
 
-  function updateStationContent (mobidulCode, stationCode, content){
+  function updateStationContent (mobidulCode, stationCode, content) {
     return $http.post(cordovaUrl + '/' + mobidulCode + '/UpdateContent/' + stationCode, { content: content });
   }
 
@@ -69,20 +68,22 @@ function StationCreatorService (
   }
 
   /**
-   * This function calls the Server in order to clone the current Station. It also contains the ID of the new station.
+   * This function calls the Server in order to clone the current Station.
+   * It also contains the ID of the new station.
+   *
    * @param mobidulCode Code of the Mobidul the station belongs to.
    * @param stationCode Code of the Station that will be duplicated.
    * @returns {*} Call of the Server
    */
-  function cloneMyStation(mobidulCode, stationCode) {
+  function cloneMyStation (mobidulCode, stationCode) {
     return $http.get(cordovaUrl + '/' + mobidulCode + '/cloneStation/' + stationCode)
       .success(function (response, status, headers, config) {
-      return response;
-    })
-    .error(function (response, status, headers, config) {
-      $log.error(response);
-      $log.error(status);
-    });
+        return response;
+      })
+      .error(function (response, status, headers, config) {
+        $log.error(response);
+        $log.error(status);
+      });
   }
 
   return service;

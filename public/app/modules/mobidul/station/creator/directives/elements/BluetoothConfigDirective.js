@@ -1,5 +1,5 @@
 (function () {
-  'use strict';
+'use strict';
 
 angular
   .module('StationCreator')
@@ -17,32 +17,70 @@ function Bluetooth(
 ) {
   return {
     restrict: 'E',
-    template:
-    '<div>' +
-    '<md-button class="md-raised md-primary" ng-click="ctrl.openBeaconDialog()">{{ \'BLUETOOTH_SCAN_BTN\' | translate }}' +
-    '<md-icon>bluetooth_searching</md-icon></md-button>' +
-    '<span ng-if="ctrl.beaconfoundcheck && ctrl.beaconname" translate="BLUETOOTH_FIX_INFO" translate-values="{value: ctrl.beaconname}"></span><br/>' +
-      '<div ng-show="ctrl.beaconfoundcheck" class="config-part">' +
-        '<br/><span translate="BLUETOOTH_SUCCESS"></span>' +
-        '<hr />'+
-        '<action-selector data-opts="ctrl.actionOpts" data-selection="ctrl.success" data-name="SUCCESS_ACTION"></action-selector>' +
-        '<md-input-container>' +
-          '<input type="text" ng-model="ctrl.fallback" placeholder="{{ \'FALLBACK\' | translate }}">' +
-        '</md-input-container>' +
-        '<md-input-container>' +
-          '<input type="text" ng-model="ctrl.beaconname" placeholder="{{ \'BLUETOOTH_NAME_BEACON\' | translate }}">' +
-        '</md-input-container>' +
-        '<hr />' +
-        '<span translate="BLUETOOTH_CHECKBOXES"></span>' +
-        '<br /><br /><md-radio-group ng-model="ctrl.selectedrange" layout="row"> ' +
-          '<md-radio-button value="Immediate" class="md-accent">{{ \'BLUETOOTH_CHECKBOX_IMMEDIATE\' | translate }}</md-radio-button>' +
-          '<md-radio-button value="Near" class="md-accent">{{ \'BLUETOOTH_CHECKBOX_NEAR\' | translate }}</md-radio-button>' +
-        '</md-radio-group>' +
-        '<md-input-container style="display: none">' +
-          '<input type="text" ng-model="ctrl.beaconkey">' +
-        '</md-input-container>' +
-      '</div>' +
-    '</div>',
+    template: (
+      '<div>' +
+        '<md-button ' +
+          'class="md-raised md-primary" ' +
+          'ng-click="ctrl.openBeaconDialog()"' +
+        '>{{ \'BLUETOOTH_SCAN_BTN\' | translate }}' +
+          '<md-icon>bluetooth_searching</md-icon>' +
+        '</md-button>' +
+
+        '<span ' +
+          'ng-if="ctrl.beaconfoundcheck && ctrl.beaconname" ' +
+          'translate="BLUETOOTH_FIX_INFO" ' +
+          'translate-values="{ value: ctrl.beaconname }"'+
+        '></span><br />' +
+        '<div ng-show="ctrl.beaconfoundcheck" class="config-part">' +
+          '<br /><span translate="BLUETOOTH_SUCCESS"></span>' +
+          '<hr />'+
+
+          '<action-selector ' +
+            'opts="ctrl.actionOpts" ' +
+            'selection="ctrl.success" ' +
+            'name="SUCCESS_ACTION"' +
+          '></action-selector>' +
+
+          '<md-input-container>' +
+            '<input type="text" ' +
+              'ng-model="ctrl.fallback" ' +
+              'placeholder="{{ \'FALLBACK\' | translate }}"' +
+            '/>' +
+          '</md-input-container>' +
+
+          '<md-input-container>' +
+            '<input type="text" ' +
+              'ng-model="ctrl.beaconname" ' +
+              'placeholder="{{ \'BLUETOOTH_NAME_BEACON\' | translate }}"' +
+            '/>' +
+          '</md-input-container>' +
+          '<hr />' +
+
+          '<span translate="BLUETOOTH_CHECKBOXES"></span>' +
+          '<br /><br />' +
+
+          '<md-radio-group ng-model="ctrl.selectedrange" layout="row"> ' +
+            '<md-radio-button ' +
+              'value="Immediate" ' +
+              'class="md-accent"' +
+            '>' +
+              '{{ \'BLUETOOTH_CHECKBOX_IMMEDIATE\' | translate }}' +
+            '</md-radio-button>' +
+            '<md-radio-button ' +
+              'value="Near" ' +
+              'class="md-accent"' +
+            '>' +
+              '{{ \'BLUETOOTH_CHECKBOX_NEAR\' | translate }}' +
+            '</md-radio-button>' +
+          '</md-radio-group>' +
+
+          '<md-input-container style="display: none">' +
+            '<input type="text" ng-model="ctrl.beaconkey">' +
+          '</md-input-container>' +
+        '</div>' +
+      '</div>'
+    ),
+
     scope: {
       beaconname: '=',
       beaconkey: '=',
@@ -52,11 +90,13 @@ function Bluetooth(
       selectedrange: '=',
     },
     bindToController: true,
+
     link: function ($scope, $element, $attr, ctrl) {
-      if (ctrl.selectedrange === undefined) {
-        ctrl.selectedrange = "Immediate";
+      if ( ctrl.selectedrange === undefined ) {
+        ctrl.selectedrange = 'Immediate';
       }
     },
+
     controller: BluetoothController,
     controllerAs: 'ctrl'
   };
@@ -79,30 +119,32 @@ function Bluetooth(
         controller   : BluetoothScanDialogController,
         controllerAs : 'bluetoothDialog',
 
-        clickOutsideToClose: true
+        clickOutsideToClose : true
       };
 
       $mdDialog.show(scanBluetoothDialog);
     };
 
 
-    ctrl.foundImmediateBeaconListener = $rootScope.$on('rootScope:foundImmediateBeacon', function(event, data) {
-      $scope.$apply(function () {
-        ctrl.beaconkey = data.uniqueKey;
-        ctrl.beaconfoundcheck = true;
-      });
+    ctrl.foundImmediateBeaconListener =
+      $rootScope.$on('rootScope:foundImmediateBeacon', function (event, data) {
+        $scope.$apply(function () {
+          ctrl.beaconkey = data.uniqueKey;
+          ctrl.beaconfoundcheck = true;
+        });
 
-      // console.debug("BEAcON");
-      // console.debug(BluetoothBeaconService.isBeaconFound);
-      // console.debug(data);
-      // console.debug(data.uniqueKey);
-      // console.debug("BEAcON_SERVICe");
-      // var beacon = BluetoothBeaconService.getBeacon();
-      // console.debug(beacon.uniqueKey);
+        // console.debug("BEAcON");
+        // console.debug(BluetoothBeaconService.isBeaconFound);
+        // console.debug(data);
+        // console.debug(data.uniqueKey);
+        // console.debug("BEAcON_SERVICe");
+        // var beacon = BluetoothBeaconService.getBeacon();
+        // console.debug(beacon.uniqueKey);
 
-      //NOTE: REMOVE this if not working
-      event.stopPropagation();
-    });
+        //NOTE: REMOVE this if not working
+        event.stopPropagation();
+      }
+    );
 
     $scope.$on('$destroy', ctrl.foundImmediateBeaconListener);
   }
@@ -168,12 +210,12 @@ function Bluetooth(
       _searchForBeacons();
     }
 
-    function _initDefaultValues() {
+    function _initDefaultValues () {
       bluetoothDialog.selectedManufacturer = bluetoothDialog._availbaleRegions[0];
       bluetoothDialog.scanningText = $translate.instant('BLUETOOTH_INFO_SEARCH');
     }
 
-    function _searchForBeacons() {
+    function _searchForBeacons () {
       $cordovaBeacon.requestWhenInUseAuthorization();
 
       $rootScope.$on('$cordovaBeacon:didRangeBeaconsInRegion', function (event, pluginResult) {
@@ -182,8 +224,8 @@ function Bluetooth(
         for (var i = 0; i < pluginResult.beacons.length; i++) {
           var currentBeacon = pluginResult.beacons[i];
           var uniqueBeaconKey = (
-            currentBeacon.uuid + ":" +
-            currentBeacon.major + ":" +
+            currentBeacon.uuid + ':' +
+            currentBeacon.major + ':' +
             currentBeacon.minor
           );
 
@@ -212,24 +254,24 @@ function Bluetooth(
             bluetoothDialog.foundImmediateBeacon = bluetoothDialog.beacons[0];
           } else if ( bluetoothDialog.foundImmediateBeacon.uniqueKey === bluetoothDialog.beacons[0].uniqueKey ) {
             // console.debug("BLUE::BluetoothConfigDirective::_searchForBeacons::COMPARING BEACON");
+            $scope.$apply(function () {
+              bluetoothDialog.scanningText = $translate.instant('BLUETOOTH_INFO_FOUND_ONE');
+            });
+            bluetoothDialog.confirmedImmediateBeacon++;
+
+            if ( bluetoothDialog.confirmedImmediateBeacon >= bluetoothDialog._confirmRegions ) {
+              // console.debug("BLUE::BluetoothConfigDirective::_searchForBeacons::SAVE FOUND BEACON");
               $scope.$apply(function () {
-                bluetoothDialog.scanningText = $translate.instant('BLUETOOTH_INFO_FOUND_ONE');
+                bluetoothDialog.scanningText = $translate.instant('BLUETOOTH_INFO_LOCKED');
               });
-              bluetoothDialog.confirmedImmediateBeacon++;
+              bluetoothDialog.lockedBeacon = true;
 
-              if ( bluetoothDialog.confirmedImmediateBeacon >= bluetoothDialog._confirmRegions ) {
-                // console.debug("BLUE::BluetoothConfigDirective::_searchForBeacons::SAVE FOUND BEACON");
-                $scope.$apply(function () {
-                  bluetoothDialog.scanningText = $translate.instant('BLUETOOTH_INFO_LOCKED');
-                });
-                bluetoothDialog.lockedBeacon = true;
-
-                $rootScope.$emit('rootScope:foundImmediateBeacon', bluetoothDialog.foundImmediateBeacon);
-                // BluetoothBeaconService.setBeacon(bluetoothDialog.foundImmediateBeacon);
-                $timeout(function () {
-                  close();
-                }, 1000);
-              }
+              $rootScope.$emit('rootScope:foundImmediateBeacon', bluetoothDialog.foundImmediateBeacon);
+              // BluetoothBeaconService.setBeacon(bluetoothDialog.foundImmediateBeacon);
+              $timeout(function () {
+                close();
+              }, 1000);
+            }
           } else {
             // console.debug("BLUE::BluetoothConfigDirective::_searchForBeacons::LOST BEACON");
             bluetoothDialog.foundImmediateBeacon = null;
@@ -249,18 +291,18 @@ function Bluetooth(
       $cordovaBeacon.startRangingBeaconsInRegion(bluetoothDialog.beaconRegionRef);
     }
 
-    function _isOtherManufacturerSelected() {
+    function _isOtherManufacturerSelected () {
       return bluetoothDialog.selectedManufacturer.id === 999;
     }
 
-    function _stopRangingBeacons() {
+    function _stopRangingBeacons () {
       $cordovaBeacon.stopRangingBeaconsInRegion(bluetoothDialog.beaconRegionRef);
     }
 
 
     /// public functions
 
-    function close() {
+    function close () {
       _stopRangingBeacons();
 
       bluetoothDialog.foundImmediateBeacon = null;
@@ -273,9 +315,9 @@ function Bluetooth(
       bluetoothDialog.showRegion = !!_isOtherManufacturerSelected();
     }
 
-    function validateUUID(uuid) {
-      //NOTE: Checks the entered UUID for specific format ignoring upper and lower case
-      //00000000-0000-0000-0000-000000000000
+    function validateUUID (uuid) {
+      // NOTE: Checks the entered UUID for specific format ignoring upper and lower case
+      // 00000000-0000-0000-0000-000000000000
       return /^[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(uuid);
     }
   }

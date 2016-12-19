@@ -18,8 +18,10 @@
   "DISCARD": "Verwerfen",
   "CLONE": "Kopieren",
   "LOGIN": "Anmelden",
+  "LOGIN_MOBI": "Gastanmeldung",
   "SEARCH": "Suche",
   "EDIT": "Bearbeiten",
+  "SEND": "Senden",
 
   "OPTIONS": "Einstellungen",
   "RIGHTS": "Berechtigungen",
@@ -70,6 +72,8 @@
 
   "REGISTER": "Registrieren",
   "REGISTER_USER": "Benutzer registrieren",
+  "REGISTER_ERROR_REQ": "Wird benötigt!",
+  "REGISTER_ERROR_REQ_PWD": "Wird benötigt! Mindestens 6 Zeichen.",
 
   "REGISTRATION_INFORMATION": "Registrierung Informationen",
 
@@ -221,6 +225,8 @@
   "RESET_RALLY_CONFIRMATION": "Bitte bestätige, dass du deinen Rally Fortschritt zurücksetzen möchtest.",
   "RALLY_RESET": "Rally zurückgesetzt",
   "RALLY_RESET_SUCCESS": "Dein Rally Fortschitt wurde zurückgesetzt.",
+  "RALLY_DIALOG": "Rally abgeschlossen",
+  "RALLY_DIALOG_TEXT": "Das ist die letzte Station. Du hast das Rally erfolgreich abgeschlossen!",
 
   "NO_STATION_FOR_CODE": "Zu diesem Code ist leider keine Station vorhanden...",
   "STATION_NO_CONTENT": "Diese Station hat für den Status {{state}} keinen Inhalt.",
@@ -285,7 +291,7 @@
   "CHOOSE_FONT": "Wähle eine Schriftart",
 
   "HTML": "Text",
-  "HTML_DESCRIPTION": "Dieses Element ermöglicht Dir normalen Text mit Bildern zu erstellen. Hierfür stehen dir gängige Formatierungshilfen zur Verfügung.",
+  "HTML_DESCRIPTION": "Dieses Element ermöglicht dir normalen Text mit Bildern zu erstellen. Hierfür stehen dir gängige Formatierungshilfen zur Verfügung.",
   "IF_NEAR": "Abstandsmesser",
   "IF_NEAR_DESCRIPTION": "Dieses Element löst eine Aktion aus wenn sich der oder die SpielerIn in einer gewissen Entfernung zur Station befindet. Falls das GPS Signal zu ungenau sein sollte wird stattdessen ein Eingabefeld angezeigt. Dieses löst bei der richtigen Eingabe der \"Absicherung\" dieselbe Aktion aus.",
   "BLUETOOTH": "Bluetooth",
@@ -361,13 +367,15 @@
   "BLUETOOTH_INFO_SEARCH": "Suche Beacon... ",
   "BLUETOOTH_INFO_FOUND": "Beacon gefunden (nahe)... ",
   "BLUETOOTH_INFO_FOUND_ONE": "Bewege den Beacon nicht... ",
-  "BLUETOOTH_INFO_LOCKED": "Beacon gescannt!",
+  "BLUETOOTH_INFO_LOCKED": "Beacon gescannt!!",
 
   "BLUETOOTH_INFO_2_SEARCH": "Suche Beacon der Station... ",
   "BLUETOOTH_INFO_2_FAR": "Du bist noch WEITER entfernt.",
   "BLUETOOTH_INFO_2_NEAR": "Du bist schon NAHE dran.",
   "BLUETOOTH_INFO_2_IMMEDIATE": "Du bist schon SEHR NAHE dran.",
   "BLUETOOTH_INFO_2_FOUND": "Beacon gefunden!!",
+
+  "FREE_TEXT_QUESTION": "Frage",
 
   "COUNTDOWN_INFO": "Nach dem die Zeit abgelaufen ist passiert etwas bei dieser Station. Restzeit (Sekunden): ",
 
@@ -386,10 +394,42 @@
   "WELCOME_TO_MOBILOT": "Willkommen bei Mobilot",
   "ABOUT_MOBILOT": "Über Mobilot",
 
+  "FEEDBACK_TITLE": "Feedback",
+  "FEEDBACK_TEXT": "Bitte lass uns wissen was du über Mobilot denkst oder falls du dabei Hilfe brauchen solltest!",
+  "FEEDBACK_PLACEHOLDER": "Dein Feedback",
+  "FEEDBACK_SUCCESS_MSG": "Danke für dein Feedback! Wir bemühen uns dich zu kontaktieren!",
+  "FEEDBACK_ERROR_MSG": "Hmm, bitte hilf uns das besser zu verstehen. Danke!",
+
   "MOBILOT_DESCRIPTION": "Mobilot (der mobile Pilot) ist ein in mehreren Forschungsprojekten entstandenes System zum einfachen Erstellen kontextbasierter Informationssysteme.\n Mit Mobilot können sogenannte Mobidule kostenlos erstellt werden. \n Wir bitten unsere Anwender die gesetzliche Regeln und die der Ethik und des guten Geschmacks einzuhalten und behalten uns vor, Mobidule, die diese Regeln verletzten, zu löschen. Wir übernehmen keine Verantwortung für Inhalte unserer Nutzer.",
-  "MFG": "Mobile Forschungsgruppe",
+  "MFG": "Forschungsgruppe Media Computing",
   "ICMT": "Institut für Creative\\Media/Technologies",
-  "FHSTP": "Hochschule der angewandten Wissenschaften St. Pölten",
+  "FHSTP": "Fachhochschule St. Pölten",
+  "NETIDEE": "Netidee",
+
+  "ADDITIONAL_INFO": "Zusätzliche Information",
+  "PRIVACY_POLICY": "Datenschutz",
+  "PRIVACY_POLICY_INFO": "Um ordnungsgemäß funktionieren zu können, sammelt Mobilot Daten von Ihrem Telefon. Sobald Sie unsere App installierst, stimmen Sie zu, dass wir folgende Daten sammeln können:",
+  "CONTACT_ABOUT": "KONTOINFORMATIONEN",
+  "CONTACT_ABOUT_INFO": "Einzelne Mobidule können ohne Registrierung konsumiert werden. Um Mobidule zu erstellen, müssen Sie sich mit Emailadresse und Passwort registrieren. Diese Informationen werden gesichert übertragen. Das Passwort wird zusätzlich verschlüsselt (eigentlich gehasht) übertragen, dass auch wir es nicht lesen können.",
+  "LOCATION_DATA": "STANDORTDATEN",
+  "LOCATION_DATA_INFO": "Wir benötigen den Zugriff auf den Standort Ihres Gerätes. Bei einer Anfrage erheben wir Ihren aktuellen Standort über GPS, um Ihnen schnell Informationen zu Ihrer unmittelbaren Umgebung geben zu können. Daten zu Ihrem Standort werden nur für die Bearbeitung Ihrer Anfrage genutzt. Die Übertragung Ihrer Standortdaten erfolgt über eine verschlüsselte Verbindung. Ihre Standortdaten werden nach Beendigung Ihrer Anfrage anonymisiert und zur Verbesserung unseres Services statistisch ausgewertet.",
+  "DEVICE_NOTE": "INFORMATIONEN ÜBER IHR GERÄT",
+  "DEVICE_NOTE_INFO": "Hierzu zählen Betriebssystem, Gerätidentifikationsnummer, Mobilfunkanbieter, Sprache, Akkuleistung, WLAN oder andere bestehende Netzwerkverbindungen und andere Daten, welche für das Herunterladen aus App Stores benötigt werden.",
+  "CONTACT_US": "KOMMUNIKATION MIT UNS",
+  "CONTACT_US_INFO": "Sollten Sie mit uns Kontakt aufnehmen, werden wir diesbezügliche Informationen sammeln und gegebenenfalls bearbeiten. Dies kann sich auf alle Informationen, die Sie uns zur Verfügung stellen, erstrecken inklusive: Name, Emailadresse und andere Kontaktinformationen. Sie können uns aber natürlich auch anonymes Feedback geben über einen Mailaccount, der nicht Ihre Identität enthüllt.",
+  "INFORMATION_USAGE": "WIE VERWENDEN WIR DIE INFORMATION?",
+  "INFORMATION_USAGE_INFO": "Wir verwenden die Informationen, die wir sammeln auf unterschiedliche Weise. Damit die App funktionieren kann, werden diese Informationen zuerst über eine gesicherte Verbindung an unsere Server übermittelt und dort gespeichert. Daraufhin werden die Daten dort analysiert und an Ihr Telefon rückübermittelt. Auch diese Analyseergebnisse werden auf unseren Servern gespeichert. Außerdem verwenden wir die gesammelten Daten um unsere App weiter zu verbessern. Zusätzlich werden die Daten wissenschaftlich ausgewertet und die Resultate gegebenenfalls in wissenschaftlichen Journalen publiziert. Dies geschieht in vollständig anonymisierter Form, es kann also niemand aus diesen publizierten Daten Rückschlüsse auf Ihre Person oder Ihr verwendetes Gerät ziehen.",
+  "DATA_SHARE": "WEITERGABE DER DATEN AN DRITTE",
+  "DATA_SHARE_INFO": "Um die App betreiben zu können, müssen wir Informationen, die wir durch die App sammeln, gegebenfalls an Dritte innerhalb und außerhalb des Europäischen Wirtschaftsraumes weitergeben. Dies kann in folgenden Fällen passieren:<br>-) Wenn Sie sich in Zukunft dafür entscheiden, Apps von Dritten zu verwenden, die Daten aus unserer App beziehen und Sie diesem Datentransfer zustimmen.<br>-) Gegebenenfalls kann es passieren, dass wir Ihre Daten mit behördlichen Organisationen teilen müssen, wenn dies notwendig erscheint, um Schaden gegen Sie, uns oder andere zu vermeiden.<br>-) Wie oben beschrieben planen wir, Ihre Daten in anonymisierter Form für wissenschaftliche Zwecke zu verwenden.",
+  "SYSTEM_SECURITY": "SICHERHEIT UNSERER SYSTEME",
+  "SYSTEM_SECURITY_INFO": "Wir verwenden Systeme von Hosting Partnern, um die zum Betrieb der App notwendige Hardware, Software, Netzwerke und Speicherplätze zu erhalten. Diese Systeme können eventuell außerhalb des europäischen Wirtschaftsraumes lokalisiert sein. Sofern Sie die App installieren, stimmen Sie dem zu. Wir verwenden kommerziell verfügbare physische und technische Sicherungen, um Ihre Daten zu schützen. Leider können wir keine 100%ige Sicherheit Ihrer Daten garantieren. Die Sicherheit Ihrer Daten kann durch unvorhergesehene Ereignisse wie unauthorisierten Zugang, Hardware oder Software Probleme und andere Komplikationen verletzt werden.",
+  "DATA_STORAGE": "DATENSICHERUNG UND DATENLÖSCHUNG",
+  "DATA_STORAGE_INFO": "Wir werden Ihre Informationen so lange speichern, wie dies nötig ist, um die App zu betreiben und die in dieser Datenschutzerklärung beschriebene Verwendung der Daten es nötig macht. Im Regelfall heißt dies, dass wir die Informationen so lange behalten, bis Sie Ihren Account löschen. Sollten Sie Ihren Account löschen, können Sie ebenso die Löschung Ihrer Informationen verlangen.",
+  "PRIVACY_CHANGES": "ÄNDERUNGEN DER DATENSCHUTZERKLÄRUNG",
+  "PRIVACY_CHANGES_INFO": "Wir behalten uns das Recht vor, diese Datenschutzerklärung jederzeit zu ändern. Wir werden Sie vor jeder solcher Änderung rechtzeitig über unsere App und/oder Website informieren. Sollten Sie den geänderten Erklärungen nicht zustimmen, können Sie Ihren Account jederzeit löschen.",
+
+  "NOT_IMPLEMENTED_DIALOG": "Nicht Verfügbar",
+  "NOT_IMPLEMENTED_TEXT": "Es tut uns Leid aber diese Funktion ist in der aktuellen Version von Mobilot nicht verfügbar. Die Idee ist, dass später verschiedene Daten von Mobidulen exportiert werden können.",
 
   "PRESENTED_BY": "Präsentiert von"
 

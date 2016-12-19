@@ -341,8 +341,6 @@ function StationCreatorController (
       {
         // $log.debug('StationCreatorController _loadStation callback : ');
         // $log.debug(response);
-        console.debug('BLUE::StationCreatorController _loadStation callback:: ');
-        console.debug(response);
 
         var stationData = response || null;
 
@@ -396,8 +394,8 @@ function StationCreatorController (
 
           try {
             stationCreator.station.content =  JSON.parse(stationData.content);
-            console.debug('BLUE::StationCreatorController _loadStation::stationData.content');
-            console.debug(stationCreator.station.content );
+            // console.debug('BLUE::StationCreatorController _loadStation::stationData.content');
+            // console.debug(stationCreator.station.content );
           } catch(e) {
             $log.error('Error while parsing station.content');
           }
@@ -483,8 +481,8 @@ function StationCreatorController (
           medialist: []
         };
 
-        console.debug('BLUE::StationCreatorController _saveStation::stationCreator.station.content');
-        console.debug(stationCreator.station.content);
+        // console.debug('BLUE::StationCreatorController _saveStation::stationCreator.station.content');
+        // console.debug(stationCreator.station.content);
 
         // $log.debug('station data : ');
         // $log.debug(stationData);
@@ -618,17 +616,17 @@ function StationCreatorController (
             '</md-dialog-content>' +
 
             '<md-dialog-actions class="md-dialog-content-divider">' +
-              '<md-button ng-click="stationCreator.discardChanges()" translate="DISCARD">' +
+              '<md-button class="md-primary" ng-click="stationCreator.discardChanges()" translate="DISCARD">' +
                 '' +
               '</md-button>' +
 
               '<span flex></span>' +
 
-              '<md-button ng-click="stationCreator.closeDialog()" translate="CANCEL">' +
+              '<md-button class="md-primary" ng-click="stationCreator.closeDialog()" translate="CANCEL">' +
                 '' +
               '</md-button>' +
 
-              '<md-button ng-click="stationCreator.saveChanges()">' +
+              '<md-button class="md-primary md-mobilot" style="color: #ffffff" ng-click="stationCreator.saveChanges()">' +
                 saveButtonText +
               '</md-button>' +
             '</md-dialog-actions>' +
@@ -747,50 +745,46 @@ function StationCreatorController (
   function changeName ()
   {
     if ( stationCreator.isNewStation || stationCreator.basis.generateCode ) {
-      // TODO: change default station name handling
-      var stationName = stationCreator.station.name.trim() || '(' + $translate.instant('UNKNOWN') + ')';
-      var stationCode = UtilityService.getCodeFromName( stationName );
+      var stationName = stationCreator.station.name
+        ? stationCreator.station.name.trim()
+        : '(' + $translate.instant('UNKNOWN') + ')';
+      var stationCode = UtilityService.getCodeFromName(stationName);
 
-      if ( stationCode ) {
+      if (stationCode) {
         stationCreator.basis.codeHelper.text = stationCreator._codeHelperGenerating;
       }
 
 
-      if ( stationCreator.isNewStation ||
-         ( ! stationCreator.isNewStation &&
-           ! _isOriginalCode( stationCode ) ) )
-      {
+      if ( stationCreator.isNewStation
+        || ( ! stationCreator.isNewStation
+          && ! _isOriginalCode(stationCode)
+        )
+      ) {
         StationService
-          .requestValidCode( stationCode )
-          .success(function (code, status, headers, config)
-          {
+          .requestValidCode(stationCode)
+          .success(function (code, status, headers, config) {
             // $log.debug('request valid code callback from changeName : ');
             // $log.debug(code);
 
             stationCode = code;
 
-            if ( stationCode )
-            {
+            if (stationCode) {
               stationCreator.station.code = stationCode;
-
 
               _refreshCodeHelper( stationCode, stationCreator._codeHelperGenerated );
 
-
-              if ( ! stationCreator.isNewStation )
-
+              if ( ! stationCreator.isNewStation ) {
                 stationCreator.basis.generateCode = false;
-            }
-            else
-            {
+              }
+            } else {
               stationCreator.station.code = '';
 
               _resetCodeHelper();
             }
           });
-      }
-      else
+      } else {
         _restoreOriginalStationCode();
+      }
     }
   }
 
@@ -799,17 +793,17 @@ function StationCreatorController (
     // $log.debug('change code', stationCreator.station.code);
 
     stationCreator.station.code =
-      UtilityService.formatCode( stationCreator.station.code );
+      UtilityService.formatCode(stationCreator.station.code);
 
     // $log.debug('formatted code', stationCreator.station.code);
 
     var stationCode = stationCreator.station.code;
 
-
-    if ( stationCode )
-    {
-      if ( stationCreator.isNewStation ||
-        ( ! stationCreator.isNewStation && ! _isOriginalCode(stationCode))
+    if (stationCode) {
+      if ( stationCreator.isNewStation
+        || ( ! stationCreator.isNewStation
+          && ! _isOriginalCode(stationCode)
+        )
       ) {
         StationService.requestValidCode(stationCode)
           .success(function (code, status, headers, config) {
@@ -843,18 +837,18 @@ function StationCreatorController (
     stationCreator.editStationCode = ! stationCreator.editStationCode;
   }
 
-  function deleteStation ()
-  {
+
+  function deleteStation () {
     var confirmDeleteStationDialog =
       $mdDialog.confirm()
-      .parent( angular.element(document.body) )
-      .title($translate.instant('STATION_DELETE_CONFIRMATION_TITLE'))
-      .textContent($translate.instant('STATION_DELETE_CONFIRMATION'))
-      .ariaLabel($translate.instant('STATION_DELETE_CONFIRMATION_TITLE'))
-      .ok($translate.instant('DELETE'))
-      .cancel($translate.instant('CANCEL'));
+        .parent(angular.element(document.body))
+        .title($translate.instant('STATION_DELETE_CONFIRMATION_TITLE'))
+        .textContent($translate.instant('STATION_DELETE_CONFIRMATION'))
+        .ariaLabel($translate.instant('STATION_DELETE_CONFIRMATION_TITLE'))
+        .ok($translate.instant('DELETE'))
+        .cancel($translate.instant('CANCEL'));
 
-    $mdDialog.show( confirmDeleteStationDialog )
+    $mdDialog.show(confirmDeleteStationDialog)
     .then(function () {
       var currentStateParams = StateManager.state.params;
 
@@ -862,29 +856,26 @@ function StationCreatorController (
       var stationCode = currentStateParams.stationCode || null;
 
 
-      if ( mobidulCode && stationCode )
-
+      if ( mobidulCode && stationCode ) {
         StationCreatorService
-          .deleteStation( mobidulCode, stationCode )
-          .success(function (response, status, headers, config)
-          {
-            if ( response === 'success' )
-            {
+          .deleteStation(mobidulCode, stationCode)
+          .success(function (response, status, headers, config) {
+            if ( response === 'success' ) {
               $state.go(
                 'mobidul.map',
-                { mobidulCode : mobidulCode },
-                { reload : true }
+                { mobidulCode: mobidulCode },
+                { reload: true }
               );
             }
           })
-          .error(function (response, status, headers, config)
-          {
+          .error(function (response, status, headers, config) {
             $log.error(response);
             $log.error(status);
 
-            // TODO - alert window einbauen und dann weiterleitung auf (?)
+            // TODO: alert window einbauen und dann weiterleitung auf (?)
             alert(response);
           });
+      }
     });
   }
 

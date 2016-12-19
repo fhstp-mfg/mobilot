@@ -127,7 +127,7 @@ cordova.plugins.locationManager.requestWhenInUseAuthorization();
 // or cordova.plugins.locationManager.requestAlwaysAuthorization()
 
 cordova.plugins.locationManager.startMonitoringForRegion(beaconRegion)
-	.fail(function(e) { console.error(e); })
+	.fail(console.error)
 	.done();
 
 ```
@@ -142,7 +142,7 @@ var major = 5;
 var beaconRegion = new cordova.plugins.locationManager.BeaconRegion(identifier, uuid, major, minor);
 
 cordova.plugins.locationManager.stopMonitoringForRegion(beaconRegion)
-	.fail(function(e) { console.error(e); })
+	.fail(console.error)
 	.done();
 
 ```
@@ -198,7 +198,7 @@ cordova.plugins.locationManager.requestWhenInUseAuthorization();
 // or cordova.plugins.locationManager.requestAlwaysAuthorization()
 
 cordova.plugins.locationManager.startRangingBeaconsInRegion(beaconRegion)
-	.fail(function(e) { console.error(e); })
+	.fail(console.error)
 	.done();
 
 ```
@@ -212,7 +212,7 @@ var major = 5;
 var beaconRegion = new cordova.plugins.locationManager.BeaconRegion(identifier, uuid, major, minor);
 
 cordova.plugins.locationManager.stopRangingBeaconsInRegion(beaconRegion)
-	.fail(function(e) { console.error(e); })
+	.fail(console.error)
 	.done();
 
 ```
@@ -224,7 +224,7 @@ cordova.plugins.locationManager.isAdvertisingAvailable()
     .then(function(isSupported){
         console.log("isSupported: " + isSupported);
     })
-    .fail(function(e) { console.error(e); })
+    .fail(console.error)
     .done();
 
 ```
@@ -236,7 +236,7 @@ cordova.plugins.locationManager.isAdvertising()
     .then(function(isAdvertising){
         console.log("isAdvertising: " + isAdvertising);
     })
-    .fail(function(e) { console.error(e); })
+    .fail(console.error)
     .done();
 
 ```
@@ -277,7 +277,7 @@ cordova.plugins.locationManager.isAdvertisingAvailable()
             console.log("Advertising not supported");
         }
     })
-    .fail(function(e) { console.error(e); })
+    .fail(console.error)
     .done();
 
 ```
@@ -285,7 +285,7 @@ cordova.plugins.locationManager.isAdvertisingAvailable()
 ##### Stopping the advertising (iOS only)
 ```
 cordova.plugins.locationManager.stopAdvertising()
-    .fail(function(e) { console.error(e); })
+    .fail(console.error)
     .done();
 
 ```
@@ -302,7 +302,7 @@ cordova.plugins.locationManager.isBluetoothEnabled()
             cordova.plugins.locationManager.enableBluetooth();        
         }
     })
-    .fail(function(e) { console.error(e); })
+    .fail(console.error)
     .done();
 
 ```

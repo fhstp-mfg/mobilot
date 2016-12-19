@@ -99,24 +99,19 @@ function HomeController (
 
     home.checkRequiredLogin();
 
-    if ( ! home.requiredLogin )
-    {
-      if ( StateManager.isHomeLogin() )
-        $state
-          .go('home')
-          .then(function ()
-          {
-            home.loadMobiduls( path );
+    if ( ! home.requiredLogin ) {
+      if ( StateManager.isHomeLogin() ) {
+        $state.go('home')
+          .then(function() {
+            home.loadMobiduls(path);
           });
-
-      else if ( path )
-        home.loadMobiduls( path );
-    }
-    else
-    {
-      // NOTE - this is important in order to hide the AppLoader
+      } else if (path) {
+        home.loadMobiduls(path);
+      }
+    } else {
+      // NOTE: this is important in order to hide the AppLoader
       // for home.login when e.g. redirected from Activate view
-      $rootScope.$emit('rootScope:toggleAppLoader', { action : 'hide' });
+      $rootScope.$emit('rootScope:toggleAppLoader', { action: 'hide' });
     }
   }
 
@@ -230,15 +225,14 @@ function HomeController (
 
   function changeSearchType ()
   {
-    //$log.debug('changeSearchType called at tab index :');
-    //$log.debug(home.searchTypeIndex);
+    // $log.debug('changeSearchType called at tab index :');
+    // $log.debug(home.searchTypeIndex);
 
     home.mobiduls  = [];
     home.isLoading = true;
 
-    if (
-      home.searchTypeIndex == HomeService.NEAR_ME_MOBIDULE &&
-      home.myPosition == null
+    if ( home.searchTypeIndex == HomeService.NEAR_ME_MOBIDULE
+      && home.myPosition == null
     ) {
       if ( LocalStorageService.shouldExplainGeoPermit() ) {
         var informAboutGeoPermitDialog =
@@ -303,7 +297,7 @@ function HomeController (
 
       var mobidulsData = home.prepareMobidulsData( data );
 
-      // NOTE - save mobiduls data to show
+      // NOTE: save mobiduls data to show
       home.mobiduls = mobidulsData;
     })
     .error(function (data, status, headers, config) {

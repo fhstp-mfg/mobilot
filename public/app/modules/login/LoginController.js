@@ -30,6 +30,12 @@ function LoginController (
     password : ''
   };
 
+  login.mobiUserAccount = {
+    username : 'mobiuser',
+    email    : 'mobiuser@gmx.at',
+    password : 'mobiuser'
+  };
+
   login.resetData = {
     resetToken      : $stateParams.token,
     newPassword     : '',
@@ -51,6 +57,7 @@ function LoginController (
   login.goToLogin          = goToLogin;
   login.goToRegister       = goToRegister;
   login.goToForgotPassword = goToForgotPassword;
+  login.loginMobiUser      = loginMobiUser;
 
 
   /// construct
@@ -79,18 +86,18 @@ function LoginController (
 
   function _checkIsLoggedIn ()
   {
-    if (UserService.Session.isLoggedIn) {
-      if (StateManager.isActivate())
-        // TODO: Find a better solution for this !!!
+    if ( UserService.Session.isLoggedIn ) {
+      if ( StateManager.isActivate() ) {
+        // TODO: Find a better solution for the following !!!
         $timeout(function () {
           $state.go('home');
         }, 4000);
-      else {
+      } else {
         StateManager.back();
       }
     } else {
       if (StateManager.isActivate()) {
-        // TODO: Find a better solution for this !!!
+        // TODO: Find a better solution for the following !!!
         $timeout(function () {
           $state.go('home.login');
         }, 4000);
@@ -107,22 +114,29 @@ function LoginController (
     $log.debug(login.credentials);
 
     UserService.login(login.credentials)
+      .then(function (response) {
+        $log.debug('login callback');
+        $log.debug(response);
+
+        if (response.data === 'wrong') {
+          var loginCompletedDialog =
+            $mdDialog.alert()
+              .parent(angular.element(document.body))
+              .title($translate.instant('LOGIN_ERROR'))
+              .textContent($translate.instant('CREDENTIALS_WRONG'))
+              .ariaLabel($translate.instant('LOGIN_ERROR'))
+              .ok($translate.instant('EDIT_CREDENTIALS'));
+
+          $mdDialog.show(loginCompletedDialog);
+        }
+
+        _checkIsLoggedInOnline(response);
+      });
+  }
+
+  function loginMobiUser ( ) {
+    UserService.login(login.mobiUserAccount)
     .then(function (response) {
-      $log.debug('login callback');
-      $log.debug(response);
-
-      if (response.data === 'wrong') {
-        var loginCompletedDialog =
-          $mdDialog.alert()
-            .parent(angular.element(document.body))
-            .title($translate.instant('LOGIN_ERROR'))
-            .textContent($translate.instant('CREDENTIALS_WRONG'))
-            .ariaLabel($translate.instant('LOGIN_ERROR'))
-            .ok($translate.instant('EDIT_CREDENTIALS'));
-
-        $mdDialog.show(loginCompletedDialog);
-      }
-
       _checkIsLoggedInOnline(response);
     });
   }
@@ -297,14 +311,14 @@ function LoginController (
   {
     if (response.data && response.data === 'success') {
       UserService.isLoggedIn()
-      .then(function (response) {
-        $log.debug('is logged in callback');
-        $log.debug(response);
+        .then(function (response) {
+          $log.debug('is logged in callback');
+          $log.debug(response);
 
-        if (response.data && response.data === 'true') {
-          StateManager.redirectLogin();
-        }
-      });
+          if (response.data && response.data === 'true') {
+            StateManager.redirectLogin();
+          }
+        });
     }
   }
 

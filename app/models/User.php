@@ -63,10 +63,10 @@ class User extends \Eloquent /*implements RemindableInterface*/ {
 
   public static function getCurrentUser ()
   {
-    if (Auth::check()) {
+    if ( Auth::check() ) {
       $user = static::find( Auth::id() );
 
-      if ($user->guest) {
+      if ( $user->guest ) {
         App::error(function (InvalidUserException $exception) {
           Log::error($exception);
 
@@ -135,7 +135,7 @@ class User extends \Eloquent /*implements RemindableInterface*/ {
   {
     $user = static::where('activation_code', '=', $token)->first();
 
-    if ($user) {
+    if ( $user ) {
       if ( ! $user->activated_at ) {
         \Log::info('Activating user at: ' . date('Y-m-d H:i:s', time()));
         $user->activated_at = date('Y-m-d H:i:s', time());
@@ -170,7 +170,7 @@ class User extends \Eloquent /*implements RemindableInterface*/ {
    */
   public function isAdminInMobidul ($mobidulId)
   {
-    if ($this->username == 'admin') {
+    if ( (bool) $this->admin == true ) {
       return true;
     }
 

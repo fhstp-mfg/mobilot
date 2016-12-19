@@ -53,7 +53,9 @@ App::error(function(Exception $exception, $code)
 
 App::missing(function($exception)
 {
-  \Log::info("Missing");
+  // \Log::info("App::missing in global.php");
+  // \Log::error($exception);
+
   return Response::view('404', array(), 404);
 });
 

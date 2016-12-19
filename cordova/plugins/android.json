@@ -7,20 +7,25 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-geolocation": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
         },
+        "com.unarin.cordova.beacon": {
+            "PACKAGE_NAME": "at.ac.fhstp.mobilot"
+        },
         "phonegap-plugin-barcodescanner": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
+            "PACKAGE_NAME": "at.ac.fhstp.mobilot"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "at.ac.fhstp.mobilot"
         },
         "cordova-plugin-crosswalk-webview": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
-        "com.unarin.cordova.beacon": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
+            "XWALK_VERSION": "21+",
+            "XWALK_LITEVERSION": "xwalk_core_library_canary:17+",
+            "XWALK_COMMANDLINE": "--disable-pull-to-refresh-effect",
+            "XWALK_MODE": "embedded",
+            "XWALK_MULTIPLEAPK": "true",
+            "PACKAGE_NAME": "at.ac.fhstp.mobilot"
         }
     },
     "dependent_plugins": {

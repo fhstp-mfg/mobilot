@@ -113,7 +113,7 @@ function MobidulController (
         menuItem.isDivider = item.isDivider;
 
         if (item.href) {
-          menuItem.href = ( item.href != 'map.html' ) ? item.href : 'map';
+          menuItem.href = item.href != 'map.html' ? item.href : 'map';
         }
 
         menuItems.push(menuItem)
@@ -129,9 +129,8 @@ function MobidulController (
         currentBlock.push(item);
 
         var nextItem = menuItems[key+1];
-        if (
-          typeof nextItem === 'undefined' ||
-          nextItem.isDivider !== item.isDivider
+        if ( typeof nextItem === 'undefined'
+          || nextItem.isDivider !== item.isDivider
         ) {
           mobidul.menu.push(currentBlock);
           currentBlock = [];
@@ -173,8 +172,6 @@ function MobidulController (
 
         var is_developer_mode = true;
 
-
-
         // NOTE: simply don't redirect when is developer mode
         if ( ! is_developer_mode ) {
           mobidul.switchContent(switchContentParams);
@@ -182,7 +179,7 @@ function MobidulController (
       }
     })
     .then(function () {
-      $rootScope.$emit('rootScope:toggleAppLoader', { action : 'hide' });
+      $rootScope.$emit('rootScope:toggleAppLoader', { action: 'hide' });
     });
   }
 

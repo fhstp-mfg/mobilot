@@ -60,6 +60,14 @@
           class="md-primary md-mobilot-color"
           ng-click="login.goToForgotPassword()"
         >{{ 'FORGET_PASSWORD' | translate }}</md-button>
+
+        <md-button
+            type="button"
+            ng-click="login.loginMobiUser()"
+            aria-label="mobiuser login">
+          <md-icon style=" color: rgb(55, 151, 196)">person_pin</md-icon>
+          <span translate="LOGIN_MOBI"></span>
+        </md-button>
       </div>
     </form>
   </md-content>

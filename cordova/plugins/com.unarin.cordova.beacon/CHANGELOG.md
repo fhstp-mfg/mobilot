@@ -1,8 +1,3 @@
-# 3.4.1
-
-## Backwards Compatibility
-* Plugin is now once again usable with Android SDK targets below 23 (Marshmallow)
-
 # 3.4.0
 
 ## Features

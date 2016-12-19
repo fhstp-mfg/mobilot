@@ -1,49 +1,46 @@
 angular
-	.module('Mobilot')
-	.factory('StateModel', StateModel);
+  .module('Mobilot')
+  .factory('StateModel', StateModel);
 
 
 StateModel.$inject = [
-	'$log'
+  '$log'
 ];
 
 
 function StateModel (
-	$log
-)
-{
-	var service = {
-		make : function () {
-			return new State();
-		}
-	};
+  $log
+) {
+  var service = {
+    make: function() {
+      return new State();
+    }
+  };
 
 
-	/// construct
+  /// construct
 
-	var State = State;
-		// properties
-		State.prototype.name 	  = '';
-		State.prototype.params   = {};
-		State.prototype.previous = null;
-		// functions
-		// State.prototype.go	= _go;
-
-
-
-	/// functions
-
-	function State ()
-	{
-		$log.debug('** new state **');
-	}
+  var State = State;
+  // properties
+  State.prototype.name = '';
+  State.prototype.params = {};
+  State.prototype.previous = null;
+  // functions
+  // State.prototype.go  = _go;
 
 
-	// function _go (stateName)
-	// {
-	// 	$log.debug('StateModel go to "' + stateName  + '"');
-	// }
+  /// functions
+
+  function State() {
+    $log.debug('= Created new state');
+  }
 
 
-	return service;
+  // function _go (stateName)
+  // {
+  //   $log.debug('StateModel go to "' + stateName  + '"');
+  // }
+
+
+  return service;
 }

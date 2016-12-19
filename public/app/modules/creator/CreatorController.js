@@ -101,6 +101,16 @@ function CreatorController (
     druckschrift95: creator.mobidul.font === 'druckschrift95'
   };
 
+  // for drag and drop functionality
+  creator.dragControlListeners = {
+    containerPositioning: 'relative',
+    containment: '#sortableContainerCreator',
+  };
+  creator.dragControlListeners2 = {
+    containerPositioning: 'relative',
+    containment: '#sortableContainerCreator2',
+  };
+
 
   /// functions
   creator.changeName       = changeName;
@@ -1041,6 +1051,7 @@ function CreatorController (
     });
   }
 
+  
   /// events
   // ...
 

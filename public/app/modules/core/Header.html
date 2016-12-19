@@ -87,6 +87,27 @@
       <md-icon>cancel</md-icon>
     </md-button>
 
+    <!-- language selection -->
+
+    <md-menu md-position-mode="target-right bottom" ng-if="header.isSelectLanguageEnabled">
+      <md-button aria-label="language selection" class="md-icon-button" ng-click="header.dropDownMenu($mdOpenMenu, $event)">
+        <md-icon>language</md-icon>
+      </md-button>
+      <md-menu-content width="2">
+        <md-menu-item>
+          <md-button ng-click="header.chooseLanguage('German')">
+            <md-icon class="material-icons md-18">flag</md-icon>
+            <span translate="GERMAN"></span>
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button ng-click="header.chooseLanguage('English')">
+            <md-icon class="material-icons md-18">flag</md-icon>
+            <span translate="ENGLISH"></span>
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
 
     <!-- impressum -->
 

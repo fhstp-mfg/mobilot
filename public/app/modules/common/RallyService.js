@@ -27,11 +27,11 @@ function RallyService (
       OPEN_THIS: {
         action: function () {
           return LocalStorageService.increaseScore($stateParams.mobidulCode, 10)
-          .then(function (newScore) {
-            return service.setStatusOpen().then(function () { return true });
-          }, function (error) {
-            $log.error('RallyService.ACTIONS.OPEN_THIS.action', error);
-          });
+            .then(function (newScore) {
+              return service.setStatusOpen().then(function () { return true });
+            }, function (error) {
+              $log.error('RallyService.ACTIONS.OPEN_THIS.action', error);
+            });
         }
       },
       COMPLETE_THIS: {
@@ -41,34 +41,32 @@ function RallyService (
       },
       COMPLETE_THIS_AND_SHOW_NEXT: {
         action: function () {
-          return $q(function ( resolve, reject ) {
-
+          return $q(function (resolve, reject) {
             // increase score...
             LocalStorageService.increaseScore($stateParams.mobidulCode, 10)
-            .then(function (newScore) {
-
-              service.activateNext()
-              .then(function () {
-                service.progressToNext();
-                resolve(false);
+              .then(function (newScore) {
+                service.activateNext()
+                  .then(function () {
+                    service.progressToNext();
+                    resolve(false);
+                  });
+              }, function (error) {
+                $log.error('RallyService.ACTIONS.COMPLETE_THIS_AND_SHOW_NEXT.action', error);
               });
-            }, function (error) {
-              $log.error('RallyService.ACTIONS.COMPLETE_THIS_AND_SHOW_NEXT.action', error);
-            });
           });
         }
       },
       SAY: {
         attr: true,
         action: function (attr) {
-          return $q(function ( resolve, reject ) {
+          return $q(function (resolve, reject) {
             var sayActionDialog = $mdDialog.alert()
-            .parent( angular.element(document.body) )
-            .clickOutsideToClose(true)
-            .title($translate.instant('SAY_TITLE'))
-            .textContent(attr)
-            .ariaLabel($translate.instant('SAY_TITLE'))
-            .ok($translate.instant('CLOSE'));
+              .parent(angular.element(document.body))
+              .clickOutsideToClose(true)
+              .title($translate.instant('SAY_TITLE'))
+              .textContent(attr)
+              .ariaLabel($translate.instant('SAY_TITLE'))
+              .ok($translate.instant('CLOSE'));
 
             $mdDialog.show(sayActionDialog);
             resolve(false);
@@ -235,9 +233,8 @@ function RallyService (
         .then(function (config) {
           MobidulService.getProgress(mobidulCode)
             .then(function (progress) {
-              if (
-                ! config.hiddenStations ||
-                progressOrder <= progress.progress
+              if ( ! config.hiddenStations
+                || progressOrder <= progress.progress
               ) {
                 resolve(true);
               } else {
@@ -251,30 +248,32 @@ function RallyService (
   function filterStations (stations) {
     service.originStations = stations;
 
-    var defer = $q.defer(),
-        mobidulCode = $stateParams.mobidulCode;
+    var defer = $q.defer();
+    var mobidulCode = $stateParams.mobidulCode;
 
     MobidulService.getMobidulConfig(mobidulCode)
       .then(function (config) {
-        if ( stations.length == 1 || ! config.hiddenStations ) {
+        if ( stations.length == 1
+          || ! config.hiddenStations
+        ) {
           defer.resolve(service.originStations);
         } else {
           var filteredStations = [];
 
           MobidulService.getProgress(mobidulCode)
-          .then(function (progress) {
+            .then(function (progress) {
 
-            angular.forEach(service.originStations, function (station, key) {
-              if ( station.order <= progress.progress ) {
-                filteredStations.push(station);
-              }
+              angular.forEach(service.originStations, function (station, key) {
+                if ( station.order <= progress.progress ) {
+                  filteredStations.push(station);
+                }
+              });
+
+              // NOTE XXX: currently obsolete and not used
+              service.filteredStations = filteredStations;
+
+              defer.resolve(filteredStations);
             });
-
-            // NOTE XXX: currently obsolete and not used
-            service.filteredStations = filteredStations;
-
-            defer.resolve(filteredStations);
-          });
         }
       });
 
@@ -289,11 +288,10 @@ function RallyService (
   }
 
   function getActions () {
-
     var actions = [];
 
-    for ( var k in service.ACTIONS ) {
-      if(service.ACTIONS.hasOwnProperty(k)){
+    for (var k in service.ACTIONS) {
+      if ( service.ACTIONS.hasOwnProperty(k) ) {
         var key = k;
         if ( service.ACTIONS[k].attr ) key += ':';
         if ( ! service.ACTIONS[k].hidden ) actions.push(key);
@@ -303,12 +301,12 @@ function RallyService (
     return actions;
   }
 
-  function performAction ( actionString ) {
-    var action = actionString.split(':')[0];
-    var attr = actionString.replace(action + ':', '');
-
-    return service.ACTIONS[action].action(attr);
-
+  function performAction (actionString) {
+    return $q(function(resolve, reject) {
+      var action = actionString.split(':')[0];
+      var attr = actionString.replace(action + ':', '');
+      resolve(service.ACTIONS[action].action(attr));
+    });
   }
 
   function activateNext () {
@@ -333,7 +331,15 @@ function RallyService (
               $state.go('mobidul.station', { stationCode: next.code});
             });
           }, function () {
-            alert('Das ist die letzte Station. Du hast das Rally erfolgreich abgeschlossen!');
+            var rallyCompletedDialog =
+              $mdDialog.alert()
+              .parent(angular.element(document.body))
+              .title($translate.instant('RALLY_DIALOG'))
+              .textContent($translate.instant('RALLY_DIALOG_TEXT'))
+              .ariaLabel($translate.instant('RALLY_DIALOG'))
+              .ok($translate.instant('OK'));
+
+            $mdDialog.show(rallyCompletedDialog);
           });
       });
   }

@@ -40,7 +40,7 @@ function BlueTooth (
         '</div>' +
 
         '<div ng-if="bluetooth.failedScan">' +
-          '<br/>' +
+          '<br />' +
           '<span translate="BLUETOOTH_INACCURATE_FALLBACK"></span>' +
           '<mbl-input-code ' +
             'verifier="{{ bluetooth.fallback }}" ' +
@@ -55,7 +55,7 @@ function BlueTooth (
       beaconkey: '@',
       fallback: '@',
       success: '@',
-      selectedrange: '@',
+      selectedrange: '@'
     },
     bindToController: true,
     link: function ($scope, $element, $attrs, BlueTooth) {
@@ -75,7 +75,7 @@ function BlueTooth (
     // constants
     // NOTE: The manufacturer name could be delivered with the station component (atm. random string)
     bluetooth.manufacturer = "TheChosenOne";
-    bluetooth.stoppingTime = 240000;
+    bluetooth.stoppingTime = 180000;
 
     // vars
     bluetooth.scanningText = $translate.instant('BLUETOOTH_INFO_2_SEARCH');
@@ -94,7 +94,7 @@ function BlueTooth (
     bluetooth._beaconUUID = null;
     bluetooth._success = null;
     bluetooth._fallback = null;
-    bluetooth._countingHitsTarget = 2;
+    bluetooth._countingHitsTarget = 1;
     bluetooth._countingFailsTarget = 70;
 
     // functions
@@ -103,6 +103,8 @@ function BlueTooth (
 
       bluetooth.showScanText = true;
       bluetooth.triggered = false;
+      bluetooth.lockedBeacon = false;
+      bluetooth.scanningText = $translate.instant('BLUETOOTH_INFO_2_SEARCH');
 
       _performBeaconSearch();
 
@@ -211,8 +213,8 @@ function BlueTooth (
 
     function _foundBeaconAndStop() {
       _stopRangingBeacons();
-
       bluetooth.countingHits = 0;
+
       $scope.$apply(function () {
         bluetooth.scanningText = $translate.instant('BLUETOOTH_INFO_2_FOUND');
         bluetooth.lockedBeacon = true;

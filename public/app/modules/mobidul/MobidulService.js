@@ -7,7 +7,7 @@ MobidulService.$inject = [
   '$log', '$rootScope', '$stateParams',
   '$http', '$q', '$timeout', '$translate',
   'LocalStorageService'
-  /*'RallyService'*/
+  // 'RallyService'
 ];
 
 
@@ -15,9 +15,8 @@ function MobidulService (
   $log, $rootScope, $stateParams,
   $http, $q, $timeout, $translate,
   LocalStorageService
-  /*RallyService*/
-)
-{
+  // RallyService
+) {
   /// MobidulService
   var service = {
     // constants
@@ -28,47 +27,24 @@ function MobidulService (
     MOBIDUL_MODE_RALLY : 'rally',
     MOBIDUL_MODE_DEFAULT : 'default',
 
-    MOBIDUL_MODES : [
-    {
+    MOBIDUL_MODES: [{
       name: 'rally',
 
-      states: [
-        'ACTIVATED', 'OPEN', 'COMPLETED'
-      ],
+      states: [ 'ACTIVATED', 'OPEN', 'COMPLETED' ],
 
       // TODO: extract this so it doesn't need duplication for each mode
       // TODO: add finished elements
       elements: {
-        HTML: {
-          icon: 'text_format'
-        },
-        IF_NEAR: {
-          icon: 'my_location'
-        },
-        BLUETOOTH: {
-          icon: 'settings_bluetooth'
-        },
-        INPUT_CODE: {
-          icon: 'check_box'
-        },
-        BUTTON: {
-          icon: 'crop_16_9'
-        },
-        //PHOTO_UPLOAD: {
-        //  icon: 'camera_alt'
-        //},
-        SET_TIMEOUT: {
-          icon: 'alarm'
-        },
-        //FREE_TEXT: {
-        //  icon: 'edit'
-        //},
-        //CONFIRM_SOCIAL: {
-        //  icon: 'people'
-        //},
-        SHOW_SCORE: {
-          icon: 'plus_one'
-        }
+        HTML: { icon: 'text_format' },
+        IF_NEAR: { icon: 'my_location' },
+        BLUETOOTH: { icon: 'settings_bluetooth' },
+        INPUT_CODE: { icon: 'check_box' },
+        BUTTON: { icon: 'crop_16_9' },
+        // PHOTO_UPLOAD: { icon: 'camera_alt' },
+        SET_TIMEOUT: { icon: 'alarm' },
+        FREE_TEXT: { icon: 'short_text' },
+        // CONFIRM_SOCIAL: { icon: 'people' },
+        SHOW_SCORE: { icon: 'plus_one' }
       },
 
       defaultState: 'ACTIVATED',
@@ -77,9 +53,7 @@ function MobidulService (
     }, {
       name: 'default',
       elements: {
-        HTML: {
-          icon: 'text_format'
-        }
+        HTML: { icon: 'text_format' }
       },
 
       states: ['OPEN'],
@@ -105,8 +79,7 @@ function MobidulService (
     cloneMobidul      : cloneMobidul,
 
     /// app config
-    Config :
-    {
+    Config: {
       // TODO: these belong into a core ConfigService
       isMenuEnabled     : true,
       isHomeViewEnabled : true,
@@ -118,7 +91,7 @@ function MobidulService (
     },
 
     /// mobidul config
-    Mobidul : {
+    Mobidul: {
       // background: '',
       // foreground: '',
       // font: '',
@@ -337,7 +310,6 @@ function MobidulService (
       $log.error(status);
     });
   }
-
 
   return service;
 }

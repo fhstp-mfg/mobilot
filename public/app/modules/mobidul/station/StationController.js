@@ -35,11 +35,13 @@ function StationController (
   station.panZoomConfig = {};
   station.panZoomModel  = {};
   station.myFont        = '';
+  station.isRalley      = true;
 
   /// functions
   // station.getStation        = getStation;
   station.renderText        = renderText;
   station.getPictureByHash  = getPictureByHash;
+  station.checkIfRalley     = checkIfRalley;
   $scope.actionPerformed    = actionPerformed;
 
   /// XXX temp function
@@ -84,10 +86,10 @@ function StationController (
       });
   }
 
-  function activateThis(){
+  function activateThis () {
     $log.warn('StationController.activateThis(): Please don\'t use this any longer');
     RallyService.setProgress(station.order)
-      .then(function(){
+      .then(function () {
         $state.go($state.current, {}, {reload: true});
       });
   }
@@ -103,6 +105,7 @@ function StationController (
     _initActionListener();
 
     _listenToConfig();
+    checkIfRalley();
   }
 
 
@@ -145,8 +148,8 @@ function StationController (
                 station.order        = response.order;
                 station.coords       = response.coords;
 
-                console.debug("BLUE::StationController::_initStation::station.content");
-                console.debug(station.content);
+                // console.debug("BLUE::StationController::_initStation::station.content");
+                // console.debug(station.content);
 
                 /// XXX: this is just for testing purposes
                 /// choosing right content based on Mobidul type
@@ -224,9 +227,8 @@ function StationController (
                   station.config = JSON.parse(station.content);
                   // $log.info('station.config:');
                   // $log.debug(station.config);
-
-                  console.debug("BLUE::StationController::_initStation::station.config");
-                  console.debug(station.config);
+                  // console.debug("BLUE::StationController::_initStation::station.config");
+                  // console.debug(station.config);
 
                   // Display dev tools for rally
                   station.isOwner = UserService.Session.role == 1;
@@ -547,11 +549,11 @@ function StationController (
                     // console.debug(obj.success);
                     break;
 
-                  case 'PHOTO_UPLOAD':
-                    angular
-                    .element(container)
-                    .append($compile('<mbl-photo-upload data-id="' + obj.id + '" data-success="' + obj.success + '" data-content="' + obj.content + '"></mbl-photo-upload>')($scope));
-                    break;
+                  // case 'PHOTO_UPLOAD':
+                  //   angular
+                  //   .element(container)
+                  //   .append($compile('<mbl-photo-upload data-id="' + obj.id + '" data-success="' + obj.success + '" data-content="' + obj.content + '"></mbl-photo-upload>')($scope));
+                  //   break;
 
                   case 'SET_TIMEOUT':
                     angular
@@ -562,14 +564,14 @@ function StationController (
                   case 'FREE_TEXT':
                     angular
                     .element(container)
-                    .append($compile('<mbl-free-text-input data-success="' + obj.success + '" data-question="' + obj.question + '" data-id="' + obj.id + '"></mbl-free-text-input>')($scope));
+                    .append($compile('<mbl-free-text-input success="' + obj.success + '" question="' + obj.question + '" id="' + obj.id + '"></mbl-free-text-input>')($scope));
                     break;
 
-                  case 'CONFIRM_SOCIAL':
-                    angular
-                    .element(container)
-                    .append($compile('<mbl-confirm-social data-success="' + obj.success + '" data-id="' + obj.id + '"></mbl-confirm-social>')($scope));
-                    break;
+                  // case 'CONFIRM_SOCIAL':
+                  //   angular
+                  //   .element(container)
+                  //   .append($compile('<mbl-confirm-social data-success="' + obj.success + '" data-id="' + obj.id + '"></mbl-confirm-social>')($scope));
+                  //   break;
 
                   case 'SHOW_SCORE':
                     angular
@@ -616,6 +618,12 @@ function StationController (
     return null;
   }
 
+  function checkIfRalley () {
+    MobidulService.getMobidulMode(StateManager.state.params.mobidulCode)
+    .then(function (mobidulMode) {
+      station.isRalley = mobidulMode == MobidulService.MOBIDUL_MODE_RALLY;
+    });
+  }
 
   /// events
   // ...

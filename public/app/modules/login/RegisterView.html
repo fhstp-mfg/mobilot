@@ -12,7 +12,7 @@
 
     <form
       name="loginForm"
-      ng-submit="login.registerUser()"
+      ng-submit="loginForm.$valid && login.registerUser()"
       novalidate
     >
       <!-- Benutzername -->
@@ -20,9 +20,14 @@
         <label translate="USER_NAME"></label>
         <md-icon>person</md-icon>
         <input
+          name="username"
           type="text"
           ng-model="login.credentials.username"
+          required
         >
+        <div ng-messages="loginForm.username.$error">
+          <div ng-message="required" ng-show="loginForm.username.$invalid">{{ 'REGISTER_ERROR_REQ' | translate }}</div>
+        </div>
       </md-input-container>
 
       <!-- Email -->
@@ -30,9 +35,14 @@
         <label translate="EMAIL"></label>
         <md-icon>email</md-icon>
         <input
+          name="email"
           type="email"
           ng-model="login.credentials.email"
+          required
         >
+        <div ng-messages="loginForm.email.$error">
+          <div ng-message="required" ng-show="loginForm.email.$invalid">{{ 'REGISTER_ERROR_REQ' | translate }}</div>
+        </div>
       </md-input-container>
 
       <!-- Passwort -->
@@ -40,18 +50,25 @@
         <label translate="PASSWORD"></label>
         <md-icon>lock</md-icon>
         <input
+          name="Password"
           type="password"
           ng-model="login.credentials.password"
+          required
+          minlength="6"
         >
+        <div ng-messages="loginForm.Password.$error">
+          <div ng-message="required" ng-show="loginForm.Password.$invalid">{{ 'REGISTER_ERROR_REQ_PWD' | translate }}</div>
+        </div>
       </md-input-container>
 
 
       <!-- Buttons -->
-      <div layout="row" layout-sm="column">
+      <div layout="row" layout-sm="column" style="margin-top: 15px">
         <md-button
+          aria-label="login"
           type="submit"
           class="md-raised md-primary md-mobilot"
-          ng-disabled="login.disableRegisterButton"
+          ng-disabled="loginForm.$invalid"
         >
           <span translate="REGISTER_USER"></span>
         </md-button>

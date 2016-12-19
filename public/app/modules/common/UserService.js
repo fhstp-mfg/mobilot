@@ -9,7 +9,6 @@ UserService.$inject = [
   'HeaderService'
 ];
 
-
 function UserService (
   $log, $rootScope, $http, $q, $timeout,
   $stateParams, $translate,
@@ -18,8 +17,8 @@ function UserService (
   /// constants
   var _Roles = {
     _isGuest  : 0,
+    _isAdmin  : 1,
     _isPlayer : 2,
-    _isAdmin  : 1
   };
 
   // NOTE: these are permissions for Guest users
@@ -32,8 +31,7 @@ function UserService (
 
   /// UserService
   var service = {
-    // _guestName     : 'Gast',
-    _guestName     : $translate.instant('LOGIN'),
+    _guestName : $translate.instant('LOGIN'),
 
     login           : login,
     logout          : logout,
@@ -43,9 +41,10 @@ function UserService (
     restoreUserRole : restoreUserRole,
     changePassword  : changePassword,
     requestRestore  : requestRestore,
+    sendFeedback    : sendFeedback,
 
-    getEditStationPermit        : getEditStationPermit,
-    getRequestAllStationsPermit    : getRequestAllStationsPermit,
+    getEditStationPermit             : getEditStationPermit,
+    getRequestAllStationsPermit      : getRequestAllStationsPermit,
     getRequestCategoryStationsPermit : getRequestCategoryStationsPermit,
 
     Role   : _Roles,
@@ -59,11 +58,11 @@ function UserService (
       created_at     : null,
       remember_token : null,
 
-      role           : _Roles._isGuest
-    },
+      role           : _Roles._isGuest,
 
-    // save current mobidulCode to cache roles
-    currentMobidul: ''
+      // NOTE: Remembers a mobidulCode to cache user roles for
+      currentMobidulCode : ''
+    },
   };
 
 
@@ -77,42 +76,41 @@ function UserService (
     return {
       // @description - TODO
       RequestAllStations : role == _Roles._isAdmin ||
-      true /* editMode permits */ // TODO - see previous (inline-block) comment
+      true /* editMode permits */ // TODO: see previous (inline-block) comment
       ,
       // @description - TODO
       RequestCategoryStations : role == _Roles._isAdmin ||
-      true /* editMode permits */ // TODO - see previous (inline-block) comment
+      true /* editMode permits */ // TODO: see previous (inline-block) comment
       ,
       // @description - TODO
       EditStation : role == _Roles._isAdmin ||
       ( role == _Roles._isPlayer &&
-      true /* editMode permits */ ) // TODO - see previous (inline-block) comment
+      true /* editMode permits */ ) // TODO: see previous (inline-block) comment
     };
   }
 
 
   function _getRoleForMobidul (mobidulCode) {
-
     var deferred = $q.defer();
 
-    if (service.currentMobidul === mobidulCode ) {
+    if ( service.Session.currentMobidulCode === mobidulCode ) {
       deferred.resolve(service.Session.role);
     } else {
-      $http.get( cordovaUrl + '/RoleForMobidul/' + mobidulCode )
-      .success(function (response, status, headers, config) {
+      $http.get(cordovaUrl + '/RoleForMobidul/' + mobidulCode)
+        .success(function (response, status, headers, config) {
+          var role = angular.isDefined(response.role) ? response.role : null;
 
-        var role = angular.isDefined( response.role ) ? response.role : null;
-
-        if ( role !== null ) {
-          deferred.resolve(response.role);
-        } else {
-          deferred.reject({msg: 'No User Role passed from Server'});
-        }
-
-      })
-      .error(function (response, status, headers, config) {
-        deferred.reject(response);
-      });
+          if ( role !== null ) {
+            deferred.resolve(response.role);
+          } else {
+            deferred.reject({
+              msg: 'No user role passed from server !'
+            });
+          }
+        })
+        .error(function (response, status, headers, config) {
+          deferred.reject(response);
+        });
     }
 
     return deferred.promise;
@@ -120,31 +118,31 @@ function UserService (
 
 
   function _getPermit (mobidulCode) {
-
     var deferred = $q.defer();
 
     // to make sure the permit was initialized
     _getRoleForMobidul(mobidulCode)
-    .then(function (role) {
-      deferred.resolve(service.Permit);
-    }, function (error) {
-      deferred.reject(error);
-    });
+      .then(function (role) {
+        deferred.resolve(service.Permit);
+      }, function (error) {
+        deferred.reject(error);
+      });
 
     return deferred.promise;
   }
+
 
   /// services
 
   function login (credentials) {
     var postData = {
-      user     : credentials.username,
-      password : credentials.password
+      user: credentials.username,
+      password: credentials.password
     };
 
     return $http.post(cordovaUrl + '/login', postData)
       .success(function (response, status, headers, config) {
-        // $log.debug('login response: ', response);
+        $log.debug('login response: ', response);
 
         if ( response === 'success' ) {
           service.Session.isLoggedIn = true;
@@ -168,6 +166,7 @@ function UserService (
           service.Session.isLoggedIn = false;
           service.Session.username   = guestName;
           service.Session.role       = isGuest;
+          service.Session.currentMobidulCode = '';
 
           service.Permit = angular.copy( _Permits );
         }
@@ -225,13 +224,13 @@ function UserService (
   function restoreUser () {
     return $http.get(cordovaUrl + '/currentUser')
       .success(function (response, status, headers, config) {
-        // $log.debug('> restored current user successfully');
-        // $log.debug(response);
+        $log.debug('> Restored current user successfully !');
+        $log.debug(response);
         // $log.debug(response.guest);
 
         var isGuest = response.guest === true || response.guest == 1;
         var isGuestNot = ! isGuest;
-        // $log.debug('isGuestNot : ' + isGuestNot);
+        // $log.debug('isGuestNot: ' + isGuestNot);
 
         var email    = isGuestNot ? response.email    : null;
         var guestId  = isGuest    ? response.username : null;
@@ -247,7 +246,7 @@ function UserService (
         };
 
         if (isGuest) {
-          userData.guestId = response.usernam;
+          userData.guestId = response.username;
         }
 
         service.Session = userData;
@@ -263,21 +262,20 @@ function UserService (
     var deferred = $q.defer();
 
     _getRoleForMobidul(mobidulCode)
-    .then(function (role) {
-      service.Session.role   = role;
-      service.Permit         = _checkPermits(role);
-      service.currentMobidul = mobidulCode;
+      .then(function (role) {
+        service.Session.role = role;
+        service.Session.currentMobidulCode = mobidulCode;
+        service.Permit = _checkPermits(role);
 
-      HeaderService.refresh();
+        HeaderService.refresh();
+        deferred.resolve();
+      },
+      function (error) {
+        $log.error('Error: UserService - restoreUserRole:');
+        $log.error(error);
 
-      deferred.resolve();
-
-    }, function (error) {
-      $log.error('Error: UserService - restoreUserRole:');
-      $log.error(error);
-
-      deferred.reject(error);
-    });
+        deferred.reject(error);
+      });
 
     return deferred.promise;
   }
@@ -324,6 +322,27 @@ function UserService (
     return $http.post(cordovaUrl + '/requestRestore', postData)
       .success(function (response, status, headers, config) {
         // $log.debug(response);
+      })
+      .error(function (response, status, headers, config) {
+        $log.error(response);
+        $log.error(status);
+      });
+  }
+
+
+  function sendFeedback (message) {
+    var postData = {
+      user: service.Session.id,
+      code: service.Session.currentMobidulCode,
+      feedback: message,
+    };
+
+    return $http.post(cordovaUrl + '/sendFeedback', postData)
+      .success(function (response, status, headers, config) {
+        // $log.debug('sendFeedback response:');
+        // $log.debug(response);
+
+        return response;
       })
       .error(function (response, status, headers, config) {
         $log.error(response);
