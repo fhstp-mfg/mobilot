@@ -1062,19 +1062,59 @@ class WebServicesController extends BaseController
   }
 
 
+  // TODO: Performance should be improved !
   public function GetNewestMobiduls ()
   {
-    return Mobidul::pub()->newestFirst()->basicInformation()->get();
+    $newestMobiduls = Mobidul::pub()->newestFirst()->basicInformation()->get();
+
+    $mobiuser = User::where('username', '=', 'mobiuser')
+      ->select('id')
+      ->first();
+
+    $mobiuserMobiduls = DB::table('user2mobidul')
+      ->where('userId', $mobiuser->id)
+      ->select('mobidulId')
+      ->get();
+
+    $filteredNewestMobiduls = [];
+    foreach ($newestMobiduls as $mobidul) {
+      foreach ($mobiuserMobiduls as $muMobidul) {
+        if ( $mobidul['id'] !== $muMobidul->mobidulId ) {
+          $filteredNewestMobiduls[] = $mobidul;
+        }
+      }
+    }
+
+    return $filteredNewestMobiduls;
   }
 
 
   public function MobidulNearMe($latitude, $longitude)
   {
-    //SELECT mob.id, MIN( ( 6371 * acos( cos( radians($latitude) ) * cos( radians( st.lat ) ) * cos( radians( st.lon ) - radians($longitude) ) + sin( radians($latitude) ) * sin( radians( st.lat ) ) ) ) ) AS distance FROM mobidul as mob JOIN station as st ON st.mobidulId = mob.id GROUP BY mob.id ORDER BY distance
+    \Log::info('MobidulNearMe:');
+    // SELECT mob.id, MIN( ( 6371 * acos( cos( radians($latitude) ) * cos( radians( st.lat ) ) * cos( radians( st.lon ) - radians($longitude) ) + sin( radians($latitude) ) * sin( radians( st.lat ) ) ) ) ) AS distance FROM mobidul as mob JOIN station as st ON st.mobidulId = mob.id GROUP BY mob.id ORDER BY distance
 
-    $mobiduls = DB::select('SELECT mob.id, mob.code, mob.description, mob.name, mob.background, MIN( ( 6371 * acos( cos( radians(:lat) ) * cos( radians( st.lat ) ) * cos( radians( st.lon ) - radians(:lon) ) + sin( radians(:latx) ) * sin( radians( st.lat ) ) ) ) ) AS distance FROM mobidul as mob JOIN station as st ON st.mobidulId = mob.id GROUP BY mob.id ORDER BY distance', array('lat'=>$latitude, 'lon'=>$longitude, 'latx'=>$latitude)); //()->getPdo()->exec( $sql );
+    $nearMeMobiduls = DB::select('SELECT mob.id, mob.code, mob.description, mob.name, mob.background, MIN( ( 6371 * acos( cos( radians(:lat) ) * cos( radians( st.lat ) ) * cos( radians( st.lon ) - radians(:lon) ) + sin( radians(:latx) ) * sin( radians( st.lat ) ) ) ) ) AS distance FROM mobidul as mob JOIN station as st ON st.mobidulId = mob.id GROUP BY mob.id ORDER BY distance', array('lat'=>$latitude, 'lon'=>$longitude, 'latx'=>$latitude)); //()->getPdo()->exec( $sql );
 
-    return $mobiduls;
+    $mobiuser = User::where('username', '=', 'mobiuser')
+      ->select('id')
+      ->first();
+
+    $mobiuserMobiduls = DB::table('user2mobidul')
+      ->where('userId', $mobiuser->id)
+      ->select('mobidulId')
+      ->get();
+
+    $filteredNearMeMobiduls = [];
+    foreach ($nearMeMobiduls as $mobidul) {
+      foreach ($mobiuserMobiduls as $muMobidul) {
+        if ( $mobidul->id !== $muMobidul->mobidulId ) {
+          $filteredNearMeMobiduls[] = $mobidul;
+        }
+      }
+    }
+
+    return $filteredNearMeMobiduls;
   }
 
 
