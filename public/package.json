@@ -18,7 +18,9 @@
     "context",
     "content"
   ],
-  "author": "Iosif Miclaus <iosif.miclaus@gmail.com> (https://github.com/miclaus)",
+  "contributors": [
+    "Iosif Miclaus <iosif.miclaus@gmail.com> (https://github.com/miclaus)"
+  ],
   "license": "BSD-3-Clause",
   "bugs": {
     "url": "https://github.com/fhstp-mfg/mobilot/issues"
