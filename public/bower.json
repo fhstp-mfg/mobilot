@@ -12,7 +12,7 @@
   "keywords": [
     "mobilot"
   ],
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "homepage": "https://www.mobilot.at",
   "ignore": [
     "**/.*",
