@@ -1063,7 +1063,7 @@ class WebServicesController extends BaseController
 
 
   // TODO: Performance should be improved !
-  public function GetNewestMobiduls ()
+  public function GetNewestMobiduls()
   {
     $newestMobiduls = Mobidul::pub()->newestFirst()->basicInformation()->get();
 
@@ -1078,10 +1078,18 @@ class WebServicesController extends BaseController
 
     $filteredNewestMobiduls = [];
     foreach ($newestMobiduls as $mobidul) {
+      $mobidulId = $mobidul['id'];
+      $foundMobidul = false;
+
       foreach ($mobiuserMobiduls as $muMobidul) {
-        if ( $mobidul['id'] !== $muMobidul->mobidulId ) {
-          $filteredNewestMobiduls[] = $mobidul;
+        if ( $mobidulId === $muMobidul->mobidulId ) {
+          $foundMobidul = true;
+          break;
         }
+      }
+
+      if ( ! $foundMobidul ) {
+        $filteredNewestMobiduls[] = $mobidul;
       }
     }
 
@@ -1089,9 +1097,9 @@ class WebServicesController extends BaseController
   }
 
 
+  // TODO: Performance should be improved !
   public function MobidulNearMe($latitude, $longitude)
   {
-    \Log::info('MobidulNearMe:');
     // SELECT mob.id, MIN( ( 6371 * acos( cos( radians($latitude) ) * cos( radians( st.lat ) ) * cos( radians( st.lon ) - radians($longitude) ) + sin( radians($latitude) ) * sin( radians( st.lat ) ) ) ) ) AS distance FROM mobidul as mob JOIN station as st ON st.mobidulId = mob.id GROUP BY mob.id ORDER BY distance
 
     $nearMeMobiduls = DB::select('SELECT mob.id, mob.code, mob.description, mob.name, mob.background, MIN( ( 6371 * acos( cos( radians(:lat) ) * cos( radians( st.lat ) ) * cos( radians( st.lon ) - radians(:lon) ) + sin( radians(:latx) ) * sin( radians( st.lat ) ) ) ) ) AS distance FROM mobidul as mob JOIN station as st ON st.mobidulId = mob.id GROUP BY mob.id ORDER BY distance', array('lat'=>$latitude, 'lon'=>$longitude, 'latx'=>$latitude)); //()->getPdo()->exec( $sql );
@@ -1107,11 +1115,17 @@ class WebServicesController extends BaseController
 
     $filteredNearMeMobiduls = [];
     foreach ($nearMeMobiduls as $mobidul) {
+      $mobidulId = $mobidul->id;
+      $foundMobidul = false;
+
       foreach ($mobiuserMobiduls as $muMobidul) {
-        if ( $mobidul->id !== $muMobidul->mobidulId ) {
-          $filteredNearMeMobiduls[] = $mobidul;
+        if ( $mobidulId === $muMobidul->mobidulId ) {
+          $foundMobidul = true;
+          break;
         }
       }
+
+      $filteredNearMeMobiduls[] = $mobidul;
     }
 
     return $filteredNearMeMobiduls;
