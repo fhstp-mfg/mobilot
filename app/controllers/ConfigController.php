@@ -23,7 +23,7 @@ class ConfigController extends BaseController
 
 
             $responseArray = [
-                                 'version'             => '1.0',
+                                 'version'             => '1.1.1',
                                  'contentDomain'       => $contentDomain,
                                  'mobidulName'         => $mob->name,
                                  'mobidulCode'         => $mob->code,
