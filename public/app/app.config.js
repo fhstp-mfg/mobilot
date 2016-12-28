@@ -43,8 +43,6 @@ angular
       $translateProvider.useLocalStorage();
 
 
-      /// Redirects
-
       $urlRouterProvider
         .when('/map', '/')
         .when('/map/', '/')
@@ -402,6 +400,32 @@ angular
               }
             })
 
+              ////////////////
+              ///// social /////
+              ////////////////
+              //http://mobilot.app/#/social/station1/socialConfirm/ACTIVATED/eez4gu
+
+              .state('mobidul.station.verify.socialStatus', {
+                url : '/{socialStatus}',
+                views : {
+                  'mobidulContent' : {
+                    templateUrl : 'app/modules/mobidul/station/StationView.html',
+                    controller  : 'StationController as station'
+                  }
+                }
+              })
+
+
+                .state('mobidul.station.verify.socialStatus.socialCode', {
+                  url : '/{socialCode}',
+                  views : {
+                    'mobidulContent' : {
+                      templateUrl : 'app/modules/mobidul/station/StationView.html',
+                      controller  : 'StationController as station'
+                    }
+                  }
+                })
+
             ///////////////////////////
             ///// station creator /////
             ///////////////////////////
@@ -451,15 +475,13 @@ angular
 
               // /:mobidulCode/:stationCode/edit/settings
               .state('mobidul.station.edit.settings', {
-                url: '/edit/settings',
-                views: {
-                  'stationCreatorContent': {
-                    templateUrl: 'app/modules/mobidul/station/creator/StationCreatorSettingsPartial.html',
+                url : '/edit/settings',
+                views : {
+                  'stationCreatorContent' : {
+                    templateUrl : 'app/modules/mobidul/station/creator/StationCreatorSettingsPartial.html',
                   }
                 }
               })
-
-
 
           // /:mobidulCode/:stationCode/:media
           .state('mobidul.media', {
