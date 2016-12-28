@@ -588,11 +588,10 @@ function StationController (
                       $rootScope.$broadcast('action', obj.success);
                     }
 
-
-                     angular
-                     .element(container)
-                     .append($compile('<mbl-confirm-social data-success="' + obj.success + '" data-id="' + obj.id + '"></mbl-confirm-social>')($scope));
-                     break;
+                    angular
+                    .element(container)
+                    .append($compile('<mbl-confirm-social data-success="' + obj.success + '" data-id="' + obj.id + '"></mbl-confirm-social>')($scope));
+                    break;
 
                   case 'SHOW_SCORE':
                     angular
