@@ -15,11 +15,10 @@ function ConfirmSocialConfig (
   util, RallyService
 ) {
   return {
-
     restrict: 'E',
     template: '' +
     '<div>' +
-      '<action-selector data-opts="ctrl.actionOpts" data-selection="SUCCESS_ACTION"></action-selector>' +
+      '<action-selector data-opts="ctrl.actionOpts" data-selection="success" data-name="SUCCESS_ACTION"></action-selector>' +
     '</div>',
     scope: {
       id: '=',
