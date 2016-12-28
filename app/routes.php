@@ -101,6 +101,10 @@ Route::get('/CloseCode/{Code}','CodeController@closeCode')->before('auth');
 Route::get('/OpenCode/{Code}','CodeController@openCode')->before('auth');
 Route::get('/DeleteCode/{Code}','CodeController@deleteCode')->before('auth');
 
+Route::get('/SocialCodes/{mobidulCode}/{stationCode}/{status}','SocialCodeController@getSocialCodes');
+Route::get('Social/{code}', 'SocialCodeController@social');
+Route::get('SocialJoin/{code}', 'SocialCodeController@JoinSocial');
+
 Route::post('/{mobidulCode}/UpdateStartPage','ConfigController@updateStartPage')->before('auth');
 
 Route::post('login', 'UserController@login');

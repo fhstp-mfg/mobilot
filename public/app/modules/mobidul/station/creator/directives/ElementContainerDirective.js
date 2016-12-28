@@ -160,16 +160,16 @@ function ElementContainer (
           );
           break;
 
-        // case 'CONFIRM_SOCIAL':
-        //   $element.append(
-        //     $compile('' +
-        //       '<confirm-social-config ' +
-        //         'id="ctrl.element.id" ' +
-        //         'success="ctrl.element.success"' +
-        //       '></confirm-social-config>'
-        //     )($scope)
-        //   );
-        //   break;
+        case 'CONFIRM_SOCIAL':
+          $element.append(
+            $compile('' +
+              '<confirm-social-config ' +
+                'id="ctrl.element.id" ' +
+                'success="ctrl.element.success"' +
+              '></confirm-social-config>'
+            )($scope)
+          );
+          break;
 
         case 'SHOW_SCORE':
           $element.append(

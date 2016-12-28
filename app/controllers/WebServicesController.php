@@ -46,7 +46,8 @@ class WebServicesController extends BaseController
         "img",                "imgs",                     "js",
         "src",                "style",                    "upload",
         "Codes",              "CloseCode",                "OpenCode",
-        "DeleteCode",         "media",                    "includes"
+        "DeleteCode",         "media",                    "includes",
+        "SocialCodes"
       );
 
     return in_array($name, $protectedMobidulNames);

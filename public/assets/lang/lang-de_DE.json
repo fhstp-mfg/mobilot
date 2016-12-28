@@ -119,6 +119,12 @@
   "JOIN_CODE_INVALID_EXPLANATION": "Dieser Mitmach-Code ist ungültig. Bitte versuche es nochmal oder kontaktiere den Ersteller des Mobiduls.",
   "GROUP_EXPLANATION": "Mitmach-Codes geben die Möglichkeit bei einem Mobidul mitzumachen.\nBenutzer welche den gleichen Code verwenden, gehören der selben Gruppe an.",
 
+  "SOCIAL_CODE": "Social-Code",
+  "SOCIAL_CODE_INPUT_DESCRIPTION": "Scanne den Social-Code eines anderen Mobildul-Spielers von dieser Station.",
+  "SOCIAL_NOT_POSSIBLE": "Präsenz eines anderen Mobidul-Spielers konnte nicht bestätigt werden.",
+  "SOCIAL_CODE_INVALID_EXPLANATION": "Dieser Social-Code ist ungültig.",
+
+
   "HIDE_ON_HOME": "Auf der Startseite verbergern",
 
   "MOBIDUL": "Mobidul",

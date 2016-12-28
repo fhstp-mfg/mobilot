@@ -36,6 +36,7 @@ function StationController (
   station.panZoomModel  = {};
   station.myFont        = '';
   station.isRalley      = true;
+  station.comeFromSocial = false;
 
   /// functions
   // station.getStation        = getStation;
@@ -480,8 +481,23 @@ function StationController (
 
         station.currentState = status;
 
+
+        var isSocial = StateManager.getParams().verifier;
+        var socialCode = StateManager.getParams().socialCode;
+        var socialStationStatus = StateManager.getParams().socialStatus;
+
+        // TODO check if socialConfirm and same StationStatus, then activate success of confirm social component in stationState
+
+        if(isSocial == "socialConfirm" && socialStationStatus == station.currentState){
+              station.comeFromSocial = true;
+        }else{
+              station.comeFromSocial = false;
+        }
+
+
         if ( ! StateManager.isStationCreator() ) {
           var config = station.config[status];
+          $log.debug(config);
           var container = document.getElementById('station_container');
           container.innerHTML = '';
 
@@ -567,11 +583,15 @@ function StationController (
                     .append($compile('<mbl-free-text-input success="' + obj.success + '" question="' + obj.question + '" id="' + obj.id + '"></mbl-free-text-input>')($scope));
                     break;
 
-                  // case 'CONFIRM_SOCIAL':
-                  //   angular
-                  //   .element(container)
-                  //   .append($compile('<mbl-confirm-social data-success="' + obj.success + '" data-id="' + obj.id + '"></mbl-confirm-social>')($scope));
-                  //   break;
+                   case 'CONFIRM_SOCIAL':
+                    if(station.comeFromSocial) {
+                      $rootScope.$broadcast('action', obj.success);
+                    }
+
+                    angular
+                    .element(container)
+                    .append($compile('<mbl-confirm-social data-success="' + obj.success + '" data-id="' + obj.id + '"></mbl-confirm-social>')($scope));
+                    break;
 
                   case 'SHOW_SCORE':
                     angular
