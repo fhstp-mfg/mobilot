@@ -20,14 +20,14 @@
 		BFBF20E386174B2E8AD543A2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA7A2DDBA7FB4154A2A8810C /* QuartzCore.framework */; };
 		D9D58A5A473A41378224CF07 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84193EF2E27445758B51D1FB /* CoreLocation.framework */; };
 		D9EA7ADC112E49109CF166DA /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A4D27E01C9646F49FCB19DF /* CoreVideo.framework */; };
-		0EFF834275F642BE95F2F0AC /* CDVLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB942D7792B4788B4977683 /* CDVLocationManager.m */; };
-		613D6C2E2E564156B40F79EA /* AppDelegate+CDVLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C25CC89A54A4D818056BD2D /* AppDelegate+CDVLocationManager.m */; };
-		ECE711B367134D9E95B2E138 /* LMLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A11CDFCDB9465EBC9D5746 /* LMLogger.m */; };
-		6A97B15DBA90452886FE98C5 /* CDVBarcodeScanner.mm in Resources */ = {isa = PBXBuildFile; fileRef = 3E36355B0A0040039DFABC8A /* CDVBarcodeScanner.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		993ABA8FC0EC438E85D29C8B /* zxing-all-in-one.cpp in Resources */ = {isa = PBXBuildFile; fileRef = F7EDC23DF3AA429DB4360C44 /* zxing-all-in-one.cpp */; };
-		32E8EC54C48E443BA4D65925 /* scannerOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1CF3B0F9D1DA4E5AB58A4B2F /* scannerOverlay.xib */; };
-		4F4D9C1A8C7F4A0AB5E7F9D7 /* CDVBarcodeScanner.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FB6A007D5FF649BCB02EBDC0 /* CDVBarcodeScanner.bundle */; };
-		6FFBF3880A3C421F8B9DB90D /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = DD07199781CF42E2B8274F2C /* CDVLocation.m */; };
+		D2A440BAE1C34026AF0E269B /* CDVBarcodeScanner.mm in Resources */ = {isa = PBXBuildFile; fileRef = C36074643BAB4BBCB993CE84 /* CDVBarcodeScanner.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7E28F4877F41450D938AF321 /* zxing-all-in-one.cpp in Resources */ = {isa = PBXBuildFile; fileRef = 1397F03F716040EDA7BAB725 /* zxing-all-in-one.cpp */; };
+		43A4F30D9D4244319CAF264D /* scannerOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA02C6C0AD9C4B8AAB2A5F11 /* scannerOverlay.xib */; };
+		8147FB0152C047F0AEF48E3C /* CDVBarcodeScanner.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 02A2A181406C46C9800E3440 /* CDVBarcodeScanner.bundle */; };
+		0CBC6A81BCAB485AAA059A26 /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 73DF616DD774489CB250906F /* CDVLocation.m */; };
+		08FD6CFCAFEA4C9AB67484E8 /* CDVLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FD7FFDEAD0BA4A1BBBFCBE74 /* CDVLocationManager.m */; };
+		00DBC1B84DDC4E8DA0A8B75A /* AppDelegate+CDVLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BF1B01F12448E083CBA9DE /* AppDelegate+CDVLocationManager.m */; };
+		37196247D3A34D279485A4C3 /* LMLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A14B0DC85744B98B5A3D85 /* LMLogger.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,19 +75,19 @@
 		ECDDD9BC948B4B99A6C13BA9 /* AVFoundation.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		ED33DF2A687741AEAF9F8254 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = Mobilot/config.xml; sourceTree = "<group>"; };
-		2DB942D7792B4788B4977683 /* CDVLocationManager.m */ = {isa = PBXFileReference; name = "CDVLocationManager.m"; path = "com.unarin.cordova.beacon/CDVLocationManager.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		2C25CC89A54A4D818056BD2D /* AppDelegate+CDVLocationManager.m */ = {isa = PBXFileReference; name = "AppDelegate+CDVLocationManager.m"; path = "com.unarin.cordova.beacon/AppDelegate+CDVLocationManager.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		15A11CDFCDB9465EBC9D5746 /* LMLogger.m */ = {isa = PBXFileReference; name = "LMLogger.m"; path = "com.unarin.cordova.beacon/LMLogger.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		DCC3278F837E43FABCE75AD6 /* CDVLocationManager.h */ = {isa = PBXFileReference; name = "CDVLocationManager.h"; path = "com.unarin.cordova.beacon/CDVLocationManager.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		2D397B1F2DB24DFA9D087D32 /* AppDelegate+CDVLocationManager.h */ = {isa = PBXFileReference; name = "AppDelegate+CDVLocationManager.h"; path = "com.unarin.cordova.beacon/AppDelegate+CDVLocationManager.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		B563F067916C45A0B78ECEB0 /* LMLogger.h */ = {isa = PBXFileReference; name = "LMLogger.h"; path = "com.unarin.cordova.beacon/LMLogger.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		3E36355B0A0040039DFABC8A /* CDVBarcodeScanner.mm */ = {isa = PBXFileReference; name = "CDVBarcodeScanner.mm"; path = "phonegap-plugin-barcodescanner/CDVBarcodeScanner.mm"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		F7EDC23DF3AA429DB4360C44 /* zxing-all-in-one.cpp */ = {isa = PBXFileReference; name = "zxing-all-in-one.cpp"; path = "phonegap-plugin-barcodescanner/zxing-all-in-one.cpp"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		FEF1C2FEF48C4CBA8EB8F773 /* zxing-all-in-one.h */ = {isa = PBXFileReference; name = "zxing-all-in-one.h"; path = "phonegap-plugin-barcodescanner/zxing-all-in-one.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		1CF3B0F9D1DA4E5AB58A4B2F /* scannerOverlay.xib */ = {isa = PBXFileReference; name = "scannerOverlay.xib"; path = "scannerOverlay.xib"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = file.xib; explicitFileType = undefined; includeInIndex = 0; };
-		FB6A007D5FF649BCB02EBDC0 /* CDVBarcodeScanner.bundle */ = {isa = PBXFileReference; name = "CDVBarcodeScanner.bundle"; path = "CDVBarcodeScanner.bundle"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.plug-in; explicitFileType = undefined; includeInIndex = 0; };
-		DD07199781CF42E2B8274F2C /* CDVLocation.m */ = {isa = PBXFileReference; name = "CDVLocation.m"; path = "cordova-plugin-geolocation/CDVLocation.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		8DC628C8EA554766AA9D696A /* CDVLocation.h */ = {isa = PBXFileReference; name = "CDVLocation.h"; path = "cordova-plugin-geolocation/CDVLocation.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		C36074643BAB4BBCB993CE84 /* CDVBarcodeScanner.mm */ = {isa = PBXFileReference; name = "CDVBarcodeScanner.mm"; path = "phonegap-plugin-barcodescanner/CDVBarcodeScanner.mm"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1397F03F716040EDA7BAB725 /* zxing-all-in-one.cpp */ = {isa = PBXFileReference; name = "zxing-all-in-one.cpp"; path = "phonegap-plugin-barcodescanner/zxing-all-in-one.cpp"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8950F89B76C748088B3774BC /* zxing-all-in-one.h */ = {isa = PBXFileReference; name = "zxing-all-in-one.h"; path = "phonegap-plugin-barcodescanner/zxing-all-in-one.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		DA02C6C0AD9C4B8AAB2A5F11 /* scannerOverlay.xib */ = {isa = PBXFileReference; name = "scannerOverlay.xib"; path = "scannerOverlay.xib"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = file.xib; explicitFileType = undefined; includeInIndex = 0; };
+		02A2A181406C46C9800E3440 /* CDVBarcodeScanner.bundle */ = {isa = PBXFileReference; name = "CDVBarcodeScanner.bundle"; path = "CDVBarcodeScanner.bundle"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.plug-in; explicitFileType = undefined; includeInIndex = 0; };
+		73DF616DD774489CB250906F /* CDVLocation.m */ = {isa = PBXFileReference; name = "CDVLocation.m"; path = "cordova-plugin-geolocation/CDVLocation.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		BB08EBA2C19B4591BC784A3A /* CDVLocation.h */ = {isa = PBXFileReference; name = "CDVLocation.h"; path = "cordova-plugin-geolocation/CDVLocation.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		FD7FFDEAD0BA4A1BBBFCBE74 /* CDVLocationManager.m */ = {isa = PBXFileReference; name = "CDVLocationManager.m"; path = "com.unarin.cordova.beacon/CDVLocationManager.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		C3BF1B01F12448E083CBA9DE /* AppDelegate+CDVLocationManager.m */ = {isa = PBXFileReference; name = "AppDelegate+CDVLocationManager.m"; path = "com.unarin.cordova.beacon/AppDelegate+CDVLocationManager.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		37A14B0DC85744B98B5A3D85 /* LMLogger.m */ = {isa = PBXFileReference; name = "LMLogger.m"; path = "com.unarin.cordova.beacon/LMLogger.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		5C38F7329C7F4BBBB3E862D5 /* CDVLocationManager.h */ = {isa = PBXFileReference; name = "CDVLocationManager.h"; path = "com.unarin.cordova.beacon/CDVLocationManager.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		3EE57CFFDB224122BCDCE1B1 /* AppDelegate+CDVLocationManager.h */ = {isa = PBXFileReference; name = "AppDelegate+CDVLocationManager.h"; path = "com.unarin.cordova.beacon/AppDelegate+CDVLocationManager.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		236915F6FE764E7BA2638102 /* LMLogger.h */ = {isa = PBXFileReference; name = "LMLogger.h"; path = "com.unarin.cordova.beacon/LMLogger.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,8 +165,8 @@
 				0207DA571B56EA530066E2B4 /* Images.xcassets */,
 				3047A50E1AB8057F00498E2A /* config */,
 				8D1107310486CEB800E47090 /* Mobilot-Info.plist */,
-				1CF3B0F9D1DA4E5AB58A4B2F /* scannerOverlay.xib */,
-				FB6A007D5FF649BCB02EBDC0 /* CDVBarcodeScanner.bundle */,
+				DA02C6C0AD9C4B8AAB2A5F11 /* scannerOverlay.xib */,
+				02A2A181406C46C9800E3440 /* CDVBarcodeScanner.bundle */,
 			);
 			name = Resources;
 			path = Mobilot/Resources;
@@ -208,17 +208,17 @@
 		307C750510C5A3420062BCA9 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
-				2DB942D7792B4788B4977683 /* CDVLocationManager.m */,
-				2C25CC89A54A4D818056BD2D /* AppDelegate+CDVLocationManager.m */,
-				15A11CDFCDB9465EBC9D5746 /* LMLogger.m */,
-				DCC3278F837E43FABCE75AD6 /* CDVLocationManager.h */,
-				2D397B1F2DB24DFA9D087D32 /* AppDelegate+CDVLocationManager.h */,
-				B563F067916C45A0B78ECEB0 /* LMLogger.h */,
-				3E36355B0A0040039DFABC8A /* CDVBarcodeScanner.mm */,
-				F7EDC23DF3AA429DB4360C44 /* zxing-all-in-one.cpp */,
-				FEF1C2FEF48C4CBA8EB8F773 /* zxing-all-in-one.h */,
-				DD07199781CF42E2B8274F2C /* CDVLocation.m */,
-				8DC628C8EA554766AA9D696A /* CDVLocation.h */,
+				C36074643BAB4BBCB993CE84 /* CDVBarcodeScanner.mm */,
+				1397F03F716040EDA7BAB725 /* zxing-all-in-one.cpp */,
+				8950F89B76C748088B3774BC /* zxing-all-in-one.h */,
+				73DF616DD774489CB250906F /* CDVLocation.m */,
+				BB08EBA2C19B4591BC784A3A /* CDVLocation.h */,
+				FD7FFDEAD0BA4A1BBBFCBE74 /* CDVLocationManager.m */,
+				C3BF1B01F12448E083CBA9DE /* AppDelegate+CDVLocationManager.m */,
+				37A14B0DC85744B98B5A3D85 /* LMLogger.m */,
+				5C38F7329C7F4BBBB3E862D5 /* CDVLocationManager.h */,
+				3EE57CFFDB224122BCDCE1B1 /* AppDelegate+CDVLocationManager.h */,
+				236915F6FE764E7BA2638102 /* LMLogger.h */,
 			);
 			name = Plugins;
 			path = Mobilot/Plugins;
@@ -307,8 +307,8 @@
 			files = (
 				302D95F214D2391D003F00A1 /* MainViewController.xib in Resources */,
 				0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */,
-				32E8EC54C48E443BA4D65925 /* scannerOverlay.xib in Resources */,
-				4F4D9C1A8C7F4A0AB5E7F9D7 /* CDVBarcodeScanner.bundle in Resources */,
+				43A4F30D9D4244319CAF264D /* scannerOverlay.xib in Resources */,
+				8147FB0152C047F0AEF48E3C /* CDVBarcodeScanner.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,12 +342,12 @@
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
 				AFA2A65602BE4EC6972FBD87 /* CDVBarcodeScanner.mm in Sources */,
 				AE498B1A2D50458F8D53B262 /* zxing-all-in-one.cpp in Sources */,
-				0EFF834275F642BE95F2F0AC /* CDVLocationManager.m in Sources */,
-				613D6C2E2E564156B40F79EA /* AppDelegate+CDVLocationManager.m in Sources */,
-				ECE711B367134D9E95B2E138 /* LMLogger.m in Sources */,
-				6A97B15DBA90452886FE98C5 /* CDVBarcodeScanner.mm in Resources */,
-				993ABA8FC0EC438E85D29C8B /* zxing-all-in-one.cpp in Resources */,
-				6FFBF3880A3C421F8B9DB90D /* CDVLocation.m in Sources */,
+				D2A440BAE1C34026AF0E269B /* CDVBarcodeScanner.mm in Resources */,
+				7E28F4877F41450D938AF321 /* zxing-all-in-one.cpp in Resources */,
+				0CBC6A81BCAB485AAA059A26 /* CDVLocation.m in Sources */,
+				08FD6CFCAFEA4C9AB67484E8 /* CDVLocationManager.m in Sources */,
+				00DBC1B84DDC4E8DA0A8B75A /* AppDelegate+CDVLocationManager.m in Sources */,
+				37196247D3A34D279485A4C3 /* LMLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

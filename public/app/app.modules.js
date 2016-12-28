@@ -7,7 +7,7 @@ angular.module('Mobilot', [
   'ui.router', 'pascalprecht.translate', 'ngCookies',
   'monospaced.qrcode',
   'angulartics', 'angulartics.google.analytics',
-  'Home', 'Login', 'Profile', 'Play', 'Mobidul', 'Creator'
+  'Home', 'Login', 'Profile', 'Play', 'Social', 'Mobidul', 'Creator'
 ]);
 
 
@@ -26,6 +26,10 @@ angular.module('Profile', [
 ]);
 
 angular.module('Play', [
+  // ...
+]);
+
+angular.module('Social', [
   // ...
 ]);
 

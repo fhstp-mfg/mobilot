@@ -434,7 +434,7 @@ function CreatorController (
           // TODO: add exists from the responseobject
           creator.canNotSave = response.exists;
 
-          var code = response.mobidulCode
+          var code = response.mobidulCode;
           creator.mobidul.code = code;
 
           if ( mobidulCode !== code )
@@ -1051,7 +1051,6 @@ function CreatorController (
     });
   }
 
-  
   /// events
   // ...
 
@@ -1107,7 +1106,7 @@ function DialogController ($scope, $mdDialog, categories, stations) {
       type : type,
       id   : id
     });
-  }
+  };
 }
 
 
@@ -1118,6 +1117,22 @@ function DialogController ($scope, $mdDialog, categories, stations) {
 
 function QRDialogController ($scope, $mdDialog, code) {
   $scope.url = location.protocol + '//' + location.host + '/Play/' + code;
+
+  $scope.hide = function () {
+    $mdDialog.hide();
+  };
+
+  $scope.cancel = function () {
+    $mdDialog.cancel();
+  };
+}
+
+/**
+ * QRSocialDialogController
+ */
+
+function QRSocialDialogController ($scope, $mdDialog, code) {
+  $scope.url = location.protocol + '//' + location.host + '/Social/' + code;
 
   $scope.hide = function () {
     $mdDialog.hide();
