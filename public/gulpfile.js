@@ -60,6 +60,8 @@ var JS_DEPENDENCIES = [
   'app/modules/profile/ProfileController.js',
   'app/modules/play/PlayService.js',
   'app/modules/play/PlayController.js',
+  'app/modules/social/SocialService.js',
+  'app/modules/social/SocialController.js',
   'app/modules/mobidul/menu/dialog/CloneMobidulDialogController.js',
   'app/modules/mobidul/menu/MenuController.js',
   'app/modules/mobidul/MobidulService.js',
