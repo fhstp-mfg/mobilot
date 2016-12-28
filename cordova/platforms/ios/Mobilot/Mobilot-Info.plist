@@ -50,7 +50,7 @@
     <key>UIStatusBarStyle</key>
     <string>UIStatusBarStyleLightContent</string>
     <key>NSLocationWhenInUseUsageDescription</key>
-    <string/>
+    <string>This app would like to scan for iBeacons while it is in use.</string>
     <key>NSLocationAlwaysUsageDescription</key>
     <string>This app would like to scan for iBeacons even when in the background.</string>
   </dict>

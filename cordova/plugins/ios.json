@@ -8,9 +8,12 @@
     },
     "installed_plugins": {
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
+            "PACKAGE_NAME": "at.ac.fhstp.mobilot"
         },
-        "com.unarin.cordova.beacon": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "at.ac.fhstp.mobilot"
+        },
+        "cordova-plugin-crosswalk-webview": {
             "PACKAGE_NAME": "at.ac.fhstp.mobilot"
         },
         "phonegap-plugin-barcodescanner": {
@@ -18,15 +21,12 @@
             "PACKAGE_NAME": "at.ac.fhstp.mobilot"
         },
         "cordova-plugin-geolocation": {
+            "GEOLOCATION_USAGE_DESCRIPTION": " ",
             "PACKAGE_NAME": "at.ac.fhstp.mobilot"
         },
-        "cordova-plugin-crosswalk-webview": {
+        "com.unarin.cordova.beacon": {
             "PACKAGE_NAME": "at.ac.fhstp.mobilot"
         }
     },
-    "dependent_plugins": {
-        "cordova-plugin-compat": {
-            "PACKAGE_NAME": "at.ac.fhstp.mobilot"
-        }
-    }
+    "dependent_plugins": {}
 }

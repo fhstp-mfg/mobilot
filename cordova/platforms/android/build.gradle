@@ -88,8 +88,8 @@ ext {
 // PLUGIN GRADLE EXTENSIONS START
 apply from: "phonegap-plugin-barcodescanner/hellocordova-barcodescanner.gradle"
 apply from: "cordova-plugin-crosswalk-webview/hellocordova-xwalk.gradle"
-apply from: "phonegap-plugin-barcodescanner/mobilot-barcodescanner.gradle"
 apply from: "cordova-plugin-crosswalk-webview/mobilot-xwalk.gradle"
+apply from: "phonegap-plugin-barcodescanner/mobilot-barcodescanner.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras = file('build-extras.gradle').exists()
