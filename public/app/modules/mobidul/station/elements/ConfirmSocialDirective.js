@@ -121,6 +121,8 @@
 
                 if (socialCode) {
                   ctrl.code = socialCode;
+                  $log.debug("socialCode");
+                  $log.debug(socialCode);
                   ctrl.join();
                 } else {
                   $mdDialog.show(
