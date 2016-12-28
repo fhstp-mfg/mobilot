@@ -119,6 +119,11 @@
   "JOIN_CODE_INVALID_EXPLANATION": "This join code is invalid. Please try it again or contact the creator of the Mobidul.",
   "GROUP_EXPLANATION": "Join codes allow to participate in a Mobidul of another creator.\nUsers, who have the same code are in the same group.",
 
+  "SOCIAL_CODE": "Social code",
+  "SOCIAL_CODE_INPUT_DESCRIPTION": "Scan the social code of another Mobidul player, who is also at this station.",
+  "SOCIAL_NOT_POSSIBLE": "The presence of another Mobidul player could not be verified.",
+  "SOCIAL_CODE_INVALID_EXPLANATION": "This social code ist invalid.",
+
   "HIDE_ON_HOME": "Hide on homescreen",
 
   "MOBIDUL": "Mobidul",
