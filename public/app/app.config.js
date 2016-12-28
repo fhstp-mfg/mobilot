@@ -400,32 +400,6 @@ angular
               }
             })
 
-              ////////////////
-              ///// social /////
-              ////////////////
-              //http://mobilot.app/#/social/station1/socialConfirm/ACTIVATED/eez4gu
-
-              .state('mobidul.station.verify.socialStatus', {
-                url : '/{socialStatus}',
-                views : {
-                  'mobidulContent' : {
-                    templateUrl : 'app/modules/mobidul/station/StationView.html',
-                    controller  : 'StationController as station'
-                  }
-                }
-              })
-
-
-                .state('mobidul.station.verify.socialStatus.socialCode', {
-                  url : '/{socialCode}',
-                  views : {
-                    'mobidulContent' : {
-                      templateUrl : 'app/modules/mobidul/station/StationView.html',
-                      controller  : 'StationController as station'
-                    }
-                  }
-                })
-
             ///////////////////////////
             ///// station creator /////
             ///////////////////////////
@@ -492,8 +466,33 @@ angular
                 controller: 'MediaController as media'
               }
             }
-          });
+          })
 
+          ////////////////
+          ///// social /////
+          ////////////////
+          //http://mobilot.app/#/social/station1/socialConfirm/ACTIVATED/eez4gu
+
+          .state('mobidul.station.verify.socialStatus', {
+            url : '/{socialStatus}',
+            views : {
+              'mobidulContent' : {
+                templateUrl : 'app/modules/mobidul/station/StationView.html',
+                controller  : 'StationController as station'
+              }
+            }
+          })
+
+
+            .state('mobidul.station.verify.socialStatus.socialCode', {
+              url : '/{socialCode}',
+              views : {
+                'mobidulContent' : {
+                  templateUrl : 'app/modules/mobidul/station/StationView.html',
+                  controller  : 'StationController as station'
+                }
+              }
+            });
 
       /// Exceptional Redirects
 
