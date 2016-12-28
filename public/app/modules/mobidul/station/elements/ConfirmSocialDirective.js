@@ -190,15 +190,16 @@
       ctrl.join = function () {
         SocialService.social( ctrl.code )
         .success(function (response) {
-          // console.warn('join mobidul play callback : ');
-          // console.info(response);
+          $log.debug('join mobidul play callback : ');
+          $log.debug(response);
 
           if (response) {
             if (response.success) {
-              //$state.go('mobidul.map', { mobidulCode: response.code });
-              console.log("SocialService success");
-              console.log(response);
-              //TODO trigger success action
+              $log.debug("SocialService success");
+              $log.debug(response);
+              
+              ctrl.actionPerformed();
+
             } else {
               var msg = $translate.instant('SOCIAL_CODE_INVALID_EXPLANATION');
 
