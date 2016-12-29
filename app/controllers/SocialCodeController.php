@@ -76,24 +76,49 @@ class SocialCodeController extends BaseController
   {
     \Log::info('Social Request: ' . $code);
 
-    $response = $this->JoinSocial($code);
+    $response = $this->SocialCheck($code);
 
     if ( $response['success'] ) {
       $mobidulCode = $response['code'];
       $stationCode = $response['stationCode'];
-      $status = $response['status'];
+      $componentId = $response['componentId'];
 
-      return Redirect::to('/#/' . $mobidulCode . '/' . $stationCode . '/socialConfirm/'. $status . '/' .$code);
+      return Redirect::to('/#/' . $mobidulCode . '/' . $stationCode . '/socialConfirm/'. $componentId . '/' .$code);
     }
     else {
       App::abort(404);
     }
   }
 
-  public function JoinSocial ($code)
+  public function JoinSocial ($code, $componentId)
   {
-    \Log::info('JoinSocial : ' . $code);
+    \Log::info('JoinSocial : ' . $code . ' + ' . $componentId);
 
+    $response = $this->SocialCheck($code);
+
+    if ( $response['success'] )
+    {
+      if ($componentId == $response['componentId'])
+      {
+        return $response;
+      } else {
+        return [
+          'success' => false,
+          'errormsg' => 'componentFalse'
+        ];
+      }
+    }
+    else
+    {
+      return [
+        'success' => false,
+        'errormsg' => 'codeNotExists'
+      ];
+    }
+  }
+
+  public function SocialCheck ($code)
+  {
     if ( $this->isCodeValid($code) )
     {
       $mobidulId = DB::table('socialcodes')
@@ -106,7 +131,7 @@ class SocialCodeController extends BaseController
               ->where('code', $code)
               ->first()
               ->stationId;
-      $status = DB::table('socialcodes')
+      $componentId = DB::table('socialcodes')
               ->select('stationStatus')
               ->where('code', $code)
               ->first()
@@ -126,13 +151,12 @@ class SocialCodeController extends BaseController
                   ->first()
                   ->code;
 
-
-      return [
-        'success' => true,
-        'code'    => $mobidulCode,
-        'stationCode' => $stationCode,
-        'status' => $status
-      ];
+        return [
+          'success' => true,
+          'code'    => $mobidulCode,
+          'stationCode' => $stationCode,
+          'componentId' => $componentId
+        ];
     }
     else
       return [
