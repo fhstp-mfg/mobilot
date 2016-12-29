@@ -1132,7 +1132,11 @@ function QRDialogController ($scope, $mdDialog, code) {
  */
 
 function QRSocialDialogController ($scope, $mdDialog, code) {
-  $scope.url = location.protocol + '//' + location.host + '/Social/' + code;
+  if(cordovaUrl){
+    $scope.url = cordovaUrl + '/Social/' + code;
+  } else {
+    $scope.url = location.protocol + '//' + location.host + '/Social/' + code;
+  }
 
   $scope.hide = function () {
     $mdDialog.hide();
