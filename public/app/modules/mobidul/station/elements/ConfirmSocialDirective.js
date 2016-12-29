@@ -24,13 +24,13 @@
           '{{ \'OPEN_CODE\' | translate }}' +
         '</md-button>' +
         '<md-button class="md-raised md-primary md-mobilot"' +
-          ' ng-click="ctrl.startScan()" ng-if="ctrl.isCordova">' +
+          ' ng-click="ctrl.startScan()" ng-if="ctrl.isCordova && !ctrl.isConfirmed">' +
           '{{ \'SCAN_CODE\' | translate }}' +
         '</md-button>' +
-        // '<md-button class="md-raised md-primary md-mobilot"' +
-        //   ' ng-if="ctrl.isConfirmed" ng-click="ctrl.actionPerformed()">' +
-        //   '{{ \'PERFORM_ACTION\' | translate }}' +
-        // '</md-button>' +
+        '<md-button class="md-raised md-primary md-mobilot"' +
+          ' ng-if="ctrl.isConfirmed" ng-click="ctrl.actionPerformed()">' +
+          '{{ \'PERFORM_ACTION\' | translate }}' +
+        '</md-button>' +
         '<md-divider id="station_creator_divider"></md-divider>' +
       '</div>',
       scope: {
@@ -197,8 +197,9 @@
             if (response.success) {
               $log.debug("SocialService success");
               $log.debug(response);
-              
-              ctrl.actionPerformed();
+
+              ctrl.isConfirmed = true;
+              //ctrl.actionPerformed();
 
             } else {
               var msg = $translate.instant('SOCIAL_CODE_INVALID_EXPLANATION');
