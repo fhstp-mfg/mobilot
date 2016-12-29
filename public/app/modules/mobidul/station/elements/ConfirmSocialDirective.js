@@ -35,7 +35,8 @@
       '</div>',
       scope: {
         id: '@',
-        success: '@'
+        success: '@',
+        confirm: '@'
       },
       link: function ( $scope, $element, $attr, ctrl ) {
 
@@ -51,20 +52,29 @@
     function ConfirmSocialController ( $scope, $element, $attrs ) {
       var ctrl = this;
 
-      ctrl.isConfirmed = false;
+      if($scope.confirm === "false"){
+        ctrl.isConfirmed = false;
+      }else{
+        ctrl.isConfirmed = true;
+      }
+
       ctrl.code = null;
       ctrl.isCordova = isCordova;
 
       ctrl.openCode = function () {
         $log.debug('OPEN CODE');
 
-        // TODO: generate code - mobidul&station&state
+        // generate code - mobidul&station&componentid
         var mobidulCode = StateManager.state.params.mobidulCode;
         var stationCode = StateManager.state.params.stationCode;
+        var componentId = $attrs.id;
+
         $log.info('ConfirmSocialDirective::StateManagerParam::stationCode');
         $log.debug(stationCode);
+        $log.info('ConfirmSocialDirective::ComponentId');
+        $log.debug($attrs);
+        $log.debug($attrs.id);
 
-//station.order
         MobidulService.getProgress(mobidulCode).
           then(function(progress){
               RallyService.getStatus(progress.progress)
@@ -72,23 +82,13 @@
                 $log.info('ConfirmSocialDirective - RallyService.getStatus - status:');
                 $log.debug(status);
 
-                SocialService.getSocialCodes( mobidulCode, stationCode, status)
+              //  SocialService.getSocialCodes( mobidulCode, stationCode, status)
+                SocialService.getSocialCodes( mobidulCode, stationCode, componentId)
                 .success(function (codes, status, headers, config) {
                   $log.debug('getCodes success in SocialCodeController');
                   $log.debug(codes);
                   console.debug("CONFIRMSOCIAL::getProgress::$attrs");
                   console.debug($attrs);
-
-                  /*if ( codes ) {
-                    angular.forEach( codes, function (code, cIx) {
-                      $log.debug(code.locked);
-                      $log.debug(typeof code.locked);
-
-                      code.locked = code.locked == 1 ? 1 : 0;
-                    });
-
-                    return codes;
-                  }*/
 
                   $mdDialog.show({
                     locals      : { code : codes },
@@ -188,7 +188,10 @@
       };
 
       ctrl.join = function () {
-        SocialService.social( ctrl.code )
+        $log.info('ConfirmSocialDirective::ComponentId');
+        $log.debug($attrs.id);
+
+        SocialService.social( ctrl.code, $attrs.id )
         .success(function (response) {
           $log.debug('join mobidul play callback : ');
           $log.debug(response);

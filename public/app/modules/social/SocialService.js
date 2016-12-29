@@ -25,9 +25,9 @@ function SocialService (
 
   /// services
 
-  function social (code)
+  function social (code, componentId)
   {
-    return $http.get(cordovaUrl + '/SocialJoin/' + code)
+    return $http.get(cordovaUrl + '/SocialJoin/' + code + '/' + componentId)
     .error(function (response, status, headers, config) {
       $log.error(response);
       $log.error(status);

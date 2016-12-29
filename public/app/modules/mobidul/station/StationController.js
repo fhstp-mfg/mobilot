@@ -476,19 +476,15 @@ function StationController (
   function renderJSON () {
     RallyService.getStatus(station.order)
       .then(function (status) {
-         //$log.info('StationController - renderJSON - RallyService.getStatus - status:');
-         //$log.debug(status, station, StateManager.isStationCreator());
-
+         $log.info('StationController - renderJSON');
         station.currentState = status;
-
 
         var isSocial = StateManager.getParams().verifier;
         var socialCode = StateManager.getParams().socialCode;
-        var socialStationStatus = StateManager.getParams().socialStatus;
+        var socialComponentId = StateManager.getParams().socialStatus;
 
-        // TODO check if socialConfirm and same StationStatus, then activate success of confirm social component in stationState
-
-        if(isSocial == "socialConfirm" && socialStationStatus == station.currentState){
+        // Check if socialConfirm, then go for confirm social component
+        if(isSocial == "socialConfirm"){
               station.comeFromSocial = true;
         }else{
               station.comeFromSocial = false;
@@ -497,6 +493,7 @@ function StationController (
 
         if ( ! StateManager.isStationCreator() ) {
           var config = station.config[status];
+          $log.debug("StationController::config");
           $log.debug(config);
           var container = document.getElementById('station_container');
           container.innerHTML = '';
@@ -584,13 +581,20 @@ function StationController (
                     break;
 
                    case 'CONFIRM_SOCIAL':
-                    if(station.comeFromSocial) {
-                      $rootScope.$broadcast('action', obj.success);
+                   $log.debug("StationController::CONFIRM_SOCIAL");
+
+                   var isConfirmed = false;
+
+
+                    if(station.comeFromSocial && socialComponentId == obj.id) {
+                      // set isConfirmed true to show PERFORM_ACTION Button
+                      isConfirmed = true;
+                      //$rootScope.$broadcast('action', obj.success);
                     }
 
                     angular
                     .element(container)
-                    .append($compile('<mbl-confirm-social data-success="' + obj.success + '" data-id="' + obj.id + '"></mbl-confirm-social>')($scope));
+                    .append($compile('<mbl-confirm-social data-success="' + obj.success + '" data-id="' + obj.id + '" data-confirm="' + isConfirmed + '"></mbl-confirm-social>')($scope));
                     break;
 
                   case 'SHOW_SCORE':
