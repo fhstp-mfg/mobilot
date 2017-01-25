@@ -1001,8 +1001,9 @@ class WebServicesController extends BaseController
     // \Log::info(Auth::check() && Auth::user()->username == 'admin');
     // \Log::info($this->GetOwnerOfMobidul($mobidulCode) == Auth::id());
 
-    if ( Auth::check() && Auth::user()->username == 'admin' )
+    if ( Auth::check() && Auth::user()->admin == true ) {
       return true;
+    }
 
     return $this->GetOwnerOfMobidul($mobidulCode) == Auth::id();
   }
