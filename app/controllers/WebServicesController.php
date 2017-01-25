@@ -996,11 +996,6 @@ class WebServicesController extends BaseController
    */
   public function GetIsOwnerOfMobidul ($mobidulCode)
   {
-    // \Log::info('********************');
-    // \Log::info('Check is owner of mobidul');
-    // \Log::info(Auth::check() && Auth::user()->username == 'admin');
-    // \Log::info($this->GetOwnerOfMobidul($mobidulCode) == Auth::id());
-
     if ( Auth::check() && Auth::user()->admin == true ) {
       return true;
     }
