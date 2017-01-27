@@ -17,7 +17,6 @@ var JS_DEPENDENCIES = [
   'assets/js/constants.js',
   'assets/js/mobile_imports.js',
   // libs
-  'lib/pdf.js-viewer/pdf.js',
   'lib/jquery/dist/jquery.min.js',
   'lib/angular/angular.min.js',
   'lib/angular-animate/angular-animate.min.js',
@@ -44,7 +43,6 @@ var JS_DEPENDENCIES = [
   'lib/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js',
   'lib/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js',
   'lib/angular-translate-storage-local/angular-translate-storage-local.min.js',
-  'lib/angular-pdfjs-viewer/dist/angular-pdfjs-viewer.js',
   'assets/js/qrcode.js',
   'assets/js/qrcode_UTF8.js',
   'lib/angular-qrcode/angular-qrcode.js',

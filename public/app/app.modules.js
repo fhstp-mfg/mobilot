@@ -42,7 +42,7 @@ angular.module('Mobidul', [
   // 'uiGmapgoogle-maps',
   'ngMap', 'ngWYSIWYG', 'ngStorage',
   'panzoom',
-  'StationCreator', 'ngCordovaBeacon', 'pdfjsViewer'
+  'StationCreator', 'ngCordovaBeacon'
 ]);
 
 
