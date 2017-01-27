@@ -49,6 +49,7 @@ function MenuController (
   menu.loginLogoutButtonClick = loginLogoutButtonClick;
   menu.resetRally             = resetRally;
   menu.openFeedbackDialog     = openFeedbackDialog;
+  menu.openPDF                = openPDF;
 
 
   /// construct
@@ -246,6 +247,10 @@ function MenuController (
       });
   }
 
+  function openPDF()
+  {
+    location.href = "/assets/doc/UserDoku_v1_20170127.pdf";
+  }
 
   /// events
 
