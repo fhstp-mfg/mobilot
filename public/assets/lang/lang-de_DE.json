@@ -400,6 +400,10 @@
   "WELCOME_TO_MOBILOT": "Willkommen bei Mobilot",
   "ABOUT_MOBILOT": "Über Mobilot",
 
+  "MANUAL": "Handbuch",
+  "MOBILOT_MANUAL": "Die User Dokumentation von Mobilot kann als PDF heruntergeladen werden.",
+  "MOBILOT_DOWNLOAD": "Download",
+
   "FEEDBACK_TITLE": "Feedback",
   "FEEDBACK_TEXT": "Bitte lass uns wissen, was du über Mobilot denkst oder falls du dabei Hilfe benötigst!",
   "FEEDBACK_PLACEHOLDER": "Dein Feedback",
