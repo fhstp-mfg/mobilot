@@ -249,7 +249,7 @@ function MenuController (
 
   function openPDF()
   {
-    location.href = "/assets/doc/UserDoku_v1_20170127.pdf";
+    location.href = 'http://seekoi.fhstp.ac.at/blog/wp-content/uploads/2017/01/UserDoku_v1_20170127.pdf';
   }
 
   /// events
