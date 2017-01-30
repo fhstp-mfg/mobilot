@@ -40,13 +40,14 @@ var app = {
         console.log('Received Event: ' + id);
 
         navigator.geolocation.getCurrentPosition(
-        function (e) {
-            console.log('GEO LOCATING PERMITTED');
-        },
-        function (e) {
-            // TODO show information dialog
-            console.log('GEO LOCATING NOT PERMITTED');
-        });
+          function (e) {
+              console.log('GEO LOCATING PERMITTED');
+          },
+          function (e) {
+              // TODO show information dialog
+              console.log('GEO LOCATING NOT PERMITTED');
+          }
+        );
     }
 };
 
