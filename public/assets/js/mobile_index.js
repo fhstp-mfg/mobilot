@@ -48,6 +48,20 @@ var app = {
               console.log('GEO LOCATING NOT PERMITTED');
           }
         );
+
+        if(cordova.InAppBrowser){
+          window.open = cordova.InAppBrowser.open;
+
+          document.onclick = function (e) {
+            e = e ||  window.event;
+            var element = e.target || e.srcElement;
+
+            if (element.tagName == 'A') {
+                window.open(element.href, "_blank", "location=yes");
+                return false;
+            }
+          };
+        }
     }
 };
 
