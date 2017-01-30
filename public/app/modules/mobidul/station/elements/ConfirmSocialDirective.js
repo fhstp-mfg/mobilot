@@ -19,6 +19,12 @@
       restrict: 'E',
       template: '' +
       '<div>' +
+        '<div ng-if="ctrl.isConfirmed != true">' +
+          '<span translate="SOCIAL_CODE_INPUT_DESCRIPTION"></span>' +
+        '</div>' +
+        '<div ng-if="ctrl.isConfirmed">' +
+          '<span translate="SOCIAL_CODE_FEEDBACK"></span>' +
+        '</div>' +
         '<md-button class="md-raised md-primary md-mobilot"' +
           ' ng-click="ctrl.openCode()">' +
           '{{ \'OPEN_CODE\' | translate }}' +

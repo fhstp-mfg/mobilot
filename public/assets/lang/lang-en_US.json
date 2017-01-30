@@ -123,6 +123,7 @@
   "SOCIAL_CODE_INPUT_DESCRIPTION": "Scan the social code of another Mobidul player, who is also at this station.",
   "SOCIAL_NOT_POSSIBLE": "The presence of another Mobidul player could not be verified.",
   "SOCIAL_CODE_INVALID_EXPLANATION": "This social code ist invalid.",
+  "SOCIAL_CODE_FEEDBACK": "The presence of another Mobidul player is verified. You can perform the action, now.",
 
   "HIDE_ON_HOME": "Hide on homescreen",
 
