@@ -123,6 +123,7 @@
   "SOCIAL_CODE_INPUT_DESCRIPTION": "Scanne den Social-Code eines anderen Mobildul-Spielers von dieser Station.",
   "SOCIAL_NOT_POSSIBLE": "Präsenz eines anderen Mobidul-Spielers konnte nicht bestätigt werden.",
   "SOCIAL_CODE_INVALID_EXPLANATION": "Dieser Social-Code ist ungültig.",
+  "SOCIAL_CODE_FEEDBACK": "Die Präsenz eines anderen Mobidul-Spielers wurde bestätigt, führe nun die Aktion aus.",
 
 
   "HIDE_ON_HOME": "Auf der Startseite verbergern",
@@ -399,6 +400,10 @@
 
   "WELCOME_TO_MOBILOT": "Willkommen bei Mobilot",
   "ABOUT_MOBILOT": "Über Mobilot",
+
+  "MANUAL": "Handbuch",
+  "MOBILOT_MANUAL": "Die User Dokumentation von Mobilot kann als PDF heruntergeladen werden.",
+  "MOBILOT_DOWNLOAD": "Download PDF",
 
   "FEEDBACK_TITLE": "Feedback",
   "FEEDBACK_TEXT": "Bitte lass uns wissen, was du über Mobilot denkst oder falls du dabei Hilfe benötigst!",

@@ -994,19 +994,14 @@ class WebServicesController extends BaseController
    * @param $mobidulCode
    * @return bool
    */
-  public function GetIsOwnerOfMobidul ($mobidulCode)
-  {
-    // \Log::info('********************');
-    // \Log::info('Check is owner of mobidul');
-    // \Log::info(Auth::check() && Auth::user()->username == 'admin');
-    // \Log::info($this->GetOwnerOfMobidul($mobidulCode) == Auth::id());
+   public function GetIsOwnerOfMobidul ($mobidulCode)
+   {
+     if ( Auth::check() && Auth::user()->admin == true ) {
+       return true;
+     }
 
-    if ( Auth::check() && Auth::user()->admin == true ) {
-      return true;
-    }
-
-    return $this->GetOwnerOfMobidul($mobidulCode) == Auth::id();
-  }
+     return $this->GetOwnerOfMobidul($mobidulCode) == Auth::id();
+   }
 
 
   public function GetRoleForMobidul ($mobidulCode = null)
