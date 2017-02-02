@@ -253,7 +253,7 @@ function MenuController (
       var ref = cordova.InAppBrowser.open('assets/doc/UserDoku_v1_20170127.pdf', '_blank', 'location=yes');
     }else
     {
-      location.href='assets/doc/UserDoku_v1_20170127.pdf', '_blank', 'location=yes';
+      location.href='assets/doc/UserDoku_v1_20170127.pdf';
     }
   }
 
