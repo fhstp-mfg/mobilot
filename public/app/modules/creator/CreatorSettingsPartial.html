@@ -17,8 +17,6 @@
         <md-checkbox
           class="md-primary"
           ng-model="creator.mobidul.isHiddenOnHome"
-          ng-true-value="0"
-          ng-false-value="1"
         >
           <label translate="HIDE_ON_HOME"></label>
         </md-checkbox>
@@ -26,15 +24,13 @@
         <md-checkbox
           class="md-primary"
           ng-model="creator.mobidul.isLocked"
-          ng-true-value="0"
-          ng-false-value="1"
         >
           <label translate="IMMUTABLE"></label>
         </md-checkbox>
 
         <h3 class="section-title" translate="FONT_TYPE"></h3>
         <br>
-        
+
         <md-select
           ng-model="creator.mobidul.font"
           placeholder="{{ 'CHOOSE_FONT' | translate }}"

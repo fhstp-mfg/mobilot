@@ -129,6 +129,10 @@
                         {
                             "xml": "<feature name=\"LocationManager\"><param name=\"android-package\" value=\"com.unarin.cordova.beacon.LocationManager\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -157,6 +161,9 @@
             "PACKAGE_NAME": "at.ac.fhstp.mobilot"
         },
         "com.unarin.cordova.beacon": {
+            "PACKAGE_NAME": "at.ac.fhstp.mobilot"
+        },
+        "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "at.ac.fhstp.mobilot"
         }
     },
@@ -222,6 +229,14 @@
             "file": "plugins/com.unarin.cordova.beacon/www/model/BeaconRegion.js",
             "id": "com.unarin.cordova.beacon.BeaconRegion",
             "runs": true
+        },
+        {
+            "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+            "id": "cordova-plugin-inappbrowser.inappbrowser",
+            "clobbers": [
+                "cordova.InAppBrowser.open",
+                "window.open"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -230,6 +245,7 @@
         "cordova-plugin-crosswalk-webview": "2.1.0",
         "phonegap-plugin-barcodescanner": "6.0.4",
         "cordova-plugin-geolocation": "2.4.1",
-        "com.unarin.cordova.beacon": "3.4.0"
+        "com.unarin.cordova.beacon": "3.4.0",
+        "cordova-plugin-inappbrowser": "1.6.1"
     }
 }

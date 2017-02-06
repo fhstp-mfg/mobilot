@@ -11,6 +11,7 @@ angular
 
       var isDeveloperEnv = (
         document.location.hostname != 'mobilot.at'
+        && document.location.hostname != 'mobilot.fhstp.ac.at'
         // && document.location.hostname != 'localhost'
       );
 

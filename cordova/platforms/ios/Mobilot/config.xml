@@ -24,6 +24,9 @@
     <feature name="LocationManager">
         <param name="ios-package" value="CDVLocationManager" />
     </feature>
+    <feature name="InAppBrowser">
+        <param name="ios-package" value="CDVInAppBrowser" />
+    </feature>
     <name>Mobilot</name>
     <description>
       Mobilot is a system for creating intuitive mobile information systems.

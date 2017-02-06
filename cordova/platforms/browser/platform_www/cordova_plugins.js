@@ -63,6 +63,23 @@ module.exports = [
         "id": "com.unarin.cordova.beacon.BeaconRegion",
         "pluginId": "com.unarin.cordova.beacon",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+        "id": "cordova-plugin-inappbrowser.inappbrowser",
+        "pluginId": "cordova-plugin-inappbrowser",
+        "clobbers": [
+            "cordova.InAppBrowser.open",
+            "window.open"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-inappbrowser/src/browser/InAppBrowserProxy.js",
+        "id": "cordova-plugin-inappbrowser.InAppBrowserProxy",
+        "pluginId": "cordova-plugin-inappbrowser",
+        "merges": [
+            ""
+        ]
     }
 ];
 module.exports.metadata = 
@@ -73,7 +90,8 @@ module.exports.metadata =
     "cordova-plugin-crosswalk-webview": "2.1.0",
     "phonegap-plugin-barcodescanner": "6.0.4",
     "cordova-plugin-geolocation": "2.4.1",
-    "com.unarin.cordova.beacon": "3.4.0"
+    "com.unarin.cordova.beacon": "3.4.0",
+    "cordova-plugin-inappbrowser": "1.6.1"
 }
 // BOTTOM OF METADATA
 });
