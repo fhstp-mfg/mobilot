@@ -26,6 +26,9 @@
         },
         "com.unarin.cordova.beacon": {
             "PACKAGE_NAME": "at.ac.fhstp.mobilot"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "at.ac.fhstp.mobilot"
         }
     },
     "dependent_plugins": {}

@@ -7,7 +7,7 @@ cd public/
 echo "> Run production build gulp task"
 gulp build
 
-cd ../
+cd ..
 
 echo "> Copy files for Cordova iOS"
 python cordova_prepare_ios.py
@@ -20,6 +20,6 @@ cordova build ios
 echo "> Open Xcode project"
 open platforms/ios/Mobilot.xcodeproj
 
-cd ../
+cd ..
 
-echo "Done building Mobilot for iOS !'
+echo "Done building Mobilot for iOS !"

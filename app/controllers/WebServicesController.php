@@ -330,17 +330,18 @@ class WebServicesController extends BaseController
   }
 
 
-  // TODO when creating a new mobidul, this webservice returns an 500 Internal Server Error
+  // TODO: when creating a new mobidul, this webservice returns an 500 Internal Server Error
   public function SetOptions ($mobidulCode)
   {
-    if ( $this->GetIsOwnerOfMobidul($mobidulCode) )
+    // \Log::info('SetOptions content:');
+
+    if ( $this->GetIsOwnerOfMobidul($mobidulCode))
     {
       $request = Request::instance();
       $content = $request->getContent();
       // \Log::info($content);
 
       $mobidulOptionsJson = json_decode($content);
-
 
       $m = Mobidul::findByCode($mobidulCode);
 
@@ -355,24 +356,11 @@ class WebServicesController extends BaseController
 
       $m->save();
 
-
-      /*
-      DB::table('mobidulOptions')
-        ->where('mobidulId', $mobidulId)
-        ->update(array('showMenu' => $mobidulOptionsJson->showMenu,
-                'allowedStationTypes' => $mobidulOptionsJson->allowedStationTypes,
-                'automaticPollingTime' => $mobidulOptionsJson->automaticPollingTime,
-                'editingDistance' => $mobidulOptionsJson->editingDistance,
-                'private' => $mobidulOptionsJson->private,
-                'locked' => $mobidulOptionsJson->locked
-                ));
-        Log::info("success");
-      */
-
       return 'success';
     }
-    else
+    else {
       return 'not-allowed';
+    }
   }
 
 
@@ -689,7 +677,7 @@ class WebServicesController extends BaseController
       'msg'   => 'WSC_MOBIDUL_NO_RIGHTS'
     ];
 
-    if ( $this->GetIsOwnerOfMobidul($mobidulCode) )
+    if ( $this->GetIsOwnerOfMobidul($mobidulCode))
     {
       // Access POST-Data:
       // First we fetch the Request instance
@@ -974,7 +962,7 @@ class WebServicesController extends BaseController
 
   public function IsOwnerOfMobidul ($mobidulCode)
   {
-    // if ( $this->GetIsOwnerOfMobidul($mobidulCode) )
+    // if ( $this->GetIsOwnerOfMobidul($mobidulCode))
     // {
     //   return "true";
     // }
@@ -1006,8 +994,7 @@ class WebServicesController extends BaseController
 
   public function GetRoleForMobidul ($mobidulCode = null)
   {
-    if ( ! is_null($mobidulCode) )
-    {
+    if ( ! is_null($mobidulCode)) {
       // \Log::info('Getting mobidulId for mobidulCode : ');
       // \Log::info($mobidulCode);
 
@@ -1019,24 +1006,21 @@ class WebServicesController extends BaseController
       // \Log::info(' Is Allowed ');
       // \Log::info(' Is Allowed ');
 
-      if ( $this->GetIsOwnerOfMobidul($mobidulCode) ) {
-          $role = 1;
+      if ( $this->GetIsOwnerOfMobidul($mobidulCode)) {
+        $role = 1;
+      } else if ( $this->IsAllowed($mobidulCode) == true
+        || $this->IsAllowed($mobidulCode) === 'allowed'
+      ) {
+        $role = 2;
+      } else {
+        $role = 0;
       }
-      else if ( $this->IsAllowed($mobidulCode) == true ||
-                $this->IsAllowed($mobidulCode) === 'allowed' ) {
-          $role = 2;
-      }
-      else {
-          $role = 0;
-      }
-
 
       return [
         'role' => $role
       ];
-    }
-    else {
-        return 'error';
+    } else {
+      return 'error';
     }
   }
 
@@ -1219,20 +1203,19 @@ class WebServicesController extends BaseController
 
 
     $mob = Mobidul::where('code', $mobidulCode)->first();
-    if ( ! $this->GetIsOwnerOfMobidul($mobidulCode) )
+    if ( ! $this->GetIsOwnerOfMobidul($mobidulCode)) {
       return 'not allowed';
+    }
 
 
-    if ( isset($mob) )
-    {
-      foreach ( $categoryNamesJson as $element )
-      {
-        if ( $this->HasCategoryName($element->name, $mob->id) )
+    if (isset($mob)) {
+      foreach ($categoryNamesJson as $element) {
+        if ( $this->HasCategoryName($element->name, $mob->id)) {
           return 'category-exists';
+        }
       }
 
-      foreach ( $categoryNamesJson as $element )
-      {
+      foreach ($categoryNamesJson as $element) {
         $category = new Category(['name' => $element->name]);
         $mob->categories()->save($category);
       }
@@ -1355,9 +1338,11 @@ class WebServicesController extends BaseController
       return 'not allowed';
 
 
-    if ( Mobidul::find($mobidulId)->locked &&
-         ! $this->GetIsOwnerOfMobidul($mobidulCode) )
+    if ( Mobidul::find($mobidulId)->locked
+      && ! $this->GetIsOwnerOfMobidul($mobidulCode)
+    ) {
       return 'mobidul locked';
+    }
 
 
     $request = Request::instance();
@@ -1447,24 +1432,25 @@ class WebServicesController extends BaseController
     $stationId = Station::GetId($stationCode);
 
 
-    if ( ! $this->isAllowed($mobidulCode) )
-
-      return array(
+    if ( ! $this->isAllowed($mobidulCode)) {
+      return [
         'saved' => false,
         'msg'   => 'not allowed'
-      );
+      ];
+    }
 
 
-    if ( Mobidul::find($mobidulId)->locked &&
-       ! $this->GetIsOwnerOfMobidul($mobidulCode) )
-
-      return array(
+    if ( Mobidul::find($mobidulId)->locked
+      && ! $this->GetIsOwnerOfMobidul($mobidulCode)
+    ) {
+      return [
         'saved' => false,
         'msg'   => 'mobidul locked'
-      );
+      ];
+    }
 
 
-    $request   = Request::instance();
+    $request = Request::instance();
     $params  = $request->getContent();
     // $paramsArr = json_decode($params, true);
     $params  = json_decode($params);
@@ -1485,7 +1471,7 @@ class WebServicesController extends BaseController
 
     if ( is_bool($canEdit) && $canEdit )
     {
-      if ( $this->GetIsOwnerOfMobidul($mobidulCode) )
+      if ( $this->GetIsOwnerOfMobidul($mobidulCode))
 
         DB::table('station')
           ->where('id', $stationId)
@@ -1630,14 +1616,15 @@ class WebServicesController extends BaseController
   {
     $mobidulId = Mobidul::GetId($mobidulCode);
 
-    if ( ! $this->isAllowed($mobidulCode) )
+    if ( ! $this->isAllowed($mobidulCode)) {
       return 'not allowed';
+    }
 
-
-    if ( Mobidul::find($mobidulId)->locked &&
-       ! $this->GetIsOwnerOfMobidul($mobidulCode) )
-
+    if ( Mobidul::find($mobidulId)->locked
+      && ! $this->GetIsOwnerOfMobidul($mobidulCode)
+    ) {
       return 'mobidul locked';
+    }
 
 
 
@@ -1645,7 +1632,7 @@ class WebServicesController extends BaseController
 
     if ( is_bool($canEdit) && $canEdit )
     {
-      if ( ! empty($stationId) )
+      if ( ! empty($stationId))
       {
         DB::beginTransaction();
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
