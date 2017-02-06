@@ -247,16 +247,14 @@ function MenuController (
       });
   }
 
-  function openPDF()
-  {
-    if(isCordova){
-      if(isIos){
-        var ref = cordova.InAppBrowser.open('assets/doc/UserDoku_v1_20170127.pdf', '_blank', 'location=yes');
-      }else{
+  function openPDF() {
+    if (isCordova) {
+      if (isIos) {
+        var ref = cordova.InAppBrowser.open('assets/doc/UserDoku_v1_20170127.pdf', '_blank', 'location=yes,toolbar=no');
+      } else {
         window.open('https://www.mobilot.at/assets/doc/UserDoku_v1_20170127.pdf', '_system', 'location=yes');
       }
-    }else
-    {
+    } else {
       location.href='assets/doc/UserDoku_v1_20170127.pdf';
     }
   }
