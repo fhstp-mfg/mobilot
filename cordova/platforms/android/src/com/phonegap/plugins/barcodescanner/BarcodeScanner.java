@@ -15,7 +15,6 @@ import org.json.JSONObject;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.content.pm.PackageManager;
 
@@ -24,8 +23,6 @@ import org.apache.cordova.CallbackContext;
 import org.apache.cordova.PluginResult;
 import org.apache.cordova.PermissionHelper;
 
-import com.google.zxing.client.android.CaptureActivity;
-import com.google.zxing.client.android.encode.EncodeActivity;
 import com.google.zxing.client.android.Intents;
 
 /**
@@ -46,9 +43,12 @@ public class BarcodeScanner extends CordovaPlugin {
     private static final String PREFER_FRONTCAMERA = "preferFrontCamera";
     private static final String ORIENTATION = "orientation";
     private static final String SHOW_FLIP_CAMERA_BUTTON = "showFlipCameraButton";
-    private static final String SHOW_TORCH_BUTTON = "showTorchButton";
     private static final String FORMATS = "formats";
     private static final String PROMPT = "prompt";
+    private static final String SCAN_INTENT = "com.google.zxing.client.android.SCAN";
+    private static final String ENCODE_DATA = "ENCODE_DATA";
+    private static final String ENCODE_TYPE = "ENCODE_TYPE";
+    private static final String ENCODE_INTENT = "com.phonegap.plugins.barcodescanner.ENCODE";
     private static final String TEXT_TYPE = "TEXT_TYPE";
     private static final String EMAIL_TYPE = "EMAIL_TYPE";
     private static final String PHONE_TYPE = "PHONE_TYPE";
@@ -133,8 +133,7 @@ public class BarcodeScanner extends CordovaPlugin {
         cordova.getThreadPool().execute(new Runnable() {
             public void run() {
 
-                Intent intentScan = new Intent(that.cordova.getActivity().getBaseContext(), CaptureActivity.class);
-                intentScan.setAction(Intents.Scan.ACTION);
+                Intent intentScan = new Intent(SCAN_INTENT);
                 intentScan.addCategory(Intent.CATEGORY_DEFAULT);
 
                 // add config as intent extras
@@ -173,7 +172,6 @@ public class BarcodeScanner extends CordovaPlugin {
 
                         intentScan.putExtra(Intents.Scan.CAMERA_ID, obj.optBoolean(PREFER_FRONTCAMERA, false) ? 1 : 0);
                         intentScan.putExtra(Intents.Scan.SHOW_FLIP_CAMERA_BUTTON, obj.optBoolean(SHOW_FLIP_CAMERA_BUTTON, false));
-                        intentScan.putExtra(Intents.Scan.SHOW_TORCH_BUTTON, obj.optBoolean(SHOW_TORCH_BUTTON, false));
                         if (obj.has(FORMATS)) {
                             intentScan.putExtra(Intents.Scan.FORMATS, obj.optString(FORMATS));
                         }
@@ -242,10 +240,9 @@ public class BarcodeScanner extends CordovaPlugin {
      * @param data The data to encode in the bar code.
      */
     public void encode(String type, String data) {
-        Intent intentEncode = new Intent(this.cordova.getActivity().getBaseContext(), EncodeActivity.class);
-        intentEncode.setAction(Intents.Encode.ACTION);
-        intentEncode.putExtra(Intents.Encode.TYPE, type);
-        intentEncode.putExtra(Intents.Encode.DATA, data);
+        Intent intentEncode = new Intent(ENCODE_INTENT);
+        intentEncode.putExtra(ENCODE_TYPE, type);
+        intentEncode.putExtra(ENCODE_DATA, data);
         // avoid calling other phonegap apps
         intentEncode.setPackage(this.cordova.getActivity().getApplicationContext().getPackageName());
 
@@ -304,14 +301,5 @@ public class BarcodeScanner extends CordovaPlugin {
                break;
        }
    }
-
-    /**
-     * This plugin launches an external Activity when the camera is opened, so we
-     * need to implement the save/restore API in case the Activity gets killed
-     * by the OS while it's in the background.
-     */
-    public void onRestoreStateForActivityResult(Bundle state, CallbackContext callbackContext) {
-        this.callbackContext = callbackContext;
-    }
 
 }
