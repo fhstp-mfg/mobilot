@@ -5,29 +5,31 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
+		00DBC1B84DDC4E8DA0A8B75A /* AppDelegate+CDVLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BF1B01F12448E083CBA9DE /* AppDelegate+CDVLocationManager.m */; };
 		0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0207DA571B56EA530066E2B4 /* Images.xcassets */; };
+		08FD6CFCAFEA4C9AB67484E8 /* CDVLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FD7FFDEAD0BA4A1BBBFCBE74 /* CDVLocationManager.m */; };
+		0CBC6A81BCAB485AAA059A26 /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 73DF616DD774489CB250906F /* CDVLocation.m */; };
+		15F948871CB646EABDF15F4E /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB93CB03EB4801B65A8CFF /* CDVInAppBrowser.m */; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		301BF552109A68D80062928A /* libCordova.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 301BF535109A57CC0062928A /* libCordova.a */; };
 		302D95F114D2391D003F00A1 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 302D95EF14D2391D003F00A1 /* MainViewController.m */; };
 		302D95F214D2391D003F00A1 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 302D95F014D2391D003F00A1 /* MainViewController.xib */; };
+		37196247D3A34D279485A4C3 /* LMLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A14B0DC85744B98B5A3D85 /* LMLogger.m */; };
+		43A4F30D9D4244319CAF264D /* scannerOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA02C6C0AD9C4B8AAB2A5F11 /* scannerOverlay.xib */; };
 		5F14D8307D2543DABB829BAC /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 02955E90D0544952A593080E /* libiconv.dylib */; };
 		6CEA08303BF94EA8B4D69398 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F83094E84A641729DE7BD5C /* CoreImage.framework */; };
 		7D6DD2E2D7B448BBAFEBE978 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE10B8E899F47F599ADC3C5 /* AudioToolbox.framework */; };
+		7E28F4877F41450D938AF321 /* zxing-all-in-one.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1397F03F716040EDA7BAB725 /* zxing-all-in-one.cpp */; };
+		8147FB0152C047F0AEF48E3C /* CDVBarcodeScanner.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 02A2A181406C46C9800E3440 /* CDVBarcodeScanner.bundle */; };
 		94DB0BFA82D04024B6FE8295 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 106142533D2547C189AD3459 /* CoreBluetooth.framework */; };
 		B44DF7C8838A45358BC2F27A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECDDD9BC948B4B99A6C13BA9 /* AVFoundation.framework */; };
 		BFBF20E386174B2E8AD543A2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA7A2DDBA7FB4154A2A8810C /* QuartzCore.framework */; };
+		D2A440BAE1C34026AF0E269B /* CDVBarcodeScanner.mm in Sources */ = {isa = PBXBuildFile; fileRef = C36074643BAB4BBCB993CE84 /* CDVBarcodeScanner.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D9D58A5A473A41378224CF07 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84193EF2E27445758B51D1FB /* CoreLocation.framework */; };
 		D9EA7ADC112E49109CF166DA /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A4D27E01C9646F49FCB19DF /* CoreVideo.framework */; };
-		D2A440BAE1C34026AF0E269B /* CDVBarcodeScanner.mm in Resources */ = {isa = PBXBuildFile; fileRef = C36074643BAB4BBCB993CE84 /* CDVBarcodeScanner.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7E28F4877F41450D938AF321 /* zxing-all-in-one.cpp in Resources */ = {isa = PBXBuildFile; fileRef = 1397F03F716040EDA7BAB725 /* zxing-all-in-one.cpp */; };
-		43A4F30D9D4244319CAF264D /* scannerOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA02C6C0AD9C4B8AAB2A5F11 /* scannerOverlay.xib */; };
-		8147FB0152C047F0AEF48E3C /* CDVBarcodeScanner.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 02A2A181406C46C9800E3440 /* CDVBarcodeScanner.bundle */; };
-		0CBC6A81BCAB485AAA059A26 /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 73DF616DD774489CB250906F /* CDVLocation.m */; };
-		08FD6CFCAFEA4C9AB67484E8 /* CDVLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FD7FFDEAD0BA4A1BBBFCBE74 /* CDVLocationManager.m */; };
-		00DBC1B84DDC4E8DA0A8B75A /* AppDelegate+CDVLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BF1B01F12448E083CBA9DE /* AppDelegate+CDVLocationManager.m */; };
-		37196247D3A34D279485A4C3 /* LMLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A14B0DC85744B98B5A3D85 /* LMLogger.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,10 +52,13 @@
 /* Begin PBXFileReference section */
 		0207DA571B56EA530066E2B4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Mobilot/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		02955E90D0544952A593080E /* libiconv.dylib */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
+		02A2A181406C46C9800E3440 /* CDVBarcodeScanner.bundle */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.plug-in"; path = CDVBarcodeScanner.bundle; sourceTree = "<group>"; };
 		106142533D2547C189AD3459 /* CoreBluetooth.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		1397F03F716040EDA7BAB725 /* zxing-all-in-one.cpp */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "zxing-all-in-one.cpp"; path = "phonegap-plugin-barcodescanner/zxing-all-in-one.cpp"; sourceTree = "<group>"; };
 		1D3623240D0F684500981E51 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* Mobilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mobilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		236915F6FE764E7BA2638102 /* LMLogger.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = LMLogger.h; path = com.unarin.cordova.beacon/LMLogger.h; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		301BF52D109A57CC0062928A /* CordovaLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CordovaLib.xcodeproj; path = CordovaLib/CordovaLib.xcodeproj; sourceTree = "<group>"; };
 		301BF56E109A69640062928A /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = SOURCE_ROOT; };
@@ -64,30 +69,29 @@
 		3047A5101AB8059700498E2A /* build-release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "build-release.xcconfig"; path = "cordova/build-release.xcconfig"; sourceTree = SOURCE_ROOT; };
 		3047A5111AB8059700498E2A /* build.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = build.xcconfig; path = cordova/build.xcconfig; sourceTree = SOURCE_ROOT; };
 		32CA4F630368D1EE00C91783 /* Mobilot-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Mobilot-Prefix.pch"; sourceTree = "<group>"; };
+		37A14B0DC85744B98B5A3D85 /* LMLogger.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = LMLogger.m; path = com.unarin.cordova.beacon/LMLogger.m; sourceTree = "<group>"; };
+		3EE57CFFDB224122BCDCE1B1 /* AppDelegate+CDVLocationManager.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "AppDelegate+CDVLocationManager.h"; path = "com.unarin.cordova.beacon/AppDelegate+CDVLocationManager.h"; sourceTree = "<group>"; };
+		43AB93CB03EB4801B65A8CFF /* CDVInAppBrowser.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVInAppBrowser.m; path = "cordova-plugin-inappbrowser/CDVInAppBrowser.m"; sourceTree = "<group>"; };
+		5C38F7329C7F4BBBB3E862D5 /* CDVLocationManager.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVLocationManager.h; path = com.unarin.cordova.beacon/CDVLocationManager.h; sourceTree = "<group>"; };
 		6A4D27E01C9646F49FCB19DF /* CoreVideo.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		73DF616DD774489CB250906F /* CDVLocation.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVLocation.m; path = "cordova-plugin-geolocation/CDVLocation.m"; sourceTree = "<group>"; };
 		7F83094E84A641729DE7BD5C /* CoreImage.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		84193EF2E27445758B51D1FB /* CoreLocation.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		8950F89B76C748088B3774BC /* zxing-all-in-one.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "zxing-all-in-one.h"; path = "phonegap-plugin-barcodescanner/zxing-all-in-one.h"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Mobilot-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Mobilot-Info.plist"; path = "Mobilot/Mobilot-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = SOURCE_ROOT; };
+		BB08EBA2C19B4591BC784A3A /* CDVLocation.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVLocation.h; path = "cordova-plugin-geolocation/CDVLocation.h"; sourceTree = "<group>"; };
+		C36074643BAB4BBCB993CE84 /* CDVBarcodeScanner.mm */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = CDVBarcodeScanner.mm; path = "phonegap-plugin-barcodescanner/CDVBarcodeScanner.mm"; sourceTree = "<group>"; };
+		C3BF1B01F12448E083CBA9DE /* AppDelegate+CDVLocationManager.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = "AppDelegate+CDVLocationManager.m"; path = "com.unarin.cordova.beacon/AppDelegate+CDVLocationManager.m"; sourceTree = "<group>"; };
 		CA7A2DDBA7FB4154A2A8810C /* QuartzCore.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CDE10B8E899F47F599ADC3C5 /* AudioToolbox.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		DA02C6C0AD9C4B8AAB2A5F11 /* scannerOverlay.xib */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = file.xib; path = scannerOverlay.xib; sourceTree = "<group>"; };
+		E2EA341689E14D428772ABC1 /* CDVInAppBrowser.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVInAppBrowser.h; path = "cordova-plugin-inappbrowser/CDVInAppBrowser.h"; sourceTree = "<group>"; };
 		EB87FDF31871DA8E0020F90C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		ECDDD9BC948B4B99A6C13BA9 /* AVFoundation.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		ED33DF2A687741AEAF9F8254 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = Mobilot/config.xml; sourceTree = "<group>"; };
-		C36074643BAB4BBCB993CE84 /* CDVBarcodeScanner.mm */ = {isa = PBXFileReference; name = "CDVBarcodeScanner.mm"; path = "phonegap-plugin-barcodescanner/CDVBarcodeScanner.mm"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		1397F03F716040EDA7BAB725 /* zxing-all-in-one.cpp */ = {isa = PBXFileReference; name = "zxing-all-in-one.cpp"; path = "phonegap-plugin-barcodescanner/zxing-all-in-one.cpp"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		8950F89B76C748088B3774BC /* zxing-all-in-one.h */ = {isa = PBXFileReference; name = "zxing-all-in-one.h"; path = "phonegap-plugin-barcodescanner/zxing-all-in-one.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		DA02C6C0AD9C4B8AAB2A5F11 /* scannerOverlay.xib */ = {isa = PBXFileReference; name = "scannerOverlay.xib"; path = "scannerOverlay.xib"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = file.xib; explicitFileType = undefined; includeInIndex = 0; };
-		02A2A181406C46C9800E3440 /* CDVBarcodeScanner.bundle */ = {isa = PBXFileReference; name = "CDVBarcodeScanner.bundle"; path = "CDVBarcodeScanner.bundle"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.plug-in; explicitFileType = undefined; includeInIndex = 0; };
-		73DF616DD774489CB250906F /* CDVLocation.m */ = {isa = PBXFileReference; name = "CDVLocation.m"; path = "cordova-plugin-geolocation/CDVLocation.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		BB08EBA2C19B4591BC784A3A /* CDVLocation.h */ = {isa = PBXFileReference; name = "CDVLocation.h"; path = "cordova-plugin-geolocation/CDVLocation.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		FD7FFDEAD0BA4A1BBBFCBE74 /* CDVLocationManager.m */ = {isa = PBXFileReference; name = "CDVLocationManager.m"; path = "com.unarin.cordova.beacon/CDVLocationManager.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		C3BF1B01F12448E083CBA9DE /* AppDelegate+CDVLocationManager.m */ = {isa = PBXFileReference; name = "AppDelegate+CDVLocationManager.m"; path = "com.unarin.cordova.beacon/AppDelegate+CDVLocationManager.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		37A14B0DC85744B98B5A3D85 /* LMLogger.m */ = {isa = PBXFileReference; name = "LMLogger.m"; path = "com.unarin.cordova.beacon/LMLogger.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		5C38F7329C7F4BBBB3E862D5 /* CDVLocationManager.h */ = {isa = PBXFileReference; name = "CDVLocationManager.h"; path = "com.unarin.cordova.beacon/CDVLocationManager.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		3EE57CFFDB224122BCDCE1B1 /* AppDelegate+CDVLocationManager.h */ = {isa = PBXFileReference; name = "AppDelegate+CDVLocationManager.h"; path = "com.unarin.cordova.beacon/AppDelegate+CDVLocationManager.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		236915F6FE764E7BA2638102 /* LMLogger.h */ = {isa = PBXFileReference; name = "LMLogger.h"; path = "com.unarin.cordova.beacon/LMLogger.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		FD7FFDEAD0BA4A1BBBFCBE74 /* CDVLocationManager.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVLocationManager.m; path = com.unarin.cordova.beacon/CDVLocationManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +223,8 @@
 				5C38F7329C7F4BBBB3E862D5 /* CDVLocationManager.h */,
 				3EE57CFFDB224122BCDCE1B1 /* AppDelegate+CDVLocationManager.h */,
 				236915F6FE764E7BA2638102 /* LMLogger.h */,
+				43AB93CB03EB4801B65A8CFF /* CDVInAppBrowser.m */,
+				E2EA341689E14D428772ABC1 /* CDVInAppBrowser.h */,
 			);
 			name = Plugins;
 			path = Mobilot/Plugins;
@@ -340,14 +346,13 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
-				AFA2A65602BE4EC6972FBD87 /* CDVBarcodeScanner.mm in Sources */,
-				AE498B1A2D50458F8D53B262 /* zxing-all-in-one.cpp in Sources */,
-				D2A440BAE1C34026AF0E269B /* CDVBarcodeScanner.mm in Resources */,
-				7E28F4877F41450D938AF321 /* zxing-all-in-one.cpp in Resources */,
+				D2A440BAE1C34026AF0E269B /* CDVBarcodeScanner.mm in Sources */,
+				7E28F4877F41450D938AF321 /* zxing-all-in-one.cpp in Sources */,
 				0CBC6A81BCAB485AAA059A26 /* CDVLocation.m in Sources */,
 				08FD6CFCAFEA4C9AB67484E8 /* CDVLocationManager.m in Sources */,
 				00DBC1B84DDC4E8DA0A8B75A /* AppDelegate+CDVLocationManager.m in Sources */,
 				37196247D3A34D279485A4C3 /* LMLogger.m in Sources */,
+				15F948871CB646EABDF15F4E /* CDVInAppBrowser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

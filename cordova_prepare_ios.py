@@ -18,7 +18,7 @@ cordova_plugins_js = "cordova/platforms/ios/platform_www/cordova_plugins.js"
 public_ignored = [
     # dirs
     ".excluded",
-    "app/*.js",
+    #"app/*.js",
     #"lib",
     "node_modules",
     #"temp",

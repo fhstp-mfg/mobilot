@@ -149,7 +149,7 @@ function CreatorController (
   /// private functions
 
   function _init () {
-    //$log.debug('CreatorController init');
+    // $log.debug('CreatorController init');
 
     _initDefaultValues();
 
@@ -169,25 +169,31 @@ function CreatorController (
 
 
         // get options for mobidul
-        CreatorService.getOptions( mobidulCode )
-        .success(function (response, status, headers, config) {
-          // $log.debug('getOptions success in CreatorController');
+        CreatorService.getOptions(mobidulCode)
+          .success(function (response, status, headers, config) {
+            // $log.debug('getOptions success in CreatorController');
 
-          var mobidulPrivate = response.private;
-          var mobidulLocked  = response.locked;
+            $log.debug('CreatorService getOptions:');
+            $log.debug(response);
+            $log.debug(typeof response.private, response.private);
+            $log.debug(typeof response.locked, response.locked);
 
-          creator.mobidul.id             = response.id;
-          creator.mobidul.name           = response.name;
-          creator.mobidul.originalCode   = response.code;
-          creator.mobidul.isHiddenOnHome = ! isNaN(mobidulPrivate) ? mobidulPrivate : 0;
-          creator.mobidul.isLocked       = ! isNaN(mobidulLocked) ? mobidulLocked : 0;
-          creator.mobidul.font           = response.font;
-          creator.editMode               = response.editMode;
-        });
+            var mobidulPrivate = response.private;
+            var mobidulLocked  = response.locked;
+
+
+            creator.mobidul.id             = response.id;
+            creator.mobidul.name           = response.name;
+            creator.mobidul.originalCode   = response.code;
+            creator.mobidul.isHiddenOnHome = mobidulPrivate === '1' || mobidulPrivate === 'true';
+            creator.mobidul.isLocked       = mobidulLocked === '1' || mobidulLocked === 'false';
+            creator.mobidul.font           = response.font;
+            creator.editMode               = response.editMode;
+          });
 
 
         // TODO: use english comments please :)
-        // get menu for mobidul TODO dafür gibts noch kein ws, aber man kanns über getConfig machen.
+        // get menu for mobidul TODO: dafür gibts noch kein ws, aber man kanns über getConfig machen.
 
         CreatorService.getConfig( mobidulCode )
         .success(function (response, status, headers, config) {
@@ -215,17 +221,17 @@ function CreatorController (
           }
         });
 
-        //get Codes
+        // get play codes
         getPlayCodes();
       } else {
-        //$log.debug('NEW MOBIDUL in CreatorController _initDefaultValues');
+        // $log.debug('NEW MOBIDUL in CreatorController _initDefaultValues');
 
         creator.modes = MobidulService.getModes();
-        //$log.info('creator.modes:');
-        //$log.debug(creator.modes);
+        // $log.info('creator.modes:');
+        // $log.debug(creator.modes);
       }
 
-      // NOTE hide the app loader
+      // NOTE: hide the app loader
       $rootScope.$emit('rootScope:toggleAppLoader', { action : 'hide' });
     }
   }
@@ -281,35 +287,36 @@ function CreatorController (
 
 
   function changeDetailTab () {
-    // $log.debug('changeDetailTab in CreatorController : ');
+    // $log.debug('changeDetailTab in CreatorController:');
 
     var editRoute = 'mobidul.creator.';
 
-    switch ( creator.mobidulTabIndex )
-    {
-      case CreatorService.BASIS_TAB_INDEX :
+    switch (creator.mobidulTabIndex) {
+      case CreatorService.BASIS_TAB_INDEX:
         editRoute += 'basis';
         break;
 
-      case CreatorService.CATEGORIES_TAB_INDEX :
+      case CreatorService.CATEGORIES_TAB_INDEX:
         editRoute += 'categories';
         break;
 
-      case CreatorService.MENU_TAB_INDEX :
+      case CreatorService.MENU_TAB_INDEX:
         editRoute += 'menu';
         getCategoriesFromServer();
         break;
 
-      case CreatorService.SETTINGS_TAB_INDEX :
+      case CreatorService.SETTINGS_TAB_INDEX:
         editRoute += 'settings';
         break;
+
+      default: break;
     }
 
     // $log.debug('goto route : ' + editRoute);
 
     var currentStateParams = StateManager.state.params || {};
 
-    $state.go( editRoute, currentStateParams );
+    $state.go(editRoute, currentStateParams);
   }
 
 
@@ -551,9 +558,11 @@ function CreatorController (
 
 
   function saveOptions () {
-    // TODO Statische Optionen!!
-    var params =
-    {
+    $log.debug('saveOptions:');
+    $log.debug(creator.mobidul);
+
+    // TODO: Statische Optionen !
+    var params = {
       'showMenu'             : 1,
       'allowedStationTypes'  : '',
       'automaticPollingTime' : 0,
@@ -568,10 +577,9 @@ function CreatorController (
     var mobidulCode = creator.mobidul.code;
 
 
-    CreatorService.saveOptions( mobidulCode, params )
-    .success(function (response, status, headers, config)
-    {
-      switch ( response ) {
+    CreatorService.saveOptions(mobidulCode, params)
+    .success(function (response, status, headers, config) {
+      switch (response) {
         case 'success':
           // $log.debug("saved everything, go to next state");
           // TODO: Wenn stateparam mobidul gesetzt ist soll automatisch auf den mobidulcreator in den Optionen des mobiduls umgeleitet werden.
@@ -586,19 +594,18 @@ function CreatorController (
             .ariaLabel($translate.instant('POSITION_ERROR_TITLE'))
             .ok($translate.instant('CLOSE'));
 
-          $mdDialog.show( saveMobidulOptionsDialog )
-          .then(function ()
-          {
-            if ( creator.isNewMobidul )
-            {
+          $mdDialog.show(saveMobidulOptionsDialog)
+          .then(function () {
+            if (creator.isNewMobidul) {
               var stateParams = {
                 mobidulCode : creator.mobidul.originalCode
               };
 
               $state.go('mobidul.creator.basis', stateParams);
             }
-            else
+            else {
               MobidulService.menuReady();
+            }
           });
           break;
 
@@ -607,12 +614,12 @@ function CreatorController (
           creator.showToast($translate.instant('NOT_AUTHORIZED_TO_EDIT_MOBIDUL'));
           break;
 
-        case 'code-not-allowed' :
+        case 'code-not-allowed':
           creator.showToast($translate.instant('CODE_INVALID'));
           break;
 
-        default :
-          creator.showToast( response );
+        default:
+          creator.showToast(response);
           break;
       }
     });
@@ -620,8 +627,8 @@ function CreatorController (
 
 
   function deleteCategory (categoryId, $index, $event) {
-    // TODO - check when to remove category
-    // TODO - remove category animation
+    // TODO: check when to remove category
+    // TODO: remove category animation
 
     var confirm = $mdDialog.confirm()
     .title($translate.instant('DELETE_CATEGORY_TITLE'))

@@ -60,6 +60,14 @@ module.exports = [
         "file": "plugins/com.unarin.cordova.beacon/www/model/BeaconRegion.js",
         "id": "com.unarin.cordova.beacon.BeaconRegion",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+        "id": "cordova-plugin-inappbrowser.inappbrowser",
+        "clobbers": [
+            "cordova.InAppBrowser.open",
+            "window.open"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -70,7 +78,8 @@ module.exports.metadata =
     "cordova-plugin-crosswalk-webview": "2.1.0",
     "phonegap-plugin-barcodescanner": "6.0.4",
     "cordova-plugin-geolocation": "2.4.1",
-    "com.unarin.cordova.beacon": "3.4.0"
+    "com.unarin.cordova.beacon": "3.4.0",
+    "cordova-plugin-inappbrowser": "1.6.1"
 };
 // BOTTOM OF METADATA
 });
