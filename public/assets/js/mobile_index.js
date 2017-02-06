@@ -59,7 +59,7 @@ var app = {
                 window.open('https://www.mobilot.at/assets/doc/UserDoku_v1_20170127.pdf', '_system', 'location=yes');
                 return false;
               }else{
-                var ref = cordova.InAppBrowser.open('assets/doc/UserDoku_v1_20170127.pdf', '_blank', 'location=no,toolbar=yes');
+                var ref = cordova.InAppBrowser.open(element.href, '_blank', 'location=no,toolbar=yes');
                 return false;
               }
             }
