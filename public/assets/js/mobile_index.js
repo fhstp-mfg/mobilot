@@ -57,12 +57,13 @@ var app = {
             var element = e.target || e.srcElement;
 
             if (element.tagName == 'A') {
-                window.open(element.href, "_blank", "location=yes");
-
-                if(element.id == 'pdfManual') {
-                  window.open('https://www.mobilot.at/assets/doc/UserDoku_v1_20170127.pdf', '_system', 'location=yes');
-                }
+              if(element.id == 'pdfManual') {
+                window.open('https://www.mobilot.at/assets/doc/UserDoku_v1_20170127.pdf', '_system', 'location=yes');
                 return false;
+              }else{
+                window.open(element.href, "_blank", "location=yes");
+                return false;
+              }
             }
           };
         }
