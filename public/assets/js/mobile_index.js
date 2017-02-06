@@ -58,6 +58,10 @@ var app = {
 
             if (element.tagName == 'A') {
                 window.open(element.href, "_blank", "location=yes");
+
+                if(element.id == 'pdfManual') {
+                  window.open('https://www.mobilot.at/assets/doc/UserDoku_v1_20170127.pdf', '_system', 'location=yes');
+                }
                 return false;
             }
           };

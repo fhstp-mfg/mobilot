@@ -250,7 +250,11 @@ function MenuController (
   function openPDF()
   {
     if(isCordova){
-      var ref = cordova.InAppBrowser.open('assets/doc/UserDoku_v1_20170127.pdf', '_blank', 'location=yes');
+      if(isIos){
+        var ref = cordova.InAppBrowser.open('assets/doc/UserDoku_v1_20170127.pdf', '_blank', 'location=yes');
+      }else{
+        window.open('https://www.mobilot.at/assets/doc/UserDoku_v1_20170127.pdf', '_system', 'location=yes');
+      }
     }else
     {
       location.href='assets/doc/UserDoku_v1_20170127.pdf';
