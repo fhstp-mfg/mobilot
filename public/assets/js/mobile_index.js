@@ -50,18 +50,16 @@ var app = {
         );
 
         if(cordova.InAppBrowser){
-          window.open = cordova.InAppBrowser.open;
-
           document.onclick = function (e) {
             e = e ||  window.event;
             var element = e.target || e.srcElement;
 
             if (element.tagName == 'A') {
-              if(element.id == 'pdfManual') {
+              if(element.id == 'pdfManual' && !isIos) {
                 window.open('https://www.mobilot.at/assets/doc/UserDoku_v1_20170127.pdf', '_system', 'location=yes');
                 return false;
               }else{
-                window.open(element.href, "_blank", "location=yes");
+                var ref = cordova.InAppBrowser.open('assets/doc/UserDoku_v1_20170127.pdf', '_blank', 'location=no,toolbar=yes');
                 return false;
               }
             }
