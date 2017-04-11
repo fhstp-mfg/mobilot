@@ -41,6 +41,6 @@ Project _seekoi_ runs from January to December 2016 and is funded through the [1
 ### [St. Pölten University of Applied Sciences](https://www.fhstp.ac.at)
 <img src="http://seekoi.fhstp.ac.at/img/fh-logo.jpg" alt="St. Pölten University of Applied Sciences Logo" width="150">
 
-## License
+## Licence
 
-[BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause)
+[The BSD 3-Clause License](https://opensource.org/licenses/BSD-3-Clause) (BSD-3-Clause)
