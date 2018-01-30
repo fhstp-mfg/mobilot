@@ -1,58 +1,58 @@
 {
-    "cordova-plugin-whitelist": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-whitelist@1"
-        },
-        "is_top_level": true,
-        "variables": {}
+  "cordova-plugin-whitelist": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-whitelist@1"
     },
-    "cordova-plugin-compat": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-compat"
-        },
-        "is_top_level": true,
-        "variables": {}
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-compat": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-compat"
     },
-    "cordova-plugin-crosswalk-webview": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-crosswalk-webview@2.1.0"
-        },
-        "is_top_level": true,
-        "variables": {}
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-crosswalk-webview": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-crosswalk-webview@2.1.0"
     },
-    "phonegap-plugin-barcodescanner": {
-        "source": {
-            "type": "registry",
-            "id": "phonegap-plugin-barcodescanner"
-        },
-        "is_top_level": true,
-        "variables": {}
+    "is_top_level": true,
+    "variables": {}
+  },
+  "phonegap-plugin-barcodescanner": {
+    "source": {
+      "type": "registry",
+      "id": "phonegap-plugin-barcodescanner"
     },
-    "cordova-plugin-geolocation": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-geolocation"
-        },
-        "is_top_level": true,
-        "variables": {}
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-geolocation": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-geolocation"
     },
-    "com.unarin.cordova.beacon": {
-        "source": {
-            "type": "registry",
-            "id": "com.unarin.cordova.beacon"
-        },
-        "is_top_level": true,
-        "variables": {}
+    "is_top_level": true,
+    "variables": {}
+  },
+  "com.unarin.cordova.beacon": {
+    "source": {
+      "type": "registry",
+      "id": "com.unarin.cordova.beacon"
     },
-    "cordova-plugin-inappbrowser": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-inappbrowser@1.6.1"
-        },
-        "is_top_level": true,
-        "variables": {}
-    }
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-inappbrowser": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-inappbrowser@2.0.2"
+    },
+    "is_top_level": true,
+    "variables": {}
+  }
 }

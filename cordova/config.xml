@@ -8,7 +8,6 @@
       Apache Cordova Team
   </author>
     <content src="angular.html" />
-    <plugin name="cordova-plugin-whitelist" spec="1" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -26,9 +25,8 @@
         <splash density="port-ldpi" src="res/screen/android/splash-port-ldpi.png" />
         <splash density="port-mdpi" src="res/screen/android/splash-port-mdpi.png" />
         <splash density="port-xhdpi" src="res/screen/android/splash-port-xhdpi.png" />
-		<plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
+        <plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
     </platform>
-    <engine name="android" spec="~5.1.1" />
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
@@ -47,4 +45,7 @@
     <preference name="SplashScreenDelay" value="5000" />
     <preference name="FadeSplashScreenDuration" value="750" />
     <preference name="DisallowOverscroll" value="true" />
+    <plugin name="cordova-plugin-whitelist" spec="1" />
+    <plugin name="cordova-plugin-inappbrowser" spec="~1.6.1" />
+    <engine name="android" spec="~5.1.1" />
 </widget>
