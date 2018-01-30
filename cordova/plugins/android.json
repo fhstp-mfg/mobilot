@@ -32,6 +32,9 @@
     },
     "cordova-plugin-inappbrowser": {
       "PACKAGE_NAME": "at.ac.fhstp.mobilot"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "at.ac.fhstp.mobilot"
     }
   },
   "dependent_plugins": {}

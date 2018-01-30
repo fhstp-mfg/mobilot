@@ -133,6 +133,10 @@
                         {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -159,6 +163,9 @@
             "PACKAGE_NAME": "io.cordova.hellocordova"
         },
         "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "at.ac.fhstp.mobilot"
+        },
+        "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "at.ac.fhstp.mobilot"
         }
     },
@@ -232,6 +239,13 @@
                 "cordova.InAppBrowser.open",
                 "window.open"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+            "id": "cordova-plugin-splashscreen.SplashScreen",
+            "clobbers": [
+                "navigator.splashscreen"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -241,6 +255,7 @@
         "phonegap-plugin-barcodescanner": "6.0.1",
         "cordova-plugin-crosswalk-webview": "2.0.0",
         "com.unarin.cordova.beacon": "3.4.1",
-        "cordova-plugin-inappbrowser": "1.6.1"
+        "cordova-plugin-inappbrowser": "1.6.1",
+        "cordova-plugin-splashscreen": "5.0.2"
     }
 }

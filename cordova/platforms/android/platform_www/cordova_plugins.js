@@ -68,6 +68,13 @@ module.exports = [
             "cordova.InAppBrowser.open",
             "window.open"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+        "id": "cordova-plugin-splashscreen.SplashScreen",
+        "clobbers": [
+            "navigator.splashscreen"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -79,7 +86,8 @@ module.exports.metadata =
     "phonegap-plugin-barcodescanner": "6.0.1",
     "cordova-plugin-crosswalk-webview": "2.0.0",
     "com.unarin.cordova.beacon": "3.4.1",
-    "cordova-plugin-inappbrowser": "1.6.1"
+    "cordova-plugin-inappbrowser": "1.6.1",
+    "cordova-plugin-splashscreen": "5.0.2"
 };
 // BOTTOM OF METADATA
 });

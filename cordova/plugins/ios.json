@@ -1,35 +1,38 @@
 {
-    "prepare_queue": {
-        "installed": [],
-        "uninstalled": []
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "com.unarin.cordova.beacon": {
+      "PACKAGE_NAME": "at.ac.fhstp.mobilot"
     },
-    "config_munge": {
-        "files": {}
+    "cordova-plugin-compat": {
+      "PACKAGE_NAME": "at.ac.fhstp.mobilot"
     },
-    "installed_plugins": {
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "at.ac.fhstp.mobilot"
-        },
-        "cordova-plugin-compat": {
-            "PACKAGE_NAME": "at.ac.fhstp.mobilot"
-        },
-        "cordova-plugin-crosswalk-webview": {
-            "PACKAGE_NAME": "at.ac.fhstp.mobilot"
-        },
-        "phonegap-plugin-barcodescanner": {
-            "CAMERA_USAGE_DESCRIPTION": " ",
-            "PACKAGE_NAME": "at.ac.fhstp.mobilot"
-        },
-        "cordova-plugin-geolocation": {
-            "GEOLOCATION_USAGE_DESCRIPTION": " ",
-            "PACKAGE_NAME": "at.ac.fhstp.mobilot"
-        },
-        "com.unarin.cordova.beacon": {
-            "PACKAGE_NAME": "at.ac.fhstp.mobilot"
-        },
-        "cordova-plugin-inappbrowser": {
-            "PACKAGE_NAME": "at.ac.fhstp.mobilot"
-        }
+    "cordova-plugin-crosswalk-webview": {
+      "PACKAGE_NAME": "at.ac.fhstp.mobilot"
     },
-    "dependent_plugins": {}
+    "cordova-plugin-geolocation": {
+      "GEOLOCATION_USAGE_DESCRIPTION": " ",
+      "PACKAGE_NAME": "at.ac.fhstp.mobilot"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "at.ac.fhstp.mobilot"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "at.ac.fhstp.mobilot"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "at.ac.fhstp.mobilot"
+    },
+    "phonegap-plugin-barcodescanner": {
+      "CAMERA_USAGE_DESCRIPTION": " ",
+      "PACKAGE_NAME": "at.ac.fhstp.mobilot"
+    }
+  },
+  "dependent_plugins": {}
 }

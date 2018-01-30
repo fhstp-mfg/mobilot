@@ -5,7 +5,7 @@
     <key>CFBundleDevelopmentRegion</key>
     <string>English</string>
     <key>CFBundleDisplayName</key>
-    <string>${PRODUCT_NAME}</string>
+    <string>Mobilot</string>
     <key>CFBundleExecutable</key>
     <string>${EXECUTABLE_NAME}</string>
     <key>CFBundleIcons</key>
@@ -26,34 +26,39 @@
     <string>????</string>
     <key>CFBundleVersion</key>
     <string>1212</string>
-    <key>ITSAppUsesNonExemptEncryption</key>
-    <false/>
-    <key>LSApplicationCategoryType</key>
-    <string/>
     <key>LSRequiresIPhoneOS</key>
+    <true/>
+    <key>NSMainNibFile</key>
+    <string/>
+    <key>NSMainNibFile~ipad</key>
+    <string/>
+    <key>UISupportedInterfaceOrientations</key>
+    <array>
+      <string>UIInterfaceOrientationPortrait</string>
+      <string>UIInterfaceOrientationLandscapeLeft</string>
+      <string>UIInterfaceOrientationLandscapeRight</string>
+    </array>
+    <key>UISupportedInterfaceOrientations~ipad</key>
+    <array>
+      <string>UIInterfaceOrientationPortrait</string>
+      <string>UIInterfaceOrientationLandscapeLeft</string>
+      <string>UIInterfaceOrientationPortraitUpsideDown</string>
+      <string>UIInterfaceOrientationLandscapeRight</string>
+    </array>
+    <key>UIRequiresFullScreen</key>
     <true/>
     <key>NSAppTransportSecurity</key>
     <dict>
       <key>NSAllowsArbitraryLoads</key>
       <true/>
     </dict>
-    <key>NSBluetoothPeripheralUsageDescription</key>
-    <string>Mobilot would like to use Bluetooth for scanning iBeacons.</string>
-    <key>NSCameraUsageDescription</key>
-    <string/>
+    <key>UILaunchStoryboardName</key>
+    <string>CDVLaunchScreen</string>
     <key>NSLocationAlwaysUsageDescription</key>
     <string>This app would like to scan for iBeacons even when in the background.</string>
     <key>NSLocationWhenInUseUsageDescription</key>
-    <string>This app would like to scan for iBeacons while it is in use.</string>
-    <key>NSMainNibFile</key>
     <string/>
-    <key>NSMainNibFile~ipad</key>
+    <key>NSCameraUsageDescription</key>
     <string/>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Mobilot would like to use the Photo Library so you can upload photos directly.</string>
-    <key>UIRequiresFullScreen</key>
-    <true/>
-    <key>UIStatusBarStyle</key>
-    <string>UIStatusBarStyleLightContent</string>
   </dict>
 </plist>

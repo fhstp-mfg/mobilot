@@ -4,15 +4,20 @@
   "displayName": "Mobilot",
   "cordova": {
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ],
     "plugins": {
       "cordova-plugin-whitelist": {},
-      "cordova-plugin-inappbrowser": {}
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-splashscreen": {}
     }
   },
   "dependencies": {
     "cordova-android": "~5.1.1",
-    "cordova-plugin-whitelist": "1"
+    "cordova-ios": "^4.5.4",
+    "cordova-plugin-splashscreen": "^5.0.2",
+    "cordova-plugin-whitelist": "1",
+    "cordova-plugin-inappbrowser": "~1.6.1"
   }
 }
