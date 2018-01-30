@@ -43,15 +43,17 @@
             {
               "xml": "<string>This app would like to scan for iBeacons while it is in use.</string>",
               "count": 1
-            },
+            }
+          ],
+          "NSBluetoothPeripheralUsageDescription": [
             {
-              "xml": "<string> </string>",
+              "xml": "<string>This app would like to scan for iBeacons while it is in use.</string>",
               "count": 1
             }
           ],
           "NSCameraUsageDescription": [
             {
-              "xml": "<string> </string>",
+              "xml": "<string>This app would like access to your camera to scan QR codes.</string>",
               "count": 1
             }
           ]

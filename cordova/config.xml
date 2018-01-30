@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="at.ac.fhstp.mobilot" ios-CFBundleVersion="1212" version="1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="at.ac.fhstp.mobilot" ios-CFBundleVersion="7" version="1.2.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Mobilot</name>
     <description>
       Mobilot is a system for creating intuitive mobile information systems.
